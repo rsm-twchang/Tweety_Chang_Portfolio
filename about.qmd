@@ -1,0 +1,83 @@
+---
+title: "About"
+---
+
+![](figures/headshot.JPG){width=240px .float-start style="margin-right:2rem; margin-bottom:1.5rem;"}
+
+<h2 style="font-size:2.2rem; margin-top:0.2rem; margin-bottom:0.4rem;">
+Tweety Chang
+</h2>
+
+<p style="font-size:1.15rem; font-style:italic; color:#555; margin-top:0;">
+Finance &amp; Business Analytics
+</p>
+
+<p style="font-size:1.05rem; line-height:1.8; margin-top:0.8rem;">
+📧 <a href="mailto:ctweety15@gmail.com">ctweety15@gmail.com</a><br/>
+📞 <a href="tel:+18588881353">858-888-1353</a><br/>
+📄 <a href="resume.html" style="font-weight:600;">Resume</a>
+</p>
+
+<div style="clear:both;"></div>
+
+## Background
+
+With a background in business analytics and accounting, I bring hands-on experience analyzing data, identifying process gaps, and supporting data-driven improvements through clear communication and cross-functional collaboration. My work has focused on turning complex, multi-source data into practical insights that support reporting accuracy and informed decision-making.
+
+In recent analytics projects, I have analyzed operational and business data to uncover inconsistencies, trends, and improvement opportunities affecting downstream reporting and analysis. I have supported projects end-to-end by clarifying requirements, validating outputs through testing, documenting findings, and presenting results in a clear, actionable way to both technical and non-technical stakeholders. Across roles, I have worked closely with business, analytics, and technical teams to ensure analysis aligned with real user needs and project goals.
+
+I am comfortable working in ambiguous environments, learning new domains quickly, and balancing multiple priorities. I work regularly with Excel, SQL, Python, Tableau, and Power BI, which allows me to move fluidly between data analysis and business context. My background in client-facing and team-based roles has also strengthened my ability to communicate clearly, collaborate effectively, and contribute thoughtfully to shared outcomes.
+
+I am currently pursuing an M.S. in Business Analytics at UC San Diego and am seeking internship or full-time opportunities where analytical rigor and practical problem-solving can support real-world business decisions.
+
+---
+
+## Education
+
+**[University of California, San Diego — Rady School of Management](https://ucsd.edu/){.title-link}**  
+**Master of Science, Business Analytics**  
+Jul 2024 – Mar 2026
+
+**[Northern Illinois University](https://www.niu.edu/index.shtml)**  
+**Bachelor of Science, Accountancy**  
+Aug 2021 – Aug 2023
+
+**[Asia University](https://web.asia.edu.tw/)**  
+**Bachelor of Science, Accounting and Information Systems**  
+Sep 2019 – Aug 2023
+---
+
+## Work Experience
+
+**[Highspring](https://www.highspring.com/)**  
+**Content Analyst**
+Jul 2025 – Dec 2025 · 6 mos
+
+**[HP](https://www.hp.com/us-en/home.html)**  
+**Data Analyst**  
+Mar 2025 – Jun 2025 · 4 mos
+
+**[HBC Tax Inc.](https://www.hbctax.com/)**  
+**Tax Associate**  
+Jan 2023 – May 2023 · 5 mos
+
+**[Northern Illinois University](https://www.niu.edu/index.shtml)**  
+**Research Assistant**  
+May 2022 – Aug 2022 · 4 mos
+
+---
+
+## Projects
+- Predictive Analysis for Intuit QuickBooks Upgrade
+- Database Management
+- A/B Testing
+- Maximum Likelihood Estimation (MLE)
+- Multinomial Logit (MNL) & Conjoint Analysis
+- Key Drivers Analysis
+
+## Focus Areas
+- Financial, business, and operational data analysis  
+- Data validation, reconciliation, and reporting accuracy  
+- Reporting automation and dashboard development  
+- Experimentation and A/B testing  
+- Communicating insights to support operational and strategic decisions

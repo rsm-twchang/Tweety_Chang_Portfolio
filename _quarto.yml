@@ -1,12 +1,14 @@
 project:
   type: website
   output-dir: docs
+resources:
+  - figures/
   
 website:
   title: "Tweety's website"
   navbar:
     left:
-      - href: index.qmd
+      - href: about.qmd
         text: About
       - href: resume.qmd
         text: Resume
@@ -15,10 +17,9 @@ website:
       - href: hw2_questions.qmd
         text: MLE
       - href: hw3_questions.qmd
-        text: MNL & Conjoint  
+        text: MNL & Conjoint
       - href: hw4_questions.qmd
-        text: Key Drivers Analysis 
-
+        text: Key Drivers Analysis
 
 format:
   html:
@@ -27,7 +28,3 @@ format:
       - brand
     css: styles.css
     toc: true
-
-
-
-
