@@ -12,13 +12,13 @@ website:
         text: About
       - href: resume.qmd
         text: Resume
-      - href: hw1_questions.qmd
+      - href: AB_Testing.qmd
         text: A/B Testing
-      - href: hw2_questions.qmd
+      - href: Maximum_Likelihood_Estimation.qmd
         text: MLE
-      - href: hw3_questions.qmd
+      - href: Multinomial_Logit_Model.qmd
         text: MNL & Conjoint
-      - href: hw4_questions.qmd
+      - href: Key_Drivers_Analysis.qmd
         text: Key Drivers Analysis
 
 format:
