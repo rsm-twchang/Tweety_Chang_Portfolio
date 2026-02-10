@@ -19,5 +19,17 @@
   },
   "hw4_questions.qmd": {
     "hw4_questions.html": "dd3b86b4"
+  },
+  "Multinomial_Logit_Model.qmd": {
+    "Multinomial_Logit_Model.html": "2d66e5c8"
+  },
+  "AB_Testing.qmd": {
+    "AB_Testing.html": "bbcf6b36"
+  },
+  "Key_Drivers_Analysis.qmd": {
+    "Key_Drivers_Analysis.html": "ded17c38"
+  },
+  "Maximum_Likelihood_Estimation.qmd": {
+    "Maximum_Likelihood_Estimation.html": "f5660837"
   }
 }
