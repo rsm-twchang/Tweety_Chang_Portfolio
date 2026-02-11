@@ -46,7 +46,7 @@
     "href": "Maximum_Likelihood_Estimation.html#model-implications",
     "title": "Blueprinty Case Study",
     "section": "Model Implications",
-    "text": "Model Implications\n\nModel fit and assumptions\nThe Pearson chi-square statistic relative to degrees of freedom is approximately (2070/1492 ), suggesting mild overdispersion. As a robustness check, we report results using robust (sandwich) standard errors; the main conclusion for iscustomer is unchanged.\nPredicted Patents by Blueprinty Usage \nThis figure translates the Poisson regression into predicted five-year patent counts at representative firm ages. Across all ages shown, Blueprinty customers are predicted to produce more patents than comparable non-customers (holding other covariates fixed). The gap is largest in the mid-age range, consistent with the nonlinear age pattern captured by the positive age and negative age_squared terms."
+    "text": "Model Implications\nModel fit and assumptions The Pearson chi-square statistic relative to degrees of freedom is approximately (2070/1492 ), suggesting mild overdispersion. As a robustness check, we report results using robust (sandwich) standard errors; the main conclusion for iscustomer is unchanged.\nPredicted Patents by Blueprinty Usage \nThis figure translates the Poisson regression into predicted five-year patent counts at representative firm ages. Across all ages shown, Blueprinty customers are predicted to produce more patents than comparable non-customers (holding other covariates fixed). The gap is largest in the mid-age range, consistent with the nonlinear age pattern captured by the positive age and negative age_squared terms."
   },
   {
     "objectID": "Maximum_Likelihood_Estimation.html#conclusion",

@@ -81,7 +81,7 @@ plt.show()
 ```
 
 **Distribution of Patent Counts by Blueprinty Usage**
-![Figure 1. Distribution of Patent Counts by Blueprinty Usage](fig1_blueprinty_patent_hist.png){#fig-blueprinty-patent-hist}
+![Figure 1. Distribution of Patent Counts by Blueprinty Usage](figures/fig1_blueprinty_patent_hist.png){#fig-blueprinty-hist}
 
 The histogram shows a right-skewed distribution of patent counts, which is typical for count outcomes. Firms using Blueprinty’s software show a modest rightward shift, suggesting higher patent counts are somewhat more common among customers.
 
@@ -205,7 +205,7 @@ plt.show()
 ### Poisson log-likelihood and the MLE
 
 **Poisson Log-Likelihood vs. \(\lambda\)**  
-![Figure 2. Poisson Log-Likelihood vs. Lambda](fig2_poisson_loglik_vs_lambda.png){#fig-poisson-loglik}
+![Figure 2. Poisson Log-Likelihood vs. Lambda](figures/fig2_poisson_loglik_vs_lambda.png){#fig-poisson-loglik}
 
 This figure plots the Poisson log-likelihood as a function of \(\lambda\) for the observed patent counts. The curve reaches its maximum at the sample mean (shown by the dashed vertical line), which is the maximum likelihood estimate under the Poisson model:
 \[
@@ -393,7 +393,7 @@ plt.show()
 ```
 
 **Incidence rate ratios (IRR)**
-![Figure 3. Poisson Regression Coefficients (95% CI)](fig3_poisson_coef_plot.png){#fig-poisson-coef-plot}
+![Figure 3. Poisson Regression Coefficients (95% CI)](figures/fig3_poisson_coef_plot.png){#fig-poisson-coefs}
 
 The figure shows Poisson regression coefficient estimates with 95% confidence intervals (dashed line at 0 indicates “no effect” on the log scale). The `iscustomer` estimate is positive and its confidence interval does not cross zero, indicating a statistically significant association between Blueprinty usage and higher expected patent counts. Regional coefficients cluster near zero and their intervals overlap zero, suggesting no meaningful regional differences after controlling for other variables. The negative squared-age term indicates a concave relationship between age and patent output: patenting increases with age but at a diminishing rate.
 
@@ -478,11 +478,11 @@ plt.tight_layout()
 plt.show()
 ```
 
-#### Model fit and assumptions
+**Model fit and assumptions**
 The Pearson chi-square statistic relative to degrees of freedom is approximately \(2070/1492 \approx 1.39\), suggesting mild overdispersion. As a robustness check, we report results using robust (sandwich) standard errors; the main conclusion for `iscustomer` is unchanged.
 
 **Predicted Patents by Blueprinty Usage**
-![Figure 4. Predicted Patents by Blueprinty Usage](fig4_predicted_patents.png){#fig-predicted-patents}
+![Figure 4. Predicted Patents by Blueprinty Usage](figures/fig4_predicted_patents.png){#fig-predicted-patents}
 
 This figure translates the Poisson regression into predicted five-year patent counts at representative firm ages. Across all ages shown, Blueprinty customers are predicted to produce more patents than comparable non-customers (holding other covariates fixed). The gap is largest in the mid-age range, consistent with the nonlinear age pattern captured by the positive age and negative age_squared terms.
 
