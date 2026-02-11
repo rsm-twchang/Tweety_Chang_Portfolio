@@ -203,12 +203,12 @@ plt.show()
 ```
 
 **Figure 1. Donation Rate by Group**
-![Donation Rate by Group](../figures/fig1_donation_rate_by_group.png){#fig-donation-rate}
+![Donation Rate by Group](/Users/qqtweety/Downloads/mgta495/figures/fig1_donation_rate_by_group.png){#fig-donation-rate}
 
 The treatment group has a higher donation rate (2.20%) than the control group (1.79%). Sample sizes are shown above each bar.
 
 **Figure 2. Average Donation Amount by Group**
-![Average Donation Amount by Group](../figures/fig2_avg_donation_amount.png){#fig-avg-donation}
+![Average Donation Amount by Group](/Users/qqtweety/Downloads/mgta495/figures/fig2_avg_donation_amount.png){#fig-avg-donation}
 
 Average donations, including non-donors, are higher in the treatment group ($0.97) than in the control group ($0.81), suggesting that the matching offer increased total giving on average. Sample sizes are shown above each bar.
 
@@ -311,7 +311,7 @@ None of the estimated treatment effects are statistically significant at the 5% 
 ## Experimental Results
 
 **Figure 3. Donation Rate by Treatment Status**
-![Donation Rate by Treatment Status](../figures/fig3_donation_rate_treatment.png){#fig-donation-rate}
+![Donation Rate by Treatment Status](/Users/qqtweety/Downloads/mgta495/figures/fig3_donation_rate_treatment.png){#fig-donation-rate}
 
 The treatment group exhibits a higher donation rate than the control group (2.20% vs. 1.79%). The difference is statistically significant at the 1% level.
 ```{python}
@@ -511,7 +511,7 @@ print(model.summary().tables[1])
 ### Distribution of Donation Amounts Among Donors
 
 **Figure 4. Distribution of Donation Amounts by Treatment Status**
-![Distribution of Donation Amounts by Treatment Status](../figures/fig4_donation_amount_distribution.png){#fig-donation-dist}
+![Distribution of Donation Amounts by Treatment Status](/Users/qqtweety/Downloads/mgta495/figures/fig4_donation_amount_distribution.png){#fig-donation-dist}
 Donation amounts in both the control and treatment groups are right-skewed, with most contributions concentrated at lower values and a small number of large donations. Mean donation amounts are similar across groups ($45.54 for the control group and $43.87 for the treatment group).
 
 ```{python}
@@ -547,7 +547,7 @@ plt.show()
 ------
 
 **Figure 5. Sampling Distribution of Treatment–Control Differences (Simulated)**
-![Sampling Distribution of Treatment–Control Differences (Simulated)](../figures/fig5_sampling_dist_simulated.png){#fig-sampling-dist}
+![Sampling Distribution of Treatment–Control Differences (Simulated)](/Users/qqtweety/Downloads/mgta495/figures/fig5_sampling_dist_simulated.png){#fig-sampling-dist}
 The figure shows the distribution of treatment–control differences in donation rates across 10,000 simulated experiments with 500 observations per group. The distribution is approximately normal and centered near 0.004, the difference implied by the assumed donation probabilities. The dashed line indicates the mean simulated difference, and the dotted line marks the null of no treatment effect.
 
 ```{python}
@@ -591,7 +591,7 @@ plt.show()
 
 **Figure 6. Cumulative estimate of the treatment–control difference in mean donation amounts**
 
-![](../figures/fig6_cumulative_mean_difference.png)
+![](/Users/qqtweety/Downloads/mgta495/figures/fig6_cumulative_mean_difference.png)
 
 Figure 6 plots the cumulative difference in mean donation amounts between the treatment and control groups as observations are added. When the sample size is small, the estimated difference fluctuates substantially. As the number of observations increases, the cumulative estimate stabilizes and converges toward the full-sample difference, illustrated by the horizontal dashed line.
 
@@ -627,7 +627,7 @@ plt.show()
 
 **Figure 7. Sampling distributions of treatment–control differences by sample size**
 
-![](../figures/fig7_sampling_dist_by_sample_size.png)
+![](/Users/qqtweety/Downloads/mgta495/figures/fig7_sampling_dist_by_sample_size.png)
 
 Figure 7 shows simulated sampling distributions of treatment–control differences in donation rates for sample sizes of 50, 200, 500, and 1,000. With small samples, the distribution is wide. As sample size increases, the distributions concentrate around their mean, indicating greater precision.
 ```{python}
