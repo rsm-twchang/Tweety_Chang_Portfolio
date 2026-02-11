@@ -1,9 +1,12 @@
 project:
   type: website
   output-dir: docs
-resources:
-  - figures/
-  
+  resources:
+    - figures/
+
+execute:
+  python: .venv/bin/python
+
 website:
   title: "Tweety's website"
   navbar:
