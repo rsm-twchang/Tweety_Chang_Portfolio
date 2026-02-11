@@ -22,40 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -182,7 +148,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#poisson-regression-results" id="toc-poisson-regression-results" class="nav-link" data-scroll-target="#poisson-regression-results">Poisson Regression Results</a></li>
   </ul></li>
-  <li><a href="#the-iscustomer-effect-is-clearly-positive-and-statistically-significant-indicating-higher-expected-patent-counts-for-blueprinty-customers-after-controlling-for-age-and-region.-regional-effects-are-small-and-not-statistically-significant.-the-positive-age-term-and-negative-age_squared-term-indicate-a-concave-relationship-expected-patenting-increases-with-age-but-the-marginal-gain-declines-at-higher-ages." id="toc-the-iscustomer-effect-is-clearly-positive-and-statistically-significant-indicating-higher-expected-patent-counts-for-blueprinty-customers-after-controlling-for-age-and-region.-regional-effects-are-small-and-not-statistically-significant.-the-positive-age-term-and-negative-age_squared-term-indicate-a-concave-relationship-expected-patenting-increases-with-age-but-the-marginal-gain-declines-at-higher-ages." class="nav-link" data-scroll-target="#the-iscustomer-effect-is-clearly-positive-and-statistically-significant-indicating-higher-expected-patent-counts-for-blueprinty-customers-after-controlling-for-age-and-region.-regional-effects-are-small-and-not-statistically-significant.-the-positive-age-term-and-negative-age_squared-term-indicate-a-concave-relationship-expected-patenting-increases-with-age-but-the-marginal-gain-declines-at-higher-ages.">The <code>iscustomer</code> effect is clearly positive and statistically significant, indicating higher expected patent counts for Blueprinty customers after controlling for age and region. Regional effects are small and not statistically significant. The positive <code>age</code> term and negative <code>age_squared</code> term indicate a concave relationship: expected patenting increases with age but the marginal gain declines at higher ages.</a></li>
   <li><a href="#model-implications" id="toc-model-implications" class="nav-link" data-scroll-target="#model-implications">Model Implications</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
@@ -235,70 +200,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="data-description" class="level2">
 <h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
-<div id="0d2c0b29" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display" data-execution_count="2">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">patents</th>
-<th data-quarto-table-cell-role="th">region</th>
-<th data-quarto-table-cell-role="th">age</th>
-<th data-quarto-table-cell-role="th">iscustomer</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>0</td>
-<td>Midwest</td>
-<td>32.5</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>3</td>
-<td>Southwest</td>
-<td>37.5</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>4</td>
-<td>Northwest</td>
-<td>27.0</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>3</td>
-<td>Northeast</td>
-<td>24.5</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>3</td>
-<td>Southwest</td>
-<td>37.0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div id="920b3695" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-stdout">
-<pre><code>   iscustomer  MeanPatents
-0           0     3.473013
-1           1     4.133056</code></pre>
-</div>
-</div>
 <section id="variables" class="level3">
 <h3 class="anchored" data-anchor-id="variables">Variables</h3>
 <table class="caption-top table">
@@ -337,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: right;"><code>iscustomer</code></th>
+<th style="text-align: right;">Customer status</th>
 <th>Group</th>
 <th style="text-align: right;">Mean patents (5 years)</th>
 </tr>
@@ -356,81 +257,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>Blueprinty customers have a higher average number of patents awarded over the past five years (4.133) than non-customers (3.473). This difference is descriptive and does not account for other factors such as firm age or region, which are addressed in the regression analysis.</p>
-<div id="366d9c1d" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Maximum_Likelihood_Estimation_files/figure-html/cell-5-output-1.png" width="950" height="566" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
 <p><strong>Distribution of Patent Counts by Blueprinty Usage</strong> <img src="fig1_blueprinty_patent_hist.png" id="fig-blueprinty-patent-hist" class="img-fluid" alt="Figure 1. Distribution of Patent Counts by Blueprinty Usage"></p>
 <p>The histogram shows a right-skewed distribution of patent counts, which is typical for count outcomes. Firms using Blueprinty’s software show a modest rightward shift, suggesting higher patent counts are somewhat more common among customers.</p>
 <p>Descriptively, Blueprinty customers average 4.133 patents over five years versus 3.473 for non-customers. This comparison is correlational: customers are not randomly selected, and differences in firm age or region may explain part of the gap. The regression analysis tests whether the association remains after controlling for these factors.</p>
-<div id="47852d4d" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Age Summary by Customer Status:</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="5">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">count</th>
-<th data-quarto-table-cell-role="th">mean</th>
-<th data-quarto-table-cell-role="th">std</th>
-<th data-quarto-table-cell-role="th">min</th>
-<th data-quarto-table-cell-role="th">25%</th>
-<th data-quarto-table-cell-role="th">50%</th>
-<th data-quarto-table-cell-role="th">75%</th>
-<th data-quarto-table-cell-role="th">max</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">iscustomer</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>1019.0</td>
-<td>26.101570</td>
-<td>6.945426</td>
-<td>9.0</td>
-<td>21.0</td>
-<td>25.5</td>
-<td>31.25</td>
-<td>47.5</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>481.0</td>
-<td>26.900208</td>
-<td>7.814678</td>
-<td>10.0</td>
-<td>20.5</td>
-<td>26.5</td>
-<td>32.50</td>
-<td>49.0</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
 <p><strong>Firm age by Blueprinty customer status</strong></p>
 <table class="caption-top table">
 <thead>
@@ -510,73 +339,6 @@ Age Summary by Customer Status:</code></pre>
 </tbody>
 </table>
 <p>Customer status varies by region, with a large share of customers located in the Northeast. Because region is related to adoption, it is controlled for in the regression to reduce confounding.</p>
-<div id="62f4969a" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Region Distribution by Customer Status:</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th">iscustomer</th>
-<th data-quarto-table-cell-role="th">0</th>
-<th data-quarto-table-cell-role="th">1</th>
-<th data-quarto-table-cell-role="th">All</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">region</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Midwest</td>
-<td>187</td>
-<td>37</td>
-<td>224</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">Northeast</td>
-<td>273</td>
-<td>328</td>
-<td>601</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Northwest</td>
-<td>158</td>
-<td>29</td>
-<td>187</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">South</td>
-<td>156</td>
-<td>35</td>
-<td>191</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">Southwest</td>
-<td>245</td>
-<td>52</td>
-<td>297</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">All</td>
-<td>1019</td>
-<td>481</td>
-<td>1500</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
 <hr>
 </section>
 </section>
@@ -589,15 +351,6 @@ Region Distribution by Customer Status:</code></pre>
 <p>For a sample of (n) independent firms with observed counts (y_1, y_2, , y_n), the log-likelihood function is:</p>
 <p>[ (y_1,,y_n) = -n+ (<em>{i=1}^n y_i)() - </em>{i=1}^n (y_i!) ]</p>
 <p>We estimate () using maximum likelihood (MLE). This baseline model provides a benchmark before adding firm characteristics (e.g., Blueprinty usage, firm age, and region) in a regression framework.</p>
-<div id="0ce64f4d" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Maximum_Likelihood_Estimation_files/figure-html/cell-9-output-1.png" width="758" height="470" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
 <section id="poisson-log-likelihood-and-the-mle" class="level3">
 <h3 class="anchored" data-anchor-id="poisson-log-likelihood-and-the-mle">Poisson log-likelihood and the MLE</h3>
 <p><strong>Poisson Log-Likelihood vs.&nbsp;()</strong><br>
@@ -609,12 +362,6 @@ Region Distribution by Customer Status:</code></pre>
 <p>[ = -n + = 0 = _{i=1}^n y_i = {y}. ]</p>
 <p>Thus, the MLE for () is the sample mean.</p>
 <p>A numerical maximization of the Poisson log-likelihood gives (=3.6847), which matches the sample mean ({y}=3.6847) (up to rounding), as expected for a Poisson model.</p>
-<div id="9a68b832" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-stdout">
-<pre><code>The MLE of lambda is: 3.6847
-3.6846666666666668 3.68466665320727</code></pre>
-</div>
-</div>
 <hr>
 </section>
 </section>
@@ -623,50 +370,6 @@ Region Distribution by Customer Status:</code></pre>
 <p>Next, we model patent counts as a function of firm characteristics using a Poisson regression. Let (Y_i) be the number of patents awarded to firm (i) over the last five years:</p>
 <p>[ Y_i (_i), _i = (X_i^). ]</p>
 <p>Here, (_i) is the expected five-year patent count for firm (i), and (X_i) includes firm age, age squared, region indicators, and whether the firm uses Blueprinty’s software.</p>
-<div id="dc35391f" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"blueprinty.csv"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Center age to avoid numerical issues with age^2</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"age_c"</span>] <span class="op">=</span> df[<span class="st">"age"</span>] <span class="op">-</span> df[<span class="st">"age"</span>].mean()</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"age_c2"</span>] <span class="op">=</span> df[<span class="st">"age_c"</span>]<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> smf.glm(</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"patents ~ iscustomer + C(region) + age_c + age_c2"</span>,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    family<span class="op">=</span>sm.families.Poisson()</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>).fit()</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                 Generalized Linear Model Regression Results                  
-==============================================================================
-Dep. Variable:                patents   No. Observations:                 1500
-Model:                            GLM   Df Residuals:                     1492
-Model Family:                 Poisson   Df Model:                            7
-Link Function:                    Log   Scale:                          1.0000
-Method:                          IRLS   Log-Likelihood:                -3258.1
-Date:                Wed, 11 Feb 2026   Deviance:                       2143.3
-Time:                        01:53:59   Pearson chi2:                 2.07e+03
-No. Iterations:                     5   Pseudo R-squ. (CS):             0.1360
-Covariance Type:            nonrobust                                         
-==========================================================================================
-                             coef    std err          z      P&gt;|z|      [0.025      0.975]
-------------------------------------------------------------------------------------------
-Intercept                  1.3447      0.038     35.059      0.000       1.270       1.420
-C(region)[T.Northeast]     0.0292      0.044      0.669      0.504      -0.056       0.115
-C(region)[T.Northwest]    -0.0176      0.054     -0.327      0.744      -0.123       0.088
-C(region)[T.South]         0.0566      0.053      1.074      0.283      -0.047       0.160
-C(region)[T.Southwest]     0.0506      0.047      1.072      0.284      -0.042       0.143
-iscustomer                 0.2076      0.031      6.719      0.000       0.147       0.268
-age_c                     -0.0080      0.002     -3.843      0.000      -0.012      -0.004
-age_c2                    -0.0030      0.000    -11.513      0.000      -0.003      -0.002
-==========================================================================================</code></pre>
-</div>
-</div>
 <p><strong>Poisson regression (GLM) results</strong></p>
 <table class="caption-top table">
 <thead>
@@ -740,140 +443,8 @@ age_c2                    -0.0030      0.000    -11.513      0.000      -0.003  
 <p><em>Notes:</em> Reference region is <strong>Midwest</strong>. Age is centered at the sample mean; <code>age_c2 = age_c^2</code>.</p>
 <p>Holding firm age and region constant, Blueprinty customers have higher expected patent counts. The coefficient on <code>iscustomer</code> is 0.2076 (p &lt; 0.001), implying an expected increase of about (e^{0.2076}-1 %) in patents for customers relative to non-customers.</p>
 <p>Age shows a concave pattern: the negative linear and squared centered terms indicate that expected patent output declines with age and falls faster at higher ages (relative to the sample mean). Regional indicators are not statistically significant, suggesting no meaningful regional differences once firm characteristics are controlled for.</p>
-<div id="94c52b1b" class="cell" data-execution_count="13">
-<div class="cell-output cell-output-stdout">
-<pre><code>                 Generalized Linear Model Regression Results                  
-==============================================================================
-Dep. Variable:                patents   No. Observations:                 1500
-Model:                            GLM   Df Residuals:                     1492
-Model Family:                 Poisson   Df Model:                            7
-Link Function:                    Log   Scale:                          1.0000
-Method:                          IRLS   Log-Likelihood:                -3258.1
-Date:                Wed, 11 Feb 2026   Deviance:                       2143.3
-Time:                        01:53:59   Pearson chi2:                 2.07e+03
-No. Iterations:                     5   Pseudo R-squ. (CS):             0.1360
-Covariance Type:            nonrobust                                         
-====================================================================================
-                       coef    std err          z      P&gt;|z|      [0.025      0.975]
-------------------------------------------------------------------------------------
-const               -0.5089      0.183     -2.778      0.005      -0.868      -0.150
-age                  0.1486      0.014     10.716      0.000       0.121       0.176
-age_squared         -0.0030      0.000    -11.513      0.000      -0.003      -0.002
-iscustomer           0.2076      0.031      6.719      0.000       0.147       0.268
-region_Northeast     0.0292      0.044      0.669      0.504      -0.056       0.115
-region_Northwest    -0.0176      0.054     -0.327      0.744      -0.123       0.088
-region_South         0.0566      0.053      1.074      0.283      -0.047       0.160
-region_Southwest     0.0506      0.047      1.072      0.284      -0.042       0.143
-====================================================================================</code></pre>
-</div>
-</div>
-<div id="cell-fig-poisson-coefs" class="cell" data-execution_count="14">
-<div class="cell-output cell-output-display">
-<div id="fig-poisson-coefs" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-poisson-coefs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Maximum_Likelihood_Estimation_files/figure-html/fig-poisson-coefs-output-1.png" width="757" height="451" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-poisson-coefs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Figure X. Poisson regression coefficients with 95% confidence intervals
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
 <p><strong>Incidence rate ratios (IRR)</strong> <img src="fig3_poisson_coef_plot.png" id="fig-poisson-coef-plot" class="img-fluid" alt="Figure 3. Poisson Regression Coefficients (95% CI)"></p>
 <p>The figure shows Poisson regression coefficient estimates with 95% confidence intervals (dashed line at 0 indicates “no effect” on the log scale). The <code>iscustomer</code> estimate is positive and its confidence interval does not cross zero, indicating a statistically significant association between Blueprinty usage and higher expected patent counts. Regional coefficients cluster near zero and their intervals overlap zero, suggesting no meaningful regional differences after controlling for other variables. The negative squared-age term indicates a concave relationship between age and patent output: patenting increases with age but at a diminishing rate.</p>
-<div id="04349e0a" class="cell" data-execution_count="15">
-<div class="cell-output cell-output-display">
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Estimate</th>
-<th data-quarto-table-cell-role="th">Std. Error</th>
-<th data-quarto-table-cell-role="th">z value</th>
-<th data-quarto-table-cell-role="th">Pr(&gt;|z|)</th>
-<th data-quarto-table-cell-role="th">[0.025</th>
-<th data-quarto-table-cell-role="th">0.975]</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">const</td>
-<td>-0.5089</td>
-<td>0.1832</td>
-<td>-2.7783</td>
-<td>0.0055</td>
-<td>-0.8679</td>
-<td>-0.1499</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">age</td>
-<td>0.1486</td>
-<td>0.0139</td>
-<td>10.7162</td>
-<td>0.0000</td>
-<td>0.1214</td>
-<td>0.1758</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">age_squared</td>
-<td>-0.0030</td>
-<td>0.0003</td>
-<td>-11.5132</td>
-<td>0.0000</td>
-<td>-0.0035</td>
-<td>-0.0025</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">iscustomer</td>
-<td>0.2076</td>
-<td>0.0309</td>
-<td>6.7192</td>
-<td>0.0000</td>
-<td>0.1470</td>
-<td>0.2681</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">region_Northeast</td>
-<td>0.0292</td>
-<td>0.0436</td>
-<td>0.6686</td>
-<td>0.5037</td>
-<td>-0.0563</td>
-<td>0.1147</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">region_Northwest</td>
-<td>-0.0176</td>
-<td>0.0538</td>
-<td>-0.3268</td>
-<td>0.7438</td>
-<td>-0.1230</td>
-<td>0.0878</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">region_South</td>
-<td>0.0566</td>
-<td>0.0527</td>
-<td>1.0740</td>
-<td>0.2828</td>
-<td>-0.0467</td>
-<td>0.1598</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">region_Southwest</td>
-<td>0.0506</td>
-<td>0.0472</td>
-<td>1.0716</td>
-<td>0.2839</td>
-<td>-0.0419</td>
-<td>0.1431</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <section id="poisson-regression-results" class="level3">
 <h3 class="anchored" data-anchor-id="poisson-regression-results">Poisson Regression Results</h3>
 <table class="caption-top table">
@@ -974,46 +545,17 @@ Figure&nbsp;1: Figure X. Poisson regression coefficients with 95% confidence int
 </table>
 <p><em>Note:</em> Coefficients are on the log scale. Exponentiating a coefficient gives the incidence rate ratio (IRR).</p>
 <p>Figure X plots each coefficient estimate with its 95% confidence interval. The dashed vertical line at 0 represents no association on the log scale. Coefficients whose intervals do not cross 0 are statistically distinguishable from 0 at the 5% level.</p>
+<p>The <code>iscustomer</code> effect is clearly positive and statistically significant, indicating higher expected patent counts for Blueprinty customers after controlling for age and region. Regional effects are small and not statistically significant. The positive <code>age</code> term and negative <code>age_squared</code> term indicate a concave relationship: expected patenting increases with age but the marginal gain declines at higher ages.</p>
+<hr>
 </section>
-</section>
-<section id="the-iscustomer-effect-is-clearly-positive-and-statistically-significant-indicating-higher-expected-patent-counts-for-blueprinty-customers-after-controlling-for-age-and-region.-regional-effects-are-small-and-not-statistically-significant.-the-positive-age-term-and-negative-age_squared-term-indicate-a-concave-relationship-expected-patenting-increases-with-age-but-the-marginal-gain-declines-at-higher-ages." class="level2">
-<h2 class="anchored" data-anchor-id="the-iscustomer-effect-is-clearly-positive-and-statistically-significant-indicating-higher-expected-patent-counts-for-blueprinty-customers-after-controlling-for-age-and-region.-regional-effects-are-small-and-not-statistically-significant.-the-positive-age-term-and-negative-age_squared-term-indicate-a-concave-relationship-expected-patenting-increases-with-age-but-the-marginal-gain-declines-at-higher-ages.">The <code>iscustomer</code> effect is clearly positive and statistically significant, indicating higher expected patent counts for Blueprinty customers after controlling for age and region. Regional effects are small and not statistically significant. The positive <code>age</code> term and negative <code>age_squared</code> term indicate a concave relationship: expected patenting increases with age but the marginal gain declines at higher ages.</h2>
 </section>
 <section id="model-implications" class="level2">
 <h2 class="anchored" data-anchor-id="model-implications">Model Implications</h2>
-<div id="cell-fig-predicted-patents" class="cell" data-execution_count="16">
-<div class="cell-output cell-output-display">
-<div id="fig-predicted-patents" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-predicted-patents-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Maximum_Likelihood_Estimation_files/figure-html/fig-predicted-patents-output-1.png" width="710" height="451" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-predicted-patents-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Figure X. Predicted five-year patent counts for Blueprinty customers vs non-customers across firm age (holding region at the reference category).
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
 <section id="model-fit-and-assumptions" class="level4">
 <h4 class="anchored" data-anchor-id="model-fit-and-assumptions">Model fit and assumptions</h4>
 <p>The Pearson chi-square statistic relative to degrees of freedom is approximately (2070/1492 ), suggesting mild overdispersion. As a robustness check, we report results using robust (sandwich) standard errors; the main conclusion for <code>iscustomer</code> is unchanged.</p>
 <p><strong>Predicted Patents by Blueprinty Usage</strong> <img src="fig4_predicted_patents.png" id="fig-predicted-patents" class="img-fluid" alt="Figure 4. Predicted Patents by Blueprinty Usage"></p>
 <p>This figure translates the Poisson regression into predicted five-year patent counts at representative firm ages. Across all ages shown, Blueprinty customers are predicted to produce more patents than comparable non-customers (holding other covariates fixed). The gap is largest in the mid-age range, consistent with the nonlinear age pattern captured by the positive age and negative age_squared terms.</p>
-<div id="cell-fig-irr" class="cell" data-execution_count="17">
-<div class="cell-output cell-output-display">
-<div id="fig-irr" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-irr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="Maximum_Likelihood_Estimation_files/figure-html/fig-irr-output-1.png" width="709" height="451" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-irr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Figure Y. Incidence rate ratios (IRR = exp(coef)) with 95% confidence intervals from the Poisson GLM.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
 <hr>
 </section>
 </section>

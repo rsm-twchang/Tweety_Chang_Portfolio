@@ -28,6 +28,7 @@ warnings.filterwarnings("ignore")
 
 ```{python}
 #| echo: false
+#| output: false
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -40,6 +41,7 @@ df.head()
 
 ```{python}
 #| echo: false
+#| output: false
 # Calculate mean number of patents for each group (assuming 'iscustomer' is the same as 'uses_blueprinty')
 mean_patents = df.groupby('iscustomer')['patents'].mean().reset_index(name='MeanPatents')
 # Print the results
@@ -57,15 +59,16 @@ print(mean_patents)
 
 ### Descriptive comparison: patents by customer status
 
-| `iscustomer` | Group        | Mean patents (5 years) |
-|------------:|--------------|------------------------:|
-| 0           | Non-customer | 3.473                   |
-| 1           | Customer     | 4.133                   |
+| Customer status | Group        | Mean patents (5 years) |
+|---------------:|--------------|------------------------:|
+| 0              | Non-customer | 3.473                   |
+| 1              | Customer     | 4.133                   |
 
 Blueprinty customers have a higher average number of patents awarded over the past five years (4.133) than non-customers (3.473). This difference is descriptive and does not account for other factors such as firm age or region, which are addressed in the regression analysis.
 
 ```{python}
 #| echo: false
+#| output: false
 # Plot histograms to compare number of patents
 plt.figure(figsize=(10, 6))
 sns.histplot(data=df, x='patents', hue='iscustomer', multiple='dodge', binwidth=1)
@@ -86,6 +89,7 @@ Descriptively, Blueprinty customers average 4.133 patents over five years versus
 
 ```{python}
 #| echo: false
+#| output: false
 # Group summary statistics for age
 age_summary = df.groupby('iscustomer')['age'].describe()
 print("\nAge Summary by Customer Status:")
@@ -114,6 +118,7 @@ Customer and non-customer firms have similar age distributions: customers are sl
 Customer status varies by region, with a large share of customers located in the Northeast. Because region is related to adoption, it is controlled for in the regression to reduce confounding.
 ```{python}
 #| echo: false
+#| output: false
 # Cross-tabulation of region by customer status
 region_counts = pd.crosstab(df['region'], df['iscustomer'], margins=True)
 print("\nRegion Distribution by Customer Status:")
@@ -144,6 +149,7 @@ We estimate \(\lambda\) using maximum likelihood (MLE). This baseline model prov
 
 ```{python}
 #| echo: false
+#| output: false
 from scipy.special import gammaln  
 
 def poisson_loglikelihood(lmbda, Y):
@@ -171,6 +177,7 @@ def poisson_loglikelihood(lmbda, Y):
 
 ```{python}
 #| echo: false
+#| output: false
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -225,6 +232,7 @@ A numerical maximization of the Poisson log-likelihood gives \(\hat{\lambda}=3.6
 
 ```{python}
 #| echo: false
+#| output: false
 from scipy.optimize import minimize
 from scipy.special import gammaln
 
@@ -258,6 +266,7 @@ Here, \(\lambda_i\) is the expected five-year patent count for firm \(i\), and \
 
 ```{python}
 #| echo: false
+#| output: false
 def poisson_regression_neg_loglikelihood(beta, Y, X):
     """
     Computes the negative log-likelihood for Poisson regression.
@@ -281,7 +290,8 @@ def poisson_regression_neg_loglikelihood(beta, Y, X):
     return -log_likelihood  
 ```
 ```{python}
-#| echo: true
+#| echo: false
+#| output: false
 import pandas as pd
 import statsmodels.formula.api as smf
 import statsmodels.api as sm
@@ -322,6 +332,7 @@ Age shows a concave pattern: the negative linear and squared centered terms indi
 
 ```{python}
 #| echo: false
+#| output: false
 # Assuming 'df' is your original DataFrame
 df['age_squared'] = df['age'] ** 2
 
@@ -340,6 +351,7 @@ Y = df['patents']
 ```
 ```{python}
 #| echo: false
+#| output: false
 # Convert boolean dummy columns to integers (0/1)
 for col in X.select_dtypes(include='bool').columns:
     X[col] = X[col].astype(int)
@@ -352,6 +364,7 @@ print(model.summary())
 
 ```{python}
 #| echo: false
+#| output: false
 #| fig-cap: "Figure X. Poisson regression coefficients with 95% confidence intervals"
 #| label: fig-poisson-coefs
 import numpy as np
@@ -386,6 +399,7 @@ The figure shows Poisson regression coefficient estimates with 95% confidence in
 
 ```{python}
 #| echo: false
+#| output: false
 import pandas as pd
 
 # Extract coefficient summary from the fitted Poisson model
@@ -422,11 +436,13 @@ display(HTML(summary_table.to_html(index=True)))
 Figure X plots each coefficient estimate with its 95% confidence interval. The dashed vertical line at 0 represents no association on the log scale. Coefficients whose intervals do not cross 0 are statistically distinguishable from 0 at the 5% level.
 
 The `iscustomer` effect is clearly positive and statistically significant, indicating higher expected patent counts for Blueprinty customers after controlling for age and region. Regional effects are small and not statistically significant. The positive `age` term and negative `age_squared` term indicate a concave relationship: expected patenting increases with age but the marginal gain declines at higher ages.
+
 ------
 
 ## Model Implications
 ```{python}
 #| echo: false
+#| output: false
 #| fig-cap: "Figure X. Predicted five-year patent counts for Blueprinty customers vs non-customers across firm age (holding region at the reference category)."
 #| label: fig-predicted-patents
 import numpy as np
@@ -470,46 +486,6 @@ The Pearson chi-square statistic relative to degrees of freedom is approximately
 
 This figure translates the Poisson regression into predicted five-year patent counts at representative firm ages. Across all ages shown, Blueprinty customers are predicted to produce more patents than comparable non-customers (holding other covariates fixed). The gap is largest in the mid-age range, consistent with the nonlinear age pattern captured by the positive age and negative age_squared terms.
 
-```{python}
-#| echo: false
-#| fig-cap: "Figure Y. Incidence rate ratios (IRR = exp(coef)) with 95% confidence intervals from the Poisson GLM."
-#| label: fig-irr
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-
-coefs = model.params
-ci = model.conf_int()
-ci.columns = ["lo", "hi"]
-
-# Choose terms to display (you can add/remove)
-terms = ["iscustomer", "age", "age_squared",
-         "region_Northeast", "region_Northwest", "region_South", "region_Southwest"]
-
-irr = np.exp(coefs[terms])
-irr_lo = np.exp(ci.loc[terms, "lo"])
-irr_hi = np.exp(ci.loc[terms, "hi"])
-
-df_irr = pd.DataFrame({
-    "term": terms,
-    "IRR": irr.values,
-    "lo": irr_lo.values,
-    "hi": irr_hi.values
-}).sort_values("IRR")
-
-y = np.arange(len(df_irr))
-xerr = np.vstack([df_irr["IRR"] - df_irr["lo"], df_irr["hi"] - df_irr["IRR"]])
-
-plt.figure(figsize=(7.5, 4.8))
-plt.errorbar(df_irr["IRR"], y, xerr=xerr, fmt="o")
-plt.axvline(1, linestyle="--")
-plt.yticks(y, df_irr["term"])
-plt.xlabel("Incidence Rate Ratio (IRR)")
-plt.title("IRR with 95% CI")
-plt.grid(True)
-plt.tight_layout()
-plt.show()
-```
 ------
 
 ## Conclusion
