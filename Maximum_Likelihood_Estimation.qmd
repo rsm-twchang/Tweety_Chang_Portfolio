@@ -80,7 +80,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-**Distribution of Patent Counts by Blueprinty Usage**
+**Figure 1. Distribution of Patent Counts by Blueprinty Usage**  
 ![Figure 1. Distribution of Patent Counts by Blueprinty Usage](figures/fig1_blueprinty_patent_hist.png){#fig-blueprinty-hist}
 
 The histogram shows a right-skewed distribution of patent counts, which is typical for count outcomes. Firms using Blueprinty’s software show a modest rightward shift, suggesting higher patent counts are somewhat more common among customers.
@@ -204,31 +204,34 @@ plt.show()
 
 ### Poisson log-likelihood and the MLE
 
-**Poisson Log-Likelihood vs. \(\lambda\)**  
+**Figure 2. Poisson Log-Likelihood vs. Lambda**  
 ![Figure 2. Poisson Log-Likelihood vs. Lambda](figures/fig2_poisson_loglik_vs_lambda.png){#fig-poisson-loglik}
 
-This figure plots the Poisson log-likelihood as a function of \(\lambda\) for the observed patent counts. The curve reaches its maximum at the sample mean (shown by the dashed vertical line), which is the maximum likelihood estimate under the Poisson model:
-\[
+This figure shows the Poisson log-likelihood as a function of $\lambda$ for the observed patent counts. The log-likelihood is maximized at the sample mean, so the Poisson MLE is:
+
+$$
 \hat{\lambda} = \bar{Y}.
-\]
+$$
 
-To estimate the Poisson rate parameter \(\lambda\), we use maximum likelihood estimation (MLE). For independent observations \(y_1,\ldots,y_n\), the Poisson log-likelihood is:
+For independent observations $y_1,\ldots,y_n$, the Poisson log-likelihood is:
 
-\[
-\ell(\lambda) = -n\lambda + \left(\sum_{i=1}^n y_i\right)\log(\lambda) - \sum_{i=1}^n \log(y_i!)
-\]
+$$
+\ell(\lambda)
+= -n\lambda
++ \left(\sum_{i=1}^n y_i\right)\log(\lambda)
+- \sum_{i=1}^n \log(y_i!).
+$$
 
-Taking the derivative and setting it to zero:
+Differentiating and setting the derivative to zero gives:
 
-\[
-\frac{\partial \ell}{\partial \lambda} = -n + \frac{\sum_{i=1}^n y_i}{\lambda} = 0
+$$
+\frac{\partial \ell}{\partial \lambda}
+= -n + \frac{\sum_{i=1}^n y_i}{\lambda} = 0
 \quad \Rightarrow \quad
 \hat{\lambda} = \frac{1}{n}\sum_{i=1}^n y_i = \bar{y}.
-\]
+$$
 
-Thus, the MLE for \(\lambda\) is the sample mean.
-
-A numerical maximization of the Poisson log-likelihood gives \(\hat{\lambda}=3.6847\), which matches the sample mean \(\bar{y}=3.6847\) (up to rounding), as expected for a Poisson model.
+In this dataset, $\hat{\lambda}=3.6847$, matching $\bar{y}=3.6847$ up to rounding.
 
 ```{python}
 #| echo: false
@@ -256,13 +259,13 @@ print(np.mean(Y), lambda_mle)
 
 ## Poisson Regression Model
 
-Next, we model patent counts as a function of firm characteristics using a Poisson regression. Let \(Y_i\) be the number of patents awarded to firm \(i\) over the last five years:
+Next, we model five-year patent counts using a Poisson regression. Let $Y_i$ be the number of patents awarded to firm $i$ over the last five years:
 
-\[
-Y_i \sim \text{Poisson}(\lambda_i), \qquad \lambda_i = \exp(X_i^\top \beta).
-\]
+$$
+Y_i \sim \text{Poisson}(\lambda_i), \qquad \log(\lambda_i) = X_i^\top \beta,
+$$
 
-Here, \(\lambda_i\) is the expected five-year patent count for firm \(i\), and \(X_i\) includes firm age, age squared, region indicators, and whether the firm uses Blueprinty’s software.
+equivalently $\lambda_i = \exp(X_i^\top \beta)$. The covariate vector $X_i$ includes firm age, age squared, region indicators, and Blueprinty usage (`iscustomer`).
 
 ```{python}
 #| echo: false
@@ -392,7 +395,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-**Incidence rate ratios (IRR)**
+**Figure 3. Poisson Regression Coefficients (95% CI)**  
 ![Figure 3. Poisson Regression Coefficients (95% CI)](figures/fig3_poisson_coef_plot.png){#fig-poisson-coefs}
 
 The figure shows Poisson regression coefficient estimates with 95% confidence intervals (dashed line at 0 indicates “no effect” on the log scale). The `iscustomer` estimate is positive and its confidence interval does not cross zero, indicating a statistically significant association between Blueprinty usage and higher expected patent counts. Regional coefficients cluster near zero and their intervals overlap zero, suggesting no meaningful regional differences after controlling for other variables. The negative squared-age term indicates a concave relationship between age and patent output: patenting increases with age but at a diminishing rate.
@@ -481,7 +484,7 @@ plt.show()
 **Model fit and assumptions**
 The Pearson chi-square statistic relative to degrees of freedom is approximately \(2070/1492 \approx 1.39\), suggesting mild overdispersion. As a robustness check, we report results using robust (sandwich) standard errors; the main conclusion for `iscustomer` is unchanged.
 
-**Predicted Patents by Blueprinty Usage**
+**Figure 4. Predicted Patents by Blueprinty Usage**  
 ![Figure 4. Predicted Patents by Blueprinty Usage](figures/fig4_predicted_patents.png){#fig-predicted-patents}
 
 This figure translates the Poisson regression into predicted five-year patent counts at representative firm ages. Across all ages shown, Blueprinty customers are predicted to produce more patents than comparable non-customers (holding other covariates fixed). The gap is largest in the mid-age range, consistent with the nonlinear age pattern captured by the positive age and negative age_squared terms.
