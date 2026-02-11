@@ -19,8 +19,8 @@ website:
         text: A/B Testing
       - href: Maximum_Likelihood_Estimation.qmd
         text: MLE
-      - href: Multinomial_Logit_Model.qmd
-        text: MNL & Conjoint
+      - href: Intuit_Quickbooks_Upgrade.qmd
+        text: Uplift Modeling
       - href: Key_Drivers_Analysis.qmd
         text: Key Drivers Analysis
 

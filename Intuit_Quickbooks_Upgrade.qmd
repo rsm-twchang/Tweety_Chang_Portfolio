@@ -1,5 +1,5 @@
 ---
-title: "Uplift Modeling"
+title: "Intuit Quickbooks Upgrade"
 author: "Tweety"
 date: today
 format: html
@@ -88,7 +88,7 @@ Wave-1 response varies materially across `zip_bins`. One segment is a clear outl
 
 **Action taken.** The outlier behavior in `zip_bins = 1` is treated as a localized segment effect and is decomposed to ZIP5 to identify the driver.
 
-### Drill-down: ZIP5 within `zip_bins = 1`
+### ZIP5 drill-down within zip_bins = 1
 Two ZIP codes within `zip_bins = 1` account for the unusually high response rates at meaningful volumes:
 
 **ZIP5 segments within `zip_bins = 1` with response_rate > 0.30 and n > 50**
@@ -100,7 +100,7 @@ Two ZIP codes within `zip_bins = 1` account for the unusually high response rate
 
 These ZIP codes are captured explicitly in modeling using an indicator variable (`isweird`) to prevent the effect from being diluted across broader ZIP binning.
 
-### Confirmation: ZIP-level anomalies are limited to 00801 and 00804
+### Confirming the anomaly ZIPs: 00801 and 00804
 To determine whether the elevated response observed in `zip_bins = 1` reflects a broader ZIP-level pattern, ZIP5 response rates were reviewed across the full dataset with minimum-volume filters (response rate > 0.20 and n > 40). Only **00801** and **00804** met these criteria. No other ZIP5 codes exhibited similarly high response rates at meaningful volume.
 
 **High-response ZIP5 segments (response_rate > 0.20, n > 40)**
@@ -110,20 +110,22 @@ To determine whether the elevated response observed in `zip_bins = 1` reflects a
 | 00801 | 0.412470 | 1668 |
 | 00804 | 0.344086 | 186 |
 
-**Decision.** These two ZIP codes are treated as a distinct segment in modeling through an indicator feature.
+These two ZIP codes are treated as a distinct segment in modeling through an indicator feature.
 
 ------
 
 ## Modeling Approach
 
-### Feature engineering: anomaly indicator (`isweird`)
+### Baselines: logistic regression (LR1–LR2)
+
+#### Feature engineering: anomaly indicator (`isweird`)
 A binary feature, `isweird`, flags whether a customer is in the anomalous ZIP codes identified above:
 
 - `isweird = 1` if `zip5 ∈ {00801, 00804}`, otherwise `0`.
 
 This design isolates a localized geographic effect without relying solely on broader ZIP binning.
 
-### Baseline model comparison: effect of `isweird`
+#### Baseline comparison: impact of `isweird`
 To quantify the incremental value of the anomaly indicator, two logistic regression models were evaluated on the validation sample:
 
 - **LR1:** baseline model using the original predictors  
@@ -131,14 +133,14 @@ To quantify the incremental value of the anomaly indicator, two logistic regress
 
 Both models use the same preprocessing (categorical encoding for discrete fields).
 
-#### Validation confusion matrices
+##### Validation confusion matrices
 **LR1 (baseline)**  
 - TP = 749, FP = 6,188, TN = 15,209, FN = 354
 
 **LR2 (+ isweird)**  
 - TP = 743, FP = 5,736, TN = 15,661, FN = 360
 
-#### Validation profit metrics
+##### Validation profit metrics
 **Table 4. Profit comparison on validation sample**
 
 | Model | Profit (validation) | Projected profit | ROME |
@@ -148,11 +150,11 @@ Both models use the same preprocessing (categorical encoding for discrete fields
 
 **Interpretation.** Adding `isweird` improves profit and ROME relative to the baseline. The gain is driven primarily by a reduction in false positives (FP decreases from 6,188 to 5,736), which improves mailing efficiency without materially changing the count of false negatives.
 
-### Baseline logistic regression (LR1): drivers and fit
+#### LR1: baseline logistic regression
 
 Adding the anomaly indicator (`isweird`) improved both **validation profit** and **ROME** relative to the baseline logistic regression, indicating better campaign efficiency under the profit framework. To interpret what the baseline model is learning, Table X summarizes the key signals from the LR1 coefficient output.
 
-#### Model fit (LR1)
+##### Model fit (LR1)
 - **AUC:** 0.755  
 - **McFadden pseudo R²:** 0.114  
 - **Overall model test:** χ²(29) = 2289.8, p < 0.001  
@@ -160,7 +162,7 @@ Adding the anomaly indicator (`isweird`) improved both **validation profit** and
 
 These statistics indicate the model has meaningful discriminative power for ranking customers, although the pseudo R² suggests substantial unexplained variation remains—typical for response modeling with sparse outcomes.
 
-#### Predictors associated with higher response odds (LR1)
+##### Key drivers (LR1)
 Odds ratios (OR) below are interpreted holding other variables constant:
 
 - **Prior upgrade behavior (`upgraded=1`): OR = 2.616 (p < 0.001)**  
@@ -181,7 +183,7 @@ Odds ratios (OR) below are interpreted holding other variables constant:
 - **Spend (`dollars`): OR ≈ 1.001 per dollar (p < 0.001)**  
   The per-dollar effect is small by construction; the practical impact depends on the spend range across customers.
 
-#### Limited or non-significant effects (LR1)
+##### Limited effects (LR1)
 - **Gender (`sex`)** and **business flag (`bizflag`)** are not statistically significant in the baseline specification.
 - **Tenure since original purchase (`sincepurch`)** is not significant once recency and purchase behavior are included.
 
@@ -198,18 +200,18 @@ Response probability is dominated by geography: `zip_bins = 1` is a clear outlie
 
 Permutation importance ranks `zip_bins` as the strongest driver of model discrimination, followed by `upgraded` and `last`. `numords` and `version1` provide moderate contribution; remaining variables add minimal lift. The concentration of signal in the geography feature supports isolating the outlier ZIP behavior explicitly (via `isweird`) rather than relying on broad ZIP binning alone.
 
-### Enhanced logistic regression (LR2): isolating anomalous ZIP behavior
+#### LR2: enhanced logistic regression (anomalous ZIP isolation)
 
 LR2 extends the baseline model by adding `isweird`, a binary indicator for ZIP codes 00801 and 00804. This feature captures a localized geographic segment with unusually high wave-1 response.
 
-#### Model fit (LR2)
+##### Model fit (LR2)
 - **AUC:** 0.768 (vs 0.755 in LR1)  
 - **McFadden pseudo R²:** 0.148 (vs 0.114 in LR1)  
 - **Overall model test:** χ²(30) = 2965.6, p < 0.001  
 
 These changes indicate improved ranking performance after accounting for the anomalous ZIP segment.
 
-#### Key coefficients (LR2)
+##### Key coefficients (LR2)
 `isweird` is the dominant effect in the model:
 
 - **`isweird = 1`: OR = 24.6, p < 0.001**  
@@ -224,10 +226,10 @@ Core purchase-history signals remain stable and directionally consistent:
 
 After introducing `isweird`, most `zip_bins` coefficients shrink toward neutrality and many become statistically insignificant, indicating that the earlier geographic pattern was primarily driven by the two outlier ZIP codes rather than broad differences across bins.
 
-#### Variable importance
+##### Variable importance
 Figure confirms the same conclusion from a predictive standpoint. Permuting `isweird` produces the largest AUC degradation, followed by `upgraded` and `last`. `zip_bins` contributes relatively little once the outlier ZIP behavior is modeled explicitly.
 
-### Enhanced logistic regression (LR2): isolating anomalous ZIP behavior
+### Feature refinement: version path construction
 **Figure 3. LR2 permutation importance (AUC decrease)**  
 ![Figure 3. LR2 permutation importance (AUC decrease)](figures/fig3_lr2_permutation_importance.png){#fig-lr2-permimp}
 
@@ -240,7 +242,7 @@ After adding `isweird`, the geographic spike shifts from `zip_bins` to the anoma
 
 On the validation sample, LR2 (baseline predictors + `isweird`, with `zip_bins` retained) achieves **profit = 35,444.61** and **ROME = 3.88**, with projected profit of **1,202,490.81**. The confusion matrix is TP = 743, FP = 5,736, TN = 15,661, FN = 360. Relative to LR1, the primary change is a reduction in false positives (fewer low-probability customers mailed), which improves campaign efficiency while keeping overall capture of responders comparable.
 
-### Consolidating version1 and upgraded into Version Path Segments
+#### Consolidating `version1` and `upgraded`
 
 **Figure 5. LR2 prediction profiles for key predictors**  
 ![Figure 5. LR2 prediction profiles for key predictors](figures/fig5_lr2_prediction_profiles.png){#fig-lr2-profiles}
@@ -256,7 +258,7 @@ The prediction profiles show positive shifts for both `version1 = 1` and `upgrad
 
 This recode removes ambiguity in interpretation and prevents the model from splitting a single business concept across two correlated indicators.
 
-### Product version path: defining `version_upgrade`
+#### Defining `version_upgrade`
 
 `version1` and `upgraded` describe overlapping aspects of product history and are difficult to interpret separately. They are recoded into a single categorical feature, `version_upgrade`, representing mutually exclusive version paths:
 
@@ -272,7 +274,7 @@ This change is made for interpretability and reporting consistency. Model scorin
 
 Customers who previously **upgraded to version 2** have the highest predicted response. Customers still on **version 1** score next. Customers who **directly purchased version 2** have the lowest predicted response, indicating lower incremental upgrade propensity under the wave-1 offer.
 
-### Baseline benchmark: mail-to-all strategy
+### Benchmark: mail-to-all strategy
 
 A mail-to-all (“spam”) strategy was evaluated as a benchmark to ensure that targeting adds incremental value versus sending wave-2 to every eligible business.
 
@@ -291,7 +293,7 @@ Financial results for the mail-to-all benchmark are:
 
 This benchmark underperforms the targeted logistic regression approaches (e.g., LR2), indicating that selective mailing improves profitability by avoiding low-probability customers. As a result, subsequent work focuses on models that improve ranking quality beyond logistic regression, including neural network classifiers and interaction specifications.
 
-### Neural network check (MLP, single hidden unit)
+### Neural network exploration
 
 A simple multilayer perceptron (MLP) classifier with a single hidden unit was trained on the same inputs used in the logistic model (including `isweird` and `version_upgrade`). The objective of this step was to test whether a nonlinear learner identifies materially different structure or improves ranking beyond the logistic specification.
 
@@ -310,13 +312,13 @@ A one-unit MLP is a minimal nonlinear extension and, in practice, behaves simila
 
 Across both configurations, `isweird` remains the largest contributor to discrimination, confirming that the anomaly ZIP segment is the strongest signal in the data. Increasing model complexity shifts the relative importance among several features—most noticeably `version_upgrade`, `last`, `sincepurch`, and `sex`—indicating that nonlinear interactions may be present even when the top driver is unchanged. These shifts are treated as hypothesis-generating: they motivate testing explicit interaction terms in a constrained model (e.g., logistic regression with selected interactions) rather than relying on depth alone.
 
-### Interaction checks informed by deeper MLP behavior
+#### MLP check: single hidden unit
 
 Under the larger MLP configuration, the relative importance of recency (`last`) increases and several effects appear to vary across segments rather than remaining parallel shifts. Interaction plots highlight three patterns that warrant explicit testing in a constrained model: (1) response differences by `zip_bins` vary by `sex`, (2) the uplift from `isweird` differs across version paths (`version_upgrade`), and (3) the uplift from `isweird` varies with ordering behavior (`numords`).
 
 As a screening step, the MLP with a larger hidden layer was evaluated on the validation sample to confirm it remains a viable ranking model. Validation results are TP = 666, FP = 5,398, TN = 15,999, FN = 437 with **projected profit = 1,065,600.97** and **ROME = 3.67**. This underperforms LR2 on projected profit, so the MLP is used here primarily to motivate interaction candidates rather than as the final scoring model.
 
-### Logistic regression with interaction terms (LR3)
+### LR3: logistic regression with interactions
 
 Deeper MLP configurations did not deliver a profit lift over the tuned logistic baseline, so interaction effects were tested directly within logistic regression. LR3 extends LR2 by adding three interaction specifications: `sex × zip_bins`, `isweird × version_upgrade`, and `isweird × numords`.
 
@@ -326,6 +328,7 @@ On the validation sample, LR3 improves results versus LR2:
 - **ROME: 3.92**
 
 #### What changed in LR3
+
 - The anomaly ZIP segment remains the dominant effect: **`isweird` OR = 22.22 (p < 0.001)**.
 - Version path separation remains strong: **`version_upgrade[1]` OR = 1.27 (p < 0.001)** and **`version_upgrade[2]` OR = 0.42 (p < 0.001)** relative to the reference category.
 - Among the interaction terms, the clearest incremental effect is **`isweird × version_upgrade[2]` OR = 1.62 (p = 0.002)**, indicating that within the anomaly ZIP segment, customers who directly purchased version 2 exhibit higher incremental upgrade propensity than the baseline version path.
@@ -333,7 +336,7 @@ On the validation sample, LR3 improves results versus LR2:
 
 Several `sex × zip_bins` coefficients are statistically significant, implying that geographic differences are not uniform across gender categories in some bins. Because this interaction family introduces many parameters, its value is assessed primarily by validation profit rather than by individual coefficient significance.
 
-### Neural network final model (MLP1): tuned configuration
+#### Model specification and validation performance
 
 MLP1 is selected as the final scoring model because it delivers the highest projected profit on the validation sample among the evaluated approaches. Hyperparameters were chosen through cross-validated search over network depth, regularization, and learning rate. Recall was used during tuning to avoid missing responders, and the final selection criterion was validation profit.
 
@@ -344,7 +347,7 @@ The selected configuration uses a three-layer architecture `(3, 3, 3)` with L2 r
 - **Projected profit: 1,225,587.45**  
 - **ROME: 3.63**
 
-### Final model interpretation (MLP1)
+#### Interpretation: permutation importance (MLP1)
 
 **Figure 10. MLP1 permutation importance (AUC decrease)**  
 ![Figure 10. MLP1 permutation importance (AUC decrease)](figures/fig10_mlp1_permutation_importance.png){#fig-mlp1-permimp}

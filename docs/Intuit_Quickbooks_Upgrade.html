@@ -9,7 +9,7 @@
 <meta name="author" content="Tweety">
 <meta name="dcterms.date" content="2026-02-11">
 
-<title>Uplift Modeling – Tweety’s website</title>
+<title>Intuit Quickbooks Upgrade – Tweety’s website</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -143,24 +143,16 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#exploratory-analysis" id="toc-exploratory-analysis" class="nav-link" data-scroll-target="#exploratory-analysis">Exploratory Analysis</a>
   <ul class="collapse">
   <li><a href="#response-rate-by-zip-bin" id="toc-response-rate-by-zip-bin" class="nav-link" data-scroll-target="#response-rate-by-zip-bin">Response rate by ZIP bin</a></li>
-  <li><a href="#drill-down-zip5-within-zip_bins-1" id="toc-drill-down-zip5-within-zip_bins-1" class="nav-link" data-scroll-target="#drill-down-zip5-within-zip_bins-1">Drill-down: ZIP5 within <code>zip_bins = 1</code></a></li>
-  <li><a href="#confirmation-zip-level-anomalies-are-limited-to-00801-and-00804" id="toc-confirmation-zip-level-anomalies-are-limited-to-00801-and-00804" class="nav-link" data-scroll-target="#confirmation-zip-level-anomalies-are-limited-to-00801-and-00804">Confirmation: ZIP-level anomalies are limited to 00801 and 00804</a></li>
+  <li><a href="#zip5-drill-down-within-zip_bins-1" id="toc-zip5-drill-down-within-zip_bins-1" class="nav-link" data-scroll-target="#zip5-drill-down-within-zip_bins-1">ZIP5 drill-down within zip_bins = 1</a></li>
+  <li><a href="#confirming-the-anomaly-zips-00801-and-00804" id="toc-confirming-the-anomaly-zips-00801-and-00804" class="nav-link" data-scroll-target="#confirming-the-anomaly-zips-00801-and-00804">Confirming the anomaly ZIPs: 00801 and 00804</a></li>
   </ul></li>
   <li><a href="#modeling-approach" id="toc-modeling-approach" class="nav-link" data-scroll-target="#modeling-approach">Modeling Approach</a>
   <ul class="collapse">
-  <li><a href="#feature-engineering-anomaly-indicator-isweird" id="toc-feature-engineering-anomaly-indicator-isweird" class="nav-link" data-scroll-target="#feature-engineering-anomaly-indicator-isweird">Feature engineering: anomaly indicator (<code>isweird</code>)</a></li>
-  <li><a href="#baseline-model-comparison-effect-of-isweird" id="toc-baseline-model-comparison-effect-of-isweird" class="nav-link" data-scroll-target="#baseline-model-comparison-effect-of-isweird">Baseline model comparison: effect of <code>isweird</code></a></li>
-  <li><a href="#baseline-logistic-regression-lr1-drivers-and-fit" id="toc-baseline-logistic-regression-lr1-drivers-and-fit" class="nav-link" data-scroll-target="#baseline-logistic-regression-lr1-drivers-and-fit">Baseline logistic regression (LR1): drivers and fit</a></li>
-  <li><a href="#enhanced-logistic-regression-lr2-isolating-anomalous-zip-behavior" id="toc-enhanced-logistic-regression-lr2-isolating-anomalous-zip-behavior" class="nav-link" data-scroll-target="#enhanced-logistic-regression-lr2-isolating-anomalous-zip-behavior">Enhanced logistic regression (LR2): isolating anomalous ZIP behavior</a></li>
-  <li><a href="#enhanced-logistic-regression-lr2-isolating-anomalous-zip-behavior-1" id="toc-enhanced-logistic-regression-lr2-isolating-anomalous-zip-behavior-1" class="nav-link" data-scroll-target="#enhanced-logistic-regression-lr2-isolating-anomalous-zip-behavior-1">Enhanced logistic regression (LR2): isolating anomalous ZIP behavior</a></li>
-  <li><a href="#consolidating-version1-and-upgraded-into-version-path-segments" id="toc-consolidating-version1-and-upgraded-into-version-path-segments" class="nav-link" data-scroll-target="#consolidating-version1-and-upgraded-into-version-path-segments">Consolidating version1 and upgraded into Version Path Segments</a></li>
-  <li><a href="#product-version-path-defining-version_upgrade" id="toc-product-version-path-defining-version_upgrade" class="nav-link" data-scroll-target="#product-version-path-defining-version_upgrade">Product version path: defining <code>version_upgrade</code></a></li>
-  <li><a href="#baseline-benchmark-mail-to-all-strategy" id="toc-baseline-benchmark-mail-to-all-strategy" class="nav-link" data-scroll-target="#baseline-benchmark-mail-to-all-strategy">Baseline benchmark: mail-to-all strategy</a></li>
-  <li><a href="#neural-network-check-mlp-single-hidden-unit" id="toc-neural-network-check-mlp-single-hidden-unit" class="nav-link" data-scroll-target="#neural-network-check-mlp-single-hidden-unit">Neural network check (MLP, single hidden unit)</a></li>
-  <li><a href="#interaction-checks-informed-by-deeper-mlp-behavior" id="toc-interaction-checks-informed-by-deeper-mlp-behavior" class="nav-link" data-scroll-target="#interaction-checks-informed-by-deeper-mlp-behavior">Interaction checks informed by deeper MLP behavior</a></li>
-  <li><a href="#logistic-regression-with-interaction-terms-lr3" id="toc-logistic-regression-with-interaction-terms-lr3" class="nav-link" data-scroll-target="#logistic-regression-with-interaction-terms-lr3">Logistic regression with interaction terms (LR3)</a></li>
-  <li><a href="#neural-network-final-model-mlp1-tuned-configuration" id="toc-neural-network-final-model-mlp1-tuned-configuration" class="nav-link" data-scroll-target="#neural-network-final-model-mlp1-tuned-configuration">Neural network final model (MLP1): tuned configuration</a></li>
-  <li><a href="#final-model-interpretation-mlp1" id="toc-final-model-interpretation-mlp1" class="nav-link" data-scroll-target="#final-model-interpretation-mlp1">Final model interpretation (MLP1)</a></li>
+  <li><a href="#baselines-logistic-regression-lr1lr2" id="toc-baselines-logistic-regression-lr1lr2" class="nav-link" data-scroll-target="#baselines-logistic-regression-lr1lr2">Baselines: logistic regression (LR1–LR2)</a></li>
+  <li><a href="#feature-refinement-version-path-construction" id="toc-feature-refinement-version-path-construction" class="nav-link" data-scroll-target="#feature-refinement-version-path-construction">Feature refinement: version path construction</a></li>
+  <li><a href="#benchmark-mail-to-all-strategy" id="toc-benchmark-mail-to-all-strategy" class="nav-link" data-scroll-target="#benchmark-mail-to-all-strategy">Benchmark: mail-to-all strategy</a></li>
+  <li><a href="#neural-network-exploration" id="toc-neural-network-exploration" class="nav-link" data-scroll-target="#neural-network-exploration">Neural network exploration</a></li>
+  <li><a href="#lr3-logistic-regression-with-interactions" id="toc-lr3-logistic-regression-with-interactions" class="nav-link" data-scroll-target="#lr3-logistic-regression-with-interactions">LR3: logistic regression with interactions</a></li>
   </ul></li>
   <li><a href="#recommendation-and-expected-impact" id="toc-recommendation-and-expected-impact" class="nav-link" data-scroll-target="#recommendation-and-expected-impact">Recommendation and Expected Impact</a>
   <ul class="collapse">
@@ -177,7 +169,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Uplift Modeling</h1>
+<h1 class="title">Intuit Quickbooks Upgrade</h1>
 </div>
 
 
@@ -438,8 +430,8 @@ Model selection and thresholding decisions are based on validation performance.<
 </table>
 <p><strong>Action taken.</strong> The outlier behavior in <code>zip_bins = 1</code> is treated as a localized segment effect and is decomposed to ZIP5 to identify the driver.</p>
 </section>
-<section id="drill-down-zip5-within-zip_bins-1" class="level3">
-<h3 class="anchored" data-anchor-id="drill-down-zip5-within-zip_bins-1">Drill-down: ZIP5 within <code>zip_bins = 1</code></h3>
+<section id="zip5-drill-down-within-zip_bins-1" class="level3">
+<h3 class="anchored" data-anchor-id="zip5-drill-down-within-zip_bins-1">ZIP5 drill-down within zip_bins = 1</h3>
 <p>Two ZIP codes within <code>zip_bins = 1</code> account for the unusually high response rates at meaningful volumes:</p>
 <p><strong>ZIP5 segments within <code>zip_bins = 1</code> with response_rate &gt; 0.30 and n &gt; 50</strong></p>
 <table class="caption-top table">
@@ -465,8 +457,8 @@ Model selection and thresholding decisions are based on validation performance.<
 </table>
 <p>These ZIP codes are captured explicitly in modeling using an indicator variable (<code>isweird</code>) to prevent the effect from being diluted across broader ZIP binning.</p>
 </section>
-<section id="confirmation-zip-level-anomalies-are-limited-to-00801-and-00804" class="level3">
-<h3 class="anchored" data-anchor-id="confirmation-zip-level-anomalies-are-limited-to-00801-and-00804">Confirmation: ZIP-level anomalies are limited to 00801 and 00804</h3>
+<section id="confirming-the-anomaly-zips-00801-and-00804" class="level3">
+<h3 class="anchored" data-anchor-id="confirming-the-anomaly-zips-00801-and-00804">Confirming the anomaly ZIPs: 00801 and 00804</h3>
 <p>To determine whether the elevated response observed in <code>zip_bins = 1</code> reflects a broader ZIP-level pattern, ZIP5 response rates were reviewed across the full dataset with minimum-volume filters (response rate &gt; 0.20 and n &gt; 40). Only <strong>00801</strong> and <strong>00804</strong> met these criteria. No other ZIP5 codes exhibited similarly high response rates at meaningful volume.</p>
 <p><strong>High-response ZIP5 segments (response_rate &gt; 0.20, n &gt; 40)</strong></p>
 <table class="caption-top table">
@@ -490,22 +482,24 @@ Model selection and thresholding decisions are based on validation performance.<
 </tr>
 </tbody>
 </table>
-<p><strong>Decision.</strong> These two ZIP codes are treated as a distinct segment in modeling through an indicator feature.</p>
+<p>These two ZIP codes are treated as a distinct segment in modeling through an indicator feature.</p>
 <hr>
 </section>
 </section>
 <section id="modeling-approach" class="level2">
 <h2 class="anchored" data-anchor-id="modeling-approach">Modeling Approach</h2>
-<section id="feature-engineering-anomaly-indicator-isweird" class="level3">
-<h3 class="anchored" data-anchor-id="feature-engineering-anomaly-indicator-isweird">Feature engineering: anomaly indicator (<code>isweird</code>)</h3>
+<section id="baselines-logistic-regression-lr1lr2" class="level3">
+<h3 class="anchored" data-anchor-id="baselines-logistic-regression-lr1lr2">Baselines: logistic regression (LR1–LR2)</h3>
+<section id="feature-engineering-anomaly-indicator-isweird" class="level4">
+<h4 class="anchored" data-anchor-id="feature-engineering-anomaly-indicator-isweird">Feature engineering: anomaly indicator (<code>isweird</code>)</h4>
 <p>A binary feature, <code>isweird</code>, flags whether a customer is in the anomalous ZIP codes identified above:</p>
 <ul>
 <li><code>isweird = 1</code> if <code>zip5 ∈ {00801, 00804}</code>, otherwise <code>0</code>.</li>
 </ul>
 <p>This design isolates a localized geographic effect without relying solely on broader ZIP binning.</p>
 </section>
-<section id="baseline-model-comparison-effect-of-isweird" class="level3">
-<h3 class="anchored" data-anchor-id="baseline-model-comparison-effect-of-isweird">Baseline model comparison: effect of <code>isweird</code></h3>
+<section id="baseline-comparison-impact-of-isweird" class="level4">
+<h4 class="anchored" data-anchor-id="baseline-comparison-impact-of-isweird">Baseline comparison: impact of <code>isweird</code></h4>
 <p>To quantify the incremental value of the anomaly indicator, two logistic regression models were evaluated on the validation sample:</p>
 <ul>
 <li><strong>LR1:</strong> baseline model using the original predictors<br>
@@ -513,15 +507,15 @@ Model selection and thresholding decisions are based on validation performance.<
 <li><strong>LR2:</strong> LR1 plus <code>isweird</code></li>
 </ul>
 <p>Both models use the same preprocessing (categorical encoding for discrete fields).</p>
-<section id="validation-confusion-matrices" class="level4">
-<h4 class="anchored" data-anchor-id="validation-confusion-matrices">Validation confusion matrices</h4>
+<section id="validation-confusion-matrices" class="level5">
+<h5 class="anchored" data-anchor-id="validation-confusion-matrices">Validation confusion matrices</h5>
 <p><strong>LR1 (baseline)</strong><br>
 - TP = 749, FP = 6,188, TN = 15,209, FN = 354</p>
 <p><strong>LR2 (+ isweird)</strong><br>
 - TP = 743, FP = 5,736, TN = 15,661, FN = 360</p>
 </section>
-<section id="validation-profit-metrics" class="level4">
-<h4 class="anchored" data-anchor-id="validation-profit-metrics">Validation profit metrics</h4>
+<section id="validation-profit-metrics" class="level5">
+<h5 class="anchored" data-anchor-id="validation-profit-metrics">Validation profit metrics</h5>
 <p><strong>Table 4. Profit comparison on validation sample</strong></p>
 <table class="caption-top table">
 <thead>
@@ -550,11 +544,11 @@ Model selection and thresholding decisions are based on validation performance.<
 <p><strong>Interpretation.</strong> Adding <code>isweird</code> improves profit and ROME relative to the baseline. The gain is driven primarily by a reduction in false positives (FP decreases from 6,188 to 5,736), which improves mailing efficiency without materially changing the count of false negatives.</p>
 </section>
 </section>
-<section id="baseline-logistic-regression-lr1-drivers-and-fit" class="level3">
-<h3 class="anchored" data-anchor-id="baseline-logistic-regression-lr1-drivers-and-fit">Baseline logistic regression (LR1): drivers and fit</h3>
+<section id="lr1-baseline-logistic-regression" class="level4">
+<h4 class="anchored" data-anchor-id="lr1-baseline-logistic-regression">LR1: baseline logistic regression</h4>
 <p>Adding the anomaly indicator (<code>isweird</code>) improved both <strong>validation profit</strong> and <strong>ROME</strong> relative to the baseline logistic regression, indicating better campaign efficiency under the profit framework. To interpret what the baseline model is learning, Table X summarizes the key signals from the LR1 coefficient output.</p>
-<section id="model-fit-lr1" class="level4">
-<h4 class="anchored" data-anchor-id="model-fit-lr1">Model fit (LR1)</h4>
+<section id="model-fit-lr1" class="level5">
+<h5 class="anchored" data-anchor-id="model-fit-lr1">Model fit (LR1)</h5>
 <ul>
 <li><strong>AUC:</strong> 0.755<br>
 </li>
@@ -566,8 +560,8 @@ Model selection and thresholding decisions are based on validation performance.<
 </ul>
 <p>These statistics indicate the model has meaningful discriminative power for ranking customers, although the pseudo R² suggests substantial unexplained variation remains—typical for response modeling with sparse outcomes.</p>
 </section>
-<section id="predictors-associated-with-higher-response-odds-lr1" class="level4">
-<h4 class="anchored" data-anchor-id="predictors-associated-with-higher-response-odds-lr1">Predictors associated with higher response odds (LR1)</h4>
+<section id="key-drivers-lr1" class="level5">
+<h5 class="anchored" data-anchor-id="key-drivers-lr1">Key drivers (LR1)</h5>
 <p>Odds ratios (OR) below are interpreted holding other variables constant:</p>
 <ul>
 <li><p><strong>Prior upgrade behavior (<code>upgraded=1</code>): OR = 2.616 (p &lt; 0.001)</strong><br>
@@ -584,12 +578,13 @@ Ownership of related products is associated with higher response propensity.</p>
 The per-dollar effect is small by construction; the practical impact depends on the spend range across customers.</p></li>
 </ul>
 </section>
-<section id="limited-or-non-significant-effects-lr1" class="level4">
-<h4 class="anchored" data-anchor-id="limited-or-non-significant-effects-lr1">Limited or non-significant effects (LR1)</h4>
+<section id="limited-effects-lr1" class="level5">
+<h5 class="anchored" data-anchor-id="limited-effects-lr1">Limited effects (LR1)</h5>
 <ul>
 <li><strong>Gender (<code>sex</code>)</strong> and <strong>business flag (<code>bizflag</code>)</strong> are not statistically significant in the baseline specification.</li>
 <li><strong>Tenure since original purchase (<code>sincepurch</code>)</strong> is not significant once recency and purchase behavior are included.</li>
 </ul>
+</section>
 </section>
 <section id="geographic-effects-lr1" class="level4">
 <h4 class="anchored" data-anchor-id="geographic-effects-lr1">Geographic effects (LR1)</h4>
@@ -601,12 +596,11 @@ The per-dollar effect is small by construction; the practical impact depends on 
 <img src="figures/fig2_lr1_permutation_importance.png" id="fig-lr1-permimp" class="img-fluid" alt="Figure 2. LR1 permutation importance (AUC decrease)"></p>
 <p>Permutation importance ranks <code>zip_bins</code> as the strongest driver of model discrimination, followed by <code>upgraded</code> and <code>last</code>. <code>numords</code> and <code>version1</code> provide moderate contribution; remaining variables add minimal lift. The concentration of signal in the geography feature supports isolating the outlier ZIP behavior explicitly (via <code>isweird</code>) rather than relying on broad ZIP binning alone.</p>
 </section>
-</section>
-<section id="enhanced-logistic-regression-lr2-isolating-anomalous-zip-behavior" class="level3">
-<h3 class="anchored" data-anchor-id="enhanced-logistic-regression-lr2-isolating-anomalous-zip-behavior">Enhanced logistic regression (LR2): isolating anomalous ZIP behavior</h3>
+<section id="lr2-enhanced-logistic-regression-anomalous-zip-isolation" class="level4">
+<h4 class="anchored" data-anchor-id="lr2-enhanced-logistic-regression-anomalous-zip-isolation">LR2: enhanced logistic regression (anomalous ZIP isolation)</h4>
 <p>LR2 extends the baseline model by adding <code>isweird</code>, a binary indicator for ZIP codes 00801 and 00804. This feature captures a localized geographic segment with unusually high wave-1 response.</p>
-<section id="model-fit-lr2" class="level4">
-<h4 class="anchored" data-anchor-id="model-fit-lr2">Model fit (LR2)</h4>
+<section id="model-fit-lr2" class="level5">
+<h5 class="anchored" data-anchor-id="model-fit-lr2">Model fit (LR2)</h5>
 <ul>
 <li><strong>AUC:</strong> 0.768 (vs 0.755 in LR1)<br>
 </li>
@@ -616,8 +610,8 @@ The per-dollar effect is small by construction; the practical impact depends on 
 </ul>
 <p>These changes indicate improved ranking performance after accounting for the anomalous ZIP segment.</p>
 </section>
-<section id="key-coefficients-lr2" class="level4">
-<h4 class="anchored" data-anchor-id="key-coefficients-lr2">Key coefficients (LR2)</h4>
+<section id="key-coefficients-lr2" class="level5">
+<h5 class="anchored" data-anchor-id="key-coefficients-lr2">Key coefficients (LR2)</h5>
 <p><code>isweird</code> is the dominant effect in the model:</p>
 <ul>
 <li><strong><code>isweird = 1</code>: OR = 24.6, p &lt; 0.001</strong><br>
@@ -626,13 +620,14 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 <p>Core purchase-history signals remain stable and directionally consistent: - <strong><code>upgraded = 1</code>: OR = 2.74, p &lt; 0.001</strong> - <strong><code>version1 = 1</code>: OR = 2.18, p &lt; 0.001</strong> - <strong><code>numords</code>: OR = 1.28 per additional order, p &lt; 0.001</strong> - <strong><code>last</code>: OR = 0.956 per additional month since last order, p &lt; 0.001</strong> - <strong><code>owntaxprod = 1</code>: OR = 1.38, p = 0.002</strong></p>
 <p>After introducing <code>isweird</code>, most <code>zip_bins</code> coefficients shrink toward neutrality and many become statistically insignificant, indicating that the earlier geographic pattern was primarily driven by the two outlier ZIP codes rather than broad differences across bins.</p>
 </section>
-<section id="variable-importance" class="level4">
-<h4 class="anchored" data-anchor-id="variable-importance">Variable importance</h4>
+<section id="variable-importance" class="level5">
+<h5 class="anchored" data-anchor-id="variable-importance">Variable importance</h5>
 <p>Figure confirms the same conclusion from a predictive standpoint. Permuting <code>isweird</code> produces the largest AUC degradation, followed by <code>upgraded</code> and <code>last</code>. <code>zip_bins</code> contributes relatively little once the outlier ZIP behavior is modeled explicitly.</p>
 </section>
 </section>
-<section id="enhanced-logistic-regression-lr2-isolating-anomalous-zip-behavior-1" class="level3">
-<h3 class="anchored" data-anchor-id="enhanced-logistic-regression-lr2-isolating-anomalous-zip-behavior-1">Enhanced logistic regression (LR2): isolating anomalous ZIP behavior</h3>
+</section>
+<section id="feature-refinement-version-path-construction" class="level3">
+<h3 class="anchored" data-anchor-id="feature-refinement-version-path-construction">Feature refinement: version path construction</h3>
 <p><strong>Figure 3. LR2 permutation importance (AUC decrease)</strong><br>
 <img src="figures/fig3_lr2_permutation_importance.png" id="fig-lr2-permimp" class="img-fluid" alt="Figure 3. LR2 permutation importance (AUC decrease)"></p>
 <p><code>isweird</code> is the dominant driver of LR2 discrimination: permuting it produces the largest AUC drop, far exceeding any other feature. After isolating the 00801/00804 segment, <code>zip_bins</code> contributes little incremental lift, while <code>upgraded</code> and purchase recency (<code>last</code>) remain the strongest broad-based predictors outside the anomaly. This supports modeling the outlier ZIP behavior explicitly with <code>isweird</code> rather than relying on ZIP-bin effects that would blur a concentrated segment signal.</p>
@@ -640,9 +635,8 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 <img src="figures/fig4_lr2_prediction_profiles.png" id="fig-lr2-profiles" class="img-fluid" alt="Figure 4. LR2 prediction profiles across key predictors"></p>
 <p>After adding <code>isweird</code>, the geographic spike shifts from <code>zip_bins</code> to the anomaly indicator. Predicted probability increases sharply when <code>isweird = 1</code>, while the <code>zip_bins</code> profile becomes largely flat, indicating limited incremental segmentation value once the outlier ZIPs are modeled explicitly. Purchase-history signals remain stable: probability increases with <code>numords</code>, and is higher for <code>upgraded = 1</code> and <code>version1 = 1</code>, while <code>last</code> remains strongly negative.</p>
 <p>On the validation sample, LR2 (baseline predictors + <code>isweird</code>, with <code>zip_bins</code> retained) achieves <strong>profit = 35,444.61</strong> and <strong>ROME = 3.88</strong>, with projected profit of <strong>1,202,490.81</strong>. The confusion matrix is TP = 743, FP = 5,736, TN = 15,661, FN = 360. Relative to LR1, the primary change is a reduction in false positives (fewer low-probability customers mailed), which improves campaign efficiency while keeping overall capture of responders comparable.</p>
-</section>
-<section id="consolidating-version1-and-upgraded-into-version-path-segments" class="level3">
-<h3 class="anchored" data-anchor-id="consolidating-version1-and-upgraded-into-version-path-segments">Consolidating version1 and upgraded into Version Path Segments</h3>
+<section id="consolidating-version1-and-upgraded" class="level4">
+<h4 class="anchored" data-anchor-id="consolidating-version1-and-upgraded">Consolidating <code>version1</code> and <code>upgraded</code></h4>
 <p><strong>Figure 5. LR2 prediction profiles for key predictors</strong><br>
 <img src="figures/fig5_lr2_prediction_profiles.png" id="fig-lr2-profiles" class="img-fluid" alt="Figure 5. LR2 prediction profiles for key predictors"></p>
 <p>The prediction profiles show positive shifts for both <code>version1 = 1</code> and <code>upgraded = 1</code>, but these fields describe overlapping aspects of product history and are not mutually exclusive. To make version behavior interpretable and usable for targeting, the two indicators are recoded into a single categorical feature, <code>version_upgrade</code>, representing mutually exclusive version paths.</p>
@@ -658,8 +652,8 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 </ul>
 <p>This recode removes ambiguity in interpretation and prevents the model from splitting a single business concept across two correlated indicators.</p>
 </section>
-<section id="product-version-path-defining-version_upgrade" class="level3">
-<h3 class="anchored" data-anchor-id="product-version-path-defining-version_upgrade">Product version path: defining <code>version_upgrade</code></h3>
+<section id="defining-version_upgrade" class="level4">
+<h4 class="anchored" data-anchor-id="defining-version_upgrade">Defining <code>version_upgrade</code></h4>
 <p><code>version1</code> and <code>upgraded</code> describe overlapping aspects of product history and are difficult to interpret separately. They are recoded into a single categorical feature, <code>version_upgrade</code>, representing mutually exclusive version paths:</p>
 <ul>
 <li><code>version1 = 1</code>, <code>upgraded = 0</code> → <strong><code>version_upgrade = 0</code></strong>: currently on version 1, no prior upgrade (n = 16,050)<br>
@@ -675,8 +669,9 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 <img src="figures/fig6_version_upgrade_pred.png" id="fig-version-upgrade" class="img-fluid" alt="Figure 6. Predicted response by version path (version_upgrade)"></p>
 <p>Customers who previously <strong>upgraded to version 2</strong> have the highest predicted response. Customers still on <strong>version 1</strong> score next. Customers who <strong>directly purchased version 2</strong> have the lowest predicted response, indicating lower incremental upgrade propensity under the wave-1 offer.</p>
 </section>
-<section id="baseline-benchmark-mail-to-all-strategy" class="level3">
-<h3 class="anchored" data-anchor-id="baseline-benchmark-mail-to-all-strategy">Baseline benchmark: mail-to-all strategy</h3>
+</section>
+<section id="benchmark-mail-to-all-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="benchmark-mail-to-all-strategy">Benchmark: mail-to-all strategy</h3>
 <p>A mail-to-all (“spam”) strategy was evaluated as a benchmark to ensure that targeting adds incremental value versus sending wave-2 to every eligible business.</p>
 <p>On the validation sample, mailing to all customers yields the following confusion matrix:</p>
 <ul>
@@ -698,8 +693,8 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 </ul>
 <p>This benchmark underperforms the targeted logistic regression approaches (e.g., LR2), indicating that selective mailing improves profitability by avoiding low-probability customers. As a result, subsequent work focuses on models that improve ranking quality beyond logistic regression, including neural network classifiers and interaction specifications.</p>
 </section>
-<section id="neural-network-check-mlp-single-hidden-unit" class="level3">
-<h3 class="anchored" data-anchor-id="neural-network-check-mlp-single-hidden-unit">Neural network check (MLP, single hidden unit)</h3>
+<section id="neural-network-exploration" class="level3">
+<h3 class="anchored" data-anchor-id="neural-network-exploration">Neural network exploration</h3>
 <p>A simple multilayer perceptron (MLP) classifier with a single hidden unit was trained on the same inputs used in the logistic model (including <code>isweird</code> and <code>version_upgrade</code>). The objective of this step was to test whether a nonlinear learner identifies materially different structure or improves ranking beyond the logistic specification.</p>
 <p><strong>Figure 7. MLP (1-unit) prediction profiles across key predictors</strong><br>
 <img src="figures/fig7_mlp1unit_prediction_profiles.png" id="fig-mlp1unit-profiles" class="img-fluid" alt="Figure 7. MLP (1-unit) prediction profiles across key predictors"></p>
@@ -710,14 +705,14 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 <p><strong>Figure 9. MLP permutation importance with a larger hidden layer</strong><br>
 <img src="figures/fig9_mlp_hidden10_permimp.png" id="fig-mlp-hidden10-permimp" class="img-fluid" alt="Figure 9. MLP permutation importance with a larger hidden layer"></p>
 <p>Across both configurations, <code>isweird</code> remains the largest contributor to discrimination, confirming that the anomaly ZIP segment is the strongest signal in the data. Increasing model complexity shifts the relative importance among several features—most noticeably <code>version_upgrade</code>, <code>last</code>, <code>sincepurch</code>, and <code>sex</code>—indicating that nonlinear interactions may be present even when the top driver is unchanged. These shifts are treated as hypothesis-generating: they motivate testing explicit interaction terms in a constrained model (e.g., logistic regression with selected interactions) rather than relying on depth alone.</p>
-</section>
-<section id="interaction-checks-informed-by-deeper-mlp-behavior" class="level3">
-<h3 class="anchored" data-anchor-id="interaction-checks-informed-by-deeper-mlp-behavior">Interaction checks informed by deeper MLP behavior</h3>
+<section id="mlp-check-single-hidden-unit" class="level4">
+<h4 class="anchored" data-anchor-id="mlp-check-single-hidden-unit">MLP check: single hidden unit</h4>
 <p>Under the larger MLP configuration, the relative importance of recency (<code>last</code>) increases and several effects appear to vary across segments rather than remaining parallel shifts. Interaction plots highlight three patterns that warrant explicit testing in a constrained model: (1) response differences by <code>zip_bins</code> vary by <code>sex</code>, (2) the uplift from <code>isweird</code> differs across version paths (<code>version_upgrade</code>), and (3) the uplift from <code>isweird</code> varies with ordering behavior (<code>numords</code>).</p>
 <p>As a screening step, the MLP with a larger hidden layer was evaluated on the validation sample to confirm it remains a viable ranking model. Validation results are TP = 666, FP = 5,398, TN = 15,999, FN = 437 with <strong>projected profit = 1,065,600.97</strong> and <strong>ROME = 3.67</strong>. This underperforms LR2 on projected profit, so the MLP is used here primarily to motivate interaction candidates rather than as the final scoring model.</p>
 </section>
-<section id="logistic-regression-with-interaction-terms-lr3" class="level3">
-<h3 class="anchored" data-anchor-id="logistic-regression-with-interaction-terms-lr3">Logistic regression with interaction terms (LR3)</h3>
+</section>
+<section id="lr3-logistic-regression-with-interactions" class="level3">
+<h3 class="anchored" data-anchor-id="lr3-logistic-regression-with-interactions">LR3: logistic regression with interactions</h3>
 <p>Deeper MLP configurations did not deliver a profit lift over the tuned logistic baseline, so interaction effects were tested directly within logistic regression. LR3 extends LR2 by adding three interaction specifications: <code>sex × zip_bins</code>, <code>isweird × version_upgrade</code>, and <code>isweird × numords</code>.</p>
 <p>On the validation sample, LR3 improves results versus LR2: - <strong>Profit (validation): 35,940.90</strong><br>
 - <strong>Projected profit: 1,219,324.02</strong><br>
@@ -732,9 +727,8 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 </ul>
 <p>Several <code>sex × zip_bins</code> coefficients are statistically significant, implying that geographic differences are not uniform across gender categories in some bins. Because this interaction family introduces many parameters, its value is assessed primarily by validation profit rather than by individual coefficient significance.</p>
 </section>
-</section>
-<section id="neural-network-final-model-mlp1-tuned-configuration" class="level3">
-<h3 class="anchored" data-anchor-id="neural-network-final-model-mlp1-tuned-configuration">Neural network final model (MLP1): tuned configuration</h3>
+<section id="model-specification-and-validation-performance" class="level4">
+<h4 class="anchored" data-anchor-id="model-specification-and-validation-performance">Model specification and validation performance</h4>
 <p>MLP1 is selected as the final scoring model because it delivers the highest projected profit on the validation sample among the evaluated approaches. Hyperparameters were chosen through cross-validated search over network depth, regularization, and learning rate. Recall was used during tuning to avoid missing responders, and the final selection criterion was validation profit.</p>
 <p>The selected configuration uses a three-layer architecture <code>(3, 3, 3)</code> with L2 regularization <code>alpha = 0.0095</code> (solver: Adam). Validation performance:</p>
 <ul>
@@ -747,12 +741,13 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 <li><strong>ROME: 3.63</strong></li>
 </ul>
 </section>
-<section id="final-model-interpretation-mlp1" class="level3">
-<h3 class="anchored" data-anchor-id="final-model-interpretation-mlp1">Final model interpretation (MLP1)</h3>
+<section id="interpretation-permutation-importance-mlp1" class="level4">
+<h4 class="anchored" data-anchor-id="interpretation-permutation-importance-mlp1">Interpretation: permutation importance (MLP1)</h4>
 <p><strong>Figure 10. MLP1 permutation importance (AUC decrease)</strong><br>
 <img src="figures/fig10_mlp1_permutation_importance.png" id="fig-mlp1-permimp" class="img-fluid" alt="Figure 10. MLP1 permutation importance (AUC decrease)"></p>
 <p>The importance ranking is concentrated in a small set of features. <code>isweird</code> produces the largest AUC drop when permuted, indicating that the anomaly ZIP segment is the strongest discriminator.</p>
 <hr>
+</section>
 </section>
 </section>
 <section id="recommendation-and-expected-impact" class="level2">
