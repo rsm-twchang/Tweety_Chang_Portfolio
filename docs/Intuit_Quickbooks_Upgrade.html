@@ -526,7 +526,7 @@ Data dictionary
 </section>
 <section id="validation-profit-metrics" class="level5">
 <h5 class="anchored" data-anchor-id="validation-profit-metrics">Validation profit metrics</h5>
-<p><strong>Table 4. Profit comparison on validation sample</strong></p>
+<p><strong>Profit comparison on validation sample</strong></p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -603,7 +603,7 @@ The per-dollar effect is small by construction; the practical impact depends on 
 <img src="figures/fig1_lr1_prediction_profiles.png" id="fig-lr1-profiles" class="img-fluid" alt="Figure 1. LR1 prediction profiles across key predictors"></p>
 <p>Response probability is dominated by geography: <code>zip_bins = 1</code> is a clear outlier, while other bins remain near a low baseline. Behavioral variables show predictable structure—probability increases with <code>numords</code> and is higher for <code>upgraded = 1</code> and <code>version1 = 1</code>. Recency is strongly negative: response probability declines as <code>last</code> increases. <code>sex</code>, <code>bizflag</code>, and <code>sincepurch</code> are nearly flat over the plotted ranges, suggesting limited incremental value in this specification.</p>
 <p><strong>Figure 2. LR1 permutation importance (AUC decrease)</strong><br>
-<img src="figures/fig2_lr1_permutation_importance.png" id="fig-lr1-permimp" class="img-fluid" alt="Figure 2. LR1 permutation importance (AUC decrease)"></p>
+<img src="fig2_poisson_loglik_vs_lambda.png" id="fig-lr1-permimp" class="img-fluid" alt="Figure 2. LR1 permutation importance (AUC decrease)"></p>
 <p>Permutation importance ranks <code>zip_bins</code> as the strongest driver of model discrimination, followed by <code>upgraded</code> and <code>last</code>. <code>numords</code> and <code>version1</code> provide moderate contribution; remaining variables add minimal lift. The concentration of signal in the geography feature supports isolating the outlier ZIP behavior explicitly (via <code>isweird</code>) rather than relying on broad ZIP binning alone.</p>
 </section>
 <section id="lr2-enhanced-logistic-regression-anomalous-zip-isolation" class="level4">
@@ -713,7 +713,7 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 <img src="figures/fig8_mlp1unit_permutation_importance.png" id="fig-mlp1unit-permimp" class="img-fluid" alt="Figure 8. MLP (1-unit) permutation importance (AUC decrease)"></p>
 <p>Permutation importance is concentrated in <code>isweird</code>, followed by <code>last</code> and <code>version_upgrade</code>, with <code>numords</code> providing a smaller lift. Most <code>zip_bins</code> indicators contribute little once the anomaly ZIP segment is captured directly.</p>
 <p><strong>Figure 9. MLP permutation importance with a larger hidden layer</strong><br>
-<img src="figures/fig9_mlp_hidden10_permimp.png" id="fig-mlp-hidden10-permimp" class="img-fluid" alt="Figure 9. MLP permutation importance with a larger hidden layer"></p>
+<img src="fig9_mlp_hidden10_permimp.png" id="fig-mlp-hidden10-permimp" class="img-fluid" alt="Figure 9. MLP permutation importance with a larger hidden layer"></p>
 <p>Across both configurations, <code>isweird</code> remains the largest contributor to discrimination, confirming that the anomaly ZIP segment is the strongest signal in the data. Increasing model complexity shifts the relative importance among several features—most noticeably <code>version_upgrade</code>, <code>last</code>, <code>sincepurch</code>, and <code>sex</code>—indicating that nonlinear interactions may be present even when the top driver is unchanged. These shifts are treated as hypothesis-generating: they motivate testing explicit interaction terms in a constrained model (e.g., logistic regression with selected interactions) rather than relying on depth alone.</p>
 <section id="mlp-check-single-hidden-unit" class="level4">
 <h4 class="anchored" data-anchor-id="mlp-check-single-hidden-unit">MLP check: single hidden unit</h4>

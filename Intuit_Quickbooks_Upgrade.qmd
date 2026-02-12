@@ -142,7 +142,7 @@ Both models use the same preprocessing (categorical encoding for discrete fields
 - TP = 743, FP = 5,736, TN = 15,661, FN = 360
 
 ##### Validation profit metrics
-**Table 4. Profit comparison on validation sample**
+**Profit comparison on validation sample**
 
 | Model | Profit (validation) | Projected profit | ROME |
 |---|---:|---:|---:|
@@ -197,7 +197,7 @@ Odds ratios (OR) below are interpreted holding other variables constant:
 Response probability is dominated by geography: `zip_bins = 1` is a clear outlier, while other bins remain near a low baseline. Behavioral variables show predictable structure—probability increases with `numords` and is higher for `upgraded = 1` and `version1 = 1`. Recency is strongly negative: response probability declines as `last` increases. `sex`, `bizflag`, and `sincepurch` are nearly flat over the plotted ranges, suggesting limited incremental value in this specification.
 
 **Figure 2. LR1 permutation importance (AUC decrease)**  
-![Figure 2. LR1 permutation importance (AUC decrease)](figures/fig2_lr1_permutation_importance.png){#fig-lr1-permimp}
+![Figure 2. LR1 permutation importance (AUC decrease)](fig2_poisson_loglik_vs_lambda.png){#fig-lr1-permimp}
 
 Permutation importance ranks `zip_bins` as the strongest driver of model discrimination, followed by `upgraded` and `last`. `numords` and `version1` provide moderate contribution; remaining variables add minimal lift. The concentration of signal in the geography feature supports isolating the outlier ZIP behavior explicitly (via `isweird`) rather than relying on broad ZIP binning alone.
 
@@ -309,7 +309,7 @@ Predicted response increases sharply for `isweird = 1`. Outside the anomaly segm
 Permutation importance is concentrated in `isweird`, followed by `last` and `version_upgrade`, with `numords` providing a smaller lift. Most `zip_bins` indicators contribute little once the anomaly ZIP segment is captured directly.
 
 **Figure 9. MLP permutation importance with a larger hidden layer**  
-![Figure 9. MLP permutation importance with a larger hidden layer](figures/fig9_mlp_hidden10_permimp.png){#fig-mlp-hidden10-permimp}
+![Figure 9. MLP permutation importance with a larger hidden layer](fig9_mlp_hidden10_permimp.png){#fig-mlp-hidden10-permimp}
 
 Across both configurations, `isweird` remains the largest contributor to discrimination, confirming that the anomaly ZIP segment is the strongest signal in the data. Increasing model complexity shifts the relative importance among several features—most noticeably `version_upgrade`, `last`, `sincepurch`, and `sex`—indicating that nonlinear interactions may be present even when the top driver is unchanged. These shifts are treated as hypothesis-generating: they motivate testing explicit interaction terms in a constrained model (e.g., logistic regression with selected interactions) rather than relying on depth alone.
 
