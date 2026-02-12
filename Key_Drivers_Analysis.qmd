@@ -55,7 +55,6 @@ from sklearn.cluster import KMeans
 ```{python}
 #| echo: false
 penguins = pd.read_csv("palmer_penguins.csv")
-penguins.head()
 ```
 
 ::: {.callout-note collapse="true"}
