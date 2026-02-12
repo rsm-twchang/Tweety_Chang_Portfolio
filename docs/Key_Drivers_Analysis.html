@@ -25,7 +25,7 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -68,6 +68,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -225,6 +228,87 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Flipper length (<code>flipper_length_mm</code>)</strong></li>
 </ul>
 <p>Species is not used during clustering; it is used afterward to interpret how clusters align with known categories.</p>
+<div id="fec34bca" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_length_mm</th>
+<th data-quarto-table-cell-role="th">bill_depth_mm</th>
+<th data-quarto-table-cell-role="th">flipper_length_mm</th>
+<th data-quarto-table-cell-role="th">body_mass_g</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.1</td>
+<td>18.7</td>
+<td>181</td>
+<td>3750</td>
+<td>male</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.5</td>
+<td>17.4</td>
+<td>186</td>
+<td>3800</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>40.3</td>
+<td>18.0</td>
+<td>195</td>
+<td>3250</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193</td>
+<td>3450</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.3</td>
+<td>20.6</td>
+<td>190</td>
+<td>3650</td>
+<td>male</td>
+<td>2007</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -237,117 +321,7 @@ Data preview (first 5 rows)
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<pre class="text"><code>species  island     bill_length_mm  bill_depth_mm  flipper_length_mm  body_mass_g  sex     year
-Adelie   Torgersen  39.1            18.7           181               3750         male    2007
-Adelie   Torgersen  39.5            17.4           186               3800         female  2007
-Adelie   Torgersen  40.3            18.0           195               3250         female  2007
-Adelie   Torgersen  36.7            19.3           193               3450         female  2007
-Adelie   Torgersen  39.3            20.6           190               3650         male    2007
-:::
-
-::: {#00bb517d .cell execution_count=3}
-``` {.python .cell-code}
-def plot_clusters(X, centroids, labels, title):
-    plt.figure(figsize=(8, 6))
-    for i in range(np.max(labels) + 1):
-        plt.scatter(X[labels == i, 0], X[labels == i, 1], label=f'Cluster {i+1}')
-    plt.scatter(centroids[:, 0], centroids[:, 1], c='black', marker='x', s=100, label='Centroids')
-    plt.xlabel('Bill Length (mm)')
-    plt.ylabel('Flipper Length (mm)')
-    plt.title(title)
-    plt.legend()
-    plt.grid(True)
-    plt.show()
-def kmeans_custom(X, k=3, max_iters=10, plot_each_step=True):
-    np.random.seed(42)
-    initial_idx = np.random.choice(X.shape[0], k, replace=False)
-    centroids = X[initial_idx]
-
-    for iteration in range(max_iters):
-        distances = np.linalg.norm(X[:, np.newaxis] - centroids, axis=2)
-        labels = np.argmin(distances, axis=1)
-
-        if plot_each_step:
-            plot_clusters(X, centroids, labels, f'Custom KMeans - Iteration {iteration + 1}')
-
-        new_centroids = np.array([X[labels == j].mean(axis=0) for j in range(k)])
-        if np.allclose(centroids, new_centroids):
-            break
-        centroids = new_centroids
-
-    return centroids, labels</code></pre>
-</div>
-</div>
-</div>
-<div id="7a8febab" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-5-output-1.png" width="668" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-5-output-2.png" width="668" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-5-output-3.png" width="668" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-5-output-4.png" width="668" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-5-output-5.png" width="668" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-5-output-6.png" width="668" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-5-output-7.png" width="668" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-5-output-8.png" width="668" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-5-output-9.png" width="668" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-5-output-10.png" width="668" height="523" class="figure-img"></p>
-</figure>
+<p>species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g sex year Adelie Torgersen 39.1 18.7 181 3750 male 2007 Adelie Torgersen 39.5 17.4 186 3800 female 2007 Adelie Torgersen 40.3 18.0 195 3250 female 2007 Adelie Torgersen 36.7 19.3 193 3450 female 2007 Adelie Torgersen 39.3 20.6 190 3650 male 2007</p>
 </div>
 </div>
 </div>
@@ -364,28 +338,6 @@ def kmeans_custom(X, k=3, max_iters=10, plot_each_step=True):
 <p><strong>Figure 3. Custom K-Means — Final clustering (Iteration 10)</strong><br>
 <img src="figures/fig_kmeans_iter10.png" id="fig-kmeans-final" class="img-fluid" alt="Figure 3. Custom K-Means — Final clustering (Iteration 10)"></p>
 <p>Iteration 10 represents the converged solution. Centroid movement is negligible relative to earlier iterations, and cluster assignments are stable. The final clustering forms three distinct groups, primarily separated by flipper length with bill length refining boundaries within clusters.</p>
-<div id="fca6c49b" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-6-output-1.png" width="668" height="523" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="c5705812" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-stdout">
-<pre><code>Custom Centroids:
- [[ 38.45304348 187.05217391]
- [ 47.6296     216.92      ]
- [ 45.95483871 196.7311828 ]]
-
-Built-in Centroids:
- [[ 39.56013986 188.13986014]
- [ 48.14375    219.29166667]
- [ 46.49680851 201.76595745]]</code></pre>
-</div>
-</div>
 </section>
 <section id="comparison-with-scikit-learn-implementation" class="level3">
 <h3 class="anchored" data-anchor-id="comparison-with-scikit-learn-implementation">Comparison with scikit-learn implementation</h3>
@@ -422,39 +374,11 @@ Built-in Centroids:
 <h4 class="anchored" data-anchor-id="within-cluster-sum-of-squares-wcss">Within-Cluster Sum of Squares (WCSS)</h4>
 <p><strong>Selecting the Number of Clusters (WCSS)</strong> <img src="figures/fig4_wcss.png" class="img-fluid" alt="Figure 4. Within-Cluster Sum of Squares (WCSS) vs.&nbsp;Number of Clusters">{fig4_wcss}</p>
 <p>WCSS decreases as the number of clusters increases, which is expected because additional clusters reduce within-group variance. The largest drop occurs between k = 2 and k = 3, after which the curve begins to flatten. This “elbow” suggests that three clusters capture most of the structure in the data without adding unnecessary complexity.</p>
-<div id="449fcb8d" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-9-output-1.png" width="662" height="470" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
 </section>
 <section id="silhouette-score" class="level4">
 <h4 class="anchored" data-anchor-id="silhouette-score">Silhouette Score</h4>
 <p><strong>Cluster Quality (Silhouette Score)</strong> <img src="figures/fig5_silhouette.png" class="img-fluid" alt="Figure 5. Silhouette Score vs.&nbsp;Number of Clusters">{fig5_silhouette}</p>
 <p>The silhouette score is highest at k = 2, but remains reasonably strong at k = 3. Because the WCSS elbow occurs at three clusters and the dataset contains three biological species, k = 3 provides a balanced and interpretable solution.</p>
-<div id="83cd57e7" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-10-output-1.png" width="662" height="470" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="ceda756f" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>[(2, 20949.785311278196, np.float64(0.6117940477662409)),
- (3, 14269.555284121907, np.float64(0.45576101830851007)),
- (4, 9587.135276652694, np.float64(0.4448839684032104)),
- (5, 7597.607576867576, np.float64(0.4104355873447603)),
- (6, 6326.305140616324, np.float64(0.4137288893863444)),
- (7, 6030.078872777223, np.float64(0.36988077481143466))]</code></pre>
-</div>
-</div>
 </section>
 </section>
 <section id="evaluation-of-cluster-quantity" class="level3">
@@ -503,15 +427,6 @@ Built-in Centroids:
 </table>
 <p>Although the silhouette score is highest at k = 2, this solution collapses two biologically distinct groups into a single cluster. The WCSS curve shows a clear elbow at <strong>k = 3</strong>, indicating substantial variance reduction when moving from 2 to 3 clusters.</p>
 <p>Because three clusters preserve meaningful morphological distinctions while still maintaining reasonable separation, <strong>k = 3</strong> provides a more interpretable segmentation.</p>
-<div id="11f0cf4e" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Key_Drivers_Analysis_files/figure-html/cell-12-output-1.png" width="758" height="566" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
 </section>
 <section id="final-clustering-result-k-3" class="level3">
 <h3 class="anchored" data-anchor-id="final-clustering-result-k-3">Final Clustering Result (k = 3)</h3>

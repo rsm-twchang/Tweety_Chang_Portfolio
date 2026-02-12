@@ -57,14 +57,10 @@ from sklearn.cluster import KMeans
 #| echo: false
 penguins = pd.read_csv("/Users/qqtweety/Downloads/mgta495/palmer_penguins.csv")
 penguins.head()
-penguins_clean = penguins[['bill_length_mm', 'flipper_length_mm']].dropna().reset_index(drop=True)
-X = penguins_clean.values
 ```
 
 ::: {.callout-note collapse="true"}
 ### Data preview (first 5 rows)
-
-```text
 species  island     bill_length_mm  bill_depth_mm  flipper_length_mm  body_mass_g  sex     year
 Adelie   Torgersen  39.1            18.7           181               3750         male    2007
 Adelie   Torgersen  39.5            17.4           186               3800         female  2007
@@ -73,43 +69,6 @@ Adelie   Torgersen  36.7            19.3           193               3450       
 Adelie   Torgersen  39.3            20.6           190               3650         male    2007
 :::
 
-```{python}
-#| echo: true
-#| warning: false
-def plot_clusters(X, centroids, labels, title):
-    plt.figure(figsize=(8, 6))
-    for i in range(np.max(labels) + 1):
-        plt.scatter(X[labels == i, 0], X[labels == i, 1], label=f'Cluster {i+1}')
-    plt.scatter(centroids[:, 0], centroids[:, 1], c='black', marker='x', s=100, label='Centroids')
-    plt.xlabel('Bill Length (mm)')
-    plt.ylabel('Flipper Length (mm)')
-    plt.title(title)
-    plt.legend()
-    plt.grid(True)
-    plt.show()
-def kmeans_custom(X, k=3, max_iters=10, plot_each_step=True):
-    np.random.seed(42)
-    initial_idx = np.random.choice(X.shape[0], k, replace=False)
-    centroids = X[initial_idx]
-
-    for iteration in range(max_iters):
-        distances = np.linalg.norm(X[:, np.newaxis] - centroids, axis=2)
-        labels = np.argmin(distances, axis=1)
-
-        if plot_each_step:
-            plot_clusters(X, centroids, labels, f'Custom KMeans - Iteration {iteration + 1}')
-
-        new_centroids = np.array([X[labels == j].mean(axis=0) for j in range(k)])
-        if np.allclose(centroids, new_centroids):
-            break
-        centroids = new_centroids
-
-    return centroids, labels
-```
-```{python}
-#| echo: false
-custom_centroids, custom_labels = kmeans_custom(X, k=3)
-```
 
 ## K-Means Clustering
 
@@ -130,22 +89,6 @@ After one update, centroids shift sharply toward high-density areas and the clus
 
 Iteration 10 represents the converged solution. Centroid movement is negligible relative to earlier iterations, and cluster assignments are stable. The final clustering forms three distinct groups, primarily separated by flipper length with bill length refining boundaries within clusters.
 
-```{python}
-#| echo: false
-sk_model = KMeans(n_clusters=3, random_state=42)
-sk_labels = sk_model.fit_predict(X)
-sk_centroids = sk_model.cluster_centers_
-
-# Plot result from sklearn
-plot_clusters(X, sk_centroids, sk_labels, "Built-in KMeans Final Result")
-```
-
-```{python}
-#| echo: false
-print("Custom Centroids:\n", custom_centroids)
-print("\nBuilt-in Centroids:\n", sk_centroids)
-```
-
 ### Comparison with scikit-learn implementation
 
 To validate the custom K-Means implementation, the final centroids are compared with those obtained from `scikit-learn`. Each centroid is shown as:
@@ -160,57 +103,17 @@ To validate the custom K-Means implementation, the final centroids are compared 
 
 The centroid locations are close across implementations. Small differences are expected due to initialization and convergence tolerance, but both methods identify the same overall cluster structure.
 
-```{python}
-#| echo: false
-from sklearn.metrics import silhouette_score
-# Store metrics for different K values
-ks = range(2, 8)
-wcss = []  # within-cluster sum of squares (inertia)
-silhouette_scores = []
-
-for k in ks:
-    kmeans = KMeans(n_clusters=k, random_state=42)
-    labels = kmeans.fit_predict(X)
-    wcss.append(kmeans.inertia_)
-    silhouette_scores.append(silhouette_score(X, labels))
-```
-
 #### Within-Cluster Sum of Squares (WCSS)
 **Selecting the Number of Clusters (WCSS)**
 ![Figure 4. Within-Cluster Sum of Squares (WCSS) vs. Number of Clusters](figures/fig4_wcss.png){fig4_wcss}
 
 WCSS decreases as the number of clusters increases, which is expected because additional clusters reduce within-group variance. The largest drop occurs between k = 2 and k = 3, after which the curve begins to flatten. This “elbow” suggests that three clusters capture most of the structure in the data without adding unnecessary complexity.
-```{python}
-#| echo: false
-plt.figure(figsize=(7, 5))
-plt.plot(ks, wcss, marker='o')
-plt.title('Within-Cluster Sum of Squares (WCSS)')
-plt.xlabel('Number of Clusters (k)')
-plt.ylabel('WCSS')
-plt.tight_layout()
-plt.show()
-```
 
 #### Silhouette Score
 **Cluster Quality (Silhouette Score)**
 ![Figure 5. Silhouette Score vs. Number of Clusters](figures/fig5_silhouette.png){fig5_silhouette}
 
 The silhouette score is highest at k = 2, but remains reasonably strong at k = 3. Because the WCSS elbow occurs at three clusters and the dataset contains three biological species, k = 3 provides a balanced and interpretable solution.
-```{python}
-#| echo: false
-plt.figure(figsize=(7, 5))
-plt.plot(ks, silhouette_scores, marker='o')
-plt.title('Silhouette Score')
-plt.xlabel('Number of Clusters (k)')
-plt.ylabel('Silhouette Score')
-plt.tight_layout()
-plt.show()
-```
-
-```{python}
-#| echo: false
-list(zip(ks, wcss, silhouette_scores))
-```
 
 ### Evaluation of Cluster Quantity
 
@@ -228,31 +131,6 @@ To select the number of clusters, WCSS and silhouette scores were computed for k
 Although the silhouette score is highest at k = 2, this solution collapses two biologically distinct groups into a single cluster. The WCSS curve shows a clear elbow at **k = 3**, indicating substantial variance reduction when moving from 2 to 3 clusters. 
 
 Because three clusters preserve meaningful morphological distinctions while still maintaining reasonable separation, **k = 3** provides a more interpretable segmentation.
-```{python}
-#| echo: false
-import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-
-# Fit KMeans for K=3
-kmeans_3 = KMeans(n_clusters=3, random_state=42)
-labels_3 = kmeans_3.fit_predict(X)
-centroids_3 = kmeans_3.cluster_centers_
-
-# Plotting function
-def plot_kmeans_clusters(X, labels, centroids):
-    plt.figure(figsize=(8, 6))
-    colors = ['red', 'gold', 'magenta']
-    for i in range(3):
-        plt.scatter(X[labels == i, 0], X[labels == i, 1], s=10, color=colors[i], alpha=0.7)
-        plt.scatter(centroids[i, 0], centroids[i, 1], c='black', s=100, edgecolors='black', linewidths=1.5)
-    plt.title('K-Means Clustering (K = 3)')
-    plt.xlabel('Bill Length (mm)')
-    plt.ylabel('Flipper Length (mm)')
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
-plot_kmeans_clusters(X, labels_3, centroids_3)
-```
 
 ### Final Clustering Result (k = 3)
 ![Figure 6. K-Means clustering result (k = 3)](figures/fig6_kmeans_k3.png){fig6_kmeans_k3}
