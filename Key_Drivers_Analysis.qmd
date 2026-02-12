@@ -47,8 +47,6 @@ K-Means is fit using two continuous features:
 Species is not used during clustering; it is used afterward to interpret how clusters align with known categories.
 ```{python}
 #| echo: false
-import warnings
-warnings.filterwarnings("ignore")
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -56,7 +54,7 @@ from sklearn.cluster import KMeans
 ```
 
 ```{python}
-#| echo: true
+#| echo: false
 penguins = pd.read_csv("/Users/qqtweety/Downloads/mgta495/palmer_penguins.csv")
 penguins.head()
 penguins_clean = penguins[['bill_length_mm', 'flipper_length_mm']].dropna().reset_index(drop=True)
@@ -109,7 +107,7 @@ def kmeans_custom(X, k=3, max_iters=10, plot_each_step=True):
     return centroids, labels
 ```
 ```{python}
-#| echo: true
+#| echo: false
 custom_centroids, custom_labels = kmeans_custom(X, k=3)
 ```
 
@@ -133,7 +131,7 @@ After one update, centroids shift sharply toward high-density areas and the clus
 Iteration 10 represents the converged solution. Centroid movement is negligible relative to earlier iterations, and cluster assignments are stable. The final clustering forms three distinct groups, primarily separated by flipper length with bill length refining boundaries within clusters.
 
 ```{python}
-#| echo: true
+#| echo: false
 sk_model = KMeans(n_clusters=3, random_state=42)
 sk_labels = sk_model.fit_predict(X)
 sk_centroids = sk_model.cluster_centers_
@@ -143,7 +141,7 @@ plot_clusters(X, sk_centroids, sk_labels, "Built-in KMeans Final Result")
 ```
 
 ```{python}
-#| echo: true
+#| echo: false
 print("Custom Centroids:\n", custom_centroids)
 print("\nBuilt-in Centroids:\n", sk_centroids)
 ```
@@ -163,7 +161,7 @@ To validate the custom K-Means implementation, the final centroids are compared 
 The centroid locations are close across implementations. Small differences are expected due to initialization and convergence tolerance, but both methods identify the same overall cluster structure.
 
 ```{python}
-#| echo: true
+#| echo: false
 from sklearn.metrics import silhouette_score
 # Store metrics for different K values
 ks = range(2, 8)
@@ -183,7 +181,7 @@ for k in ks:
 
 WCSS decreases as the number of clusters increases, which is expected because additional clusters reduce within-group variance. The largest drop occurs between k = 2 and k = 3, after which the curve begins to flatten. This “elbow” suggests that three clusters capture most of the structure in the data without adding unnecessary complexity.
 ```{python}
-#| echo: true
+#| echo: false
 plt.figure(figsize=(7, 5))
 plt.plot(ks, wcss, marker='o')
 plt.title('Within-Cluster Sum of Squares (WCSS)')
@@ -199,7 +197,7 @@ plt.show()
 
 The silhouette score is highest at k = 2, but remains reasonably strong at k = 3. Because the WCSS elbow occurs at three clusters and the dataset contains three biological species, k = 3 provides a balanced and interpretable solution.
 ```{python}
-#| echo: true
+#| echo: false
 plt.figure(figsize=(7, 5))
 plt.plot(ks, silhouette_scores, marker='o')
 plt.title('Silhouette Score')
@@ -210,7 +208,7 @@ plt.show()
 ```
 
 ```{python}
-#| echo: true
+#| echo: false
 list(zip(ks, wcss, silhouette_scores))
 ```
 
@@ -231,7 +229,7 @@ Although the silhouette score is highest at k = 2, this solution collapses two b
 
 Because three clusters preserve meaningful morphological distinctions while still maintaining reasonable separation, **k = 3** provides a more interpretable segmentation.
 ```{python}
-#| echo: true
+#| echo: false
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
