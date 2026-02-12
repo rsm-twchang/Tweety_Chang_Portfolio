@@ -36,13 +36,15 @@ The predictors describe customer location, business indicators, and purchase beh
 - **`training` = 0** indicates the validation sample (30%).  
 Model selection and thresholding decisions are based on validation performance.
 
-### Data dictionary
+::: {.callout-note collapse="true"}
+## Data dictionary
+
 | Variable | Description |
 |---|---|
 | `id` | Small business customer ID |
 | `zip5` | 5-digit ZIP code (00000 = unknown, 99999 = international ZIPs) |
-| `zip_bins` | ZIP-code bins (≈20 roughly equal-sized bins from lowest to highest ZIP number) |
-| `sex` | Gender identity: Female, Male, or Unknown |
+| `zip_bins` | ZIP-code bins (~20 roughly equal-sized bins from lowest to highest ZIP number) |
+| `sex` | Gender: Female, Male, or Unknown |
 | `bizflag` | Business flag: address contains a business name (1 = yes, 0 = no/unknown) |
 | `numords` | Number of Intuit Direct orders in the previous 36 months |
 | `dollars` | Total dollars ordered from Intuit Direct in the previous 36 months |
@@ -53,8 +55,7 @@ Model selection and thresholding decisions are based on validation performance.
 | `upgraded` | 1 if customer upgraded previously (vs. purchasing a base version); 0 otherwise |
 | `res1` | Response to wave-1 mailing ("Yes" / "No") |
 | `training` | Split indicator (1 = training, 0 = validation) |
-
-------
+:::
 
 ## Exploratory Analysis
 
@@ -63,30 +64,30 @@ Wave-1 response varies materially across `zip_bins`. One segment is a clear outl
 
 **Wave-1 response rate by ZIP bin (sorted by response rate)**
 
-| zip_bins | response_rate (`res1_yes`) | n |
+| `zip_bins` | `res1_yes` response rate | `n` |
 |---:|---:|---:|
-| 1  | 0.218525 | 3757 |
-| 18 | 0.051934 | 3774 |
-| 12 | 0.049281 | 3754 |
-| 19 | 0.043747 | 3726 |
-| 2  | 0.043258 | 3745 |
-| 4  | 0.041589 | 3751 |
-| 17 | 0.039498 | 3747 |
-| 20 | 0.039221 | 3748 |
-| 10 | 0.038215 | 3742 |
-| 11 | 0.037877 | 3749 |
-| 7  | 0.037323 | 3751 |
-| 16 | 0.037077 | 3749 |
-| 6  | 0.036820 | 3748 |
-| 8  | 0.036553 | 3748 |
-| 9  | 0.036465 | 3757 |
-| 14 | 0.036041 | 3718 |
-| 15 | 0.035181 | 3752 |
-| 3  | 0.034124 | 3751 |
-| 13 | 0.034109 | 3782 |
-| 5  | 0.033058 | 3751 |
+| 1  | 0.219 | 3,757 |
+| 18 | 0.052 | 3,774 |
+| 12 | 0.049 | 3,754 |
+| 19 | 0.044 | 3,726 |
+| 2  | 0.043 | 3,745 |
+| 4  | 0.042 | 3,751 |
+| 17 | 0.039 | 3,747 |
+| 20 | 0.039 | 3,748 |
+| 10 | 0.038 | 3,742 |
+| 11 | 0.038 | 3,749 |
+| 7  | 0.037 | 3,751 |
+| 16 | 0.037 | 3,749 |
+| 6  | 0.037 | 3,748 |
+| 8  | 0.037 | 3,748 |
+| 9  | 0.036 | 3,757 |
+| 14 | 0.036 | 3,718 |
+| 15 | 0.035 | 3,752 |
+| 3  | 0.034 | 3,751 |
+| 13 | 0.034 | 3,782 |
+| 5  | 0.033 | 3,751 |
 
-**Action taken.** The outlier behavior in `zip_bins = 1` is treated as a localized segment effect and is decomposed to ZIP5 to identify the driver.
+**Action taken.** `zip_bins = 1` is a clear outlier, so I drill down to ZIP5 within this bin to identify the specific codes driving the spike.
 
 ### ZIP5 drill-down within zip_bins = 1
 Two ZIP codes within `zip_bins = 1` account for the unusually high response rates at meaningful volumes:
@@ -300,12 +301,12 @@ A simple multilayer perceptron (MLP) classifier with a single hidden unit was tr
 **Figure 7. MLP (1-unit) prediction profiles across key predictors**  
 ![Figure 7. MLP (1-unit) prediction profiles across key predictors](figures/fig7_mlp1unit_prediction_profiles.png){#fig-mlp1unit-profiles}
 
+Predicted response increases sharply for `isweird = 1`. Outside the anomaly segment, effects are modest and mostly monotone: higher `numords` raises response, and larger `last` (less recent) lowers response. Differences across `version_upgrade` remain visible, while `sex`, `bizflag`, `sincepurch`, and most `zip_bins` variation are small in the plotted range.
+
 **Figure 8. MLP (1-unit) permutation importance (AUC decrease)**  
 ![Figure 8. MLP (1-unit) permutation importance (AUC decrease)](figures/fig8_mlp1unit_permutation_importance.png){#fig-mlp1unit-permimp}
 
-The prediction profiles and permutation importance ranking mirror the logistic results. `isweird` remains the dominant signal, followed by purchase recency (`last`) and version path (`version_upgrade`), with `numords` providing moderate lift. Most `zip_bins` indicators contribute little once the anomaly ZIP behavior is isolated.
-
-A one-unit MLP is a minimal nonlinear extension and, in practice, behaves similarly to a generalized linear model for this feature set. Because this configuration did not surface new segment structure or materially different drivers, it was treated as a baseline neural-network check rather than a candidate final model.
+Permutation importance is concentrated in `isweird`, followed by `last` and `version_upgrade`, with `numords` providing a smaller lift. Most `zip_bins` indicators contribute little once the anomaly ZIP segment is captured directly.
 
 **Figure 9. MLP permutation importance with a larger hidden layer**  
 ![Figure 9. MLP permutation importance with a larger hidden layer](figures/fig9_mlp_hidden10_permimp.png){#fig-mlp-hidden10-permimp}

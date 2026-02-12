@@ -48,14 +48,16 @@ mean_patents = df.groupby('iscustomer')['patents'].mean().reset_index(name='Mean
 print(mean_patents)
 ```
 
-### Variables
+::: {.callout-note collapse="true"}
+### Data dictionary
 
-| Variable   | Description |
-|-----------|-------------|
-| `patents`  | Number of patents awarded in the last 5 years (count outcome) |
-| `region`   | Firm geographic region (categorical: Midwest, Southwest, Northwest, Northeast, etc.) |
-| `age`      | Years since incorporation (continuous) |
-| `iscustomer` | Blueprinty software user indicator (1 = customer, 0 = non-customer) |
+| Variable       | Description |
+|:--------------|:------------|
+| `patents`      | Number of patents awarded in the last 5 years (count outcome) |
+| `region`       | Firm geographic region (categorical: Midwest, Southwest, Northwest, Northeast, etc.) |
+| `age`          | Years since incorporation (continuous) |
+| `iscustomer`   | Blueprinty software user indicator (1 = customer, 0 = non-customer) |
+:::
 
 ### Descriptive comparison: patents by customer status
 

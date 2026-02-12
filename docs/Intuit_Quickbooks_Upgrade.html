@@ -138,7 +138,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#outcome-definition" id="toc-outcome-definition" class="nav-link" data-scroll-target="#outcome-definition">Outcome definition</a></li>
   <li><a href="#predictor-variables-summary" id="toc-predictor-variables-summary" class="nav-link" data-scroll-target="#predictor-variables-summary">Predictor variables (summary)</a></li>
   <li><a href="#trainvalidation-split" id="toc-trainvalidation-split" class="nav-link" data-scroll-target="#trainvalidation-split">Train/validation split</a></li>
-  <li><a href="#data-dictionary" id="toc-data-dictionary" class="nav-link" data-scroll-target="#data-dictionary">Data dictionary</a></li>
   </ul></li>
   <li><a href="#exploratory-analysis" id="toc-exploratory-analysis" class="nav-link" data-scroll-target="#exploratory-analysis">Exploratory Analysis</a>
   <ul class="collapse">
@@ -235,9 +234,18 @@ ul.task-list li input[type="checkbox"] {
 <li><strong><code>training</code> = 0</strong> indicates the validation sample (30%).<br>
 Model selection and thresholding decisions are based on validation performance.</li>
 </ul>
-</section>
-<section id="data-dictionary" class="level3">
-<h3 class="anchored" data-anchor-id="data-dictionary">Data dictionary</h3>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Data dictionary
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -260,11 +268,11 @@ Model selection and thresholding decisions are based on validation performance.<
 </tr>
 <tr class="odd">
 <td><code>zip_bins</code></td>
-<td>ZIP-code bins (≈20 roughly equal-sized bins from lowest to highest ZIP number)</td>
+<td>ZIP-code bins (~20 roughly equal-sized bins from lowest to highest ZIP number)</td>
 </tr>
 <tr class="even">
 <td><code>sex</code></td>
-<td>Gender identity: Female, Male, or Unknown</td>
+<td>Gender: Female, Male, or Unknown</td>
 </tr>
 <tr class="odd">
 <td><code>bizflag</code></td>
@@ -308,7 +316,9 @@ Model selection and thresholding decisions are based on validation performance.<
 </tr>
 </tbody>
 </table>
-<hr>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="exploratory-analysis" class="level2">
@@ -320,115 +330,115 @@ Model selection and thresholding decisions are based on validation performance.<
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">zip_bins</th>
-<th style="text-align: right;">response_rate (<code>res1_yes</code>)</th>
-<th style="text-align: right;">n</th>
+<th style="text-align: right;"><code>zip_bins</code></th>
+<th style="text-align: right;"><code>res1_yes</code> response rate</th>
+<th style="text-align: right;"><code>n</code></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">0.218525</td>
-<td style="text-align: right;">3757</td>
+<td style="text-align: right;">0.219</td>
+<td style="text-align: right;">3,757</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">18</td>
-<td style="text-align: right;">0.051934</td>
-<td style="text-align: right;">3774</td>
+<td style="text-align: right;">0.052</td>
+<td style="text-align: right;">3,774</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">12</td>
-<td style="text-align: right;">0.049281</td>
-<td style="text-align: right;">3754</td>
+<td style="text-align: right;">0.049</td>
+<td style="text-align: right;">3,754</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">19</td>
-<td style="text-align: right;">0.043747</td>
-<td style="text-align: right;">3726</td>
+<td style="text-align: right;">0.044</td>
+<td style="text-align: right;">3,726</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">0.043258</td>
-<td style="text-align: right;">3745</td>
+<td style="text-align: right;">0.043</td>
+<td style="text-align: right;">3,745</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">0.041589</td>
-<td style="text-align: right;">3751</td>
+<td style="text-align: right;">0.042</td>
+<td style="text-align: right;">3,751</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">17</td>
-<td style="text-align: right;">0.039498</td>
-<td style="text-align: right;">3747</td>
+<td style="text-align: right;">0.039</td>
+<td style="text-align: right;">3,747</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">20</td>
-<td style="text-align: right;">0.039221</td>
-<td style="text-align: right;">3748</td>
+<td style="text-align: right;">0.039</td>
+<td style="text-align: right;">3,748</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">10</td>
-<td style="text-align: right;">0.038215</td>
-<td style="text-align: right;">3742</td>
+<td style="text-align: right;">0.038</td>
+<td style="text-align: right;">3,742</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">11</td>
-<td style="text-align: right;">0.037877</td>
-<td style="text-align: right;">3749</td>
+<td style="text-align: right;">0.038</td>
+<td style="text-align: right;">3,749</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">7</td>
-<td style="text-align: right;">0.037323</td>
-<td style="text-align: right;">3751</td>
+<td style="text-align: right;">0.037</td>
+<td style="text-align: right;">3,751</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">16</td>
-<td style="text-align: right;">0.037077</td>
-<td style="text-align: right;">3749</td>
+<td style="text-align: right;">0.037</td>
+<td style="text-align: right;">3,749</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">0.036820</td>
-<td style="text-align: right;">3748</td>
+<td style="text-align: right;">0.037</td>
+<td style="text-align: right;">3,748</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">8</td>
-<td style="text-align: right;">0.036553</td>
-<td style="text-align: right;">3748</td>
+<td style="text-align: right;">0.037</td>
+<td style="text-align: right;">3,748</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">0.036465</td>
-<td style="text-align: right;">3757</td>
+<td style="text-align: right;">0.036</td>
+<td style="text-align: right;">3,757</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">14</td>
-<td style="text-align: right;">0.036041</td>
-<td style="text-align: right;">3718</td>
+<td style="text-align: right;">0.036</td>
+<td style="text-align: right;">3,718</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">15</td>
-<td style="text-align: right;">0.035181</td>
-<td style="text-align: right;">3752</td>
+<td style="text-align: right;">0.035</td>
+<td style="text-align: right;">3,752</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">0.034124</td>
-<td style="text-align: right;">3751</td>
+<td style="text-align: right;">0.034</td>
+<td style="text-align: right;">3,751</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">13</td>
-<td style="text-align: right;">0.034109</td>
-<td style="text-align: right;">3782</td>
+<td style="text-align: right;">0.034</td>
+<td style="text-align: right;">3,782</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">0.033058</td>
-<td style="text-align: right;">3751</td>
+<td style="text-align: right;">0.033</td>
+<td style="text-align: right;">3,751</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Action taken.</strong> The outlier behavior in <code>zip_bins = 1</code> is treated as a localized segment effect and is decomposed to ZIP5 to identify the driver.</p>
+<p><strong>Action taken.</strong> <code>zip_bins = 1</code> is a clear outlier, so I drill down to ZIP5 within this bin to identify the specific codes driving the spike.</p>
 </section>
 <section id="zip5-drill-down-within-zip_bins-1" class="level3">
 <h3 class="anchored" data-anchor-id="zip5-drill-down-within-zip_bins-1">ZIP5 drill-down within zip_bins = 1</h3>
@@ -698,10 +708,10 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 <p>A simple multilayer perceptron (MLP) classifier with a single hidden unit was trained on the same inputs used in the logistic model (including <code>isweird</code> and <code>version_upgrade</code>). The objective of this step was to test whether a nonlinear learner identifies materially different structure or improves ranking beyond the logistic specification.</p>
 <p><strong>Figure 7. MLP (1-unit) prediction profiles across key predictors</strong><br>
 <img src="figures/fig7_mlp1unit_prediction_profiles.png" id="fig-mlp1unit-profiles" class="img-fluid" alt="Figure 7. MLP (1-unit) prediction profiles across key predictors"></p>
+<p>Predicted response increases sharply for <code>isweird = 1</code>. Outside the anomaly segment, effects are modest and mostly monotone: higher <code>numords</code> raises response, and larger <code>last</code> (less recent) lowers response. Differences across <code>version_upgrade</code> remain visible, while <code>sex</code>, <code>bizflag</code>, <code>sincepurch</code>, and most <code>zip_bins</code> variation are small in the plotted range.</p>
 <p><strong>Figure 8. MLP (1-unit) permutation importance (AUC decrease)</strong><br>
 <img src="figures/fig8_mlp1unit_permutation_importance.png" id="fig-mlp1unit-permimp" class="img-fluid" alt="Figure 8. MLP (1-unit) permutation importance (AUC decrease)"></p>
-<p>The prediction profiles and permutation importance ranking mirror the logistic results. <code>isweird</code> remains the dominant signal, followed by purchase recency (<code>last</code>) and version path (<code>version_upgrade</code>), with <code>numords</code> providing moderate lift. Most <code>zip_bins</code> indicators contribute little once the anomaly ZIP behavior is isolated.</p>
-<p>A one-unit MLP is a minimal nonlinear extension and, in practice, behaves similarly to a generalized linear model for this feature set. Because this configuration did not surface new segment structure or materially different drivers, it was treated as a baseline neural-network check rather than a candidate final model.</p>
+<p>Permutation importance is concentrated in <code>isweird</code>, followed by <code>last</code> and <code>version_upgrade</code>, with <code>numords</code> providing a smaller lift. Most <code>zip_bins</code> indicators contribute little once the anomaly ZIP segment is captured directly.</p>
 <p><strong>Figure 9. MLP permutation importance with a larger hidden layer</strong><br>
 <img src="figures/fig9_mlp_hidden10_permimp.png" id="fig-mlp-hidden10-permimp" class="img-fluid" alt="Figure 9. MLP permutation importance with a larger hidden layer"></p>
 <p>Across both configurations, <code>isweird</code> remains the largest contributor to discrimination, confirming that the anomaly ZIP segment is the strongest signal in the data. Increasing model complexity shifts the relative importance among several features—most noticeably <code>version_upgrade</code>, <code>last</code>, <code>sincepurch</code>, and <code>sex</code>—indicating that nonlinear interactions may be present even when the top driver is unchanged. These shifts are treated as hypothesis-generating: they motivate testing explicit interaction terms in a constrained model (e.g., logistic regression with selected interactions) rather than relying on depth alone.</p>

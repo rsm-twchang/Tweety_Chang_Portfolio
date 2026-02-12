@@ -166,7 +166,6 @@ window.Quarto = {
   <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
   <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a>
   <ul class="collapse">
-  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
   <li><a href="#descriptive-comparison-patents-by-customer-status" id="toc-descriptive-comparison-patents-by-customer-status" class="nav-link" data-scroll-target="#descriptive-comparison-patents-by-customer-status">Descriptive comparison: patents by customer status</a></li>
   </ul></li>
   <li><a href="#poisson-model-specification-and-estimation" id="toc-poisson-model-specification-and-estimation" class="nav-link" data-scroll-target="#poisson-model-specification-and-estimation">Poisson Model Specification and Estimation</a>
@@ -229,39 +228,51 @@ window.Quarto = {
 </section>
 <section id="data-description" class="level2">
 <h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
-<section id="variables" class="level3">
-<h3 class="anchored" data-anchor-id="variables">Variables</h3>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Data dictionary
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 45%">
-<col style="width: 54%">
+<col style="width: 53%">
+<col style="width: 46%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Variable</th>
-<th>Description</th>
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>patents</code></td>
-<td>Number of patents awarded in the last 5 years (count outcome)</td>
+<td style="text-align: left;"><code>patents</code></td>
+<td style="text-align: left;">Number of patents awarded in the last 5 years (count outcome)</td>
 </tr>
 <tr class="even">
-<td><code>region</code></td>
-<td>Firm geographic region (categorical: Midwest, Southwest, Northwest, Northeast, etc.)</td>
+<td style="text-align: left;"><code>region</code></td>
+<td style="text-align: left;">Firm geographic region (categorical: Midwest, Southwest, Northwest, Northeast, etc.)</td>
 </tr>
 <tr class="odd">
-<td><code>age</code></td>
-<td>Years since incorporation (continuous)</td>
+<td style="text-align: left;"><code>age</code></td>
+<td style="text-align: left;">Years since incorporation (continuous)</td>
 </tr>
 <tr class="even">
-<td><code>iscustomer</code></td>
-<td>Blueprinty software user indicator (1 = customer, 0 = non-customer)</td>
+<td style="text-align: left;"><code>iscustomer</code></td>
+<td style="text-align: left;">Blueprinty software user indicator (1 = customer, 0 = non-customer)</td>
 </tr>
 </tbody>
 </table>
-</section>
+</div>
+</div>
+</div>
 <section id="descriptive-comparison-patents-by-customer-status" class="level3">
 <h3 class="anchored" data-anchor-id="descriptive-comparison-patents-by-customer-status">Descriptive comparison: patents by customer status</h3>
 <table class="caption-top table">
