@@ -197,7 +197,7 @@ Odds ratios (OR) below are interpreted holding other variables constant:
 Response probability is dominated by geography: `zip_bins = 1` is a clear outlier, while other bins remain near a low baseline. Behavioral variables show predictable structure—probability increases with `numords` and is higher for `upgraded = 1` and `version1 = 1`. Recency is strongly negative: response probability declines as `last` increases. `sex`, `bizflag`, and `sincepurch` are nearly flat over the plotted ranges, suggesting limited incremental value in this specification.
 
 **Figure 2. LR1 permutation importance (AUC decrease)**  
-![Figure 2. LR1 permutation importance (AUC decrease)](fig2_poisson_loglik_vs_lambda.png){#fig-lr1-permimp}
+![Figure 2. LR1 permutation importance (AUC decrease)](figures/fig2_lr1_permutation_importance.png){#fig-lr1-permimp}
 
 Permutation importance ranks `zip_bins` as the strongest driver of model discrimination, followed by `upgraded` and `last`. `numords` and `version1` provide moderate contribution; remaining variables add minimal lift. The concentration of signal in the geography feature supports isolating the outlier ZIP behavior explicitly (via `isweird`) rather than relying on broad ZIP binning alone.
 

@@ -603,7 +603,7 @@ The per-dollar effect is small by construction; the practical impact depends on 
 <img src="figures/fig1_lr1_prediction_profiles.png" id="fig-lr1-profiles" class="img-fluid" alt="Figure 1. LR1 prediction profiles across key predictors"></p>
 <p>Response probability is dominated by geography: <code>zip_bins = 1</code> is a clear outlier, while other bins remain near a low baseline. Behavioral variables show predictable structure—probability increases with <code>numords</code> and is higher for <code>upgraded = 1</code> and <code>version1 = 1</code>. Recency is strongly negative: response probability declines as <code>last</code> increases. <code>sex</code>, <code>bizflag</code>, and <code>sincepurch</code> are nearly flat over the plotted ranges, suggesting limited incremental value in this specification.</p>
 <p><strong>Figure 2. LR1 permutation importance (AUC decrease)</strong><br>
-<img src="fig2_poisson_loglik_vs_lambda.png" id="fig-lr1-permimp" class="img-fluid" alt="Figure 2. LR1 permutation importance (AUC decrease)"></p>
+<img src="figures/fig2_lr1_permutation_importance.png" id="fig-lr1-permimp" class="img-fluid" alt="Figure 2. LR1 permutation importance (AUC decrease)"></p>
 <p>Permutation importance ranks <code>zip_bins</code> as the strongest driver of model discrimination, followed by <code>upgraded</code> and <code>last</code>. <code>numords</code> and <code>version1</code> provide moderate contribution; remaining variables add minimal lift. The concentration of signal in the geography feature supports isolating the outlier ZIP behavior explicitly (via <code>isweird</code>) rather than relying on broad ZIP binning alone.</p>
 </section>
 <section id="lr2-enhanced-logistic-regression-anomalous-zip-isolation" class="level4">
