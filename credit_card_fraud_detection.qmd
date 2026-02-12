@@ -459,7 +459,7 @@ Although higher cutoffs increase fraud detection, they also introduce rising fal
 
 -----
 
-## Part VII – Summary
+## Summary
 
 This project developed a data-driven credit card fraud detection model using 97,852 transactions, of which approximately 2% were fraudulent. 
 
