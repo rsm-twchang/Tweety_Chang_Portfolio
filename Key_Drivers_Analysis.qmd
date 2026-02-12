@@ -8,7 +8,7 @@ callout-appearance: minimal
 
 ## Introduction
 
-Clustering helps reveal patterns when there is no target variable to predict. Here, K-Means is used to explore the *Palmer Penguins* dataset through two measurements—**bill length** and **flipper length**—to see whether the data naturally separates into distinct groups **without using species labels**. After forming clusters, we compare them back to the species categories to check how well morphology alone reflects biological differences.
+Clustering helps reveal patterns when there is no target variable to predict. Here, K-Means is used to explore the [Palmer Penguins](https://www.kaggle.com/datasets/parulpandey/palmer-archipelago-antarctica-penguin-data) dataset through two measurements—**bill length** and **flipper length**—to see whether the data naturally separates into distinct groups **without using species labels**. After forming clusters, we compare them back to the species categories to check how well morphology alone reflects biological differences.
 
 K-Means is an **unsupervised** method that assigns each observation to one of `k` clusters by minimizing within-cluster variation. Because the result depends on the choice of `k` and on initialization, it is useful to inspect how the algorithm evolves and to evaluate multiple cluster counts rather than relying on a single run.
 
@@ -105,13 +105,13 @@ The centroid locations are close across implementations. Small differences are e
 
 #### Within-Cluster Sum of Squares (WCSS)
 **Selecting the Number of Clusters (WCSS)**
-![Figure 4. Within-Cluster Sum of Squares (WCSS) vs. Number of Clusters](figures/fig4_wcss.png){fig4_wcss}
+![Figure 4. Within-Cluster Sum of Squares (WCSS) vs. Number of Clusters](figures/fig4_wcss.png){#fig4_wcss}
 
 WCSS decreases as the number of clusters increases, which is expected because additional clusters reduce within-group variance. The largest drop occurs between k = 2 and k = 3, after which the curve begins to flatten. This “elbow” suggests that three clusters capture most of the structure in the data without adding unnecessary complexity.
 
 #### Silhouette Score
 **Cluster Quality (Silhouette Score)**
-![Figure 5. Silhouette Score vs. Number of Clusters](figures/fig5_silhouette.png){fig5_silhouette}
+![Figure 5. Silhouette Score vs. Number of Clusters](figures/fig5_silhouette.png) {#fig5_silhouette}
 
 The silhouette score is highest at k = 2, but remains reasonably strong at k = 3. Because the WCSS elbow occurs at three clusters and the dataset contains three biological species, k = 3 provides a balanced and interpretable solution.
 
@@ -133,7 +133,7 @@ Although the silhouette score is highest at k = 2, this solution collapses two b
 Because three clusters preserve meaningful morphological distinctions while still maintaining reasonable separation, **k = 3** provides a more interpretable segmentation.
 
 ### Final Clustering Result (k = 3)
-![Figure 6. K-Means clustering result (k = 3)](figures/fig6_kmeans_k3.png){fig6_kmeans_k3}
+![Figure 6. K-Means clustering result (k = 3)](figures/fig6_kmeans_k3.png){#fig6_kmeans_k3}
 
 With k = 3, the algorithm separates the data into three distinct groups. The upper cluster captures penguins with the longest flippers and bills, the lower-left cluster represents shorter measurements, and the middle cluster occupies the intermediate range. Centroids (black markers) lie near the center of each group, indicating stable cluster formation.
 

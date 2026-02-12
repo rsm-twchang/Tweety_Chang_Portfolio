@@ -187,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Clustering helps reveal patterns when there is no target variable to predict. Here, K-Means is used to explore the <em>Palmer Penguins</em> dataset through two measurements—<strong>bill length</strong> and <strong>flipper length</strong>—to see whether the data naturally separates into distinct groups <strong>without using species labels</strong>. After forming clusters, we compare them back to the species categories to check how well morphology alone reflects biological differences.</p>
+<p>Clustering helps reveal patterns when there is no target variable to predict. Here, K-Means is used to explore the <a href="https://www.kaggle.com/datasets/parulpandey/palmer-archipelago-antarctica-penguin-data">Palmer Penguins</a> dataset through two measurements—<strong>bill length</strong> and <strong>flipper length</strong>—to see whether the data naturally separates into distinct groups <strong>without using species labels</strong>. After forming clusters, we compare them back to the species categories to check how well morphology alone reflects biological differences.</p>
 <p>K-Means is an <strong>unsupervised</strong> method that assigns each observation to one of <code>k</code> clusters by minimizing within-cluster variation. Because the result depends on the choice of <code>k</code> and on initialization, it is useful to inspect how the algorithm evolves and to evaluate multiple cluster counts rather than relying on a single run.</p>
 <p>This page includes a from-scratch implementation alongside the <code>scikit-learn</code> version, visualizes centroid updates across iterations, and uses <strong>WCSS</strong> and <strong>silhouette score</strong> to guide the choice of <code>k</code>.</p>
 <hr>
@@ -228,7 +228,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Flipper length (<code>flipper_length_mm</code>)</strong></li>
 </ul>
 <p>Species is not used during clustering; it is used afterward to interpret how clusters align with known categories.</p>
-<div id="58c88743" class="cell" data-execution_count="2">
+<div id="132fc54f" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
@@ -372,12 +372,12 @@ Data preview (first 5 rows)
 <p>The centroid locations are close across implementations. Small differences are expected due to initialization and convergence tolerance, but both methods identify the same overall cluster structure.</p>
 <section id="within-cluster-sum-of-squares-wcss" class="level4">
 <h4 class="anchored" data-anchor-id="within-cluster-sum-of-squares-wcss">Within-Cluster Sum of Squares (WCSS)</h4>
-<p><strong>Selecting the Number of Clusters (WCSS)</strong> <img src="figures/fig4_wcss.png" class="img-fluid" alt="Figure 4. Within-Cluster Sum of Squares (WCSS) vs.&nbsp;Number of Clusters">{fig4_wcss}</p>
+<p><strong>Selecting the Number of Clusters (WCSS)</strong> <img src="figures/fig4_wcss.png" id="fig4_wcss" class="img-fluid" alt="Figure 4. Within-Cluster Sum of Squares (WCSS) vs.&nbsp;Number of Clusters"></p>
 <p>WCSS decreases as the number of clusters increases, which is expected because additional clusters reduce within-group variance. The largest drop occurs between k = 2 and k = 3, after which the curve begins to flatten. This “elbow” suggests that three clusters capture most of the structure in the data without adding unnecessary complexity.</p>
 </section>
 <section id="silhouette-score" class="level4">
 <h4 class="anchored" data-anchor-id="silhouette-score">Silhouette Score</h4>
-<p><strong>Cluster Quality (Silhouette Score)</strong> <img src="figures/fig5_silhouette.png" class="img-fluid" alt="Figure 5. Silhouette Score vs.&nbsp;Number of Clusters">{fig5_silhouette}</p>
+<p><strong>Cluster Quality (Silhouette Score)</strong> <img src="figures/fig5_silhouette.png" class="img-fluid" alt="Figure 5. Silhouette Score vs.&nbsp;Number of Clusters"> {#fig5_silhouette}</p>
 <p>The silhouette score is highest at k = 2, but remains reasonably strong at k = 3. Because the WCSS elbow occurs at three clusters and the dataset contains three biological species, k = 3 provides a balanced and interpretable solution.</p>
 </section>
 </section>
@@ -430,7 +430,12 @@ Data preview (first 5 rows)
 </section>
 <section id="final-clustering-result-k-3" class="level3">
 <h3 class="anchored" data-anchor-id="final-clustering-result-k-3">Final Clustering Result (k = 3)</h3>
-<p><img src="figures/fig6_kmeans_k3.png" class="img-fluid" alt="Figure 6. K-Means clustering result (k = 3)">{fig6_kmeans_k3}</p>
+<div id="fig6_kmeans_k3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figures/fig6_kmeans_k3.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 6. K-Means clustering result (k = 3)</figcaption>
+</figure>
+</div>
 <p>With k = 3, the algorithm separates the data into three distinct groups. The upper cluster captures penguins with the longest flippers and bills, the lower-left cluster represents shorter measurements, and the middle cluster occupies the intermediate range. Centroids (black markers) lie near the center of each group, indicating stable cluster formation.</p>
 <hr>
 </section>
