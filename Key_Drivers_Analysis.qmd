@@ -53,22 +53,14 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 ```
 
+### Data preview (first 5 rows)
+::: {.callout-note collapse="true"}
 ```{python}
-#| echo: false
-penguins = pd.read_csv("/Users/qqtweety/Downloads/mgta495/palmer_penguins.csv")
+#| echo: true
+penguins = pd.read_csv("palmer_penguins.csv")
 penguins.head()
 ```
-
-::: {.callout-note collapse="true"}
-### Data preview (first 5 rows)
-species  island     bill_length_mm  bill_depth_mm  flipper_length_mm  body_mass_g  sex     year
-Adelie   Torgersen  39.1            18.7           181               3750         male    2007
-Adelie   Torgersen  39.5            17.4           186               3800         female  2007
-Adelie   Torgersen  40.3            18.0           195               3250         female  2007
-Adelie   Torgersen  36.7            19.3           193               3450         female  2007
-Adelie   Torgersen  39.3            20.6           190               3650         male    2007
 :::
-
 
 ## K-Means Clustering
 
@@ -105,13 +97,13 @@ The centroid locations are close across implementations. Small differences are e
 
 #### Within-Cluster Sum of Squares (WCSS)
 **Selecting the Number of Clusters (WCSS)**
-![Figure 4. Within-Cluster Sum of Squares (WCSS) vs. Number of Clusters](figures/fig4_wcss.png){#fig4_wcss}
+![Figure 4. Within-Cluster Sum of Squares (WCSS) vs. Number of Clusters ](figures/fig4_wcss.png){#fig4_wcss}
 
 WCSS decreases as the number of clusters increases, which is expected because additional clusters reduce within-group variance. The largest drop occurs between k = 2 and k = 3, after which the curve begins to flatten. This “elbow” suggests that three clusters capture most of the structure in the data without adding unnecessary complexity.
 
 #### Silhouette Score
 **Cluster Quality (Silhouette Score)**
-![Figure 5. Silhouette Score vs. Number of Clusters](figures/fig5_silhouette.png) {#fig5_silhouette}
+![Figure 5. Silhouette Score vs. Number of Clusters](figures/fig5_silhouette.png){#fig5_silhouette}
 
 The silhouette score is highest at k = 2, but remains reasonably strong at k = 3. Because the WCSS elbow occurs at three clusters and the dataset contains three biological species, k = 3 provides a balanced and interpretable solution.
 
