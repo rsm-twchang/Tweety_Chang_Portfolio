@@ -6,35 +6,45 @@ date: "2025-06-06"
 callout-appearance: minimal
 ---
 
-### Introduction
+## Introduction
 
-This analysis applies the **K-Means clustering algorithm** to the *Palmer Penguins* dataset, using two key morphological measurements: **bill length** and **flipper length**. The goal is to explore whether natural groupings of penguins can be uncovered without using species labels, and how well these groupings align with biological categories.
+Clustering helps reveal patterns when there is no target variable to predict. Here, K-Means is used to explore the *Palmer Penguins* dataset through two measurements—**bill length** and **flipper length**—to see whether the data naturally separates into distinct groups **without using species labels**. After forming clusters, we compare them back to the species categories to check how well morphology alone reflects biological differences.
 
-Unlike supervised learning, clustering is an **unsupervised machine learning method**, meaning it identifies structure in the data without relying on labeled outcomes. K-Means is one of the most common techniques for this purpose, partitioning observations into `k` clusters based on feature similarity.
+K-Means is an **unsupervised** method that assigns each observation to one of `k` clusters by minimizing within-cluster variation. Because the result depends on the choice of `k` and on initialization, it is useful to inspect how the algorithm evolves and to evaluate multiple cluster counts rather than relying on a single run.
 
-In this project, we implement K-Means both **from scratch** and using **scikit-learn**,
-visualize the clustering process across iterations, compare our custom implementation to the built-in version, evaluate different values of `k` using **WCSS** and **silhouette scores** to identify the optimal number of clusters.
+This page includes a from-scratch implementation alongside the `scikit-learn` version, visualizes centroid updates across iterations, and uses **WCSS** and **silhouette score** to guide the choice of `k`.
 
-This exercise provides both technical practice in unsupervised learning and biological insight into how penguin species differ morphologically.
+-----
 
-### Palmer Penguins
+## Objective
 
-The *Palmer Penguins* dataset provides biological measurements for three penguin species native to islands in the Palmer Archipelago, Antarctica: **Adélie**, **Chinstrap**, and **Gentoo**.
+The objective of this analysis is to apply K-Means clustering to the *Palmer Penguins* dataset using **bill length** and **flipper length**, and to examine whether these two measurements alone reveal meaningful structure without using species labels. To make the method transparent, K-Means is implemented both **from scratch** and with `scikit-learn`, and the results are compared in terms of centroid locations and cluster assignments. We also visualize how centroids and memberships change across iterations to understand convergence behavior. Finally, we evaluate multiple values of `k` using **within-cluster sum of squares (WCSS)** and **silhouette score**, then interpret the selected clustering by comparing groups back to species categories after the clustering step.
 
-Each row in the dataset corresponds to a single penguin and includes variables such as:
+-----
 
-- `species`: species name (Adélie, Chinstrap, or Gentoo)
-- `island`: island where the penguin was observed
-- `bill_length_mm`: bill length (mm)
-- `bill_depth_mm`: bill depth (mm)
-- `flipper_length_mm`: flipper length (mm)
-- `body_mass_g`: body mass (g)
-- `sex`: biological sex (if known)
-- `year`: year of observation
+## Data Description
 
-For this analysis, we focus on two numerical features: **Bill Length (`bill_length_mm`)** , **Flipper Length (`flipper_length_mm`)**
+This project uses the *Palmer Penguins* dataset. Each row represents one observed penguin and includes metadata (species, island, sex, year) plus physical measurements recorded in standard units.
 
-These measurements are used as inputs to clustering algorithms to explore natural groupings in the data without relying on species labels.
+### Variables
+
+- `species`: Adélie, Chinstrap, or Gentoo  
+- `island`: island of observation  
+- `bill_length_mm`: bill length (mm)  
+- `bill_depth_mm`: bill depth (mm)  
+- `flipper_length_mm`: flipper length (mm)  
+- `body_mass_g`: body mass (g)  
+- `sex`: recorded biological sex (when available)  
+- `year`: observation year  
+
+### Features used for clustering
+
+K-Means is fit using two continuous features:
+
+- **Bill length (`bill_length_mm`)**
+- **Flipper length (`flipper_length_mm`)**
+
+Species is not used during clustering; it is used afterward to interpret how clusters align with known categories.
 ```{python}
 #| warning: false
 #| echo: false
@@ -46,22 +56,27 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 ```
 
-:::: {.callout-note collapse="true"}
-### Data
 ```{python}
 #| echo: true
 #| warning: false
 penguins = pd.read_csv("/Users/qqtweety/Downloads/mgta495/palmer_penguins.csv")
 penguins.head()
-
 penguins_clean = penguins[['bill_length_mm', 'flipper_length_mm']].dropna().reset_index(drop=True)
 X = penguins_clean.values
 ```
 
-::::
+::: {.callout-note collapse="true"}
+### Data preview (first 5 rows)
 
-:::: {.callout-note collapse="true"}
-### Def plot clusters
+```text
+species  island     bill_length_mm  bill_depth_mm  flipper_length_mm  body_mass_g  sex     year
+Adelie   Torgersen  39.1            18.7           181               3750         male    2007
+Adelie   Torgersen  39.5            17.4           186               3800         female  2007
+Adelie   Torgersen  40.3            18.0           195               3250         female  2007
+Adelie   Torgersen  36.7            19.3           193               3450         female  2007
+Adelie   Torgersen  39.3            20.6           190               3650         male    2007
+:::
+
 ```{python}
 #| echo: true
 #| warning: false
@@ -76,7 +91,6 @@ def plot_clusters(X, centroids, labels, title):
     plt.legend()
     plt.grid(True)
     plt.show()
-
 def kmeans_custom(X, k=3, max_iters=10, plot_each_step=True):
     np.random.seed(42)
     initial_idx = np.random.choice(X.shape[0], k, replace=False)
@@ -96,17 +110,28 @@ def kmeans_custom(X, k=3, max_iters=10, plot_each_step=True):
 
     return centroids, labels
 ```
-
-::::
-
 ```{python}
 #| echo: true
-#| message: false
-#| warning: false
-#| code-overflow: wrap
-# Run the custom KMeans and visualize
 custom_centroids, custom_labels = kmeans_custom(X, k=3)
 ```
+## K-Means Clustering
+
+### Selecting the Number of Clusters
+
+**Figure 1. Custom K-Means — Iteration 1**
+![Figure 1. Custom K-Means — Iteration 1](figures/fig_kmeans_iter1.png){#fig_kmeans_iter1}
+
+With randomly initialized centroids, clusters are still loosely defined and several regions overlap, especially in the middle of the plot. The centroid markers show starting positions that do not yet match the densest parts of the data.
+
+**Figure 2. Custom K-Means — Iteration 2**
+![Figure 2. Custom K-Means — Iteration 2](figures/fig_kmeans_iter2.png){#fig_kmeans_iter2}
+
+After one update, centroids shift sharply toward high-density areas and the cluster boundaries become more coherent. Most of the separation emerges here, with a clearer split between the high–flipper-length group and the two lower bands.
+
+**Figure 3. Custom K-Means — Final clustering (Iteration 10)**  
+![Figure 3. Custom K-Means — Final clustering (Iteration 10)](figures/fig_kmeans_iter10.png){#fig-kmeans-final}
+
+Iteration 10 represents the converged solution. Centroid movement is negligible relative to earlier iterations, and cluster assignments are stable. The final clustering forms three distinct groups, primarily separated by flipper length with bill length refining boundaries within clusters.
 
 ```{python}
 #| echo: true
@@ -122,8 +147,6 @@ sk_centroids = sk_model.cluster_centers_
 plot_clusters(X, sk_centroids, sk_labels, "Built-in KMeans Final Result")
 ```
 
-:::: {.callout-note collapse="true"}
-### Show centroid comparison
 ```{python}
 #| echo: true
 #| message: false
@@ -133,23 +156,20 @@ print("Custom Centroids:\n", custom_centroids)
 print("\nBuilt-in Centroids:\n", sk_centroids)
 ```
 
-:::
+### Comparison with scikit-learn implementation
 
-**Interpretation of Results**
+To validate the custom K-Means implementation, the final centroids are compared with those obtained from `scikit-learn`. Each centroid is shown as:
 
-The custom and built-in KMeans algorithms produced comparable clustering outcomes. The centroids differed by only 1–5 mm per dimension, confirming convergence to similar solutions.
+**(Bill Length, Flipper Length)**
 
-The built-in method placed some centroids slightly farther along the flipper-length axis, likely due to finer convergence or sensitivity to outliers.
+| Cluster | Custom Implementation | scikit-learn |
+|:--------|:---------------------|:-------------|
+| 1 | (38.45, 187.05) | (39.56, 188.14) |
+| 2 | (47.63, 216.92) | (48.14, 219.29) |
+| 3 | (45.95, 196.73) | (46.50, 201.77) |
 
-Cluster interpretation suggests:
-Cluster 1 groups penguins with shorter bills and flippers, likely Adélie.
-Cluster 2 includes those with the longest bills and flippers, likely Gentoo.
-Cluster 3 covers the intermediate range, possibly Chinstrap.
+The centroid locations are close across implementations. Small differences are expected due to initialization and convergence tolerance, but both methods identify the same overall cluster structure.
 
-Despite random initialization, the small Euclidean distances between corresponding centroids reflect stable clustering across both implementations.
-
-:::: {.callout-note collapse="true"}
-### WCSS
 ```{python}
 #| echo: true
 #| message: false
@@ -168,26 +188,60 @@ for k in ks:
     silhouette_scores.append(silhouette_score(X, labels))
 ```
 
-:::: 
----
+#### Within-Cluster Sum of Squares (WCSS)
+**Selecting the Number of Clusters (WCSS)**
+![Figure 4. Within-Cluster Sum of Squares (WCSS) vs. Number of Clusters](figures/fig4_wcss.png){fig4_wcss}
 
-### WCSS
+WCSS decreases as the number of clusters increases, which is expected because additional clusters reduce within-group variance. The largest drop occurs between k = 2 and k = 3, after which the curve begins to flatten. This “elbow” suggests that three clusters capture most of the structure in the data without adding unnecessary complexity.
 ```{python}
-# Plot WCSS and Silhouette Score
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
-ax1.plot(ks, wcss, marker='o')
-ax1.set_title('Within-Cluster Sum of Squares (WCSS)')
-ax1.set_xlabel('Number of Clusters (k)')
-ax1.set_ylabel('WCSS')
-ax2.plot(ks, silhouette_scores, marker='o')
-ax2.set_title('Silhouette Score')
-ax2.set_xlabel('Number of Clusters (k)')
-ax2.set_ylabel('Silhouette Score')
+#| echo: true
+plt.figure(figsize=(7, 5))
+plt.plot(ks, wcss, marker='o')
+plt.title('Within-Cluster Sum of Squares (WCSS)')
+plt.xlabel('Number of Clusters (k)')
+plt.ylabel('WCSS')
 plt.tight_layout()
 plt.show()
 ```
 
-### K-Means Clustering
+#### Silhouette Score
+**Cluster Quality (Silhouette Score)**
+![Figure 5. Silhouette Score vs. Number of Clusters](figures/fig5_silhouette.png){fig5_silhouette}
+
+The silhouette score is highest at k = 2, but remains reasonably strong at k = 3. Because the WCSS elbow occurs at three clusters and the dataset contains three biological species, k = 3 provides a balanced and interpretable solution.
+```{python}
+#| echo: true
+plt.figure(figsize=(7, 5))
+plt.plot(ks, silhouette_scores, marker='o')
+plt.title('Silhouette Score')
+plt.xlabel('Number of Clusters (k)')
+plt.ylabel('Silhouette Score')
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+#| echo: true
+#| message: false
+list(zip(ks, wcss, silhouette_scores))
+```
+
+### Evaluation of Cluster Quantity
+
+To select the number of clusters, WCSS and silhouette scores were computed for k = 2 to 7.
+
+| K | WCSS | Silhouette Score |
+|---:|------:|----------------:|
+| 2 | 20949.79 | 0.612 |
+| 3 | 14269.56 | **0.456** |
+| 4 | 9587.14  | 0.445 |
+| 5 | 7597.61  | 0.410 |
+| 6 | 6326.31  | 0.414 |
+| 7 | 6030.08  | 0.370 |
+
+Although the silhouette score is highest at k = 2, this solution collapses two biologically distinct groups into a single cluster. The WCSS curve shows a clear elbow at **k = 3**, indicating substantial variance reduction when moving from 2 to 3 clusters. 
+
+Because three clusters preserve meaningful morphological distinctions while still maintaining reasonable separation, **k = 3** provides a more interpretable segmentation.
 ```{python}
 #| echo: true
 #| message: false
@@ -217,534 +271,15 @@ def plot_kmeans_clusters(X, labels, centroids):
 plot_kmeans_clusters(X, labels_3, centroids_3)
 ```
 
+### Final Clustering Result (k = 3)
+![Figure 6. K-Means clustering result (k = 3)](figures/fig6_kmeans_k3.png){fig6_kmeans_k3}
 
-:::: {.callout-note collapse="true"}
-### Raw values
-```{python}
-#| echo: true
-#| message: false
-#| warning: false
-#| code-overflow: wrap
-# Return the raw values for interpretation
-list(zip(ks, wcss, silhouette_scores))
-```
+With k = 3, the algorithm separates the data into three distinct groups. The upper cluster captures penguins with the longest flippers and bills, the lower-left cluster represents shorter measurements, and the middle cluster occupies the intermediate range. Centroids (black markers) lie near the center of each group, indicating stable cluster formation.
 
-:::: 
+-----
 
-**Evaluation of Cluster Quantity**
+### Interpretation
 
-To determine the optimal number of clusters, we computed the **within-cluster sum of squares (WCSS)** and **silhouette scores** for K ranging from 2 to 7.
+The three clusters differ primarily along flipper length. One group shows substantially shorter flippers and bills, another shows the longest measurements, and the third occupies the intermediate range. 
 
-**Metric Summary**
-
-| K | WCSS     | Silhouette Score |
-|---|----------|------------------|
-| 2 | 20949.79 | **0.612**        |
-| 3 | 14269.56 | 0.456            |
-| 4 | 9587.14  | 0.445            |
-| 5 | 7597.61  | 0.410            |
-| 6 | 6326.31  | 0.414            |
-| 7 | 6030.08  | 0.370            |
-
-**Interpretation**
-
-- **WCSS** decreases with higher K, as expected, showing improved compactness.
-- **Silhouette score** peaks at **K=2**, indicating the clearest separation between clusters.
-- From **K=3 onward**, silhouette values steadily decline, suggesting diminishing cluster quality.
-
-**Recommended K**
-
-**K = 2** offers the best trade-off between compactness and separation. It is the most natural grouping for this dataset based on these metrics.
----
-
-
-:::: {.callout-note collapse="true"}
-### Set seed and parameters
-```{python}
-#| echo: true
-#| warning: false
-np.random.seed(42)
-n = 100
-# Generate features
-x1 = np.random.uniform(-3, 3, n)
-x2 = np.random.uniform(-3, 3, n)
-# Define boundary and outcome
-boundary = np.sin(4 * x1) + x1
-y = (x2 > boundary).astype(int)
-# Create DataFrame
-dat = pd.DataFrame({'x1': x1, 'x2': x2, 'y': y})
-dat.head()
-```
-
-:::: 
-
-**Synthetic Dataset for K-Nearest Neighbors**
-
-We generated a synthetic dataset with two features, `x1` and `x2`, uniformly drawn from [-3, 3]. The binary outcome variable `y` is assigned based on a non-linear boundary:
-
-$$
-y = 
-\begin{cases}
-1 & \text{if } x_2 > \sin(4x_1) + x_1 \\
-0 & \text{otherwise}
-\end{cases}
-$$
-
-This creates a wiggly decision boundary ideal for testing non-linear classifiers like KNN.
-
-**Example Records**
-
-| x1       | x2       | y |
-|----------|----------|---|
-| -0.75    | -2.81    | 0 |
-|  2.70    |  0.82    | 0 |
-|  1.39    | -1.11    | 0 |
-|  0.59    |  0.05    | 0 |
-| -2.06    |  2.45    | 1 |
-
-:::: {.callout-note collapse="true"}
-### Visualization
-```{python}
-#| echo: true
-#| message: false
-#| warning: false
-#| code-overflow: wrap
-# Plot the synthetic data with decision boundary
-plt.figure(figsize=(8, 6))
-colors = ['red' if label == 0 else 'blue' for label in dat['y']]
-plt.scatter(dat['x1'], dat['x2'], c=colors, alpha=0.7, edgecolor='k', label='Data points')
-x1_sorted = np.linspace(-3, 3, 300)
-boundary_curve = np.sin(4 * x1_sorted) + x1_sorted
-plt.plot(x1_sorted, boundary_curve, color='black', linestyle='--', label='True decision boundary')
-
-plt.xlabel("x1")
-plt.ylabel("x2")
-plt.title("Synthetic Data and True Decision Boundary")
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
-```
-
-:::: 
-
----
-
-### Synthetic Data for KNN Evaluation
-
-A test dataset of 100 points was generated using uniform random values for `x1` and `x2`, drawn from the range [-3, 3]. The binary label `y` was assigned based on a non-linear boundary:
-$$
-y = 
-\begin{cases}
-1 & \text{if } x_2 > \sin(4x_1) + x_1 \\
-0 & \text{otherwise}
-\end{cases}
-$$
-
-This boundary creates a wavy separation ideal for testing flexible classifiers like K-Nearest Neighbors.
-
-:::: {.callout-note collapse="true"}
-### test dataset
-```{python}
-#| echo: true
-#| message: false
-#| warning: false
-#| code-overflow: wrap
-# Generate a test dataset using a different random seed
-np.random.seed(24)
-n_test = 100
-
-# Generate test features
-x1_test = np.random.uniform(-3, 3, n_test)
-x2_test = np.random.uniform(-3, 3, n_test)
-
-# Apply the same decision boundary rule
-boundary_test = np.sin(4 * x1_test) + x1_test
-y_test = pd.Series((x2_test > boundary_test).astype(int), dtype='category')
-
-# Create the test DataFrame
-test_dat = pd.DataFrame({'x1': x1_test, 'x2': x2_test, 'y': y_test})
-test_dat.head()
-```
-
-:::: 
-
-### Sample Data
-
-| x1       | x2       | y |
-|----------|----------|---|
-| 2.76     | 1.61     | 0 |
-| 1.20     | -0.15    | 0 |
-| 2.99     | 0.11     | 0 |
-| -1.68    | 2.67     | 1 |
-| -0.83    | 0.86     | 1 |
-
-:::: {.callout-note collapse="true"}
-### Plot
-```{python}
-#| echo: true
-#| message: false
-#| warning: false
-#| code-overflow: wrap
-plt.figure(figsize=(8, 6))
-
-# Color-coded test points
-for class_value, color, label in zip([0, 1], ['red', 'blue'], ['y = 0', 'y = 1']):
-    subset = test_dat[test_dat['y'] == class_value]
-    plt.scatter(subset['x1'], subset['x2'], c=color, label=label, edgecolor='k', s=50)
-
-# Plot the true decision boundary
-x1_vals = np.linspace(-3, 3, 300)
-boundary_curve = np.sin(4 * x1_vals) + x1_vals
-plt.plot(x1_vals, boundary_curve, 'k--', label='True boundary')
-
-plt.xlabel("x1")
-plt.ylabel("x2")
-plt.title("Test Dataset with True Decision Boundary")
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
-```
-
-:::: 
-
-### Manual KNN Implementation and Validation
-
-:::: {.callout-note collapse="true"}
-### KNN implementation
-```{python}
-#| echo: true
-#| message: false
-#| warning: false
-#| code-overflow: wrap
-from collections import Counter
-
-# Step-by-step manual KNN implementation (k=5)
-def knn_predict(X_train, y_train, X_test, k=5):
-    predictions = []
-    for x in X_test:
-        # Compute Euclidean distances
-        distances = np.linalg.norm(X_train - x, axis=1)
-        # Get indices of k nearest neighbors
-        nn_indices = distances.argsort()[:k]
-        # Get the most common class among nearest neighbors
-        nn_labels = y_train[nn_indices]
-        most_common = Counter(nn_labels).most_common(1)[0][0]
-        predictions.append(most_common)
-    return np.array(predictions)
-
-# Prepare data
-X_train = dat[['x1', 'x2']].values
-y_train = dat['y'].astype(int).values
-X_test = test_dat[['x1', 'x2']].values
-y_test = test_dat['y'].astype(int).values
-
-# Manual prediction
-manual_preds = knn_predict(X_train, y_train, X_test, k=5)
-
-# Check accuracy of manual KNN
-manual_accuracy = np.mean(manual_preds == y_test)
-
-# Compare to sklearn's KNN
-from sklearn.neighbors import KNeighborsClassifier
-knn_model = KNeighborsClassifier(n_neighbors=5)
-knn_model.fit(X_train, y_train)
-sklearn_preds = knn_model.predict(X_test)
-sklearn_accuracy = np.mean(sklearn_preds == y_test)
-
-manual_accuracy, sklearn_accuracy
-```
-
-:::: 
-
-We implemented the K-Nearest Neighbors algorithm from scratch using Euclidean distance and a majority vote among the `k = 5` nearest neighbors.
-
-To verify the implementation, we compared it with `KNeighborsClassifier` from `scikit-learn`.
-
-**Accuracy Comparison**
-
-| Method        | Accuracy |
-|---------------|----------|
-| Manual KNN    | 92%      |
-| Sklearn KNN   | 92%      |
-
-Both methods produced identical results, confirming the correctness of the custom implementation. This validates our understanding of the KNN algorithm and the reproducibility of results using both custom and built-in tools.
-
----
-
-
-### Tuning K in K-Nearest Neighbors
-
-:::: {.callout-note collapse="true"}
-# Manual KNN function
-```{python}
-#| echo: true
-#| message: false
-#| warning: false
-#| code-overflow: wrap
-def knn_predict(X_train, y_train, X_test, k=5):
-    predictions = []
-    for x in X_test:
-        distances = np.linalg.norm(X_train - x, axis=1)
-        nn_indices = distances.argsort()[:k]
-        nn_labels = y_train[nn_indices]
-        most_common = Counter(nn_labels).most_common(1)[0][0]
-        predictions.append(most_common)
-    return np.array(predictions)
-
-# Define training and test sets
-X_train = dat[['x1', 'x2']].values
-y_train = dat['y'].astype(int).values
-X_test = test_dat[['x1', 'x2']].values
-y_test = test_dat['y'].astype(int).values
-
-# Compute accuracy for k = 1 to 30
-k_values = range(1, 31)
-accuracies = [np.mean(knn_predict(X_train, y_train, X_test, k) == y_test) for k in k_values]
-```
-
-:::: 
-
-We evaluated classification accuracy on the test dataset for `k = 1` to `k = 30` using our custom KNN function.
-
-:::: {.callout-note collapse="true"}
-### Test accuracy of manual KNN for k = 1 to 30
-```{python}
-#| echo: true
-#| message: false
-#| warning: false
-#| code-overflow: wrap
-plt.plot(k_values, accuracies, marker='o')
-plt.title("KNN Accuracy on Test Data for k = 1 to 30")
-plt.xlabel("Number of Neighbors (k)")
-plt.ylabel("Accuracy")
-plt.grid(True)
-plt.tight_layout()
-plt.show()
-```
-
-:::: 
-
-### Yogurt Data
-
-The `yogurt_data` dataset contains information on consumer yogurt purchases. Each row represents an individual shopping trip, including the quantity of yogurt purchased and prices for five different yogurt brands.
-
-Key variables include:
-
-- `id`: unique identifier for each customer
-- `choice`: the brand chosen during the shopping trip
-- `price1` to `price5`: prices of the five competing yogurt brands
-- `quantity`: number of yogurt units purchased
-
-This dataset is commonly used for analyzing consumer choice behavior, price sensitivity, and brand preference using models like multinomial logit or KNN classification.
-
-:::: {.callout-note collapse="true"}
-### Data
-```{python}
-#| echo: true
-yogurt = pd.read_csv("/Users/qqtweety/Downloads/mgta495/yogurt_data.csv")
-yogurt.head()
-```
-
-:::: 
-
-
-:::: {.callout-note collapse="true"}
-### Reshape dataset to long format suitable for LC-MNL
-```{python}
-#| echo: true
-#| message: false
-#| warning: false
-#| code-overflow: wrap
-
-# Create long-format structure
-long_df = pd.DataFrame()
-
-# Loop through 4 alternatives per observation
-for i in range(1, 5):
-    temp = pd.DataFrame({
-        'id': yogurt['id'],
-        'alt': i,
-        'choice': yogurt[f'y{i}'],
-        'feature': yogurt[f'f{i}']
-    })
-    long_df = pd.concat([long_df, temp], ignore_index=True)
-
-# Sort by id and alt for clarity
-long_df = long_df.sort_values(by=['id', 'alt']).reset_index(drop=True)
-long_df.head(8)
-```
-
-:::: 
-
-:::: {.callout-note collapse="true"}
-### Output
-```{python}
-#| echo: true
-#| message: false
-#| warning: false
-#| code-overflow: wrap
-from scipy.special import logsumexp
-from scipy.optimize import minimize
-# Prepare data
-df = long_df.copy()
-n_alts = df['alt'].nunique()
-n_obs = df['id'].nunique()
-
-# Pivot to get feature matrix per choice set
-X = df.pivot(index='id', columns='alt', values='feature').values  # shape: (n_obs, 4)
-Y = df.pivot(index='id', columns='alt', values='choice').values   # shape: (n_obs, 4)
-
-# Log-likelihood function for latent-class MNL with 2 segments
-def latent_class_loglik(params):
-    beta1, beta2, lamb = params[:1], params[1:2], params[2]
-    pi1 = np.exp(lamb) / (1 + np.exp(lamb))
-    pi2 = 1 - pi1
-
-    # Utilities for each segment
-    V1 = X * beta1
-    V2 = X * beta2
-
-    # Choice probabilities
-    P1 = np.exp(V1 - logsumexp(V1, axis=1, keepdims=True))
-    P2 = np.exp(V2 - logsumexp(V2, axis=1, keepdims=True))
-
-    # Segment-level likelihoods
-    LL1 = np.sum(Y * np.log(P1 + 1e-12), axis=1)
-    LL2 = np.sum(Y * np.log(P2 + 1e-12), axis=1)
-
-    # Full log-likelihood (marginalizing over segments)
-    LL = np.log(pi1 * np.exp(LL1) + pi2 * np.exp(LL2) + 1e-12)
-    return -np.sum(LL)
-
-# Initial parameter guess: [β1, β2, λ]
-init_params = np.array([0.1, 0.1, 0.0])
-result = minimize(latent_class_loglik, init_params, method='BFGS')
-
-estimated_params = result.x
-beta1_hat, beta2_hat, lambda_hat = estimated_params[0], estimated_params[1], estimated_params[2]
-pi1_hat = np.exp(lambda_hat) / (1 + np.exp(lambda_hat))
-pi2_hat = 1 - pi1_hat
-
-beta1_hat, beta2_hat, pi1_hat, pi2_hat
-```
-
-:::: 
-
-### Latent-Class MNL Estimation 
-
-We estimate a two-segment latent-class MNL model using the Yogurt dataset. Each segment has its own utility sensitivity parameter (β), and segment membership is probabilistic via a logistic transformation of λ:
-
-\[
-\pi_1 = \frac{e^{\lambda}}{1 + e^{\lambda}}, \quad \pi_2 = 1 - \pi_1
-\]
-
-The unconditional choice probability is a weighted sum over segment-specific MNL probabilities:
-
-\[
-P_i(j) = \sum_{s=1}^{2} \pi_s \cdot P_i(j \mid s)
-\]
-
-:::: {.callout-note collapse="true"}
-### Create long-format structure
-```{python}
-#| echo: true
-#| warning: false
-long_data = pd.DataFrame()
-
-for i in range(1, 5):  # 4 products
-    temp = pd.DataFrame({
-        'id': yogurt['id'],
-        'alt': i,
-        'choice': yogurt[f'y{i}'],
-        'feature': yogurt[f'f{i}'],
-        'price': yogurt[f'p{i}']
-    })
-    long_data = pd.concat([long_data, temp], ignore_index=True)
-
-long_data = long_data.sort_values(['id', 'alt']).reset_index(drop=True)
-long_data.head(8)
-```
-
-:::: 
-
-:::: {.callout-note collapse="true"}
-### Prepare matrices
-```{python}
-#| echo: true
-#| warning: false
-X_price = long_data.pivot(index='id', columns='alt', values='price').values
-X_feature = long_data.pivot(index='id', columns='alt', values='feature').values
-Y = long_data.pivot(index='id', columns='alt', values='choice').values
-
-# Log-likelihood function for LC-MNL with 2 variables per segment
-def log_likelihood(params):
-    beta1 = params[0:2]   # [price, feature] for segment 1
-    beta2 = params[2:4]   # [price, feature] for segment 2
-    lamb = params[4]
-
-    pi1 = np.exp(lamb) / (1 + np.exp(lamb))
-    pi2 = 1 - pi1
-
-    # Utilities for each segment
-    V1 = beta1[0] * X_price + beta1[1] * X_feature
-    V2 = beta2[0] * X_price + beta2[1] * X_feature
-
-    # Choice probabilities
-    P1 = np.exp(V1 - logsumexp(V1, axis=1, keepdims=True))
-    P2 = np.exp(V2 - logsumexp(V2, axis=1, keepdims=True))
-
-    # Segment-level likelihood
-    LL1 = np.sum(Y * np.log(P1 + 1e-12), axis=1)
-    LL2 = np.sum(Y * np.log(P2 + 1e-12), axis=1)
-
-    LL_total = np.log(pi1 * np.exp(LL1) + pi2 * np.exp(LL2) + 1e-12)
-    return -np.sum(LL_total)
-
-# Initial guess: [β1_price, β1_feature, β2_price, β2_feature, lambda]
-init = np.array([-10, 1, -10, 1, 0])  # negative price sensitivity, positive feature
-
-# Estimate
-result = minimize(log_likelihood, init, method='BFGS')
-beta1_est = result.x[0:2]
-beta2_est = result.x[2:4]
-lambda_est = result.x[4]
-pi1_est = np.exp(lambda_est) / (1 + np.exp(lambda_est))
-pi2_est = 1 - pi1_est
-
-beta1_est, beta2_est, pi1_est, pi2_est
-```
-
-:::: 
-
-
-### Latent-Class Multinomial Logit (LC-MNL) 
-
-The yogurt dataset includes anonymized consumer IDs (`id`), binary indicators of purchased products (`y1`–`y4`), whether products were advertised in-store (`f1`–`f4`), and price-per-ounce values (`p1`–`p4`).
-
-Each row represents a consumer's single purchase occasion across four yogurt options. For example, consumer 1 selected yogurt 4 at a price of 0.079/oz, with no items advertised. Consumers 2–7 all chose yogurt 2.
-
-To estimate a latent-class multinomial logit model, the dataset was reshaped from **wide** to **long** format, creating one row per consumer–product pair. Key variables used were:
-- `choice`: 1 if the product was selected, 0 otherwise
-- `price`: per-ounce price
-- `feature`: whether the item was advertised
-
-We estimated a two-segment LC-MNL model using price and feature as predictors of utility.
-
-**Segment-Level Estimates**
-
-| Segment | β<sub>price</sub> | β<sub>feature</sub> | π (Share) |
-|:--------|------------------:|--------------------:|----------:|
-| 1       | 12.91             | 14.64               | 42.7%     |
-| 2       | 9.18              | −12.17              | 57.3%     |
-
-**Interpretation**
-
-- **Segment 1** is highly responsive to both lower prices and in-store advertising.
-- **Segment 2** exhibits lower price sensitivity and reacts negatively to advertising.
-- Segment proportions (42.7% vs. 57.3%) indicate heterogeneous preference patterns among consumers.
-
-These results suggest the presence of two distinct market segments: one promotion-sensitive, the other resistant to marketing signals.
-
----
+Centroid values indicate that flipper length drives most of the separation, with differences exceeding 20–30 mm between groups. Cluster sizes are reasonably balanced, suggesting the segmentation is not dominated by outliers.
