@@ -52,14 +52,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 ```
-
-### Data preview (first 5 rows)
-::: {.callout-note collapse="true"}
 ```{python}
-#| echo: true
+#| echo: false
 penguins = pd.read_csv("palmer_penguins.csv")
 penguins.head()
 ```
+
+::: {.callout-note collapse="true"}
+### Data Preview (first 5 rows)
+
+| species | island     | bill_length_mm | bill_depth_mm | flipper_length_mm | body_mass_g | sex    | year |
+|----------|------------|----------------|---------------|-------------------|-------------|--------|------|
+| Adelie   | Torgersen  | 39.1 | 18.7 | 181 | 3750 | male   | 2007 |
+| Adelie   | Torgersen  | 39.5 | 17.4 | 186 | 3800 | female | 2007 |
+| Adelie   | Torgersen  | 40.3 | 18.0 | 195 | 3250 | female | 2007 |
+| Adelie   | Torgersen  | 36.7 | 19.3 | 193 | 3450 | female | 2007 |
+| Adelie   | Torgersen  | 39.3 | 20.6 | 190 | 3650 | male   | 2007 |
+
 :::
 
 ## K-Means Clustering
