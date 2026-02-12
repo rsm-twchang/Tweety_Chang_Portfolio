@@ -134,7 +134,7 @@ Although the silhouette score is highest at k = 2, this solution collapses two b
 Because three clusters preserve meaningful morphological distinctions while still maintaining reasonable separation, **k = 3** provides a more interpretable segmentation.
 
 ### Final Clustering Result (k = 3)
-![Figure 6. K-Means clustering result (k = 3)](figures/fig6_kmeans_k3.png){#fig6_kmeans_k3}
+![K-Means clustering result (k = 3)](figures/fig6_kmeans_k3.png){#fig6_kmeans_k3}
 
 With k = 3, the algorithm separates the data into three distinct groups. The upper cluster captures penguins with the longest flippers and bills, the lower-left cluster represents shorter measurements, and the middle cluster occupies the intermediate range. Centroids (black markers) lie near the center of each group, indicating stable cluster formation.
 
