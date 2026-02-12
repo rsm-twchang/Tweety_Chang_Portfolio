@@ -245,7 +245,7 @@ Adelie   Torgersen  36.7            19.3           193               3450       
 Adelie   Torgersen  39.3            20.6           190               3650         male    2007
 :::
 
-::: {#cd8acdd3 .cell execution_count=3}
+::: {#00bb517d .cell execution_count=3}
 ``` {.python .cell-code}
 def plot_clusters(X, centroids, labels, title):
     plt.figure(figsize=(8, 6))
@@ -279,7 +279,7 @@ def kmeans_custom(X, k=3, max_iters=10, plot_each_step=True):
 </div>
 </div>
 </div>
-<div id="33aec668" class="cell" data-execution_count="4">
+<div id="7a8febab" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -364,7 +364,7 @@ def kmeans_custom(X, k=3, max_iters=10, plot_each_step=True):
 <p><strong>Figure 3. Custom K-Means — Final clustering (Iteration 10)</strong><br>
 <img src="figures/fig_kmeans_iter10.png" id="fig-kmeans-final" class="img-fluid" alt="Figure 3. Custom K-Means — Final clustering (Iteration 10)"></p>
 <p>Iteration 10 represents the converged solution. Centroid movement is negligible relative to earlier iterations, and cluster assignments are stable. The final clustering forms three distinct groups, primarily separated by flipper length with bill length refining boundaries within clusters.</p>
-<div id="0986d817" class="cell" data-execution_count="5">
+<div id="fca6c49b" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -373,7 +373,7 @@ def kmeans_custom(X, k=3, max_iters=10, plot_each_step=True):
 </div>
 </div>
 </div>
-<div id="06a3f028" class="cell" data-execution_count="6">
+<div id="c5705812" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>Custom Centroids:
  [[ 38.45304348 187.05217391]
@@ -422,7 +422,7 @@ Built-in Centroids:
 <h4 class="anchored" data-anchor-id="within-cluster-sum-of-squares-wcss">Within-Cluster Sum of Squares (WCSS)</h4>
 <p><strong>Selecting the Number of Clusters (WCSS)</strong> <img src="figures/fig4_wcss.png" class="img-fluid" alt="Figure 4. Within-Cluster Sum of Squares (WCSS) vs.&nbsp;Number of Clusters">{fig4_wcss}</p>
 <p>WCSS decreases as the number of clusters increases, which is expected because additional clusters reduce within-group variance. The largest drop occurs between k = 2 and k = 3, after which the curve begins to flatten. This “elbow” suggests that three clusters capture most of the structure in the data without adding unnecessary complexity.</p>
-<div id="1078ae0f" class="cell" data-execution_count="8">
+<div id="449fcb8d" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -436,7 +436,7 @@ Built-in Centroids:
 <h4 class="anchored" data-anchor-id="silhouette-score">Silhouette Score</h4>
 <p><strong>Cluster Quality (Silhouette Score)</strong> <img src="figures/fig5_silhouette.png" class="img-fluid" alt="Figure 5. Silhouette Score vs.&nbsp;Number of Clusters">{fig5_silhouette}</p>
 <p>The silhouette score is highest at k = 2, but remains reasonably strong at k = 3. Because the WCSS elbow occurs at three clusters and the dataset contains three biological species, k = 3 provides a balanced and interpretable solution.</p>
-<div id="0af18582" class="cell" data-execution_count="9">
+<div id="83cd57e7" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -445,7 +445,7 @@ Built-in Centroids:
 </div>
 </div>
 </div>
-<div id="fe629d43" class="cell" data-execution_count="10">
+<div id="ceda756f" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>[(2, 20949.785311278196, np.float64(0.6117940477662409)),
  (3, 14269.555284121907, np.float64(0.45576101830851007)),
@@ -503,7 +503,7 @@ Built-in Centroids:
 </table>
 <p>Although the silhouette score is highest at k = 2, this solution collapses two biologically distinct groups into a single cluster. The WCSS curve shows a clear elbow at <strong>k = 3</strong>, indicating substantial variance reduction when moving from 2 to 3 clusters.</p>
 <p>Because three clusters preserve meaningful morphological distinctions while still maintaining reasonable separation, <strong>k = 3</strong> provides a more interpretable segmentation.</p>
-<div id="d472eb0c" class="cell" data-execution_count="11">
+<div id="11f0cf4e" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

@@ -6,6 +6,9 @@ project:
 
 execute:
   python: .venv/bin/python
+  echo: false
+  warning: false
+  message: false
 
 website:
   title: "Tweety's website"
