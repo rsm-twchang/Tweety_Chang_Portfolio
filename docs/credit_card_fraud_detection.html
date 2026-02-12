@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.43">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tweety">
+<meta name="dcterms.date" content="2026-02-12">
+
+<title>Credit Card Fraud Detection – Tweety’s website</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6bd9cfa162949bde0a231f530c97869d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Tweety’s website</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./credit_card_fraud_detection.html" aria-current="page"> 
+<span class="menu-text">Credit Card Fraud Detection</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Intuit_Quickbooks_Upgrade.html"> 
+<span class="menu-text">Uplift Modeling</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./AB_Testing.html"> 
+<span class="menu-text">A/B Testing</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Maximum_Likelihood_Estimation.html"> 
+<span class="menu-text">MLE</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./Key_Drivers_Analysis.html"> 
+<span class="menu-text">Key Drivers Analysis</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
+  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a>
+  <ul class="collapse">
+  <li><a href="#numeric-variables" id="toc-numeric-variables" class="nav-link" data-scroll-target="#numeric-variables">Numeric Variables</a></li>
+  <li><a href="#categorical-variables" id="toc-categorical-variables" class="nav-link" data-scroll-target="#categorical-variables">Categorical Variables</a></li>
+  <li><a href="#temporal-variable" id="toc-temporal-variable" class="nav-link" data-scroll-target="#temporal-variable">Temporal Variable</a></li>
+  <li><a href="#amount" id="toc-amount" class="nav-link" data-scroll-target="#amount">Amount</a></li>
+  <li><a href="#merch-state" id="toc-merch-state" class="nav-link" data-scroll-target="#merch-state">Merch State</a></li>
+  <li><a href="#merch-zip" id="toc-merch-zip" class="nav-link" data-scroll-target="#merch-zip">Merch Zip</a></li>
+  <li><a href="#fraud-target-variable" id="toc-fraud-target-variable" class="nav-link" data-scroll-target="#fraud-target-variable">Fraud (Target Variable)</a></li>
+  </ul></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a>
+  <ul class="collapse">
+  <li><a href="#outlier-removal" id="toc-outlier-removal" class="nav-link" data-scroll-target="#outlier-removal">1. Outlier Removal</a></li>
+  <li><a href="#data-exclusions-transaction-type" id="toc-data-exclusions-transaction-type" class="nav-link" data-scroll-target="#data-exclusions-transaction-type">2. Data Exclusions – Transaction Type</a></li>
+  <li><a href="#handling-missing-and-invalid-values" id="toc-handling-missing-and-invalid-values" class="nav-link" data-scroll-target="#handling-missing-and-invalid-values">3. Handling Missing and Invalid Values</a></li>
+  <li><a href="#data-status-after-cleaning" id="toc-data-status-after-cleaning" class="nav-link" data-scroll-target="#data-status-after-cleaning">Data Status After Cleaning</a></li>
+  </ul></li>
+  <li><a href="#variable-creation" id="toc-variable-creation" class="nav-link" data-scroll-target="#variable-creation">Variable Creation</a>
+  <ul class="collapse">
+  <li><a href="#summary-of-variables-created" id="toc-summary-of-variables-created" class="nav-link" data-scroll-target="#summary-of-variables-created">Summary of Variables Created</a></li>
+  </ul></li>
+  <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection">Feature Selection</a>
+  <ul class="collapse">
+  <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering">1. Filtering</a></li>
+  <li><a href="#wrapping" id="toc-wrapping" class="nav-link" data-scroll-target="#wrapping">2. Wrapping</a></li>
+  <li><a href="#results-summary" id="toc-results-summary" class="nav-link" data-scroll-target="#results-summary">Results Summary</a></li>
+  <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations">Observations</a></li>
+  <li><a href="#wrapper-results-forward-selection" id="toc-wrapper-results-forward-selection" class="nav-link" data-scroll-target="#wrapper-results-forward-selection">Wrapper Results (Forward Selection)</a></li>
+  <li><a href="#feature-selection-conclusion" id="toc-feature-selection-conclusion" class="nav-link" data-scroll-target="#feature-selection-conclusion">Feature Selection Conclusion</a></li>
+  <li><a href="#selected-variables-top-20" id="toc-selected-variables-top-20" class="nav-link" data-scroll-target="#selected-variables-top-20">Selected Variables (Top 20)</a></li>
+  </ul></li>
+  <li><a href="#preliminary-model-exploration" id="toc-preliminary-model-exploration" class="nav-link" data-scroll-target="#preliminary-model-exploration">Preliminary Model Exploration</a>
+  <ul class="collapse">
+  <li><a href="#models-compared" id="toc-models-compared" class="nav-link" data-scroll-target="#models-compared">Models Compared</a></li>
+  <li><a href="#hyperparameters" id="toc-hyperparameters" class="nav-link" data-scroll-target="#hyperparameters">Hyperparameters</a></li>
+  <li><a href="#model-performance-comparison" id="toc-model-performance-comparison" class="nav-link" data-scroll-target="#model-performance-comparison">Model Performance Comparison</a></li>
+  </ul></li>
+  <li><a href="#final-model-performance" id="toc-final-model-performance" class="nav-link" data-scroll-target="#final-model-performance">Final Model Performance</a>
+  <ul class="collapse">
+  <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection">Model Selection</a></li>
+  <li><a href="#hyperparameters-1" id="toc-hyperparameters-1" class="nav-link" data-scroll-target="#hyperparameters-1">Hyperparameters</a></li>
+  <li><a href="#performance-summary" id="toc-performance-summary" class="nav-link" data-scroll-target="#performance-summary">Performance Summary</a></li>
+  </ul></li>
+  <li><a href="#financial-impact-and-recommended-cutoff" id="toc-financial-impact-and-recommended-cutoff" class="nav-link" data-scroll-target="#financial-impact-and-recommended-cutoff">Financial Impact and Recommended Cutoff</a>
+  <ul class="collapse">
+  <li><a href="#financial-assumptions" id="toc-financial-assumptions" class="nav-link" data-scroll-target="#financial-assumptions">Financial Assumptions</a></li>
+  <li><a href="#financial-curves" id="toc-financial-curves" class="nav-link" data-scroll-target="#financial-curves">Financial Curves</a></li>
+  <li><a href="#cutoff-comparison" id="toc-cutoff-comparison" class="nav-link" data-scroll-target="#cutoff-comparison">Cutoff Comparison</a></li>
+  <li><a href="#recommended-cutoff-4" id="toc-recommended-cutoff-4" class="nav-link" data-scroll-target="#recommended-cutoff-4">Recommended Cutoff: 4%</a></li>
+  </ul></li>
+  <li><a href="#part-vii-summary" id="toc-part-vii-summary" class="nav-link" data-scroll-target="#part-vii-summary">Part VII – Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Credit Card Fraud Detection</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tweety </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 12, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Credit card fraud poses a persistent risk to financial institutions, resulting in substantial financial losses and increased operational burden. As digital transactions continue to grow, detecting fraudulent behavior accurately and efficiently has become increasingly important.</p>
+<p>This project develops a structured analytical framework for identifying fraudulent credit card transactions using historical transaction data. The dataset contains 97,852 transactions, of which 2,047 are labeled as fraudulent, reflecting a highly imbalanced classification problem.</p>
+<p>The report outlines the full modeling workflow, from data preparation to model evaluation, with emphasis on building a practical and deployable fraud detection system.</p>
+</section>
+<section id="objective" class="level2">
+<h2 class="anchored" data-anchor-id="objective">Objective</h2>
+<p>The primary objective of this project is to build a machine learning model capable of identifying fraudulent transactions while controlling false positives.</p>
+<p>Specifically, the goals are:</p>
+<ul>
+<li>Develop a robust fraud detection pipeline including cleaning, feature engineering, and model selection<br>
+</li>
+<li>Evaluate model performance using out-of-time validation<br>
+</li>
+<li>Determine an operational cutoff that balances fraud capture and review cost<br>
+</li>
+<li>Quantify the financial impact of the selected decision threshold</li>
+</ul>
+<p>The final model is assessed not only on predictive performance but also on its practical business value.</p>
+</section>
+<section id="data-description" class="level2">
+<h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
+<p>The dataset contains 97,852 credit card transactions recorded in 2010. Each transaction includes numeric, categorical, and temporal variables used to model fraudulent behavior.</p>
+<section id="numeric-variables" class="level3">
+<h3 class="anchored" data-anchor-id="numeric-variables">Numeric Variables</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 10%">
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field Name</th>
+<th># Records</th>
+<th>% Populated</th>
+<th># Zeros</th>
+<th>Min</th>
+<th>Max</th>
+<th>Mean</th>
+<th>Std Dev</th>
+<th>Most Common</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Amount</td>
+<td>97,852</td>
+<td>100%</td>
+<td>0</td>
+<td>0.01</td>
+<td>3,102,045.53</td>
+<td>425.47</td>
+<td>9,949.80</td>
+<td>3.62</td>
+</tr>
+<tr class="even">
+<td>Fraud</td>
+<td>97,852</td>
+<td>100%</td>
+<td>95,805</td>
+<td>0</td>
+<td>1</td>
+<td>0.0209</td>
+<td>0.14</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Amount</strong> shows a highly right-skewed distribution, with extreme high-value transactions.</li>
+<li><strong>Fraud</strong> is the target variable. Fraudulent transactions account for approximately 2.09% of the dataset, indicating strong class imbalance.</li>
+</ul>
+</section>
+<section id="categorical-variables" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-variables">Categorical Variables</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field Name</th>
+<th># Records</th>
+<th>% Populated</th>
+<th># Unique</th>
+<th>Most Common</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Recnum</td>
+<td>97,852</td>
+<td>100%</td>
+<td>97,852</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Cardnum</td>
+<td>97,852</td>
+<td>100%</td>
+<td>1,645</td>
+<td>5142148452</td>
+</tr>
+<tr class="odd">
+<td>Merchnum</td>
+<td>94,455</td>
+<td>96.5%</td>
+<td>13,091</td>
+<td>930090121224</td>
+</tr>
+<tr class="even">
+<td>Merch description</td>
+<td>97,852</td>
+<td>100%</td>
+<td>13,126</td>
+<td>GSA-FSS-ADV</td>
+</tr>
+<tr class="odd">
+<td>Merch state</td>
+<td>96,649</td>
+<td>98.8%</td>
+<td>227</td>
+<td>TN</td>
+</tr>
+<tr class="even">
+<td>Merch zip</td>
+<td>93,149</td>
+<td>95.2%</td>
+<td>4,567</td>
+<td>38118</td>
+</tr>
+<tr class="odd">
+<td>Transtype</td>
+<td>97,852</td>
+<td>100%</td>
+<td>4</td>
+<td>P</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Transaction identifiers such as <strong>Recnum</strong> are unique per record.</li>
+<li>Merchant-related fields (Merchnum, Merch description, Merch state, Merch zip) provide geographic and behavioral context.</li>
+<li>Missing values are primarily present in merchant-related fields.</li>
+<li><strong>Transtype</strong> contains four transaction categories.</li>
+</ul>
+</section>
+<section id="temporal-variable" class="level3">
+<h3 class="anchored" data-anchor-id="temporal-variable">Temporal Variable</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 13%">
+<col style="width: 17%">
+<col style="width: 19%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field Name</th>
+<th># Records</th>
+<th>% Populated</th>
+<th>Earliest Date</th>
+<th>Latest Date</th>
+<th>Most Common</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Date</td>
+<td>97,852</td>
+<td>100%</td>
+<td>2010-01-01</td>
+<td>2010-12-31</td>
+<td>2010-02-28</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The data spans the full calendar year of 2010.</li>
+<li>The availability of transaction dates enables temporal feature engineering such as velocity and recency variables.</li>
+</ul>
+</section>
+<section id="amount" class="level3">
+<h3 class="anchored" data-anchor-id="amount">Amount</h3>
+<p>Transaction amounts are strongly right-skewed. Most transactions are small, while a small number reach very high values.</p>
+<ul>
+<li>Only 3 transactions exceed $30,275.</li>
+<li>The majority fall below $3,000.</li>
+<li>A long right tail is clearly visible.</li>
+</ul>
+<p>Because extreme values can dominate tree splits and distort scale-sensitive features, this variable will be transformed or capped during preprocessing.</p>
+<section id="amount-distribution-full-scale" class="level4">
+<h4 class="anchored" data-anchor-id="amount-distribution-full-scale">Amount Distribution (Full Scale)</h4>
+<p><strong>Figure 1. Transaction amount distribution (full scale)</strong><br>
+<img src="figures/amount_full.png" id="fig-amount-full" class="img-fluid" alt="Figure 1. Transaction amount distribution (full scale)"></p>
+<p>To better visualize the heavy tail, the density axis is log-transformed.</p>
+</section>
+<section id="amount-distribution-log-scale" class="level4">
+<h4 class="anchored" data-anchor-id="amount-distribution-log-scale">Amount Distribution (Log Scale)</h4>
+<p><strong>Figure 2. Transaction amount distribution (log scale)</strong><br>
+<img src="figures/amount_log.png" id="fig-amount-log" class="img-fluid" alt="Figure 2. Transaction amount distribution (log scale)"></p>
+<p>The log-scale view highlights the spread of high-value transactions without being dominated by the tail.</p>
+</section>
+</section>
+<section id="merch-state" class="level3">
+<h3 class="anchored" data-anchor-id="merch-state">Merch State</h3>
+<p><strong>Figure 3. Top 20 merchant states by transaction count</strong><br>
+<img src="figures/merch_state_top20.png" id="fig-merch-state" class="img-fluid" alt="Figure 3. Top 20 merchant states by transaction count"></p>
+<p>The top 20 merchant states account for a large share of transactions.<br>
+<strong>TN</strong> has the highest volume (12,169 transactions), followed by several other high-activity states. Transaction activity is clearly concentrated geographically rather than evenly distributed across states.</p>
+</section>
+<section id="merch-zip" class="level3">
+<h3 class="anchored" data-anchor-id="merch-zip">Merch Zip</h3>
+<p><strong>Figure 4. Top 20 merchant ZIP codes by transaction count</strong><br>
+<img src="figures/merch_zip_top20.png" id="fig-merch-zip" class="img-fluid" alt="Figure 4. Top 20 merchant ZIP codes by transaction count"></p>
+<ul>
+<li>ZIP code <strong>38118</strong> alone accounts for 11,998 transactions.</li>
+<li>A small number of ZIP codes represent a disproportionate share of activity.</li>
+</ul>
+<p>This level of concentration indicates strong location clustering in the data.</p>
+</section>
+<section id="fraud-target-variable" class="level3">
+<h3 class="anchored" data-anchor-id="fraud-target-variable">Fraud (Target Variable)</h3>
+<p><strong>Figure 5. Fraud vs non-fraud distribution</strong><br>
+<img src="figures/fraud_distribution.png" id="fig-fraud-distribution" class="img-fluid" alt="Figure 5. Fraud vs non-fraud distribution"></p>
+<ul>
+<li>95,805 non-fraud transactions<br>
+</li>
+<li>2,047 fraud transactions<br>
+</li>
+<li>Fraud rate ≈ 2.09%</li>
+</ul>
+<p>Given this imbalance, overall accuracy is not an informative metric. Model evaluation will focus on fraud detection rate and decision thresholds aligned with business impact.</p>
+</section>
+</section>
+<section id="data-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h2>
+<section id="outlier-removal" class="level3">
+<h3 class="anchored" data-anchor-id="outlier-removal">1. Outlier Removal</h3>
+<p>The transaction amount variable contains one extreme observation:</p>
+<ul>
+<li>Recnum #53179<br>
+</li>
+<li>Amount: $3,102,045<br>
+</li>
+<li>Threshold: $30,275 (3 standard deviations above the mean)</li>
+</ul>
+<p>After review with the business manager, this transaction was considered anomalous and removed from modeling.</p>
+<ul>
+<li>Records reduced from 97,852 to 97,851.</li>
+</ul>
+</section>
+<section id="data-exclusions-transaction-type" class="level3">
+<h3 class="anchored" data-anchor-id="data-exclusions-transaction-type">2. Data Exclusions – Transaction Type</h3>
+<p>The variable <code>Transtype</code> contains four categories:</p>
+<ul>
+<li>P: 97,497<br>
+</li>
+<li>A: 181<br>
+</li>
+<li>D: 173<br>
+</li>
+<li>Y: 1</li>
+</ul>
+<p>Because the business team could not clearly define categories A, D, and Y, these transactions were excluded to avoid introducing ambiguity into the model.</p>
+<ul>
+<li>Records reduced from 97,851 to 97,496.</li>
+</ul>
+</section>
+<section id="handling-missing-and-invalid-values" class="level3">
+<h3 class="anchored" data-anchor-id="handling-missing-and-invalid-values">3. Handling Missing and Invalid Values</h3>
+<p>Several merchant-related fields contained missing or invalid values.</p>
+<section id="merchnum" class="level4">
+<h4 class="anchored" data-anchor-id="merchnum">3.1 Merchnum</h4>
+<ul>
+<li>3,279 missing values (including 59 records coded as 0, treated as null).</li>
+</ul>
+<p>Imputation strategy:</p>
+<ol type="1">
+<li>Recovered 1,164 values using matching <code>Merch description</code>.</li>
+<li>Assigned “unknown” to records with descriptions such as<br>
+<em>RETAIL CREDIT ADJUSTMENT</em> and <em>RETAIL DEBIT ADJUSTMENT</em> (694 records).</li>
+<li>For the remaining records, new merchant IDs were created based on unique merchant descriptions.</li>
+</ol>
+<p>After imputation, missing values in <code>Merchnum</code> were reduced to zero.</p>
+</section>
+<section id="merch-state-1" class="level4">
+<h4 class="anchored" data-anchor-id="merch-state-1">3.2 Merch State</h4>
+<ul>
+<li>1,028 missing values.</li>
+</ul>
+<p>Imputation strategy:</p>
+<ol type="1">
+<li>Recovered state values using corresponding ZIP codes.</li>
+<li>Used merchant number and description matching where possible.</li>
+<li>Assigned “unknown” to adjustment-type transactions.</li>
+<li>Remaining missing values were set to “unknown”.</li>
+<li>Non-U.S. states were recoded as “foreign”.</li>
+</ol>
+<p>This approach preserves geographic signal while avoiding artificial distortion.</p>
+</section>
+<section id="merch-zip-1" class="level4">
+<h4 class="anchored" data-anchor-id="merch-zip-1">3.3 Merch Zip</h4>
+<ul>
+<li>4,347 missing values.</li>
+</ul>
+<p>Imputation strategy:</p>
+<ol type="1">
+<li>Recovered ZIP codes using merchant number and description mapping.</li>
+<li>For records with known state but missing ZIP, assigned the most common ZIP within that state.</li>
+<li>Remaining missing values were set to “unknown”.</li>
+</ol>
+</section>
+</section>
+<section id="data-status-after-cleaning" class="level3">
+<h3 class="anchored" data-anchor-id="data-status-after-cleaning">Data Status After Cleaning</h3>
+<p>All key merchant fields (<code>Merchnum</code>, <code>Merch state</code>, <code>Merch zip</code>) were fully resolved, and the dataset was prepared for feature engineering.</p>
+<p>Final dataset size: <strong>97,496 transactions</strong></p>
+</section>
+</section>
+<section id="variable-creation" class="level2">
+<h2 class="anchored" data-anchor-id="variable-creation">Variable Creation</h2>
+<p>This project focuses on Card-Not-Present (CNP) fraud, where stolen card information is used across different merchants or locations without physical verification. Suspicious patterns often include:</p>
+<ul>
+<li>The same card appearing in multiple states or ZIP codes within short periods<br>
+</li>
+<li>Sudden increases in transaction frequency<br>
+</li>
+<li>Rapid changes in spending behavior<br>
+</li>
+<li>Transactions at unfamiliar merchants</li>
+</ul>
+<p>To capture these patterns, features were engineered around transaction timing, spending intensity, and entity relationships. Variables were created under four principles:</p>
+<ol type="1">
+<li><strong>Amount Features</strong> – Rolling statistics of transaction amounts (mean, max, median, sum, and ratios) across multiple time windows.</li>
+<li><strong>Frequency Features</strong> – Transaction counts within rolling windows (0, 1, 3, 7, 14, 30, 60 days).</li>
+<li><strong>Velocity Features</strong> – Short-term activity compared to longer-term historical behavior.</li>
+<li><strong>Recency Features</strong> – Days since previous transaction.</li>
+</ol>
+<p>Features were computed across key entities such as Cardnum, Merchnum, Merch state, Merch zip, and their linkages.</p>
+<section id="summary-of-variables-created" class="level3">
+<h3 class="anchored" data-anchor-id="summary-of-variables-created">Summary of Variables Created</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Category</th>
+<th># Fields Created</th>
+<th>Cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Original fields</td>
+<td>10</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>Day-of-week + encoding</td>
+<td>2</td>
+<td>12</td>
+</tr>
+<tr class="odd">
+<td>Entity linkings</td>
+<td>21</td>
+<td>33</td>
+</tr>
+<tr class="even">
+<td>Target encoding</td>
+<td>3</td>
+<td>36</td>
+</tr>
+<tr class="odd">
+<td>Days-since features</td>
+<td>23</td>
+<td>59</td>
+</tr>
+<tr class="even">
+<td>Frequency features</td>
+<td>161</td>
+<td>220</td>
+</tr>
+<tr class="odd">
+<td>Amount features</td>
+<td>1,288</td>
+<td>1,508</td>
+</tr>
+<tr class="even">
+<td>Velocity features</td>
+<td>552</td>
+<td>2,060</td>
+</tr>
+<tr class="odd">
+<td>Amount difference features</td>
+<td>414</td>
+<td>2,474</td>
+</tr>
+<tr class="even">
+<td>Cross-entity frequency</td>
+<td>696</td>
+<td>3,170</td>
+</tr>
+<tr class="odd">
+<td>Normalized velocity</td>
+<td>184</td>
+<td>3,354</td>
+</tr>
+<tr class="even">
+<td>Amount binning</td>
+<td>1</td>
+<td>3,355</td>
+</tr>
+<tr class="odd">
+<td>Foreign indicator</td>
+<td>1</td>
+<td>3,356</td>
+</tr>
+<tr class="even">
+<td>New entity flags</td>
+<td>22</td>
+<td>3,378</td>
+</tr>
+<tr class="odd">
+<td>Holiday indicator</td>
+<td>1</td>
+<td>3,379</td>
+</tr>
+</tbody>
+</table>
+<p>Total engineered variables: <strong>3,379</strong></p>
+</section>
+</section>
+<section id="feature-selection" class="level2">
+<h2 class="anchored" data-anchor-id="feature-selection">Feature Selection</h2>
+<p>Feature selection was conducted in two stages: filtering and wrapping.</p>
+<section id="filtering" class="level3">
+<h3 class="anchored" data-anchor-id="filtering">1. Filtering</h3>
+<p>Each variable was ranked independently using the Kolmogorov–Smirnov (KS) statistic.<br>
+The top candidate features were selected based on:</p>
+<ul>
+<li>130 variables (≈10% of total features)</li>
+<li>260 variables (≈20% of total features)</li>
+</ul>
+<p>These filtered sets were passed to the wrapper stage.</p>
+</section>
+<section id="wrapping" class="level3">
+<h3 class="anchored" data-anchor-id="wrapping">2. Wrapping</h3>
+<p>Forward selection was applied using two models:</p>
+<ul>
+<li><strong>LightGBM (LGBM)</strong> – deterministic</li>
+<li><strong>Random Forest (RF)</strong> – stochastic</li>
+</ul>
+<p>For RF, training was repeated five times and the most frequently selected feature combination was retained.</p>
+<p>Wrapper sizes tested: - 10 features - 20 features</p>
+<p>The wrapper objective was <strong>Fraud Detection Rate at 3% (FDR@3%)</strong>.</p>
+</section>
+<section id="results-summary" class="level3">
+<h3 class="anchored" data-anchor-id="results-summary">Results Summary</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Direction</th>
+<th># Filters</th>
+<th># Wrappers</th>
+<th>Model</th>
+<th>Stochastic</th>
+<th>Avg Performance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Forward</td>
+<td>130</td>
+<td>10</td>
+<td>LGBM</td>
+<td>No</td>
+<td>0.71</td>
+</tr>
+<tr class="even">
+<td>Forward</td>
+<td>130</td>
+<td>10</td>
+<td>RF</td>
+<td>Yes</td>
+<td>0.66</td>
+</tr>
+<tr class="odd">
+<td>Forward</td>
+<td>130</td>
+<td>20</td>
+<td>LGBM</td>
+<td>No</td>
+<td>0.71</td>
+</tr>
+<tr class="even">
+<td>Forward</td>
+<td>130</td>
+<td>20</td>
+<td>RF</td>
+<td>Yes</td>
+<td>0.66</td>
+</tr>
+<tr class="odd">
+<td>Forward</td>
+<td>260</td>
+<td>10</td>
+<td>LGBM</td>
+<td>No</td>
+<td>0.72</td>
+</tr>
+<tr class="even">
+<td>Forward</td>
+<td>260</td>
+<td>10</td>
+<td>RF</td>
+<td>Yes</td>
+<td>0.66</td>
+</tr>
+<tr class="odd">
+<td>Forward</td>
+<td>260</td>
+<td>20</td>
+<td>LGBM</td>
+<td>No</td>
+<td>0.72</td>
+</tr>
+<tr class="even">
+<td>Forward</td>
+<td>260</td>
+<td>20</td>
+<td>RF</td>
+<td>Yes</td>
+<td>0.68</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="observations" class="level3">
+<h3 class="anchored" data-anchor-id="observations">Observations</h3>
+<ul>
+<li>LightGBM consistently outperformed Random Forest.</li>
+<li>Increasing the filter pool from 130 to 260 improved performance.</li>
+<li>Expanding wrappers from 10 to 20 features did not materially improve results.</li>
+</ul>
+<p>Based on these findings, LightGBM with 260 filtered candidates was selected for subsequent modeling.</p>
+</section>
+<section id="wrapper-results-forward-selection" class="level3">
+<h3 class="anchored" data-anchor-id="wrapper-results-forward-selection">Wrapper Results (Forward Selection)</h3>
+<p>Forward selection was applied using different filter sizes and wrapper counts.<br>
+Performance is measured using <strong>FDR@3%</strong>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Filters</th>
+<th>Wrappers</th>
+<th>Model</th>
+<th>Stochastic</th>
+<th>FDR@3%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>260</td>
+<td>10</td>
+<td>LGBM</td>
+<td>No</td>
+<td>0.72</td>
+</tr>
+<tr class="even">
+<td>260</td>
+<td>10</td>
+<td>RF</td>
+<td>Yes</td>
+<td>0.66</td>
+</tr>
+<tr class="odd">
+<td>260</td>
+<td>20</td>
+<td>LGBM</td>
+<td>No</td>
+<td>0.72</td>
+</tr>
+<tr class="even">
+<td>260</td>
+<td>20</td>
+<td>RF</td>
+<td>Yes</td>
+<td>0.68</td>
+</tr>
+<tr class="odd">
+<td>520</td>
+<td>10</td>
+<td>LGBM</td>
+<td>No</td>
+<td>0.72</td>
+</tr>
+<tr class="even">
+<td>520</td>
+<td>10</td>
+<td>RF</td>
+<td>Yes</td>
+<td>0.71</td>
+</tr>
+<tr class="odd">
+<td>520</td>
+<td>20</td>
+<td>LGBM</td>
+<td>No</td>
+<td><strong>0.73</strong></td>
+</tr>
+<tr class="even">
+<td>520</td>
+<td>20</td>
+<td>RF</td>
+<td>Yes</td>
+<td>0.73</td>
+</tr>
+</tbody>
+</table>
+<section id="stepwise-selection-performance" class="level4">
+<h4 class="anchored" data-anchor-id="stepwise-selection-performance">Stepwise Selection Performance</h4>
+<p><strong>Figure 6. Forward stepwise selection performance curve</strong><br>
+<img src="figures/stepwise_selection.png" id="fig-stepwise-selection" class="img-fluid" alt="Figure 6. Forward stepwise selection performance curve"></p>
+<p>The performance curve increases rapidly in the first few steps and stabilizes after approximately 12 features, indicating diminishing returns from adding additional variables.</p>
+</section>
+</section>
+<section id="feature-selection-conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="feature-selection-conclusion">Feature Selection Conclusion</h3>
+<p>Increasing the number of filtered candidates improved wrapper performance.<br>
+With 520 filters and 20 wrappers, both LightGBM and Random Forest achieved an average performance of 0.73.</p>
+<p>LightGBM was selected as the final wrapper model because it is deterministic and produces stable feature rankings across runs, whereas Random Forest introduces variability due to its stochastic nature.</p>
+<p>The forward selection curve shows performance stabilizing after approximately 12 features. However, to ensure sufficient coverage of relevant signals, we retained 20 features (approximately twice the saturation size) for the final model.</p>
+</section>
+<section id="selected-variables-top-20" class="level3">
+<h3 class="anchored" data-anchor-id="selected-variables-top-20">Selected Variables (Top 20)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field Name</th>
+<th>Cumulative Score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cardnum_unique_count_for_card_state_1</td>
+<td>0.492025</td>
+</tr>
+<tr class="even">
+<td>Card_Merchdesc_State_total_7</td>
+<td>0.669325</td>
+</tr>
+<tr class="odd">
+<td>Cardnum_count_1_by_30</td>
+<td>0.688957</td>
+</tr>
+<tr class="even">
+<td>Cardnum_max_14</td>
+<td>0.698160</td>
+</tr>
+<tr class="odd">
+<td>Card_dow_vdratio_0by60</td>
+<td>0.704908</td>
+</tr>
+<tr class="even">
+<td>Card_dow_vdratio_0by14</td>
+<td>0.708589</td>
+</tr>
+<tr class="odd">
+<td>Merchnum_desc_State_total_3</td>
+<td>0.714724</td>
+</tr>
+<tr class="even">
+<td>Card_Merchdesc_total_7</td>
+<td>0.716564</td>
+</tr>
+<tr class="odd">
+<td>Card_dow_unique_count_for_merch_zip_7</td>
+<td>0.720859</td>
+</tr>
+<tr class="even">
+<td>Cardnum_actual/toal_0</td>
+<td>0.726380</td>
+</tr>
+<tr class="odd">
+<td>Card_dow_vdratio_0by7</td>
+<td>0.728834</td>
+</tr>
+<tr class="even">
+<td>Cardnum_vdratio_1by7</td>
+<td>0.730061</td>
+</tr>
+<tr class="odd">
+<td>Cardnum_unique_count_for_card_state_3</td>
+<td>0.730061</td>
+</tr>
+<tr class="even">
+<td>Cardnum_unique_count_for_card_zip_3</td>
+<td>0.730061</td>
+</tr>
+<tr class="odd">
+<td>Merchnum_desc_Zip_total_3</td>
+<td>0.730061</td>
+</tr>
+<tr class="even">
+<td>Cardnum_unique_count_for_Merchnum_3</td>
+<td>0.730061</td>
+</tr>
+<tr class="odd">
+<td>Cardnum_actual/toal_1</td>
+<td>0.730061</td>
+</tr>
+<tr class="even">
+<td>Cardnum_unique_count_for_card_state_7</td>
+<td>0.730061</td>
+</tr>
+<tr class="odd">
+<td>Cardnum_actual/max_0</td>
+<td>0.730061</td>
+</tr>
+<tr class="even">
+<td>Card_dow_unique_count_for_merch_state_1</td>
+<td>0.730061</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="preliminary-model-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="preliminary-model-exploration">Preliminary Model Exploration</h2>
+<p>We compared a baseline linear model against several non-linear models. All models were evaluated using <strong>FDR@3%</strong> on training, testing, and out-of-time (OOT) data.</p>
+<ul>
+<li><strong>Baseline:</strong> Logistic Regression<br>
+</li>
+<li><strong>Non-linear models:</strong> Decision Tree, Random Forest, LightGBM, Neural Network</li>
+</ul>
+<section id="models-compared" class="level3">
+<h3 class="anchored" data-anchor-id="models-compared">Models Compared</h3>
+<ul>
+<li><strong>Logistic Regression:</strong> baseline linear classifier for interpretability and a stable benchmark.</li>
+<li><strong>Decision Tree:</strong> single-tree model that captures non-linear splits but can overfit.</li>
+<li><strong>Random Forest:</strong> bagged trees that reduce variance and improve stability over a single tree.</li>
+<li><strong>LightGBM:</strong> gradient-boosted trees that typically perform well on structured/tabular data.</li>
+<li><strong>Neural Network:</strong> flexible non-linear function approximator, included as a higher-capacity alternative.</li>
+</ul>
+</section>
+<section id="hyperparameters" class="level3">
+<h3 class="anchored" data-anchor-id="hyperparameters">Hyperparameters</h3>
+<ul>
+<li><strong>Logistic Regression:</strong> <code>penalty='l1'</code>, <code>C=0.01</code>, <code>solver='liblinear'</code><br>
+</li>
+<li><strong>Decision Tree:</strong> <code>criterion='gini'</code>, <code>max_depth=8</code>, <code>min_samples_split=120</code>, <code>min_samples_leaf=60</code><br>
+</li>
+<li><strong>Random Forest:</strong> <code>criterion='gini'</code>, <code>n_estimators=30</code>, <code>max_depth=8</code>, <code>min_samples_split=120</code>, <code>min_samples_leaf=60</code><br>
+</li>
+<li><strong>LightGBM:</strong> <code>n_estimators=30</code>, <code>num_leaves=4</code>, <code>learning_rate=0.1</code><br>
+</li>
+<li><strong>Neural Net:</strong> <code>activation='relu'</code>, <code>hidden_layer_sizes=(20, 20)</code>, <code>solver='adam'</code>, <code>alpha=0.005</code>, <code>learning_rate_init=0.01</code></li>
+</ul>
+</section>
+<section id="model-performance-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="model-performance-comparison">Model Performance Comparison</h3>
+<p><strong>Figure 7. Model performance comparison (FDR@3%)</strong><br>
+<img src="figures/model_boxplot_fdr3.png" id="fig-model-comparison" class="img-fluid" alt="Figure 7. Model performance comparison (FDR@3%)"></p>
+<p>LightGBM shows the strongest overall performance and the best OOT results among the models tested, which is the main factor for model selection in this project.</p>
+<hr>
+</section>
+</section>
+<section id="final-model-performance" class="level2">
+<h2 class="anchored" data-anchor-id="final-model-performance">Final Model Performance</h2>
+<section id="model-selection" class="level3">
+<h3 class="anchored" data-anchor-id="model-selection">Model Selection</h3>
+<p>LightGBM was selected as the final model based on its balance between in-sample performance and out-of-time (OOT) stability.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Train</th>
+<th>Test</th>
+<th>OOT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LGBM</td>
+<td>0.7438</td>
+<td>0.7490</td>
+<td>0.5296</td>
+</tr>
+</tbody>
+</table>
+<p>Training and testing scores are closely aligned, indicating controlled model complexity. Although performance declines on OOT data, LightGBM maintains stronger generalization compared to the other models evaluated.</p>
+</section>
+<section id="hyperparameters-1" class="level3">
+<h3 class="anchored" data-anchor-id="hyperparameters-1">Hyperparameters</h3>
+<ul>
+<li><code>n_estimators = 30</code><br>
+</li>
+<li><code>num_leaves = 4</code><br>
+</li>
+<li><code>learning_rate = 0.1</code><br>
+</li>
+<li><code>max_depth = default</code></li>
+</ul>
+<p>The configuration favors a shallow boosting structure with limited leaf growth. This reduces variance and improves stability under time drift, which is critical for fraud detection.</p>
+<p>The moderate learning rate ensures gradual updates across boosting rounds, avoiding aggressive fitting to short-term noise.</p>
+</section>
+<section id="performance-summary" class="level3">
+<h3 class="anchored" data-anchor-id="performance-summary">Performance Summary</h3>
+<ul>
+<li>Train and test scores are stable.</li>
+<li>OOT performance remains consistent with wrapper-stage expectations.</li>
+<li>No large divergence between datasets, suggesting controlled overfitting.</li>
+</ul>
+<p>The final model is therefore suitable for operational deployment under a defined fraud detection threshold.</p>
+<hr>
+</section>
+</section>
+<section id="financial-impact-and-recommended-cutoff" class="level2">
+<h2 class="anchored" data-anchor-id="financial-impact-and-recommended-cutoff">Financial Impact and Recommended Cutoff</h2>
+<section id="financial-assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="financial-assumptions">Financial Assumptions</h3>
+<p>To translate model performance into business impact, the following assumptions were applied:</p>
+<ol type="1">
+<li>$400 gain per fraud transaction correctly detected<br>
+</li>
+<li>$20 loss per false positive<br>
+</li>
+<li>The sample (~100,000 records) represents a portfolio of 10 million transactions per year<br>
+</li>
+<li>The dataset covers 2 months of activity; annualized by multiplying by 6</li>
+</ol>
+</section>
+<section id="financial-curves" class="level3">
+<h3 class="anchored" data-anchor-id="financial-curves">Financial Curves</h3>
+<p><strong>Figure 8. Financial impact curve across cutoff percentages</strong><br>
+<img src="figures/financial_curve.png" id="fig-financial-curve" class="img-fluid" alt="Figure 8. Financial impact curve across cutoff percentages"></p>
+<ul>
+<li><strong>Green:</strong> Fraud dollars captured<br>
+</li>
+<li><strong>Red:</strong> Revenue loss from false positives<br>
+</li>
+<li><strong>Blue:</strong> Net overall savings</li>
+</ul>
+<p>Fraud capture increases steadily as the cutoff expands. However, false positive cost also rises, reducing net gains beyond a certain point.</p>
+</section>
+<section id="cutoff-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="cutoff-comparison">Cutoff Comparison</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Cutoff %</th>
+<th>Overall Savings</th>
+<th>FDR</th>
+<th>FPR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1%</td>
+<td>$23,484,000</td>
+<td>33.3%</td>
+<td>0.232%</td>
+</tr>
+<tr class="even">
+<td>2%</td>
+<td>$28,308,000</td>
+<td>41.8%</td>
+<td>0.976%</td>
+</tr>
+<tr class="odd">
+<td>3%</td>
+<td>$35,664,000</td>
+<td>53.5%</td>
+<td>1.308%</td>
+</tr>
+<tr class="even">
+<td><strong>4%</strong></td>
+<td><strong>$40,500,000</strong></td>
+<td><strong>62.0%</strong></td>
+<td><strong>1.658%</strong></td>
+</tr>
+<tr class="odd">
+<td>5%</td>
+<td>$43,056,000</td>
+<td>67.3%</td>
+<td>2.060%</td>
+</tr>
+<tr class="even">
+<td>6%</td>
+<td>$45,120,000</td>
+<td>72.1%</td>
+<td>2.430%</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="recommended-cutoff-4" class="level3">
+<h3 class="anchored" data-anchor-id="recommended-cutoff-4">Recommended Cutoff: 4%</h3>
+<p>At a 4% cutoff:</p>
+<ul>
+<li>62% of fraudulent transactions are detected<br>
+</li>
+<li>False positive rate remains controlled at 1.658%<br>
+</li>
+<li>Estimated annual savings: <strong>$40.5 million</strong></li>
+</ul>
+<p>Although higher cutoffs increase fraud detection, they also introduce rising false positive costs and operational friction. The 4% threshold balances fraud capture and customer impact while delivering strong financial return.</p>
+<hr>
+</section>
+</section>
+<section id="part-vii-summary" class="level2">
+<h2 class="anchored" data-anchor-id="part-vii-summary">Part VII – Summary</h2>
+<p>This project developed a data-driven credit card fraud detection model using 97,852 transactions, of which approximately 2% were fraudulent.</p>
+<p>A structured pipeline was implemented, including data cleaning, feature engineering, feature selection, and model comparison. From 3,379 engineered variables, the top 20 were selected using a filter-and-wrapper approach.</p>
+<p>Among the models evaluated, LightGBM demonstrated the strongest balance between in-sample performance and out-of-time stability. The final model achieved:</p>
+<ul>
+<li>Train FDR: 0.744<br>
+</li>
+<li>Test FDR: 0.749<br>
+</li>
+<li>OOT FDR: 0.530</li>
+</ul>
+<p>A 4% decision cutoff was selected based on financial impact analysis. At this threshold:</p>
+<ul>
+<li>62% of fraud is detected<br>
+</li>
+<li>False positive rate remains controlled at 1.658%<br>
+</li>
+<li>Estimated annual savings: <strong>$40.5 million</strong></li>
+</ul>
+<p>The results indicate that behavioral feature engineering combined with boosted tree models provides strong performance under time drift. Future improvements may focus on additional data sources and enhanced behavioral signals to further improve OOT stability.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
