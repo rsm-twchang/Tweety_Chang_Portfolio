@@ -154,62 +154,6 @@
     "text": "Conclusion\nWave-1 response behavior is concentrated in a small set of signals: a localized geographic segment (ZIPs 00801 and 00804) and purchase-history indicators such as version path, recency, and ordering frequency. These patterns were consistent across models and remained the primary drivers of response separation.\nThe selected modeling approach provides a practical scoring framework that can be reused for future waves. After wave-2, results should be reviewed to confirm that the anomaly ZIP segment and version-path effects remain stable, and the targeting cutoff should be recalibrated using observed wave-2 economics and response rates."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Finance & Business Analytics\n📧 ctweety15@gmail.com 📞 858-888-1353 📄 Resume"
-  },
-  {
-    "objectID": "about.html#background",
-    "href": "about.html#background",
-    "title": "About",
-    "section": "Background",
-    "text": "Background\nWith a background in business analytics and accounting, I bring hands-on experience analyzing data, identifying process gaps, and supporting data-driven improvements through clear communication and cross-functional collaboration. My work has focused on turning complex, multi-source data into practical insights that support reporting accuracy and informed decision-making.\nIn recent analytics projects, I have analyzed operational and business data to uncover inconsistencies, trends, and improvement opportunities affecting downstream reporting and analysis. I have supported projects end-to-end by clarifying requirements, validating outputs through testing, documenting findings, and presenting results in a clear, actionable way to both technical and non-technical stakeholders. Across roles, I have worked closely with business, analytics, and technical teams to ensure analysis aligned with real user needs and project goals.\nI am comfortable working in ambiguous environments, learning new domains quickly, and balancing multiple priorities. I work regularly with Excel, SQL, Python, Tableau, and Power BI, which allows me to move fluidly between data analysis and business context. My background in client-facing and team-based roles has also strengthened my ability to communicate clearly, collaborate effectively, and contribute thoughtfully to shared outcomes.\nI am currently pursuing an M.S. in Business Analytics at UC San Diego and am seeking internship or full-time opportunities where analytical rigor and practical problem-solving can support real-world business decisions."
-  },
-  {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "About",
-    "section": "Education",
-    "text": "Education\nUniversity of California, San Diego — Rady School of Management\nMaster of Science, Business Analytics\nJul 2024 – Mar 2026\nNorthern Illinois University\nBachelor of Science, Accountancy\nAug 2021 – Aug 2023\nAsia University\nBachelor of Science, Accounting and Information Systems\nSep 2019 – Aug 2023"
-  },
-  {
-    "objectID": "about.html#work-experience",
-    "href": "about.html#work-experience",
-    "title": "About",
-    "section": "Work Experience",
-    "text": "Work Experience\nHighspring\nContent Analyst · Jul 2025 – Dec 2025\nBuilt a tracking workflow and reporting to monitor labeling accuracy and productivity for ad-content review.\nHP\nData Analyst · Mar 2025 – Jun 2025\nAutomated data quality checks and anomaly scans for campaign datasets; surfaced mismatches and outliers for stakeholder review. 3 HBC Tax Inc.\nTax Associate · Jan 2023 – May 2023\nPrepared individual and small-business tax filings and supported document intake, reconciliation, and client follow-ups.\nNorthern Illinois University\nResearch Assistant · May 2022 – Aug 2022\nCleaned and organized research datasets and produced summary outputs for faculty analysis."
-  },
-  {
-    "objectID": "about.html#projects",
-    "href": "about.html#projects",
-    "title": "About",
-    "section": "Projects",
-    "text": "Projects\n\nFraud Detection\nDatabase Management\nUplift Modeling\nA/B Testing\nPatent Count Modeling (MLE))\nK-Means Clustering"
-  },
-  {
-    "objectID": "about.html#focus-areas",
-    "href": "about.html#focus-areas",
-    "title": "About",
-    "section": "Focus Areas",
-    "text": "Focus Areas\n\nFinancial, business, and operational data analysis\n\nData validation, reconciliation, and reporting accuracy\n\nReporting automation and dashboard development\n\nExperimentation and A/B testing\n\nCommunicating insights to support operational and strategic decisions"
-  },
-  {
-    "objectID": "resume.html",
-    "href": "resume.html",
-    "title": "Resume",
-    "section": "",
-    "text": "Download PDF file."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Tweety Chang",
-    "section": "",
-    "text": "Welcome to my website!"
-  },
-  {
     "objectID": "Multinomial_Logit_Model.html",
     "href": "Multinomial_Logit_Model.html",
     "title": "Multinomial Logit Model",
@@ -257,6 +201,139 @@
     "title": "Multinomial Logit Model",
     "section": "6. Discussion",
     "text": "6. Discussion\nIf this were real data, the parameter estimates would reveal consumers’ underlying preferences.\n\nβ_Netflix &gt; β_Prime implies that, all else equal, consumers prefer Netflix to Prime Video. This reflects a higher perceived utility from Netflix’s offering.\nβ_price &lt; 0 is consistent with economic theory: as price increases, utility decreases, making the product less likely to be chosen.\n\nThe direction and magnitude of all estimates are reasonable. Consumers dislike ads, show brand preferences, and are price-sensitive—patterns expected in digital subscription markets.\nTo simulate or estimate a multi-level MNL model, we must account for individual differences in preferences. Unlike the standard MNL model, which assumes a single set of coefficients shared by all respondents, a hierarchical model allows each respondent to have their own set of parameters.\n\nKey changes: Instead of using one fixed β, assign each respondent a personal βₖ drawn from a population distribution: [ _i (, ) ]\nEstimation:\nEstimate both the respondent-level βᵢs and the population-level parameters (μ, Σ). This requires hierarchical modeling techniques, often implemented via Bayesian MCMC or mixed logit estimation.\n\nThis approach better reflects real-world data by capturing preference heterogeneity across individuals."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Tweety Chang",
+    "section": "",
+    "text": "Welcome to my website!"
+  },
+  {
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Resume",
+    "section": "",
+    "text": "Download PDF file."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Finance & Business Analytics\n📧 ctweety15@gmail.com 📞 858-888-1353 📄 Resume"
+  },
+  {
+    "objectID": "about.html#background",
+    "href": "about.html#background",
+    "title": "About",
+    "section": "Background",
+    "text": "Background\nWith a background in business analytics and accounting, I bring hands-on experience analyzing data, identifying process gaps, and supporting data-driven improvements through clear communication and cross-functional collaboration. My work has focused on turning complex, multi-source data into practical insights that support reporting accuracy and informed decision-making.\nIn recent analytics projects, I have analyzed operational and business data to uncover inconsistencies, trends, and improvement opportunities affecting downstream reporting and analysis. I have supported projects end-to-end by clarifying requirements, validating outputs through testing, documenting findings, and presenting results in a clear, actionable way to both technical and non-technical stakeholders. Across roles, I have worked closely with business, analytics, and technical teams to ensure analysis aligned with real user needs and project goals.\nI am comfortable working in ambiguous environments, learning new domains quickly, and balancing multiple priorities. I work regularly with Excel, SQL, Python, Tableau, and Power BI, which allows me to move fluidly between data analysis and business context. My background in client-facing and team-based roles has also strengthened my ability to communicate clearly, collaborate effectively, and contribute thoughtfully to shared outcomes.\nI am currently pursuing an M.S. in Business Analytics at UC San Diego and am seeking internship or full-time opportunities where analytical rigor and practical problem-solving can support real-world business decisions."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About",
+    "section": "Education",
+    "text": "Education\nUniversity of California, San Diego — Rady School of Management\nMaster of Science, Business Analytics\nJul 2024 – Mar 2026\nNorthern Illinois University\nBachelor of Science, Accountancy\nAug 2021 – Aug 2023\nAsia University\nBachelor of Science, Accounting and Information Systems\nSep 2019 – Aug 2023"
+  },
+  {
+    "objectID": "about.html#work-experience",
+    "href": "about.html#work-experience",
+    "title": "About",
+    "section": "Work Experience",
+    "text": "Work Experience\nHighspring\nContent Analyst · Jul 2025 – Dec 2025\nBuilt a tracking workflow and reporting to monitor labeling accuracy and productivity for ad-content review.\nHP\nData Analyst · Mar 2025 – Jun 2025\nAutomated data quality checks and anomaly scans for campaign datasets; surfaced mismatches and outliers for stakeholder review. 3 HBC Tax Inc.\nTax Associate · Jan 2023 – May 2023\nPrepared individual and small-business tax filings and supported document intake, reconciliation, and client follow-ups.\nNorthern Illinois University\nResearch Assistant · May 2022 – Aug 2022\nCleaned and organized research datasets and produced summary outputs for faculty analysis."
+  },
+  {
+    "objectID": "about.html#projects",
+    "href": "about.html#projects",
+    "title": "About",
+    "section": "Projects",
+    "text": "Projects\n\nFraud Detection\nUplift Modeling\nDatabase Management\nA/B Testing\nPatent Count Modeling (MLE)\nK-Means Clustering"
+  },
+  {
+    "objectID": "about.html#focus-areas",
+    "href": "about.html#focus-areas",
+    "title": "About",
+    "section": "Focus Areas",
+    "text": "Focus Areas\n\nFinancial, business, and operational data analysis\n\nData validation, reconciliation, and reporting accuracy\n\nReporting automation and dashboard development\n\nExperimentation and A/B testing\n\nCommunicating insights to support operational and strategic decisions"
+  },
+  {
+    "objectID": "database_management.html",
+    "href": "database_management.html",
+    "title": "Database Management",
+    "section": "",
+    "text": "This project focused on database management and data engineering using PostgreSQL, Snowflake, SQL, and Python. The work centered on building reliable ETL workflows and consolidating multi-source operational and financial data into an analysis-ready format for reporting and correlation analysis."
+  },
+  {
+    "objectID": "database_management.html#introduction",
+    "href": "database_management.html#introduction",
+    "title": "Database Management",
+    "section": "",
+    "text": "This project focused on database management and data engineering using PostgreSQL, Snowflake, SQL, and Python. The work centered on building reliable ETL workflows and consolidating multi-source operational and financial data into an analysis-ready format for reporting and correlation analysis."
+  },
+  {
+    "objectID": "database_management.html#objective",
+    "href": "database_management.html#objective",
+    "title": "Database Management",
+    "section": "Objective",
+    "text": "Objective\n\nBuild ETL workflows to consolidate 400,000+ records into a clean, analysis-ready dataset.\n\nIntegrate data across PostgreSQL, Snowflake, and Python pipelines to unify operational and financial information.\n\nSupport structured financial reporting by reviewing trends and relationships in the data.\n\nExplore potential correlations between external drivers (e.g., weather fluctuations) and purchase orders using multi-source data.\n\nLead a five-person team using clear task ownership and coordinated delivery."
+  },
+  {
+    "objectID": "database_management.html#data-description",
+    "href": "database_management.html#data-description",
+    "title": "Database Management",
+    "section": "Data Description",
+    "text": "Data Description\nThis case integrates operational, financial, and environmental data from multiple sources to support structured analysis of purchase orders and invoices.\nThe datasets used include:\n\n1. Purchase Order Data (CSV – 41 Monthly Files)\n\nLine-level purchase order records\n\nIncludes quantities received, expected prices, supplier identifiers, and order dates\n\nUsed to calculate total purchase order amounts\n\n\n\n2. Supplier Invoice Data (XML)\n\nInvoice-level financial records\n\nIncludes invoice amounts, tax information, and transaction dates\n\nUsed to compare invoiced amounts against quoted purchase orders\n\n\n\n3. Supplier Data (PostgreSQL)\n\nSupplier-level reference data\n\nIncludes supplier location (ZIP code), identifiers, and related attributes\n\nUsed to connect operational data to geographic information\n\n\n\n4. Weather Data (Snowflake Marketplace – NOAA via Cybersyn)\n\nDaily temperature data\n\nUsed to explore potential relationships between weather fluctuations and purchasing behavior\n\nTogether, these datasets allow us to:\n\nReconcile purchase orders and invoices\n\nDetect discrepancies between quoted and invoiced amounts\n\nExamine whether external factors (e.g., temperature) are associated with purchasing patterns\n\n\n\nSnowflake Marketplace Setup\nThe NOAA Weather & Environment dataset was accessed through Snowflake Marketplace (Cybersyn provider).\nThe dataset was installed in Snowflake as the WEATHER__ENVIRONMENT database.\nFigure 1. Snowflake Marketplace – Weather & Environment product\n\n**Figure 2. Installed WEATHER__ENVIRONMENT database in Snowflake**"
+  },
+  {
+    "objectID": "database_management.html#case-overview",
+    "href": "database_management.html#case-overview",
+    "title": "Database Management",
+    "section": "Case Overview",
+    "text": "Case Overview\nThe objective of this case was to design and implement an end-to-end ETL workflow using Snowflake and Python. Rather than transforming data in local tools, most processing was executed directly within Snowflake to ensure scalability and performance.\nThe workflow consisted of:\n\nExtracting data from CSV, XML, PostgreSQL, and Marketplace sources\n\nLoading the data into Snowflake\n\nTransforming the data into structured, analysis-ready tables\n\nJoining operational, financial, and environmental datasets\n\nCreating summarized outputs for reconciliation and correlation analysis\n\nThe final dataset enables comparison of:\n\nPurchase Order Amount\n\nInvoice Amount\n\nWeather Conditions (by supplier ZIP code and date)\n\nThis structure supports automated discrepancy detection and cross-source analytical exploration."
+  },
+  {
+    "objectID": "database_management.html#purchase-order-aggregation",
+    "href": "database_management.html#purchase-order-aggregation",
+    "title": "Database Management",
+    "section": "Purchase Order Aggregation",
+    "text": "Purchase Order Aggregation\nPurchase order data was provided as 41 separate monthly CSV files at the line-item level. These files were consolidated into a single dataset and loaded into Snowflake.\nBecause each purchase order contains multiple line items, totals were calculated for each PurchaseOrderID by summing:\n[ ]\nThis produced one summarized record per purchase order, reducing approximately 8,000+ line items to about 2,100 purchase orders. The result is a clean table of total quoted amounts by supplier and order date."
+  },
+  {
+    "objectID": "database_management.html#invoice-amount-for-each-purchase-order-id",
+    "href": "database_management.html#invoice-amount-for-each-purchase-order-id",
+    "title": "Database Management",
+    "section": "Invoice Amount for Each Purchase Order ID",
+    "text": "Invoice Amount for Each Purchase Order ID\nSupplier invoices were provided in XML format and converted into a structured dataset before being loaded into Snowflake.\nFrom the supplier transactions data, invoice totals were extracted using the Amount Excluding Tax field. The data was organized by:\n\nPurchaseOrderID\n\nSupplierID\n\nInvoiceAmount\n\nTransactionDate\n\nThis created a comparable summary of invoiced amounts for each purchase order."
+  },
+  {
+    "objectID": "database_management.html#joining-purchase-orders-and-invoices",
+    "href": "database_management.html#joining-purchase-orders-and-invoices",
+    "title": "Database Management",
+    "section": "Joining Purchase Orders and Invoices",
+    "text": "Joining Purchase Orders and Invoices\nThe summarized purchase order table and invoice table were joined using PurchaseOrderID and SupplierID.\nA new field, invoiced_vs_quoted, was calculated as:\n[ - ]\nThis value captures the difference between the quoted purchase amount and the invoiced amount.\nThe final reconciliation table contains approximately 2,100 matched records and provides a clear view of pricing differences across suppliers and transactions."
+  },
+  {
+    "objectID": "database_management.html#supplier-postal-codes",
+    "href": "database_management.html#supplier-postal-codes",
+    "title": "Database Management",
+    "section": "Supplier Postal Codes",
+    "text": "Supplier Postal Codes\nSupplier reference data was extracted from PostgreSQL and loaded into Snowflake. From this dataset, each supplier’s postal code was identified and standardized.\nA simple reference table was created containing:\n\nSupplierID\n\nPostalPostalCode\n\nThis table provides the geographic link needed to connect supplier activity with external data sources."
+  },
+  {
+    "objectID": "database_management.html#weather-data",
+    "href": "database_management.html#weather-data",
+    "title": "Database Management",
+    "section": "Weather Data",
+    "text": "Weather Data\nTo examine whether weather conditions were associated with purchasing activity, daily temperature data was added to the analysis.\nA national ZIP code reference file was used to obtain latitude and longitude for each postal code. Each supplier ZIP code was then matched to the nearest NOAA weather station available in Snowflake Marketplace.\nFrom the NOAA dataset, daily maximum temperature values were extracted. The resulting table, supplier_zip_code_weather, contains:\n\nZIP code\n\nDate\n\nDaily high temperature\n\nApproximately 1,300 ZIP-date temperature records were generated.\nThis structure allows supplier transactions to be analyzed alongside daily weather conditions using shared ZIP codes and dates."
+  },
+  {
+    "objectID": "database_management.html#joining-everything-together",
+    "href": "database_management.html#joining-everything-together",
+    "title": "Database Management",
+    "section": "Joining Everything Together",
+    "text": "Joining Everything Together\nThe final step combined all prepared datasets:\n\nPurchase order and invoice comparison table\n\nSupplier reference data\n\nDaily weather data by ZIP code\n\nThe tables were joined using:\n\nSupplier ZIP code\n\nTransaction date\n\nOnly records with available temperature data were included.\n\nResult\nThe final dataset contains:\n\nZIP code\n\nDate\n\nDaily high temperature\n\nPurchase order and invoice comparison information\n\nApproximately 1,300 matched records were produced.\n\n\nObservation\nAfter joining the datasets, no measurable relationship was observed between daily temperature and the difference between quoted and invoiced amounts. The invoiced_vs_quoted values did not vary in a way that suggested weather influence.\nBased on this analysis, weather conditions do not appear to explain invoice discrepancies in this dataset."
   },
   {
     "objectID": "AB_Testing.html",

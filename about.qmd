@@ -69,10 +69,10 @@ Cleaned and organized research datasets and produced summary outputs for faculty
 
 ## Projects
 - [Fraud Detection](credit_card_fraud_detection.qmd)
-- [Database Management](database_management.qmd)
 - [Uplift Modeling](Intuit_Quickbooks_Upgrade.qmd)
+- [Database Management](database_management.qmd)
 - [A/B Testing](AB_Testing.qmd)
-- [Patent Count Modeling (MLE))](Maximum_Likelihood_Estimation.qmd)
+- [Patent Count Modeling (MLE)](Maximum_Likelihood_Estimation.qmd)
 - [K-Means Clustering](Key_Drivers_Analysis.qmd)
 
 ## Focus Areas

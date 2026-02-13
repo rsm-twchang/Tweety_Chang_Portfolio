@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tweety">
-<meta name="dcterms.date" content="2025-06-06">
+<meta name="dcterms.date" content="2026-02-13">
 
-<title>Key Drivers Analysis – Tweety’s website</title>
+<title>Database Management – Tweety’s website</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,7 +107,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Uplift Modeling</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./database_management.html"> 
+    <a class="nav-link active" href="./database_management.html" aria-current="page"> 
 <span class="menu-text">Database Management</span></a>
   </li>  
   <li class="nav-item">
@@ -119,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Patent Count Modeling (MLE)</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./Key_Drivers_Analysis.html" aria-current="page"> 
+    <a class="nav-link" href="./Key_Drivers_Analysis.html"> 
 <span class="menu-text">K-Means Clustering</span></a>
   </li>  
 </ul>
@@ -142,17 +142,23 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
   <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a>
   <ul class="collapse">
-  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
-  <li><a href="#features-used-for-clustering" id="toc-features-used-for-clustering" class="nav-link" data-scroll-target="#features-used-for-clustering">Features used for clustering</a></li>
+  <li><a href="#purchase-order-data-csv-41-monthly-files" id="toc-purchase-order-data-csv-41-monthly-files" class="nav-link" data-scroll-target="#purchase-order-data-csv-41-monthly-files">1. Purchase Order Data (CSV – 41 Monthly Files)</a></li>
+  <li><a href="#supplier-invoice-data-xml" id="toc-supplier-invoice-data-xml" class="nav-link" data-scroll-target="#supplier-invoice-data-xml">2. Supplier Invoice Data (XML)</a></li>
+  <li><a href="#supplier-data-postgresql" id="toc-supplier-data-postgresql" class="nav-link" data-scroll-target="#supplier-data-postgresql">3. Supplier Data (PostgreSQL)</a></li>
+  <li><a href="#weather-data-snowflake-marketplace-noaa-via-cybersyn" id="toc-weather-data-snowflake-marketplace-noaa-via-cybersyn" class="nav-link" data-scroll-target="#weather-data-snowflake-marketplace-noaa-via-cybersyn">4. Weather Data (Snowflake Marketplace – NOAA via Cybersyn)</a></li>
+  <li><a href="#snowflake-marketplace-setup" id="toc-snowflake-marketplace-setup" class="nav-link" data-scroll-target="#snowflake-marketplace-setup">Snowflake Marketplace Setup</a></li>
   </ul></li>
-  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">K-Means Clustering</a>
+  <li><a href="#case-overview" id="toc-case-overview" class="nav-link" data-scroll-target="#case-overview">Case Overview</a></li>
+  <li><a href="#purchase-order-aggregation" id="toc-purchase-order-aggregation" class="nav-link" data-scroll-target="#purchase-order-aggregation">Purchase Order Aggregation</a></li>
+  <li><a href="#invoice-amount-for-each-purchase-order-id" id="toc-invoice-amount-for-each-purchase-order-id" class="nav-link" data-scroll-target="#invoice-amount-for-each-purchase-order-id">Invoice Amount for Each Purchase Order ID</a></li>
+  <li><a href="#joining-purchase-orders-and-invoices" id="toc-joining-purchase-orders-and-invoices" class="nav-link" data-scroll-target="#joining-purchase-orders-and-invoices">Joining Purchase Orders and Invoices</a></li>
+  <li><a href="#supplier-postal-codes" id="toc-supplier-postal-codes" class="nav-link" data-scroll-target="#supplier-postal-codes">Supplier Postal Codes</a></li>
+  <li><a href="#weather-data" id="toc-weather-data" class="nav-link" data-scroll-target="#weather-data">Weather Data</a></li>
+  <li><a href="#joining-everything-together" id="toc-joining-everything-together" class="nav-link" data-scroll-target="#joining-everything-together">Joining Everything Together</a>
   <ul class="collapse">
-  <li><a href="#selecting-the-number-of-clusters" id="toc-selecting-the-number-of-clusters" class="nav-link" data-scroll-target="#selecting-the-number-of-clusters">Selecting the Number of Clusters</a></li>
-  <li><a href="#comparison-with-scikit-learn-implementation" id="toc-comparison-with-scikit-learn-implementation" class="nav-link" data-scroll-target="#comparison-with-scikit-learn-implementation">Comparison with scikit-learn implementation</a></li>
-  <li><a href="#evaluation-of-cluster-quantity" id="toc-evaluation-of-cluster-quantity" class="nav-link" data-scroll-target="#evaluation-of-cluster-quantity">Evaluation of Cluster Quantity</a></li>
-  <li><a href="#final-clustering-result-k-3" id="toc-final-clustering-result-k-3" class="nav-link" data-scroll-target="#final-clustering-result-k-3">Final Clustering Result (k = 3)</a></li>
+  <li><a href="#result" id="toc-result" class="nav-link" data-scroll-target="#result">Result</a></li>
+  <li><a href="#observation" id="toc-observation" class="nav-link" data-scroll-target="#observation">Observation</a></li>
   </ul></li>
-  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
   </ul>
 </nav>
     </div>
@@ -161,7 +167,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Key Drivers Analysis</h1>
+<h1 class="title">Database Management</h1>
 </div>
 
 
@@ -178,7 +184,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 6, 2025</p>
+      <p class="date">February 13, 2026</p>
     </div>
   </div>
   
@@ -192,259 +198,210 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Clustering helps reveal patterns when there is no target variable to predict. Here, K-Means is used to explore the <a href="https://www.kaggle.com/datasets/parulpandey/palmer-archipelago-antarctica-penguin-data">Palmer Penguins</a> dataset through two measurements—<strong>bill length</strong> and <strong>flipper length</strong>—to see whether the data naturally separates into distinct groups <strong>without using species labels</strong>. After forming clusters, we compare them back to the species categories to check how well morphology alone reflects biological differences.</p>
-<p>K-Means is an <strong>unsupervised</strong> method that assigns each observation to one of <code>k</code> clusters by minimizing within-cluster variation. Because the result depends on the choice of <code>k</code> and on initialization, it is useful to inspect how the algorithm evolves and to evaluate multiple cluster counts rather than relying on a single run.</p>
-<p>This page includes a from-scratch implementation alongside the <code>scikit-learn</code> version, visualizes centroid updates across iterations, and uses <strong>WCSS</strong> and <strong>silhouette score</strong> to guide the choice of <code>k</code>.</p>
+<p>This project focused on database management and data engineering using PostgreSQL, Snowflake, SQL, and Python. The work centered on building reliable ETL workflows and consolidating multi-source operational and financial data into an analysis-ready format for reporting and correlation analysis.</p>
 <hr>
 </section>
 <section id="objective" class="level2">
 <h2 class="anchored" data-anchor-id="objective">Objective</h2>
-<p>The objective of this analysis is to apply K-Means clustering to the <em>Palmer Penguins</em> dataset using <strong>bill length</strong> and <strong>flipper length</strong>, and to examine whether these two measurements alone reveal meaningful structure without using species labels. To make the method transparent, K-Means is implemented both <strong>from scratch</strong> and with <code>scikit-learn</code>, and the results are compared in terms of centroid locations and cluster assignments. We also visualize how centroids and memberships change across iterations to understand convergence behavior. Finally, we evaluate multiple values of <code>k</code> using <strong>within-cluster sum of squares (WCSS)</strong> and <strong>silhouette score</strong>, then interpret the selected clustering by comparing groups back to species categories after the clustering step.</p>
+<ul>
+<li>Build ETL workflows to consolidate <strong>400,000+ records</strong> into a clean, analysis-ready dataset.<br>
+</li>
+<li>Integrate data across <strong>PostgreSQL</strong>, <strong>Snowflake</strong>, and <strong>Python pipelines</strong> to unify operational and financial information.<br>
+</li>
+<li>Support structured financial reporting by reviewing trends and relationships in the data.<br>
+</li>
+<li>Explore potential correlations between external drivers (e.g., weather fluctuations) and purchase orders using multi-source data.<br>
+</li>
+<li>Lead a five-person team using clear task ownership and coordinated delivery.</li>
+</ul>
 <hr>
 </section>
 <section id="data-description" class="level2">
 <h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
-<p>This project uses the <em>Palmer Penguins</em> dataset. Each row represents one observed penguin and includes metadata (species, island, sex, year) plus physical measurements recorded in standard units.</p>
-<section id="variables" class="level3">
-<h3 class="anchored" data-anchor-id="variables">Variables</h3>
+<p>This case integrates operational, financial, and environmental data from multiple sources to support structured analysis of purchase orders and invoices.</p>
+<p>The datasets used include:</p>
+<section id="purchase-order-data-csv-41-monthly-files" class="level3">
+<h3 class="anchored" data-anchor-id="purchase-order-data-csv-41-monthly-files">1. Purchase Order Data (CSV – 41 Monthly Files)</h3>
 <ul>
-<li><code>species</code>: Adélie, Chinstrap, or Gentoo<br>
+<li>Line-level purchase order records<br>
 </li>
-<li><code>island</code>: island of observation<br>
+<li>Includes quantities received, expected prices, supplier identifiers, and order dates<br>
 </li>
-<li><code>bill_length_mm</code>: bill length (mm)<br>
-</li>
-<li><code>bill_depth_mm</code>: bill depth (mm)<br>
-</li>
-<li><code>flipper_length_mm</code>: flipper length (mm)<br>
-</li>
-<li><code>body_mass_g</code>: body mass (g)<br>
-</li>
-<li><code>sex</code>: recorded biological sex (when available)<br>
-</li>
-<li><code>year</code>: observation year</li>
+<li>Used to calculate total purchase order amounts</li>
 </ul>
 </section>
-<section id="features-used-for-clustering" class="level3">
-<h3 class="anchored" data-anchor-id="features-used-for-clustering">Features used for clustering</h3>
-<p>K-Means is fit using two continuous features:</p>
+<section id="supplier-invoice-data-xml" class="level3">
+<h3 class="anchored" data-anchor-id="supplier-invoice-data-xml">2. Supplier Invoice Data (XML)</h3>
 <ul>
-<li><strong>Bill length (<code>bill_length_mm</code>)</strong></li>
-<li><strong>Flipper length (<code>flipper_length_mm</code>)</strong></li>
+<li>Invoice-level financial records<br>
+</li>
+<li>Includes invoice amounts, tax information, and transaction dates<br>
+</li>
+<li>Used to compare invoiced amounts against quoted purchase orders</li>
 </ul>
-<p>Species is not used during clustering; it is used afterward to interpret how clusters align with known categories.</p>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Data Preview (first 5 rows)
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 12%">
-<col style="width: 16%">
-<col style="width: 15%">
-<col style="width: 19%">
-<col style="width: 13%">
-<col style="width: 8%">
-<col style="width: 6%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>species</th>
-<th>island</th>
-<th>bill_length_mm</th>
-<th>bill_depth_mm</th>
-<th>flipper_length_mm</th>
-<th>body_mass_g</th>
-<th>sex</th>
-<th>year</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>39.1</td>
-<td>18.7</td>
-<td>181</td>
-<td>3750</td>
-<td>male</td>
-<td>2007</td>
-</tr>
-<tr class="even">
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>39.5</td>
-<td>17.4</td>
-<td>186</td>
-<td>3800</td>
-<td>female</td>
-<td>2007</td>
-</tr>
-<tr class="odd">
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>40.3</td>
-<td>18.0</td>
-<td>195</td>
-<td>3250</td>
-<td>female</td>
-<td>2007</td>
-</tr>
-<tr class="even">
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>36.7</td>
-<td>19.3</td>
-<td>193</td>
-<td>3450</td>
-<td>female</td>
-<td>2007</td>
-</tr>
-<tr class="odd">
-<td>Adelie</td>
-<td>Torgersen</td>
-<td>39.3</td>
-<td>20.6</td>
-<td>190</td>
-<td>3650</td>
-<td>male</td>
-<td>2007</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
 </section>
+<section id="supplier-data-postgresql" class="level3">
+<h3 class="anchored" data-anchor-id="supplier-data-postgresql">3. Supplier Data (PostgreSQL)</h3>
+<ul>
+<li>Supplier-level reference data<br>
+</li>
+<li>Includes supplier location (ZIP code), identifiers, and related attributes<br>
+</li>
+<li>Used to connect operational data to geographic information</li>
+</ul>
 </section>
-<section id="k-means-clustering" class="level2">
-<h2 class="anchored" data-anchor-id="k-means-clustering">K-Means Clustering</h2>
-<section id="selecting-the-number-of-clusters" class="level3">
-<h3 class="anchored" data-anchor-id="selecting-the-number-of-clusters">Selecting the Number of Clusters</h3>
-<p><strong>Figure 1. Custom K-Means — Iteration 1</strong> <img src="figures/fig_kmeans_iter1.png" id="fig_kmeans_iter1" class="img-fluid" alt="Figure 1. Custom K-Means — Iteration 1"></p>
-<p>With randomly initialized centroids, clusters are still loosely defined and several regions overlap, especially in the middle of the plot. The centroid markers show starting positions that do not yet match the densest parts of the data.</p>
-<p><strong>Figure 2. Custom K-Means — Iteration 2</strong> <img src="figures/fig_kmeans_iter2.png" id="fig_kmeans_iter2" class="img-fluid" alt="Figure 2. Custom K-Means — Iteration 2"></p>
-<p>After one update, centroids shift sharply toward high-density areas and the cluster boundaries become more coherent. Most of the separation emerges here, with a clearer split between the high–flipper-length group and the two lower bands.</p>
-<p><strong>Figure 3. Custom K-Means — Final clustering (Iteration 10)</strong><br>
-<img src="figures/fig_kmeans_iter10.png" id="fig-kmeans-final" class="img-fluid" alt="Figure 3. Custom K-Means — Final clustering (Iteration 10)"></p>
-<p>Iteration 10 represents the converged solution. Centroid movement is negligible relative to earlier iterations, and cluster assignments are stable. The final clustering forms three distinct groups, primarily separated by flipper length with bill length refining boundaries within clusters.</p>
+<section id="weather-data-snowflake-marketplace-noaa-via-cybersyn" class="level3">
+<h3 class="anchored" data-anchor-id="weather-data-snowflake-marketplace-noaa-via-cybersyn">4. Weather Data (Snowflake Marketplace – NOAA via Cybersyn)</h3>
+<ul>
+<li>Daily temperature data<br>
+</li>
+<li>Used to explore potential relationships between weather fluctuations and purchasing behavior</li>
+</ul>
+<p>Together, these datasets allow us to:</p>
+<ul>
+<li>Reconcile purchase orders and invoices<br>
+</li>
+<li>Detect discrepancies between quoted and invoiced amounts<br>
+</li>
+<li>Examine whether external factors (e.g., temperature) are associated with purchasing patterns</li>
+</ul>
 </section>
-<section id="comparison-with-scikit-learn-implementation" class="level3">
-<h3 class="anchored" data-anchor-id="comparison-with-scikit-learn-implementation">Comparison with scikit-learn implementation</h3>
-<p>To validate the custom K-Means implementation, the final centroids are compared with those obtained from <code>scikit-learn</code>. Each centroid is shown as:</p>
-<p><strong>(Bill Length, Flipper Length)</strong></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Cluster</th>
-<th style="text-align: left;">Custom Implementation</th>
-<th style="text-align: left;">scikit-learn</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">(38.45, 187.05)</td>
-<td style="text-align: left;">(39.56, 188.14)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">(47.63, 216.92)</td>
-<td style="text-align: left;">(48.14, 219.29)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">(45.95, 196.73)</td>
-<td style="text-align: left;">(46.50, 201.77)</td>
-</tr>
-</tbody>
-</table>
-<p>The centroid locations are close across implementations. Small differences are expected due to initialization and convergence tolerance, but both methods identify the same overall cluster structure.</p>
-<section id="within-cluster-sum-of-squares-wcss" class="level4">
-<h4 class="anchored" data-anchor-id="within-cluster-sum-of-squares-wcss">Within-Cluster Sum of Squares (WCSS)</h4>
-<p><strong>Selecting the Number of Clusters (WCSS)</strong> <img src="figures/fig4_wcss.png" id="fig4_wcss" class="img-fluid" alt="Figure 4. Within-Cluster Sum of Squares (WCSS) vs.&nbsp;Number of Clusters"></p>
-<p>WCSS decreases as the number of clusters increases, which is expected because additional clusters reduce within-group variance. The largest drop occurs between k = 2 and k = 3, after which the curve begins to flatten. This “elbow” suggests that three clusters capture most of the structure in the data without adding unnecessary complexity.</p>
-</section>
-<section id="silhouette-score" class="level4">
-<h4 class="anchored" data-anchor-id="silhouette-score">Silhouette Score</h4>
-<p><strong>Cluster Quality (Silhouette Score)</strong> <img src="figures/fig5_silhouette.png" id="fig5_silhouette" class="img-fluid" alt="Figure 5. Silhouette Score vs.&nbsp;Number of Clusters"></p>
-<p>The silhouette score is highest at k = 2, but remains reasonably strong at k = 3. Because the WCSS elbow occurs at three clusters and the dataset contains three biological species, k = 3 provides a balanced and interpretable solution.</p>
-</section>
-</section>
-<section id="evaluation-of-cluster-quantity" class="level3">
-<h3 class="anchored" data-anchor-id="evaluation-of-cluster-quantity">Evaluation of Cluster Quantity</h3>
-<p>To select the number of clusters, WCSS and silhouette scores were computed for k = 2 to 7.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: right;">K</th>
-<th style="text-align: right;">WCSS</th>
-<th style="text-align: right;">Silhouette Score</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">20949.79</td>
-<td style="text-align: right;">0.612</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">14269.56</td>
-<td style="text-align: right;"><strong>0.456</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">9587.14</td>
-<td style="text-align: right;">0.445</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">7597.61</td>
-<td style="text-align: right;">0.410</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">6326.31</td>
-<td style="text-align: right;">0.414</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">6030.08</td>
-<td style="text-align: right;">0.370</td>
-</tr>
-</tbody>
-</table>
-<p>Although the silhouette score is highest at k = 2, this solution collapses two biologically distinct groups into a single cluster. The WCSS curve shows a clear elbow at <strong>k = 3</strong>, indicating substantial variance reduction when moving from 2 to 3 clusters.</p>
-<p>Because three clusters preserve meaningful morphological distinctions while still maintaining reasonable separation, <strong>k = 3</strong> provides a more interpretable segmentation.</p>
-</section>
-<section id="final-clustering-result-k-3" class="level3">
-<h3 class="anchored" data-anchor-id="final-clustering-result-k-3">Final Clustering Result (k = 3)</h3>
-<div id="fig6_kmeans_k3" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="figures/fig6_kmeans_k3.png" class="img-fluid figure-img"></p>
-<figcaption>K-Means clustering result (k = 3)</figcaption>
-</figure>
-</div>
-<p>With k = 3, the algorithm separates the data into three distinct groups. The upper cluster captures penguins with the longest flippers and bills, the lower-left cluster represents shorter measurements, and the middle cluster occupies the intermediate range. Centroids (black markers) lie near the center of each group, indicating stable cluster formation.</p>
+<section id="snowflake-marketplace-setup" class="level3">
+<h3 class="anchored" data-anchor-id="snowflake-marketplace-setup">Snowflake Marketplace Setup</h3>
+<p>The NOAA Weather &amp; Environment dataset was accessed through Snowflake Marketplace (Cybersyn provider).<br>
+The dataset was installed in Snowflake as the <code>WEATHER__ENVIRONMENT</code> database.</p>
+<p><strong>Figure 1. Snowflake Marketplace – Weather &amp; Environment product</strong><br>
+<img src="figures/snowflake_marketplace_weather.jpeg" id="fig-marketplace" class="img-fluid" alt="Snowflake Marketplace – Weather &amp; Environment"></p>
+<p>**Figure 2. Installed WEATHER__ENVIRONMENT database in Snowflake**<br>
+<img src="figures/snowflake_weather_database.jpeg" id="fig-weather-db" class="img-fluid" alt="Installed WEATHER__ENVIRONMENT database"></p>
 <hr>
 </section>
 </section>
-<section id="interpretation" class="level2">
-<h2 class="anchored" data-anchor-id="interpretation">Interpretation</h2>
-<p>The three clusters differ primarily along flipper length. One group shows substantially shorter flippers and bills, another shows the longest measurements, and the third occupies the intermediate range.</p>
-<p>Centroid values indicate that flipper length drives most of the separation, with differences exceeding 20–30 mm between groups. Cluster sizes are reasonably balanced, suggesting the segmentation is not dominated by outliers.</p>
+<section id="case-overview" class="level2">
+<h2 class="anchored" data-anchor-id="case-overview">Case Overview</h2>
+<p>The objective of this case was to design and implement an end-to-end ETL workflow using Snowflake and Python. Rather than transforming data in local tools, most processing was executed directly within Snowflake to ensure scalability and performance.</p>
+<p>The workflow consisted of:</p>
+<ol type="1">
+<li>Extracting data from CSV, XML, PostgreSQL, and Marketplace sources<br>
+</li>
+<li>Loading the data into Snowflake<br>
+</li>
+<li>Transforming the data into structured, analysis-ready tables<br>
+</li>
+<li>Joining operational, financial, and environmental datasets<br>
+</li>
+<li>Creating summarized outputs for reconciliation and correlation analysis</li>
+</ol>
+<p>The final dataset enables comparison of:</p>
+<ul>
+<li>Purchase Order Amount<br>
+</li>
+<li>Invoice Amount<br>
+</li>
+<li>Weather Conditions (by supplier ZIP code and date)</li>
+</ul>
+<p>This structure supports automated discrepancy detection and cross-source analytical exploration.</p>
+<hr>
+</section>
+<section id="purchase-order-aggregation" class="level2">
+<h2 class="anchored" data-anchor-id="purchase-order-aggregation">Purchase Order Aggregation</h2>
+<p>Purchase order data was provided as 41 separate monthly CSV files at the line-item level. These files were consolidated into a single dataset and loaded into Snowflake.</p>
+<p>Because each purchase order contains multiple line items, totals were calculated for each <code>PurchaseOrderID</code> by summing:</p>
+<p>[ ]</p>
+<p>This produced one summarized record per purchase order, reducing approximately 8,000+ line items to about 2,100 purchase orders. The result is a clean table of total quoted amounts by supplier and order date.</p>
+<hr>
+</section>
+<section id="invoice-amount-for-each-purchase-order-id" class="level2">
+<h2 class="anchored" data-anchor-id="invoice-amount-for-each-purchase-order-id">Invoice Amount for Each Purchase Order ID</h2>
+<p>Supplier invoices were provided in XML format and converted into a structured dataset before being loaded into Snowflake.</p>
+<p>From the supplier transactions data, invoice totals were extracted using the <strong>Amount Excluding Tax</strong> field. The data was organized by:</p>
+<ul>
+<li>PurchaseOrderID<br>
+</li>
+<li>SupplierID<br>
+</li>
+<li>InvoiceAmount<br>
+</li>
+<li>TransactionDate</li>
+</ul>
+<p>This created a comparable summary of invoiced amounts for each purchase order.</p>
+<hr>
+</section>
+<section id="joining-purchase-orders-and-invoices" class="level2">
+<h2 class="anchored" data-anchor-id="joining-purchase-orders-and-invoices">Joining Purchase Orders and Invoices</h2>
+<p>The summarized purchase order table and invoice table were joined using <code>PurchaseOrderID</code> and <code>SupplierID</code>.</p>
+<p>A new field, <strong>invoiced_vs_quoted</strong>, was calculated as:</p>
+<p>[ - ]</p>
+<p>This value captures the difference between the quoted purchase amount and the invoiced amount.</p>
+<p>The final reconciliation table contains approximately 2,100 matched records and provides a clear view of pricing differences across suppliers and transactions.</p>
+<hr>
+</section>
+<section id="supplier-postal-codes" class="level2">
+<h2 class="anchored" data-anchor-id="supplier-postal-codes">Supplier Postal Codes</h2>
+<p>Supplier reference data was extracted from PostgreSQL and loaded into Snowflake. From this dataset, each supplier’s postal code was identified and standardized.</p>
+<p>A simple reference table was created containing:</p>
+<ul>
+<li>SupplierID<br>
+</li>
+<li>PostalPostalCode</li>
+</ul>
+<p>This table provides the geographic link needed to connect supplier activity with external data sources.</p>
+<hr>
+</section>
+<section id="weather-data" class="level2">
+<h2 class="anchored" data-anchor-id="weather-data">Weather Data</h2>
+<p>To examine whether weather conditions were associated with purchasing activity, daily temperature data was added to the analysis.</p>
+<p>A national ZIP code reference file was used to obtain latitude and longitude for each postal code. Each supplier ZIP code was then matched to the nearest NOAA weather station available in Snowflake Marketplace.</p>
+<p>From the NOAA dataset, daily maximum temperature values were extracted. The resulting table, <strong>supplier_zip_code_weather</strong>, contains:</p>
+<ul>
+<li>ZIP code<br>
+</li>
+<li>Date<br>
+</li>
+<li>Daily high temperature</li>
+</ul>
+<p>Approximately 1,300 ZIP-date temperature records were generated.</p>
+<p>This structure allows supplier transactions to be analyzed alongside daily weather conditions using shared ZIP codes and dates.</p>
+<hr>
+</section>
+<section id="joining-everything-together" class="level2">
+<h2 class="anchored" data-anchor-id="joining-everything-together">Joining Everything Together</h2>
+<p>The final step combined all prepared datasets:</p>
+<ul>
+<li>Purchase order and invoice comparison table<br>
+</li>
+<li>Supplier reference data<br>
+</li>
+<li>Daily weather data by ZIP code</li>
+</ul>
+<p>The tables were joined using:</p>
+<ul>
+<li>Supplier ZIP code<br>
+</li>
+<li>Transaction date</li>
+</ul>
+<p>Only records with available temperature data were included.</p>
+<section id="result" class="level3">
+<h3 class="anchored" data-anchor-id="result">Result</h3>
+<p>The final dataset contains:</p>
+<ul>
+<li>ZIP code<br>
+</li>
+<li>Date<br>
+</li>
+<li>Daily high temperature<br>
+</li>
+<li>Purchase order and invoice comparison information</li>
+</ul>
+<p>Approximately 1,300 matched records were produced.</p>
+</section>
+<section id="observation" class="level3">
+<h3 class="anchored" data-anchor-id="observation">Observation</h3>
+<p>After joining the datasets, no measurable relationship was observed between daily temperature and the difference between quoted and invoiced amounts. The invoiced_vs_quoted values did not vary in a way that suggested weather influence.</p>
+<p>Based on this analysis, weather conditions do not appear to explain invoice discrepancies in this dataset.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

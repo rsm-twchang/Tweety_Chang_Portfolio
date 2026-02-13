@@ -22,12 +22,14 @@ website:
         text: Fraud Detection
       - href: Intuit_Quickbooks_Upgrade.qmd
         text: Uplift Modeling
+      - href: database_management.qmd
+        text: Database Management
       - href: AB_Testing.qmd
         text: A/B Testing
       - href: Maximum_Likelihood_Estimation.qmd
-        text: MLE
+        text: Patent Count Modeling (MLE)
       - href: Key_Drivers_Analysis.qmd
-        text: Key Drivers Analysis
+        text: K-Means Clustering
 
 format:
   html:
