@@ -148,15 +148,12 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a>
   <ul class="collapse">
-  <li><a href="#outlier-removal" id="toc-outlier-removal" class="nav-link" data-scroll-target="#outlier-removal">1. Outlier Removal</a></li>
-  <li><a href="#data-exclusions-transaction-type" id="toc-data-exclusions-transaction-type" class="nav-link" data-scroll-target="#data-exclusions-transaction-type">2. Data Exclusions – Transaction Type</a></li>
-  <li><a href="#handling-missing-and-invalid-values" id="toc-handling-missing-and-invalid-values" class="nav-link" data-scroll-target="#handling-missing-and-invalid-values">3. Handling Missing and Invalid Values</a></li>
+  <li><a href="#outlier-removal" id="toc-outlier-removal" class="nav-link" data-scroll-target="#outlier-removal">Outlier Removal</a></li>
+  <li><a href="#data-exclusions-transaction-type" id="toc-data-exclusions-transaction-type" class="nav-link" data-scroll-target="#data-exclusions-transaction-type">Data Exclusions – Transaction Type</a></li>
+  <li><a href="#handling-missing-and-invalid-values" id="toc-handling-missing-and-invalid-values" class="nav-link" data-scroll-target="#handling-missing-and-invalid-values">Handling Missing and Invalid Values</a></li>
   <li><a href="#data-status-after-cleaning" id="toc-data-status-after-cleaning" class="nav-link" data-scroll-target="#data-status-after-cleaning">Data Status After Cleaning</a></li>
   </ul></li>
-  <li><a href="#variable-creation" id="toc-variable-creation" class="nav-link" data-scroll-target="#variable-creation">Variable Creation</a>
-  <ul class="collapse">
-  <li><a href="#summary-of-variables-created" id="toc-summary-of-variables-created" class="nav-link" data-scroll-target="#summary-of-variables-created">Summary of Variables Created</a></li>
-  </ul></li>
+  <li><a href="#variable-creation" id="toc-variable-creation" class="nav-link" data-scroll-target="#variable-creation">Variable Creation</a></li>
   <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection">Feature Selection</a>
   <ul class="collapse">
   <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering">1. Filtering</a></li>
@@ -165,7 +162,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations">Observations</a></li>
   <li><a href="#wrapper-results-forward-selection" id="toc-wrapper-results-forward-selection" class="nav-link" data-scroll-target="#wrapper-results-forward-selection">Wrapper Results (Forward Selection)</a></li>
   <li><a href="#feature-selection-conclusion" id="toc-feature-selection-conclusion" class="nav-link" data-scroll-target="#feature-selection-conclusion">Feature Selection Conclusion</a></li>
-  <li><a href="#selected-variables-top-20" id="toc-selected-variables-top-20" class="nav-link" data-scroll-target="#selected-variables-top-20">Selected Variables (Top 20)</a></li>
   </ul></li>
   <li><a href="#preliminary-model-exploration" id="toc-preliminary-model-exploration" class="nav-link" data-scroll-target="#preliminary-model-exploration">Preliminary Model Exploration</a>
   <ul class="collapse">
@@ -469,7 +465,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="data-cleaning" class="level2">
 <h2 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h2>
 <section id="outlier-removal" class="level3">
-<h3 class="anchored" data-anchor-id="outlier-removal">1. Outlier Removal</h3>
+<h3 class="anchored" data-anchor-id="outlier-removal">Outlier Removal</h3>
 <p>The transaction amount variable contains one extreme observation:</p>
 <ul>
 <li>Recnum #53179<br>
@@ -484,7 +480,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 <section id="data-exclusions-transaction-type" class="level3">
-<h3 class="anchored" data-anchor-id="data-exclusions-transaction-type">2. Data Exclusions – Transaction Type</h3>
+<h3 class="anchored" data-anchor-id="data-exclusions-transaction-type">Data Exclusions – Transaction Type</h3>
 <p>The variable <code>Transtype</code> contains four categories:</p>
 <ul>
 <li>P: 97,497<br>
@@ -501,10 +497,10 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 <section id="handling-missing-and-invalid-values" class="level3">
-<h3 class="anchored" data-anchor-id="handling-missing-and-invalid-values">3. Handling Missing and Invalid Values</h3>
+<h3 class="anchored" data-anchor-id="handling-missing-and-invalid-values">Handling Missing and Invalid Values</h3>
 <p>Several merchant-related fields contained missing or invalid values.</p>
 <section id="merchnum" class="level4">
-<h4 class="anchored" data-anchor-id="merchnum">3.1 Merchnum</h4>
+<h4 class="anchored" data-anchor-id="merchnum">Merchnum</h4>
 <ul>
 <li>3,279 missing values (including 59 records coded as 0, treated as null).</li>
 </ul>
@@ -518,7 +514,7 @@ ul.task-list li input[type="checkbox"] {
 <p>After imputation, missing values in <code>Merchnum</code> were reduced to zero.</p>
 </section>
 <section id="merch-state-1" class="level4">
-<h4 class="anchored" data-anchor-id="merch-state-1">3.2 Merch State</h4>
+<h4 class="anchored" data-anchor-id="merch-state-1">Merch State</h4>
 <ul>
 <li>1,028 missing values.</li>
 </ul>
@@ -533,7 +529,7 @@ ul.task-list li input[type="checkbox"] {
 <p>This approach preserves geographic signal while avoiding artificial distortion.</p>
 </section>
 <section id="merch-zip-1" class="level4">
-<h4 class="anchored" data-anchor-id="merch-zip-1">3.3 Merch Zip</h4>
+<h4 class="anchored" data-anchor-id="merch-zip-1">Merch Zip</h4>
 <ul>
 <li>4,347 missing values.</li>
 </ul>
@@ -571,8 +567,18 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Recency Features</strong> – Days since previous transaction.</li>
 </ol>
 <p>Features were computed across key entities such as Cardnum, Merchnum, Merch state, Merch zip, and their linkages.</p>
-<section id="summary-of-variables-created" class="level3">
-<h3 class="anchored" data-anchor-id="summary-of-variables-created">Summary of Variables Created</h3>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Summary of Variables Created
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -654,13 +660,15 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td>Holiday indicator</td>
-<td>1</td>
-<td>3,379</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
 <p>Total engineered variables: <strong>3,379</strong></p>
-</section>
 </section>
 <section id="feature-selection" class="level2">
 <h2 class="anchored" data-anchor-id="feature-selection">Feature Selection</h2>
@@ -870,9 +878,18 @@ Performance is measured using <strong>FDR@3%</strong>.</p>
 With 520 filters and 20 wrappers, both LightGBM and Random Forest achieved an average performance of 0.73.</p>
 <p>LightGBM was selected as the final wrapper model because it is deterministic and produces stable feature rankings across runs, whereas Random Forest introduces variability due to its stochastic nature.</p>
 <p>The forward selection curve shows performance stabilizing after approximately 12 features. However, to ensure sufficient coverage of relevant signals, we retained 20 features (approximately twice the saturation size) for the final model.</p>
-</section>
-<section id="selected-variables-top-20" class="level3">
-<h3 class="anchored" data-anchor-id="selected-variables-top-20">Selected Variables (Top 20)</h3>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Selected Variables (Top 20)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -963,6 +980,9 @@ With 520 filters and 20 wrappers, both LightGBM and Random Forest achieved an av
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
 <hr>
 </section>
 </section>
