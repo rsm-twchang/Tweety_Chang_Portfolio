@@ -19,7 +19,7 @@ website:
       - href: resume.qmd
         text: Resume
       - href: credit_card_fraud_detection.qmd
-        text: Credit Card Fraud Detection
+        text: Fraud Detection
       - href: Intuit_Quickbooks_Upgrade.qmd
         text: Uplift Modeling
       - href: AB_Testing.qmd
