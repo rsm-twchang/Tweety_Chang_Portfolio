@@ -27,7 +27,7 @@ website:
       - href: AB_Testing.qmd
         text: A/B Testing
       - href: Maximum_Likelihood_Estimation.qmd
-        text: Patent Count Modeling (MLE)
+        text: MLE
       - href: Key_Drivers_Analysis.qmd
         text: K-Means Clustering
 
