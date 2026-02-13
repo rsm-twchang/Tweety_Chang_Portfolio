@@ -356,24 +356,24 @@ The forward selection curve shows performance stabilizing after approximately 12
 
 We compared a baseline linear model against several non-linear models. All models were evaluated using **FDR@3%** on training, testing, and out-of-time (OOT) data.
 
-- **Baseline:** Logistic Regression  
-- **Non-linear models:** Decision Tree, Random Forest, LightGBM, Neural Network  
+- Baseline: Logistic Regression  
+- Non-linear models: Decision Tree, Random Forest, LightGBM, Neural Network  
 
 ### Models Compared
 
-- **Logistic Regression:** baseline linear classifier for interpretability and a stable benchmark.
-- **Decision Tree:** single-tree model that captures non-linear splits but can overfit.
-- **Random Forest:** bagged trees that reduce variance and improve stability over a single tree.
-- **LightGBM:** gradient-boosted trees that typically perform well on structured/tabular data.
-- **Neural Network:** flexible non-linear function approximator, included as a higher-capacity alternative.
+- Logistic Regression: baseline linear classifier for interpretability and a stable benchmark.
+- Decision Tree: single-tree model that captures non-linear splits but can overfit.
+- Random Forest: bagged trees that reduce variance and improve stability over a single tree.
+- LightGBM: gradient-boosted trees that typically perform well on structured/tabular data.
+- Neural Network: flexible non-linear function approximator, included as a higher-capacity alternative.
 
 ### Hyperparameters
 
-- **Logistic Regression:** `penalty='l1'`, `C=0.01`, `solver='liblinear'`  
-- **Decision Tree:** `criterion='gini'`, `max_depth=8`, `min_samples_split=120`, `min_samples_leaf=60`  
-- **Random Forest:** `criterion='gini'`, `n_estimators=30`, `max_depth=8`, `min_samples_split=120`, `min_samples_leaf=60`  
-- **LightGBM:** `n_estimators=30`, `num_leaves=4`, `learning_rate=0.1`  
-- **Neural Net:** `activation='relu'`, `hidden_layer_sizes=(20, 20)`, `solver='adam'`, `alpha=0.005`, `learning_rate_init=0.01`  
+- Logistic Regression: `penalty='l1'`, `C=0.01`, `solver='liblinear'`  
+- Decision Tree: `criterion='gini'`, `max_depth=8`, `min_samples_split=120`, `min_samples_leaf=60`  
+- Random Forest: `criterion='gini'`, `n_estimators=30`, `max_depth=8`, `min_samples_split=120`, `min_samples_leaf=60`  
+- LightGBM: `n_estimators=30`, `num_leaves=4`, `learning_rate=0.1`  
+- Neural Net: `activation='relu'`, `hidden_layer_sizes=(20, 20)`, `solver='adam'`, `alpha=0.005`, `learning_rate_init=0.01`  
 
 ### Model Performance Comparison
 
