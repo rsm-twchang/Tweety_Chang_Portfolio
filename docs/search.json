@@ -179,21 +179,14 @@
     "href": "about.html#work-experience",
     "title": "About",
     "section": "Work Experience",
-    "text": "Work Experience"
-  },
-  {
-    "objectID": "about.html#work-experience-1",
-    "href": "about.html#work-experience-1",
-    "title": "About",
-    "section": "Work Experience",
-    "text": "Work Experience\nHighspring\nContent Analyst · Jul 2025 – Dec 2025\nBuilt a lightweight tracking workflow and reporting to monitor labeling accuracy and productivity for ad-content review.\nHP\nData Analyst · Mar 2025 – Jun 2025\nAutomated data quality checks and anomaly scans for campaign datasets; surfaced mismatches and outliers for stakeholder review.\nHBC Tax Inc.\nTax Associate · Jan 2023 – May 2023\nPrepared individual and small-business tax filings and supported document intake, reconciliation, and client follow-ups.\nNorthern Illinois University\nResearch Assistant · May 2022 – Aug 2022\nCleaned and organized research datasets and produced summary outputs for faculty analysis."
+    "text": "Work Experience\nHighspring\nContent Analyst · Jul 2025 – Dec 2025\nBuilt a tracking workflow and reporting to monitor labeling accuracy and productivity for ad-content review.\nHP\nData Analyst · Mar 2025 – Jun 2025\nAutomated data quality checks and anomaly scans for campaign datasets; surfaced mismatches and outliers for stakeholder review. 3 HBC Tax Inc.\nTax Associate · Jan 2023 – May 2023\nPrepared individual and small-business tax filings and supported document intake, reconciliation, and client follow-ups.\nNorthern Illinois University\nResearch Assistant · May 2022 – Aug 2022\nCleaned and organized research datasets and produced summary outputs for faculty analysis."
   },
   {
     "objectID": "about.html#projects",
     "href": "about.html#projects",
     "title": "About",
     "section": "Projects",
-    "text": "Projects\n\nPredictive Analysis for Intuit QuickBooks Upgrade\nDatabase Management\nA/B Testing\nMaximum Likelihood Estimation (MLE)\nMultinomial Logit (MNL) & Conjoint Analysis\nKey Drivers Analysis"
+    "text": "Projects\n\nFraud Detection\nDatabase Management\nUplift Modeling\nA/B Testing\nPatent Count Modeling (MLE))\nK-Means Clustering"
   },
   {
     "objectID": "about.html#focus-areas",
