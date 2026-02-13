@@ -261,79 +261,86 @@
   {
     "objectID": "database_management.html",
     "href": "database_management.html",
-    "title": "Database Management",
+    "title": "ETL & Data Warehousing with Snowflake",
     "section": "",
     "text": "This project focused on database management and data engineering using PostgreSQL, Snowflake, SQL, and Python. The work centered on building reliable ETL workflows and consolidating multi-source operational and financial data into an analysis-ready format for reporting and correlation analysis."
   },
   {
     "objectID": "database_management.html#introduction",
     "href": "database_management.html#introduction",
-    "title": "Database Management",
+    "title": "ETL & Data Warehousing with Snowflake",
     "section": "",
     "text": "This project focused on database management and data engineering using PostgreSQL, Snowflake, SQL, and Python. The work centered on building reliable ETL workflows and consolidating multi-source operational and financial data into an analysis-ready format for reporting and correlation analysis."
   },
   {
     "objectID": "database_management.html#objective",
     "href": "database_management.html#objective",
-    "title": "Database Management",
+    "title": "ETL & Data Warehousing with Snowflake",
     "section": "Objective",
     "text": "Objective\n\nBuild ETL workflows to consolidate 400,000+ records into a clean, analysis-ready dataset.\n\nIntegrate data across PostgreSQL, Snowflake, and Python pipelines to unify operational and financial information.\n\nSupport structured financial reporting by reviewing trends and relationships in the data.\n\nExplore potential correlations between external drivers (e.g., weather fluctuations) and purchase orders using multi-source data.\n\nLead a five-person team using clear task ownership and coordinated delivery."
   },
   {
     "objectID": "database_management.html#data-description",
     "href": "database_management.html#data-description",
-    "title": "Database Management",
+    "title": "ETL & Data Warehousing with Snowflake",
     "section": "Data Description",
-    "text": "Data Description\nThis case integrates operational, financial, and environmental data from multiple sources to support structured analysis of purchase orders and invoices.\nThe datasets used include:\n\n1. Purchase Order Data (CSV – 41 Monthly Files)\n\nLine-level purchase order records\n\nIncludes quantities received, expected prices, supplier identifiers, and order dates\n\nUsed to calculate total purchase order amounts\n\n\n\n2. Supplier Invoice Data (XML)\n\nInvoice-level financial records\n\nIncludes invoice amounts, tax information, and transaction dates\n\nUsed to compare invoiced amounts against quoted purchase orders\n\n\n\n3. Supplier Data (PostgreSQL)\n\nSupplier-level reference data\n\nIncludes supplier location (ZIP code), identifiers, and related attributes\n\nUsed to connect operational data to geographic information\n\n\n\n4. Weather Data (Snowflake Marketplace – NOAA via Cybersyn)\n\nDaily temperature data\n\nUsed to explore potential relationships between weather fluctuations and purchasing behavior\n\nTogether, these datasets allow us to:\n\nReconcile purchase orders and invoices\n\nDetect discrepancies between quoted and invoiced amounts\n\nExamine whether external factors (e.g., temperature) are associated with purchasing patterns\n\n\n\nSnowflake Marketplace Setup\nThe NOAA Weather & Environment dataset was accessed through Snowflake Marketplace (Cybersyn provider).\nThe dataset was installed in Snowflake as the WEATHER__ENVIRONMENT database.\nFigure 1. Snowflake Marketplace – Weather & Environment product\n\n**Figure 2. Installed WEATHER__ENVIRONMENT database in Snowflake**"
+    "text": "Data Description\nThis case integrates operational, financial, and environmental data from multiple sources to support structured analysis of purchase orders and invoices.\nThe datasets used include:\n\n1. Purchase Order Data (CSV – 41 Monthly Files)\n\nLine-level purchase order records\n\nIncludes quantities received, expected prices, supplier identifiers, and order dates\n\nUsed to calculate total purchase order amounts\n\n\n\n2. Supplier Invoice Data (XML)\n\nInvoice-level financial records\n\nIncludes invoice amounts, tax information, and transaction dates\n\nUsed to compare invoiced amounts against quoted purchase orders\n\n\n\n3. Supplier Data (PostgreSQL)\n\nSupplier-level reference data\n\nIncludes supplier location (ZIP code), identifiers, and related attributes\n\nUsed to connect operational data to geographic information\n\n\n\n4. Weather Data (Snowflake Marketplace – NOAA via Cybersyn)\n\nDaily temperature data\n\nUsed to explore potential relationships between weather fluctuations and purchasing behavior\n\nTogether, these datasets allow us to:\n\nReconcile purchase orders and invoices\n\nDetect discrepancies between quoted and invoiced amounts\n\nExamine whether external factors (e.g., temperature) are associated with purchasing patterns\n\n\n\nSnowflake Marketplace Setup\nThe NOAA Weather & Environment dataset was accessed through Snowflake Marketplace (Cybersyn provider).\nThe dataset was installed in Snowflake as the WEATHER__ENVIRONMENT database.\nFigure 1. Snowflake Marketplace – Weather & Environment Product\n\nFigure 2. Installed Weather - Environment Database In Snowflake"
   },
   {
     "objectID": "database_management.html#case-overview",
     "href": "database_management.html#case-overview",
-    "title": "Database Management",
+    "title": "ETL & Data Warehousing with Snowflake",
     "section": "Case Overview",
     "text": "Case Overview\nThe objective of this case was to design and implement an end-to-end ETL workflow using Snowflake and Python. Rather than transforming data in local tools, most processing was executed directly within Snowflake to ensure scalability and performance.\nThe workflow consisted of:\n\nExtracting data from CSV, XML, PostgreSQL, and Marketplace sources\n\nLoading the data into Snowflake\n\nTransforming the data into structured, analysis-ready tables\n\nJoining operational, financial, and environmental datasets\n\nCreating summarized outputs for reconciliation and correlation analysis\n\nThe final dataset enables comparison of:\n\nPurchase Order Amount\n\nInvoice Amount\n\nWeather Conditions (by supplier ZIP code and date)\n\nThis structure supports automated discrepancy detection and cross-source analytical exploration."
   },
   {
     "objectID": "database_management.html#purchase-order-aggregation",
     "href": "database_management.html#purchase-order-aggregation",
-    "title": "Database Management",
+    "title": "ETL & Data Warehousing with Snowflake",
     "section": "Purchase Order Aggregation",
     "text": "Purchase Order Aggregation\nPurchase order data was provided as 41 separate monthly CSV files at the line-item level. These files were consolidated into a single dataset and loaded into Snowflake.\nBecause each purchase order contains multiple line items, totals were calculated for each PurchaseOrderID by summing:\n[ ]\nThis produced one summarized record per purchase order, reducing approximately 8,000+ line items to about 2,100 purchase orders. The result is a clean table of total quoted amounts by supplier and order date."
   },
   {
     "objectID": "database_management.html#invoice-amount-for-each-purchase-order-id",
     "href": "database_management.html#invoice-amount-for-each-purchase-order-id",
-    "title": "Database Management",
+    "title": "ETL & Data Warehousing with Snowflake",
     "section": "Invoice Amount for Each Purchase Order ID",
     "text": "Invoice Amount for Each Purchase Order ID\nSupplier invoices were provided in XML format and converted into a structured dataset before being loaded into Snowflake.\nFrom the supplier transactions data, invoice totals were extracted using the Amount Excluding Tax field. The data was organized by:\n\nPurchaseOrderID\n\nSupplierID\n\nInvoiceAmount\n\nTransactionDate\n\nThis created a comparable summary of invoiced amounts for each purchase order."
   },
   {
     "objectID": "database_management.html#joining-purchase-orders-and-invoices",
     "href": "database_management.html#joining-purchase-orders-and-invoices",
-    "title": "Database Management",
+    "title": "ETL & Data Warehousing with Snowflake",
     "section": "Joining Purchase Orders and Invoices",
     "text": "Joining Purchase Orders and Invoices\nThe summarized purchase order table and invoice table were joined using PurchaseOrderID and SupplierID.\nA new field, invoiced_vs_quoted, was calculated as:\n[ - ]\nThis value captures the difference between the quoted purchase amount and the invoiced amount.\nThe final reconciliation table contains approximately 2,100 matched records and provides a clear view of pricing differences across suppliers and transactions."
   },
   {
     "objectID": "database_management.html#supplier-postal-codes",
     "href": "database_management.html#supplier-postal-codes",
-    "title": "Database Management",
+    "title": "ETL & Data Warehousing with Snowflake",
     "section": "Supplier Postal Codes",
     "text": "Supplier Postal Codes\nSupplier reference data was extracted from PostgreSQL and loaded into Snowflake. From this dataset, each supplier’s postal code was identified and standardized.\nA simple reference table was created containing:\n\nSupplierID\n\nPostalPostalCode\n\nThis table provides the geographic link needed to connect supplier activity with external data sources."
   },
   {
     "objectID": "database_management.html#weather-data",
     "href": "database_management.html#weather-data",
-    "title": "Database Management",
+    "title": "ETL & Data Warehousing with Snowflake",
     "section": "Weather Data",
     "text": "Weather Data\nTo examine whether weather conditions were associated with purchasing activity, daily temperature data was added to the analysis.\nA national ZIP code reference file was used to obtain latitude and longitude for each postal code. Each supplier ZIP code was then matched to the nearest NOAA weather station available in Snowflake Marketplace.\nFrom the NOAA dataset, daily maximum temperature values were extracted. The resulting table, supplier_zip_code_weather, contains:\n\nZIP code\n\nDate\n\nDaily high temperature\n\nApproximately 1,300 ZIP-date temperature records were generated.\nThis structure allows supplier transactions to be analyzed alongside daily weather conditions using shared ZIP codes and dates."
   },
   {
     "objectID": "database_management.html#joining-everything-together",
     "href": "database_management.html#joining-everything-together",
-    "title": "Database Management",
+    "title": "ETL & Data Warehousing with Snowflake",
     "section": "Joining Everything Together",
-    "text": "Joining Everything Together\nThe final step combined all prepared datasets:\n\nPurchase order and invoice comparison table\n\nSupplier reference data\n\nDaily weather data by ZIP code\n\nThe tables were joined using:\n\nSupplier ZIP code\n\nTransaction date\n\nOnly records with available temperature data were included.\n\nResult\nThe final dataset contains:\n\nZIP code\n\nDate\n\nDaily high temperature\n\nPurchase order and invoice comparison information\n\nApproximately 1,300 matched records were produced.\n\n\nObservation\nAfter joining the datasets, no measurable relationship was observed between daily temperature and the difference between quoted and invoiced amounts. The invoiced_vs_quoted values did not vary in a way that suggested weather influence.\nBased on this analysis, weather conditions do not appear to explain invoice discrepancies in this dataset."
+    "text": "Joining Everything Together\nThe final step combined all prepared datasets:\n\nPurchase order and invoice comparison table\n\nSupplier reference data\n\nDaily weather data by ZIP code\n\nThe tables were joined using:\n\nSupplier ZIP code\n\nTransaction date\n\nOnly records with available temperature data were included.\n\nResult\nThe final dataset contains:\n\nZIP code\n\nDate\n\nDaily high temperature\n\nPurchase order and invoice comparison information\n\nApproximately 1,300 matched records were produced."
+  },
+  {
+    "objectID": "database_management.html#observation",
+    "href": "database_management.html#observation",
+    "title": "ETL & Data Warehousing with Snowflake",
+    "section": "Observation",
+    "text": "Observation\nAfter joining the datasets, no measurable relationship was observed between daily temperature and the difference between quoted and invoiced amounts. The invoiced_vs_quoted values did not vary in a way that suggested weather influence.\nBased on this analysis, weather conditions do not appear to explain invoice discrepancies in this dataset."
   },
   {
     "objectID": "AB_Testing.html",

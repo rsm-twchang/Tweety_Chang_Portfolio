@@ -1,5 +1,5 @@
 ---
-title: "Database Management"
+title: "ETL & Data Warehousing with Snowflake"
 format: html
 author: "Tweety"
 date: today
@@ -63,10 +63,10 @@ Together, these datasets allow us to:
 The NOAA Weather & Environment dataset was accessed through Snowflake Marketplace (Cybersyn provider).  
 The dataset was installed in Snowflake as the `WEATHER__ENVIRONMENT` database.
 
-**Figure 1. Snowflake Marketplace – Weather & Environment product**  
+**Figure 1. Snowflake Marketplace – Weather & Environment Product**  
 ![Snowflake Marketplace – Weather & Environment](figures/snowflake_marketplace_weather.jpeg){#fig-marketplace}
 
-**Figure 2. Installed WEATHER__ENVIRONMENT database in Snowflake**  
+**Figure 2. Installed Weather - Environment Database In Snowflake**
 ![Installed WEATHER__ENVIRONMENT database](figures/snowflake_weather_database.jpeg){#fig-weather-db}
 
 ---
@@ -95,15 +95,13 @@ This structure supports automated discrepancy detection and cross-source analyti
 
 ## Purchase Order Aggregation
 
-Purchase order data was provided as 41 separate monthly CSV files at the line-item level. These files were consolidated into a single dataset and loaded into Snowflake.
+Purchase order data was provided as **41** separate monthly CSV files at the line-item level. These files were consolidated into a single dataset and loaded into Snowflake.
 
 Because each purchase order contains multiple line items, totals were calculated for each `PurchaseOrderID` by summing:
 
-\[
-\text{Received Quantity} \times \text{Expected Unit Price}
-\]
+\[\text{Received Quantity} \times \text{Expected Unit Price}\]
 
-This produced one summarized record per purchase order, reducing approximately 8,000+ line items to about 2,100 purchase orders. The result is a clean table of total quoted amounts by supplier and order date.
+This produced one summarized record per purchase order, reducing approximately 8,000+ line items to about **2,100** purchase orders. The result is a clean table of total quoted amounts by supplier and order date.
 
 ---
 
@@ -128,13 +126,11 @@ The summarized purchase order table and invoice table were joined using `Purchas
 
 A new field, **invoiced_vs_quoted**, was calculated as:
 
-\[
-\text{POAmount} - \text{InvoiceAmount}
-\]
+\[\text{POAmount} - \text{InvoiceAmount}\]
 
 This value captures the difference between the quoted purchase amount and the invoiced amount.
 
-The final reconciliation table contains approximately 2,100 matched records and provides a clear view of pricing differences across suppliers and transactions.
+The final reconciliation table contains approximately **2,100** matched records and provides a clear view of pricing differences across suppliers and transactions.
 
 ---
 
@@ -163,7 +159,7 @@ From the NOAA dataset, daily maximum temperature values were extracted. The resu
 - Date  
 - Daily high temperature  
 
-Approximately 1,300 ZIP-date temperature records were generated.
+Approximately **1,300** ZIP-date temperature records were generated.
 
 This structure allows supplier transactions to be analyzed alongside daily weather conditions using shared ZIP codes and dates.
 
@@ -193,9 +189,11 @@ The final dataset contains:
 - Daily high temperature  
 - Purchase order and invoice comparison information  
 
-Approximately 1,300 matched records were produced.
+Approximately **1,300** matched records were produced.
 
-### Observation
+---
+
+## Observation
 
 After joining the datasets, no measurable relationship was observed between daily temperature and the difference between quoted and invoiced amounts. The invoiced_vs_quoted values did not vary in a way that suggested weather influence.
 
