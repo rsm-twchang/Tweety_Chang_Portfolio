@@ -106,22 +106,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -264,32 +250,32 @@ window.Quarto = {
 <p>This assignment expores two methods for estimating the MNL model: (1) via Maximum Likelihood, and (2) via a Bayesian approach using a Metropolis-Hastings MCMC algorithm.</p>
 <section id="likelihood-for-the-multi-nomial-logit-mnl-model" class="level2">
 <h2 class="anchored" data-anchor-id="likelihood-for-the-multi-nomial-logit-mnl-model">1. Likelihood for the Multi-nomial Logit (MNL) Model</h2>
-<p>Suppose we have <span class="math inline">i=1,\ldots,n</span> consumers who each select exactly one product <span class="math inline">j</span> from a set of <span class="math inline">J</span> products. The outcome variable is the identity of the product chosen <span class="math inline">y_i \in \{1, \ldots, J\}</span> or equivalently a vector of <span class="math inline">J-1</span> zeros and <span class="math inline">1</span> one, where the <span class="math inline">1</span> indicates the selected product. For example, if the third product was chosen out of 3 products, then either <span class="math inline">y=3</span> or <span class="math inline">y=(0,0,1)</span> depending on how we want to represent it. Suppose also that we have a vector of data on each product <span class="math inline">x_j</span> (eg, brand, price, etc.).</p>
+<p>Suppose we have <span class="math inline">\(i=1,\ldots,n\)</span> consumers who each select exactly one product <span class="math inline">\(j\)</span> from a set of <span class="math inline">\(J\)</span> products. The outcome variable is the identity of the product chosen <span class="math inline">\(y_i \in \{1, \ldots, J\}\)</span> or equivalently a vector of <span class="math inline">\(J-1\)</span> zeros and <span class="math inline">\(1\)</span> one, where the <span class="math inline">\(1\)</span> indicates the selected product. For example, if the third product was chosen out of 3 products, then either <span class="math inline">\(y=3\)</span> or <span class="math inline">\(y=(0,0,1)\)</span> depending on how we want to represent it. Suppose also that we have a vector of data on each product <span class="math inline">\(x_j\)</span> (eg, brand, price, etc.).</p>
 <p>We model the consumer’s decision as the selection of the product that provides the most utility, and we’ll specify the utility function as a linear function of the product characteristics:</p>
-<p><span class="math display"> U_{ij} = x_j'\beta + \epsilon_{ij} </span></p>
-<p>where <span class="math inline">\epsilon_{ij}</span> is an i.i.d. extreme value error term.</p>
-<p>The choice of the i.i.d. extreme value error term leads to a closed-form expression for the probability that consumer <span class="math inline">i</span> chooses product <span class="math inline">j</span>:</p>
-<p><span class="math display"> \mathbb{P}_i(j) = \frac{e^{x_j'\beta}}{\sum_{k=1}^Je^{x_k'\beta}} </span></p>
-<p>For example, if there are 3 products, the probability that consumer <span class="math inline">i</span> chooses product 3 is:</p>
-<p><span class="math display"> \mathbb{P}_i(3) = \frac{e^{x_3'\beta}}{e^{x_1'\beta} + e^{x_2'\beta} + e^{x_3'\beta}} </span></p>
-<p>A clever way to write the individual likelihood function for consumer <span class="math inline">i</span> is the product of the <span class="math inline">J</span> probabilities, each raised to the power of an indicator variable (<span class="math inline">\delta_{ij}</span>) that indicates the chosen product:</p>
-<p><span class="math display"> L_i(\beta) = \prod_{j=1}^J \mathbb{P}_i(j)^{\delta_{ij}} = \mathbb{P}_i(1)^{\delta_{i1}} \times \ldots \times \mathbb{P}_i(J)^{\delta_{iJ}}</span></p>
-<p>Notice that if the consumer selected product <span class="math inline">j=3</span>, then <span class="math inline">\delta_{i3}=1</span> while <span class="math inline">\delta_{i1}=\delta_{i2}=0</span> and the likelihood is:</p>
-<p><span class="math display"> L_i(\beta) = \mathbb{P}_i(1)^0 \times \mathbb{P}_i(2)^0 \times \mathbb{P}_i(3)^1 = \mathbb{P}_i(3) = \frac{e^{x_3'\beta}}{\sum_{k=1}^3e^{x_k'\beta}} </span></p>
-<p>The joint likelihood (across all consumers) is the product of the <span class="math inline">n</span> individual likelihoods:</p>
-<p><span class="math display"> L_n(\beta) = \prod_{i=1}^n L_i(\beta) = \prod_{i=1}^n \prod_{j=1}^J \mathbb{P}_i(j)^{\delta_{ij}} </span></p>
+<p><span class="math display">\[ U_{ij} = x_j'\beta + \epsilon_{ij} \]</span></p>
+<p>where <span class="math inline">\(\epsilon_{ij}\)</span> is an i.i.d. extreme value error term.</p>
+<p>The choice of the i.i.d. extreme value error term leads to a closed-form expression for the probability that consumer <span class="math inline">\(i\)</span> chooses product <span class="math inline">\(j\)</span>:</p>
+<p><span class="math display">\[ \mathbb{P}_i(j) = \frac{e^{x_j'\beta}}{\sum_{k=1}^Je^{x_k'\beta}} \]</span></p>
+<p>For example, if there are 3 products, the probability that consumer <span class="math inline">\(i\)</span> chooses product 3 is:</p>
+<p><span class="math display">\[ \mathbb{P}_i(3) = \frac{e^{x_3'\beta}}{e^{x_1'\beta} + e^{x_2'\beta} + e^{x_3'\beta}} \]</span></p>
+<p>A clever way to write the individual likelihood function for consumer <span class="math inline">\(i\)</span> is the product of the <span class="math inline">\(J\)</span> probabilities, each raised to the power of an indicator variable (<span class="math inline">\(\delta_{ij}\)</span>) that indicates the chosen product:</p>
+<p><span class="math display">\[ L_i(\beta) = \prod_{j=1}^J \mathbb{P}_i(j)^{\delta_{ij}} = \mathbb{P}_i(1)^{\delta_{i1}} \times \ldots \times \mathbb{P}_i(J)^{\delta_{iJ}}\]</span></p>
+<p>Notice that if the consumer selected product <span class="math inline">\(j=3\)</span>, then <span class="math inline">\(\delta_{i3}=1\)</span> while <span class="math inline">\(\delta_{i1}=\delta_{i2}=0\)</span> and the likelihood is:</p>
+<p><span class="math display">\[ L_i(\beta) = \mathbb{P}_i(1)^0 \times \mathbb{P}_i(2)^0 \times \mathbb{P}_i(3)^1 = \mathbb{P}_i(3) = \frac{e^{x_3'\beta}}{\sum_{k=1}^3e^{x_k'\beta}} \]</span></p>
+<p>The joint likelihood (across all consumers) is the product of the <span class="math inline">\(n\)</span> individual likelihoods:</p>
+<p><span class="math display">\[ L_n(\beta) = \prod_{i=1}^n L_i(\beta) = \prod_{i=1}^n \prod_{j=1}^J \mathbb{P}_i(j)^{\delta_{ij}} \]</span></p>
 <p>And the joint log-likelihood function is:</p>
-<p><span class="math display"> \ell_n(\beta) = \sum_{i=1}^n \sum_{j=1}^J \delta_{ij} \log(\mathbb{P}_i(j)) </span></p>
+<p><span class="math display">\[ \ell_n(\beta) = \sum_{i=1}^n \sum_{j=1}^J \delta_{ij} \log(\mathbb{P}_i(j)) \]</span></p>
 </section>
 <section id="simulate-conjoint-data" class="level2">
 <h2 class="anchored" data-anchor-id="simulate-conjoint-data">2. Simulate Conjoint Data</h2>
 <p>We will simulate data from a conjoint experiment about video content streaming services. We elect to simulate 100 respondents, each completing 10 choice tasks, where they choose from three alternatives per task. For simplicity, there is not a “no choice” option; each simulated respondent must select one of the 3 alternatives.</p>
 <p>Each alternative is a hypothetical streaming offer consistent of three attributes: (1) brand is either Netflix, Amazon Prime, or Hulu; (2) ads can either be part of the experience, or it can be ad-free, and (3) price per month ranges from $4 to $32 in increments of $4.</p>
-<p>The part-worths (ie, preference weights or beta parameters) for the attribute levels will be 1.0 for Netflix, 0.5 for Amazon Prime (with 0 for Hulu as the reference brand); -0.8 for included adverstisements (0 for ad-free); and -0.1*price so that utility to consumer <span class="math inline">i</span> for hypothethical streaming service <span class="math inline">j</span> is</p>
-<p><span class="math display">
+<p>The part-worths (ie, preference weights or beta parameters) for the attribute levels will be 1.0 for Netflix, 0.5 for Amazon Prime (with 0 for Hulu as the reference brand); -0.8 for included adverstisements (0 for ad-free); and -0.1*price so that utility to consumer <span class="math inline">\(i\)</span> for hypothethical streaming service <span class="math inline">\(j\)</span> is</p>
+<p><span class="math display">\[
 u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times Price_j + \varepsilon_{ij}
-</span></p>
-<p>where the variables are binary indicators and <span class="math inline">\varepsilon</span> is Type 1 Extreme Value (ie, Gumble) distributed.</p>
+\]</span></p>
+<p>where the variables are binary indicators and <span class="math inline">\(\varepsilon\)</span> is Type 1 Extreme Value (ie, Gumble) distributed.</p>
 <p>The following code provides the simulation of the conjoint data.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -303,7 +289,7 @@ Simulating the Data
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="2329c019" class="cell" data-message="false" data-execution_count="1">
+<div id="7d6418f0" class="cell" data-message="false" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-overflow-wrap code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> product</span>
@@ -390,8 +376,8 @@ Simulating the Data
 </section>
 <section id="preparing-the-data-for-estimation" class="level2">
 <h2 class="anchored" data-anchor-id="preparing-the-data-for-estimation">3. Preparing the Data for Estimation</h2>
-<p>The “hard part” of the MNL likelihood function is organizing the data, as we need to keep track of 3 dimensions (consumer <span class="math inline">i</span>, covariate <span class="math inline">k</span>, and product <span class="math inline">j</span>) instead of the typical 2 dimensions for cross-sectional regression models (consumer <span class="math inline">i</span> and covariate <span class="math inline">k</span>). The fact that each task for each respondent has the same number of alternatives (3) helps. In addition, we need to convert the categorical variables for brand and ads into binary variables.</p>
-<div id="d926a3a1" class="cell" data-execution_count="2">
+<p>The “hard part” of the MNL likelihood function is organizing the data, as we need to keep track of 3 dimensions (consumer <span class="math inline">\(i\)</span>, covariate <span class="math inline">\(k\)</span>, and product <span class="math inline">\(j\)</span>) instead of the typical 2 dimensions for cross-sectional regression models (consumer <span class="math inline">\(i\)</span> and covariate <span class="math inline">\(k\)</span>). The fact that each task for each respondent has the same number of alternatives (3) helps. In addition, we need to convert the categorical variables for brand and ads into binary variables.</p>
+<div id="e3a27c9b" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>   resp  task  choice brand   ad  price  brand_N  brand_P  ad_yes  task_id
 0     1     1       1     N  Yes     28        1        0       1        0
@@ -421,7 +407,7 @@ Simulating the Data
 </div>
 </div>
 </div>
-<div id="72206730" class="cell" data-execution_count="4">
+<div id="5d23f416" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
@@ -501,7 +487,7 @@ Simulating the Data
 </div>
 </div>
 </div>
-<div id="f6ad2369" class="cell" data-execution_count="6">
+<div id="5758cd62" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
@@ -562,7 +548,7 @@ Simulating the Data
 <li><strong>price</strong>: -0.100</li>
 </ul>
 <p>Posterior standard deviations closely match the MLE standard errors (within ±0.001). The 95% credible intervals are nearly identical to the MLE confidence intervals. These results reflect strong agreement between the two methods given the large sample size and weakly informative priors.</p>
-<div id="b3511da8" class="cell" data-execution_count="7">
+<div id="20b80724" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -573,7 +559,7 @@ Simulating the Data
 </div>
 </div>
 <p>The posterior histogram is approximately normal and centered near 0.95. The distribution is symmetric and unimodal, with most density between 0.75 and 1.15. This indicates a well-identified parameter with low uncertainty.</p>
-<div id="c25f180d" class="cell" data-execution_count="8">
+<div id="9b75ff4e" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -600,7 +586,7 @@ Simulating the Data
 </div>
 </div>
 </div>
-<div id="c6386779" class="cell" data-execution_count="10">
+<div id="af6ec06d" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
