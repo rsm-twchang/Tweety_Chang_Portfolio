@@ -56,7 +56,7 @@ Built a tracking workflow and reporting to monitor labeling accuracy and product
 **[HP](https://www.hp.com/us-en/home.html)**  
 *Data Analyst* · Mar 2025 – Jun 2025  
 Automated data quality checks and anomaly scans for campaign datasets; surfaced mismatches and outliers for stakeholder review.
-3
+
 **[HBC Tax Inc.](https://www.hbctax.com/)**  
 *Tax Associate* · Jan 2023 – May 2023  
 Prepared individual and small-business tax filings and supported document intake, reconciliation, and client follow-ups.
