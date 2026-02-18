@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tweety">
-<meta name="dcterms.date" content="2026-02-13">
+<meta name="dcterms.date" content="2026-02-17">
 
 <title>ETL &amp; Data Warehousing with Snowflake – Tweety’s website</title>
 <style>
@@ -69,6 +69,49 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -184,7 +227,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 13, 2026</p>
+      <p class="date">February 17, 2026</p>
     </div>
   </div>
   
@@ -306,7 +349,9 @@ The dataset was installed in Snowflake as the <code>WEATHER__ENVIRONMENT</code> 
 <h2 class="anchored" data-anchor-id="purchase-order-aggregation">Purchase Order Aggregation</h2>
 <p>Purchase order data was provided as <strong>41</strong> separate monthly CSV files at the line-item level. These files were consolidated into a single dataset and loaded into Snowflake.</p>
 <p>Because each purchase order contains multiple line items, totals were calculated for each <code>PurchaseOrderID</code> by summing:</p>
-<p>[ ]</p>
+<p><span class="math display">
+\[\text{Received Quantity} \times \text{Expected Unit Price}\]
+</span></p>
 <p>This produced one summarized record per purchase order, reducing approximately 8,000+ line items to about <strong>2,100</strong> purchase orders. The result is a clean table of total quoted amounts by supplier and order date.</p>
 <hr>
 </section>
@@ -330,7 +375,9 @@ The dataset was installed in Snowflake as the <code>WEATHER__ENVIRONMENT</code> 
 <h2 class="anchored" data-anchor-id="joining-purchase-orders-and-invoices">Joining Purchase Orders and Invoices</h2>
 <p>The summarized purchase order table and invoice table were joined using <code>PurchaseOrderID</code> and <code>SupplierID</code>.</p>
 <p>A new field, <strong>invoiced_vs_quoted</strong>, was calculated as:</p>
-<p>[ - ]</p>
+<p><span class="math display">
+\[\text{POAmount} - \text{InvoiceAmount}\]
+</span></p>
 <p>This value captures the difference between the quoted purchase amount and the invoiced amount.</p>
 <p>The final reconciliation table contains approximately <strong>2,100</strong> matched records and provides a clear view of pricing differences across suppliers and transactions.</p>
 <hr>

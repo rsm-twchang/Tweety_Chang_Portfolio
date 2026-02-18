@@ -99,7 +99,9 @@ Purchase order data was provided as **41** separate monthly CSV files at the lin
 
 Because each purchase order contains multiple line items, totals were calculated for each `PurchaseOrderID` by summing:
 
+$$
 \[\text{Received Quantity} \times \text{Expected Unit Price}\]
+$$
 
 This produced one summarized record per purchase order, reducing approximately 8,000+ line items to about **2,100** purchase orders. The result is a clean table of total quoted amounts by supplier and order date.
 
@@ -126,7 +128,9 @@ The summarized purchase order table and invoice table were joined using `Purchas
 
 A new field, **invoiced_vs_quoted**, was calculated as:
 
+$$
 \[\text{POAmount} - \text{InvoiceAmount}\]
+$$
 
 This value captures the difference between the quoted purchase amount and the invoiced amount.
 

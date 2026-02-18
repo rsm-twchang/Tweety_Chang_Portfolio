@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tweety">
-<meta name="dcterms.date" content="2026-02-13">
+<meta name="dcterms.date" content="2026-02-17">
 
 <title>Blueprinty Case Study – Tweety’s website</title>
 <style>
@@ -72,8 +72,22 @@ ul.task-list li input[type="checkbox"] {
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -211,7 +225,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 13, 2026</p>
+      <p class="date">February 17, 2026</p>
     </div>
   </div>
   
@@ -404,35 +418,35 @@ Data dictionary
 <h3 class="anchored" data-anchor-id="poisson-log-likelihood-and-the-mle">Poisson log-likelihood and the MLE</h3>
 <p><strong>Figure 2. Poisson Log-Likelihood vs.&nbsp;Lambda</strong><br>
 <img src="figures/fig2_poisson_loglik_vs_lambda.png" id="fig-poisson-loglik" class="img-fluid" alt="Figure 2. Poisson Log-Likelihood vs.&nbsp;Lambda"></p>
-<p>This figure shows the Poisson log-likelihood as a function of <span class="math inline">\(\lambda\)</span> for the observed patent counts. The log-likelihood is maximized at the sample mean, so the Poisson MLE is:</p>
-<p><span class="math display">\[
+<p>This figure shows the Poisson log-likelihood as a function of <span class="math inline">\lambda</span> for the observed patent counts. The log-likelihood is maximized at the sample mean, so the Poisson MLE is:</p>
+<p><span class="math display">
 \hat{\lambda} = \bar{Y}.
-\]</span></p>
-<p>For independent observations <span class="math inline">\(y_1,\ldots,y_n\)</span>, the Poisson log-likelihood is:</p>
-<p><span class="math display">\[
+</span></p>
+<p>For independent observations <span class="math inline">y_1,\ldots,y_n</span>, the Poisson log-likelihood is:</p>
+<p><span class="math display">
 \ell(\lambda)
 = -n\lambda
 + \left(\sum_{i=1}^n y_i\right)\log(\lambda)
 - \sum_{i=1}^n \log(y_i!).
-\]</span></p>
+</span></p>
 <p>Differentiating and setting the derivative to zero gives:</p>
-<p><span class="math display">\[
+<p><span class="math display">
 \frac{\partial \ell}{\partial \lambda}
 = -n + \frac{\sum_{i=1}^n y_i}{\lambda} = 0
 \quad \Rightarrow \quad
 \hat{\lambda} = \frac{1}{n}\sum_{i=1}^n y_i = \bar{y}.
-\]</span></p>
-<p>In this dataset, <span class="math inline">\(\hat{\lambda}=3.6847\)</span>, matching <span class="math inline">\(\bar{y}=3.6847\)</span> up to rounding.</p>
+</span></p>
+<p>In this dataset, <span class="math inline">\hat{\lambda}=3.6847</span>, matching <span class="math inline">\bar{y}=3.6847</span> up to rounding.</p>
 <hr>
 </section>
 </section>
 <section id="poisson-regression-model" class="level2">
 <h2 class="anchored" data-anchor-id="poisson-regression-model">Poisson Regression Model</h2>
-<p>Next, we model five-year patent counts using a Poisson regression. Let <span class="math inline">\(Y_i\)</span> be the number of patents awarded to firm <span class="math inline">\(i\)</span> over the last five years:</p>
-<p><span class="math display">\[
+<p>Next, we model five-year patent counts using a Poisson regression. Let <span class="math inline">Y_i</span> be the number of patents awarded to firm <span class="math inline">i</span> over the last five years:</p>
+<p><span class="math display">
 Y_i \sim \text{Poisson}(\lambda_i), \qquad \log(\lambda_i) = X_i^\top \beta,
-\]</span></p>
-<p>equivalently <span class="math inline">\(\lambda_i = \exp(X_i^\top \beta)\)</span>. The covariate vector <span class="math inline">\(X_i\)</span> includes firm age, age squared, region indicators, and Blueprinty usage (<code>iscustomer</code>).</p>
+</span></p>
+<p>equivalently <span class="math inline">\lambda_i = \exp(X_i^\top \beta)</span>. The covariate vector <span class="math inline">X_i</span> includes firm age, age squared, region indicators, and Blueprinty usage (<code>iscustomer</code>).</p>
 <p><strong>Poisson regression (GLM) results</strong></p>
 <table class="caption-top table">
 <thead>

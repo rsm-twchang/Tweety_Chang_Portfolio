@@ -38,4 +38,4 @@ format:
       - brand
     css: styles.css
     toc: true
-    html-math-method: mathjax
+    html-math-method: katex
