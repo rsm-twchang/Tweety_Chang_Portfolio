@@ -382,3 +382,13 @@ section[id] { scroll-margin-top: 24px; }
 .portrait-controls .pill { min-height: 40px; padding: 8px 16px; }
 @media (min-width: 1024px) { .about-hero { grid-template-columns: 1.15fr 1fr; gap: 40px; } }
 @media (max-width: 733px) { .about-copy h2 { font-size: clamp(38px,9.8vw,64px); } .about-hero { gap: 28px; } }
+
+/* Original portrait: stationary until the visitor chooses Play. */
+.portrait-stage { aspect-ratio: 838 / 938; }
+.portrait-stage::before { display: none; }
+.portrait-breathe { animation: none; }
+.portrait-layers { transform: none; transition: none; mask-image: none; -webkit-mask-image: none; cursor: default; border-radius: 24px; overflow: hidden; }
+.portrait-layers img { object-fit: contain; }
+.portrait-controls .pill:disabled { opacity: .55; cursor: default; }
+.about-copy h2 { max-width: 16ch; }
+.skills dd { line-height: 1.55; }
