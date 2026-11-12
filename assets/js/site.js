@@ -32,22 +32,116 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  // Living portrait: slow breathing (CSS) plus a gentle tilt toward the pointer
+  // Living portrait: breathing (CSS), pointer tilt, natural blinks, and expressions.
+  // Every expression is a real photo frame; frames load only when the portrait is near view.
   var portrait = document.querySelector("[data-portrait]");
-  var portraitBtn = document.querySelector("[data-portrait-toggle]");
-  if (portrait && portraitBtn) {
+  var layers = document.querySelector("[data-portrait-layers]");
+  var controls = document.querySelector("[data-portrait-controls]");
+  if (portrait && layers && controls) {
+    var NAMES = ["blink", "warm", "soft", "smile", "laugh", "wink", "surprise", "puff", "frown"];
+    var frames = {};
+    var current = null;
+    var paused = reduceMotion;
+    var busy = false;
+    var timers = [];
+    var pauseBtn = controls.querySelector("[data-portrait-toggle]");
+    var size = (window.devicePixelRatio || 1) > 1.5 ? 960 : 480;
+
+    function later(fn, ms) { var t = setTimeout(fn, ms); timers.push(t); return t; }
+    function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+    function loadFrames() {
+      NAMES.forEach(function (name) {
+        var img = new Image();
+        img.className = "frame";
+        img.alt = "";
+        img.decoding = "async";
+        img.src = "assets/img/portrait/" + name + "-" + size + ".webp";
+        layers.appendChild(img);
+        frames[name] = img;
+      });
+      controls.hidden = false;
+      if (!reduceMotion) scheduleIdle();
+    }
+
+    // Show one frame (or neutral when name is null)
+    function show(name, blink) {
+      if (current && frames[current]) frames[current].classList.remove("is-on", "is-blink");
+      current = name;
+      if (name && frames[name]) {
+        frames[name].classList.toggle("is-blink", !!blink);
+        frames[name].classList.add("is-on");
+      }
+    }
+
+    // Play a sequence of [frame, duration] steps, then return to neutral
+    function play(steps, done) {
+      clearTimers();
+      busy = true;
+      var i = 0;
+      (function next() {
+        if (i >= steps.length) { show(null); busy = false; if (done) done(); else if (!paused) scheduleIdle(); return; }
+        var step = steps[i++];
+        show(step[0], step[0] === "blink");
+        later(next, step[1]);
+      })();
+    }
+
+    // Idle life: a blink every few seconds, an occasional warm smile
+    function scheduleIdle() {
+      clearTimers();
+      if (paused) return;
+      later(function () {
+        if (busy || paused) return scheduleIdle();
+        if (Math.random() < 0.18) play([["warm", 2600], ["blink", 130]]);
+        else if (Math.random() < 0.15) play([["blink", 120], [null, 140], ["blink", 120]]);
+        else play([["blink", 130]]);
+      }, 2800 + Math.random() * 3400);
+    }
+
+    var SEQUENCES = {
+      smile: [["soft", 260], ["smile", 700], ["laugh", 1500], ["smile", 600], ["warm", 900]],
+      wink: [["warm", 220], ["wink", 900], ["warm", 600]]
+    };
+    var PLAYFUL = [
+      [["surprise", 1100], ["warm", 700]],
+      [["puff", 1300], ["smile", 800]],
+      [["frown", 900], ["laugh", 1200], ["warm", 600]]
+    ];
+    var playfulIndex = 0;
+
+    controls.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-expression]");
+      if (btn) play(SEQUENCES[btn.getAttribute("data-expression")]);
+    });
+
+    // A small surprise for anyone who taps the portrait itself
+    layers.addEventListener("click", function () {
+      play(PLAYFUL[playfulIndex++ % PLAYFUL.length]);
+    });
+
+    // Notice the visitor: soft smile on hover
+    layers.addEventListener("pointerenter", function (e) {
+      if (e.pointerType === "mouse" && !busy) { clearTimers(); show("soft"); }
+    });
+    layers.addEventListener("pointerleave", function (e) {
+      if (e.pointerType === "mouse" && !busy) { show(null); scheduleIdle(); }
+    });
+
     if (reduceMotion) {
-      portraitBtn.hidden = true;
+      pauseBtn.hidden = true;
     } else {
-      var paused = false, raf = 0;
-      portraitBtn.addEventListener("click", function () {
+      pauseBtn.addEventListener("click", function () {
         paused = !paused;
         portrait.classList.toggle("is-paused", paused);
-        portraitBtn.setAttribute("aria-pressed", String(paused));
-        portraitBtn.textContent = paused ? "Resume motion" : "Pause motion";
+        pauseBtn.setAttribute("aria-pressed", String(paused));
+        pauseBtn.textContent = paused ? "Play" : "Pause";
+        if (paused) { clearTimers(); busy = false; show(null); } else scheduleIdle();
       });
-      var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-      if (finePointer) {
+
+      // Gentle tilt toward the pointer
+      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        var raf = 0;
         window.addEventListener("pointermove", function (e) {
           if (paused || raf) return;
           raf = requestAnimationFrame(function () {
@@ -63,6 +157,22 @@
           });
         }, { passive: true });
       }
+    }
+
+    // Stop idle animation while the tab is hidden
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) { clearTimers(); busy = false; show(null); }
+      else if (!paused && Object.keys(frames).length) scheduleIdle();
+    });
+
+    // Load expression frames only when the portrait approaches the viewport
+    if ("IntersectionObserver" in window) {
+      var loadObs = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { loadObs.disconnect(); loadFrames(); }
+      }, { rootMargin: "400px 0px" });
+      loadObs.observe(portrait);
+    } else {
+      loadFrames();
     }
   }
 

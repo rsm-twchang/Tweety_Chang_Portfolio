@@ -208,9 +208,7 @@ h4 { font-size: 24px; line-height: 1.17; font-weight: 600; letter-spacing: .009e
 .about-lede { font-size: clamp(19px, 2.3vw, 24px); line-height: 1.38; color: var(--text-2); margin-top: 20px; max-width: 34ch; font-weight: 500; }
 
 .portrait { position: relative; margin: 0 auto; width: min(76vw, 420px); }
-.portrait-stage {
-  position: relative; aspect-ratio: 480 / 493; perspective: 900px;
-}
+.portrait-stage { position: relative; aspect-ratio: 480 / 491; perspective: 900px; }
 /* soft light pool behind the cut-out */
 .portrait-stage::before {
   content: ""; position: absolute; inset: 6% 4% 0; border-radius: 50%;
@@ -218,33 +216,41 @@ h4 { font-size: 24px; line-height: 1.17; font-weight: 600; letter-spacing: .009e
   transform: translate3d(var(--lx, 0px), var(--ly, 0px), 0);
   transition: transform .8s var(--ease);
 }
-.portrait picture, .portrait img {
-  position: relative; display: block; width: 100%; height: auto;
-}
-.portrait img {
-  /* fade the shoulders into the page instead of a hard crop */
-  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 99%);
-          mask-image: linear-gradient(to bottom, #000 72%, transparent 99%);
-  transform-origin: 50% 85%;
-  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transition: transform .8s var(--ease);
-  will-change: transform;
-}
-.portrait picture { animation: breathe 7s var(--ease) infinite; transform-origin: 50% 90%; }
+.portrait-breathe { position: relative; height: 100%; animation: breathe 7s var(--ease) infinite; transform-origin: 50% 90%; }
 @keyframes breathe {
   0%, 100% { transform: translateY(0) scale(1); }
   50%      { transform: translateY(-4px) scale(1.012); }
 }
-.portrait.is-paused picture { animation-play-state: paused; }
-.portrait.is-paused img, .portrait.is-paused .portrait-stage::before { transform: none; }
+.portrait-layers {
+  position: relative; height: 100%;
+  transform-origin: 50% 85%;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .8s var(--ease);
+  /* fade the shoulders into the page instead of a hard crop */
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 99%);
+          mask-image: linear-gradient(to bottom, #000 72%, transparent 99%);
+}
+.portrait-layers picture, .portrait-layers img { display: block; width: 100%; height: auto; }
+/* expression frames stack exactly over the neutral base */
+.portrait-layers .frame {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  opacity: 0; transition: opacity .22s var(--ease); pointer-events: none;
+}
+.portrait-layers .frame.is-on { opacity: 1; }
+.portrait-layers .frame.is-blink { transition-duration: .07s; }
+.portrait-layers { cursor: pointer; }
 
-.portrait-controls { display: flex; justify-content: center; margin-top: 14px; }
+.portrait.is-paused .portrait-breathe { animation-play-state: paused; }
+.portrait.is-paused .portrait-layers, .portrait.is-paused .portrait-stage::before { transform: none; }
+
+.portrait-controls { display: flex; justify-content: center; gap: 8px; margin-top: 14px; }
+.portrait-controls[hidden] { display: none; }
 .pill {
   font: inherit; font-size: 12px; letter-spacing: 0; color: var(--text-2);
   background: transparent; border: 1px solid var(--hairline); border-radius: 980px;
   padding: 6px 14px; cursor: pointer; transition: color .2s var(--ease), border-color .2s var(--ease);
 }
-.pill:hover { color: var(--text); border-color: var(--text-2); }
+.pill:hover, .pill[aria-pressed="true"] { color: var(--text); border-color: var(--text-2); }
 
 .highlights {
   display: grid; grid-template-columns: 1fr 1fr; gap: 32px 24px;
@@ -307,8 +313,9 @@ h4 { font-size: 24px; line-height: 1.17; font-weight: 600; letter-spacing: .009e
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .js .reveal { opacity: 1; transform: none; }
-  .portrait picture { animation: none; }
-  .portrait img, .portrait-stage::before { transform: none !important; }
+  .portrait-breathe { animation: none; }
+  .portrait-layers, .portrait-stage::before { transform: none !important; }
+  .portrait-layers .frame { transition: none; }
 }
 
 /* Editorial refinement: broad type, restrained surfaces, clear evidence. */

@@ -325,13 +325,19 @@
           </div>
           <figure class="portrait reveal" data-portrait>
             <div class="portrait-stage">
-              <picture>
-                <source type="image/webp" srcset="assets/img/portrait-480.webp 480w, assets/img/portrait-960.webp 960w" sizes="(min-width: 1024px) 420px, 76vw">
-                <img src="assets/img/portrait-480.png" width="480" height="493" alt="Portrait of Tweety Chang in a dark blazer and white shirt" decoding="async">
-              </picture>
+              <div class="portrait-breathe">
+                <div class="portrait-layers" data-portrait-layers>
+                  <picture>
+                    <source type="image/webp" srcset="assets/img/portrait/neutral-480.webp 480w, assets/img/portrait/neutral-960.webp 960w" sizes="(min-width: 1024px) 420px, 76vw">
+                    <img src="assets/img/portrait/neutral-480.png" width="480" height="491" alt="Portrait of Tweety Chang in a dark blazer and white shirt" decoding="async">
+                  </picture>
+                </div>
+              </div>
             </div>
-            <figcaption class="portrait-controls">
-              <button type="button" class="pill" data-portrait-toggle aria-pressed="false">Pause motion</button>
+            <figcaption class="portrait-controls" data-portrait-controls hidden>
+              <button type="button" class="pill" data-expression="smile">Smile</button>
+              <button type="button" class="pill" data-expression="wink">Wink</button>
+              <button type="button" class="pill" data-portrait-toggle aria-pressed="false">Pause</button>
             </figcaption>
           </figure>
         </div>
