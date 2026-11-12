@@ -1,22 +1,21 @@
 /*-- scss:defaults --*/
-$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-$headings-font-family: "Inter", system-ui, sans-serif;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$headings-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $headings-font-weight: 700;
+$font-size-base: 1.0625rem;
 
-$navy:   #16324f;
-$teal:   #1f7a8c;
-$ink:    #1f2933;
-$muted:  #5b6875;
-$paper:  #f6f8fa;
+$body-bg: #ffffff;
+$body-color: #1d1d1f;
+$primary: #0071e3;
+$link-color: #0071e3;
+$text-muted: #6e6e73;
 
-$primary: $navy;
-$link-color: $teal;
-$body-color: $ink;
 $navbar-bg: #ffffff;
-$navbar-fg: $ink;
-$navbar-hl: $teal;
-$footer-bg: $paper;
-$toc-color: $muted;
-
-/*-- scss:rules --*/
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+$navbar-fg: #1d1d1f;
+$navbar-hl: #1d1d1f;
+$footer-bg: #f5f5f7;
+$footer-fg: #6e6e73;
+$toc-color: #6e6e73;
+$border-color: #d2d2d7;
+$table-border-color: #d2d2d7;
+$code-color: #1d1d1f;

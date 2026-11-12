@@ -1,7 +1,12 @@
 project:
   type: website
   output-dir: docs
+  # Home page (index.html), assets, and redirect stubs are hand-written and copied as-is.
   resources:
+    - index.html
+    - about.html
+    - projects.html
+    - assets/
     - figures/
     - favicon.svg
   render:
@@ -16,54 +21,29 @@ execute:
 
 website:
   title: "Tweety Chang"
-  description: "Tweety Chang: corporate banking and credit analysis at Bank SinoPac, with a background in accounting and business analytics (UC San Diego MSBA)."
   site-url: "https://rsm-twchang.github.io/Tweety_Chang_Portfolio/"
   favicon: favicon.svg
   open-graph: true
   twitter-card: true
-  page-navigation: true
-  back-to-top-navigation: true
+  search: false
+  page-navigation: false
   navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - href: about.qmd
-        text: About
-      - text: Projects
-        menu:
-          - href: projects.qmd
-            text: All Projects
-          - text: "---"
-          - text: "Risk & Finance"
-          - href: credit_card_fraud_detection.qmd
-            text: Credit Card Fraud Detection
-          - href: Intuit_Quickbooks_Upgrade.qmd
-            text: Campaign Profit Optimization
-          - href: database_management.qmd
-            text: Reconciliation & ETL (Snowflake)
-          - text: "---"
-          - text: "Statistics & Experimentation"
-          - href: AB_Testing.qmd
-            text: A/B Testing
-          - href: Maximum_Likelihood_Estimation.qmd
-            text: Poisson Regression (MLE)
-          - href: Multinomial_Logit_Model.qmd
-            text: Multinomial Logit (Choice Model)
-          - href: Key_Drivers_Analysis.qmd
-            text: K-Means Clustering
+    title: "Tweety Chang"
+    logo-href: index.html
     right:
-      - icon: linkedin
-        href: https://www.linkedin.com/in/tweety-chang
-        aria-label: LinkedIn
-      - icon: github
-        href: https://github.com/rsm-twchang
-        aria-label: GitHub
-      - icon: envelope
-        href: mailto:ctweety15@gmail.com
-        aria-label: Email
+      - href: index.html#home
+        text: Home
+      - href: index.html#about
+        text: About
+      - href: index.html#projects
+        text: Projects
+      - href: index.html#experience
+        text: Experience
+      - href: index.html#contact
+        text: Contact
   page-footer:
     left: "© 2026 Tweety Chang"
-    right: "Built with [Quarto](https://quarto.org)"
+    right: "[Back to all projects](index.html#projects)"
 
 format:
   html:
@@ -73,5 +53,5 @@ format:
     toc: true
     toc-title: "On this page"
     smooth-scroll: true
-    link-external-newwindow: true
     html-math-method: mathjax
+    title-block-categories: false
