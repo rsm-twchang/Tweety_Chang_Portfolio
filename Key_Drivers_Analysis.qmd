@@ -1,10 +1,21 @@
 ---
-title: "Key Drivers Analysis"
-format: html
-author: "Tweety"
-date: "2025-06-06"
+title: "K-Means Clustering from Scratch"
+author: "Tweety Chang"
+date: 2025-06-06
+date-format: "MMMM YYYY"
+description: "K-Means implemented from scratch and with scikit-learn; cluster count chosen with WCSS and silhouette score."
+categories: [Machine Learning, Segmentation]
+image: figures/fig6_kmeans_k3.png
 callout-appearance: minimal
 ---
+
+::: {.biz-value}
+### Business Value
+
+- **Outcome:** K-Means was built from scratch and checked against scikit-learn, and three well-separated segments were selected using WCSS and silhouette score.
+- **Banking relevance:** The same unsupervised approach is used for customer and portfolio segmentation, such as grouping borrowers by financial profile to set monitoring intensity.
+:::
+
 
 ## Introduction
 

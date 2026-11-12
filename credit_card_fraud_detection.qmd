@@ -1,10 +1,23 @@
 ---
 title: "Credit Card Fraud Detection"
-format: html
-author: "Tweety"
-date: today
-callout-appearance: minimal # this hides the blue "i" icon on .callout-notes
+author: "Tweety Chang"
+date: 2025-03-15
+date-format: "MMMM YYYY"
+description: "Fraud scoring model on 97K card transactions with a review cutoff set by net financial impact: 62% of fraud caught at a 1.7% false-positive rate."
+categories: [Risk & Finance, Machine Learning]
+image: figures/financial_curve.png
+callout-appearance: minimal
 ---
+
+::: {.biz-value}
+### Business Value & Risk Control
+
+- **Outcome:** At a 4% review cutoff, the model flags **62% of fraudulent transactions** while keeping the false-positive rate at **1.66%**, for an estimated **$40.5M in annual net savings** (assumptions below).
+- **Risk-appetite decision:** The cutoff was set on net financial impact, weighing fraud losses avoided against review cost and customer friction, rather than on model accuracy alone.
+- **Model risk control:** Performance was tested on an **out-of-time** sample to check stability under drift, and a shallow, deterministic LightGBM was chosen for stable, explainable feature rankings.
+- **Banking relevance:** The same discipline applies to credit monitoring: early-warning signals built from behavior (velocity, recency, unusual counterparties) and a documented, threshold-based escalation policy.
+:::
+
 
 ## Introduction
 

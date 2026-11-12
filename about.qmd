@@ -1,83 +1,105 @@
 ---
 title: "About"
+description: "Experience, education, and skills of Tweety Chang: corporate banking, credit analysis, accounting, and business analytics."
+image: figures/headshot.JPG
 ---
 
-![](figures/headshot.JPG){width=240px .float-start style="margin-right:2rem; margin-bottom:1.5rem;"}
-
-<h2 style="font-size:2.2rem; margin-top:0.2rem; margin-bottom:0.4rem;">
-Tweety Chang
-</h2>
-
-<p style="font-size:1.15rem; font-style:italic; color:#555; margin-top:0;">
-Finance &amp; Business Analytics
+<div class="about-head">
+<img src="figures/headshot.JPG" alt="Portrait of Tweety Chang">
+<div>
+<h2>Jiun-Han (Tweety) Chang</h2>
+<p class="role">Associate Relationship Manager · Credit Analyst, Corporate Banking<br>Bank SinoPac, Los Angeles Branch</p>
+<p class="contact">
+<a href="mailto:ctweety15@gmail.com"><i class="bi bi-envelope"></i> ctweety15@gmail.com</a>
+<a href="https://www.linkedin.com/in/tweety-chang"><i class="bi bi-linkedin"></i> LinkedIn</a>
+<a href="https://github.com/rsm-twchang"><i class="bi bi-github"></i> GitHub</a>
 </p>
+</div>
+</div>
 
-<p style="font-size:1.05rem; line-height:1.8; margin-top:0.8rem;">
-📧 <a href="mailto:ctweety15@gmail.com">ctweety15@gmail.com</a><br/>
-📞 <a href="tel:+18588881353">858-888-1353</a><br/>
-🔗 <a href="https://www.linkedin.com/in/tweety-chang" target="_blank">LinkedIn</a>
-</p>
+## Summary
 
-<div style="clear:both;"></div>
+I work in corporate banking at Bank SinoPac's Los Angeles Branch, where I support U.S. corporate credit and syndicated loan transactions. My day-to-day work covers financial statement analysis, credit risk monitoring, and preparing bilingual credit memos for the Credit Committee and Head Office in Taiwan.
 
-## Background
+Before banking, I built my foundation in accounting (B.S., Northern Illinois University) and business analytics (M.S., UC San Diego). I use SQL, Python, and Excel to turn financial and operational data into clear decisions, and I have a track record of replacing manual, error-prone processes with automated checks.
 
-With a background in business analytics and accounting, I bring hands-on experience analyzing data, identifying process gaps, and supporting data-driven improvements through clear communication and cross-functional collaboration. My work has focused on turning complex, multi-source data into practical insights that support reporting accuracy and informed decision-making.
+## Experience
 
-In recent analytics projects, I have analyzed operational and business data to uncover inconsistencies, trends, and improvement opportunities affecting downstream reporting and analysis. I have supported projects end-to-end by clarifying requirements, validating outputs through testing, documenting findings, and presenting results in a clear, actionable way to both technical and non-technical stakeholders. Across roles, I have worked closely with business, analytics, and technical teams to ensure analysis aligned with real user needs and project goals.
+<div class="job">
+<div class="job-head"><span class="org">Bank SinoPac, Los Angeles Branch</span><span class="when">May 2026 – Present · Los Angeles, CA</span></div>
+<div class="title">Associate Relationship Manager · Credit Analyst, Corporate Banking</div>
 
-I am comfortable working in ambiguous environments, learning new domains quickly, and balancing multiple priorities. I work regularly with Excel, SQL, Python, Tableau, and Power BI, which allows me to move fluidly between data analysis and business context. My background in client-facing and team-based roles has also strengthened my ability to communicate clearly, collaborate effectively, and contribute thoughtfully to shared outcomes.
+- Support U.S. corporate lending and multi-bank syndicated loan transactions; assist Relationship Managers in managing borrower accounts and coordinate with Credit, Compliance, and Agent Banks through the approval process.
+- Analyze borrower financial statements and build structured financial summaries and scenario models; track facility utilization and credit risk indicators.
+- Prepare credit review reports and summaries in English and Chinese for the Credit Committee and Head Office in Taiwan.
+</div>
 
-I am currently pursuing an M.S. in Business Analytics at UC San Diego and am seeking internship or full-time opportunities where analytical rigor and practical problem-solving can support real-world business decisions.
+<div class="job">
+<div class="job-head"><span class="org">Highspring (Google vendor)</span><span class="when">Jul 2025 – Dec 2025 · Remote</span></div>
+<div class="title">Content Analyst</div>
 
----
+- Reviewed high-volume digital ad content at 99% accuracy and helped define quantitative quality standards for the QA team.
+- Built a JavaScript productivity tracker to monitor review throughput in real time, reducing manual logging errors.
+- Trained and aligned 30+ analysts across five APAC countries on policy and quality standards.
+</div>
+
+<div class="job">
+<div class="job-head"><span class="org">HP (MSBA Capstone)</span><span class="when">Mar 2025 – Jun 2025 · San Diego, CA</span></div>
+<div class="title">Data Analyst</div>
+
+- Built a Python spend reconciliation tool that compared platform data against internal finance records and resolved 900+ discrepancies automatically.
+- Presented findings to HP's team and leadership; the recommendations were adopted and changed the reporting release process.
+</div>
+
+<div class="job">
+<div class="job-head"><span class="org">HBC Tax Inc.</span><span class="when">Jan 2023 – May 2023 · Chicago, IL</span></div>
+<div class="title">Tax Associate</div>
+
+- Reconciled individual and business financial statements to source documents in QuickBooks with 100% accuracy.
+- Prepared quarterly variance reports, investigated anomalies, and supported internal review.
+</div>
+
+<div class="job">
+<div class="job-head"><span class="org">Northern Illinois University</span><span class="when">May 2022 – Sep 2022 · DeKalb, IL</span></div>
+<div class="title">Research Assistant</div>
+
+- Cleaned and validated research datasets and produced charts and summary reports for faculty analysis.
+</div>
 
 ## Education
 
-**[University of California, San Diego](https://ucsd.edu/)**  
-**Master of Science, Business Analytics**  
-Jul 2024 – Mar 2026
+<div class="job">
+<div class="job-head"><span class="org">University of California, San Diego, Rady School of Management</span><span class="when">Jul 2024 – Mar 2026</span></div>
+<div class="title">M.S. in Business Analytics · GPA 3.63</div>
 
-**[Northern Illinois University](https://www.niu.edu/index.shtml)**  
-**Bachelor of Science, Accountancy**  
-Aug 2021 – Aug 2023
+Coursework: A/B Testing, Fraud Analytics, Business Intelligence, Recommender Systems, Supply Chain Analytics
+</div>
 
-**[Asia University](https://web.asia.edu.tw/)**  
-**Bachelor of Science, Accounting and Information Systems**  
-Sep 2019 – Aug 2023
----
+<div class="job">
+<div class="job-head"><span class="org">Northern Illinois University, College of Business</span><span class="when">Aug 2021 – Aug 2023</span></div>
+<div class="title">B.S. in Accountancy · Academic Honors</div>
 
-## Work Experience
+Coursework: Financial and Cost Accounting, Accounting Information Systems, Data Analytics in Accounting
+</div>
 
-**[Highspring](https://www.highspring.com/)**  
-*Content Analyst* · Jul 2025 – Dec 2025  
-Built a tracking workflow and reporting to monitor labeling accuracy and productivity for ad-content review.
+<div class="job">
+<div class="job-head"><span class="org">Asia University (Taiwan)</span><span class="when">Sep 2019 – Jun 2021</span></div>
+<div class="title">B.S. in Accounting and Information Systems · GPA 4.0 / 4.0 (top 9%)</div>
 
-**[HP](https://www.hp.com/us-en/home.html)**  
-*Data Analyst* · Mar 2025 – Jun 2025  
-Automated data quality checks and anomaly scans for campaign datasets; surfaced mismatches and outliers for stakeholder review.
+First student to complete the NIU 2+2 dual-degree program; recipient of the Ministry of Education study-abroad scholarship.
+</div>
 
-**[HBC Tax Inc.](https://www.hbctax.com/)**  
-*Tax Associate* · Jan 2023 – May 2023  
-Prepared individual and small-business tax filings and supported document intake, reconciliation, and client follow-ups.
+## Skills
 
-**[Northern Illinois University](https://www.niu.edu/index.shtml)**  
-*Research Assistant* · May 2022 – Aug 2022  
-Cleaned and organized research datasets and produced summary outputs for faculty analysis.
+<div class="skills">
+<div><strong>Credit & Finance</strong>Financial statement analysis (IS, BS, CF), corporate credit risk assessment, syndicated loan monitoring, variance analysis, reconciliation</div>
+<div><strong>Data & Analytics</strong>SQL (joins, window functions), Python (pandas, NumPy, scikit-learn), A/B testing, regression, clustering</div>
+<div><strong>Tools</strong>Excel (financial modeling, pivot tables, XLOOKUP), Power BI, Tableau, Snowflake, PostgreSQL, QuickBooks, SAP</div>
+<div><strong>Languages</strong>English and Mandarin Chinese (bilingual)</div>
+</div>
 
----
+## Leadership & Certifications
 
-## Projects
-- [Fraud Detection](credit_card_fraud_detection.qmd)
-- [Uplift Modeling](Intuit_Quickbooks_Upgrade.qmd)
-- [Database Management](database_management.qmd)
-- [A/B Testing](AB_Testing.qmd)
-- [Patent Count Modeling (MLE)](Maximum_Likelihood_Estimation.qmd)
-- [K-Means Clustering](Key_Drivers_Analysis.qmd)
-
-## Focus Areas
-- Financial, business, and operational data analysis  
-- Data validation, reconciliation, and reporting accuracy  
-- Reporting automation and dashboard development  
-- Experimentation and A/B testing  
-- Communicating insights to support operational and strategic decisions
+- **President**, Ascend at NIU (2021 – 2023): ran chapter operations and career events with Big 4 and corporate speakers.
+- **Treasurer**, NIU Taiwanese Student Association & Southeast Asian Student Association (2021 – 2023): managed annual budgets and event funding.
+- **Certifications:** Microsoft Office Specialist: Excel Expert (Office 2019), 2024; CFI Corporate Finance Foundations, 2024. U.S. CPA exams planned for 2026–2027.

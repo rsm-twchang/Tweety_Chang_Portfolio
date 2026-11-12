@@ -1,10 +1,23 @@
 ---
-title: "Intuit Quickbooks Upgrade"
-author: "Tweety"
-date: today
-format: html
+title: "Campaign Profit Optimization: QuickBooks Upgrade"
+author: "Tweety Chang"
+date: 2025-02-15
+date-format: "MMMM YYYY"
+description: "Response model and break-even mailing rule for a 75K-business upsell campaign, selected on projected profit rather than accuracy."
+categories: [Risk & Finance, Machine Learning]
+image: figures/fig6_version_upgrade_pred.png
 callout-appearance: minimal
 ---
+
+::: {.biz-value}
+### Business Value & Risk Control
+
+- **Outcome:** The recommended targeting rule yields a projected profit of **$1.23M** with **ROME of 3.63**, beating a mail-to-all approach ($1.17M) and every logistic baseline tested.
+- **Decision rule:** Customers are contacted only when expected response clears the **break-even rate (2.35%)**, so each dollar of spend has to earn its cost, the same expected-value logic used in credit approval and pricing.
+- **Conservative assumptions:** Wave-2 response was haircut to **50% of wave-1**, and the anomalous ZIP segment was isolated so one region could not distort the full portfolio.
+- **Monitoring:** The model is meant for ranking and cutoff selection, with recalibration once wave-2 results arrive.
+:::
+
 
 ## Introduction
 This project builds a predictive response model for [Intuit’s QuickBooks](https://www.intuit.com) upgrade upsell campaign. The dataset (intuit75k.parquet) contains 75,000 small businesses randomly sampled from the 801,821 businesses that received the wave-1 mailing. Each business record includes customer attributes and purchase history that can be used to estimate the likelihood of upgrading.

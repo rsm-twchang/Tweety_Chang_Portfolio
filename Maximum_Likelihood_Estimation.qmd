@@ -1,10 +1,21 @@
 ---
-title: "Blueprinty Case Study"
-format: html
-author: "Tweety"
-date: today
-callout-appearance: minimal # this hides the blue "i" icon on .callout-notes
+title: "Poisson Regression via MLE: Blueprinty Case"
+author: "Tweety Chang"
+date: 2025-05-07
+date-format: "MMMM YYYY"
+description: "Count-data model estimated by maximum likelihood: software customers show ~23% more patents after controlling for firm age and region."
+categories: [Statistical Modeling]
+image: figures/fig4_predicted_patents.png
+callout-appearance: minimal
 ---
+
+::: {.biz-value}
+### Business Value
+
+- **Outcome:** After controlling for firm age and region, software customers have about **23% more patents** (IRR ≈ e<sup>0.2076</sup>, p < 0.001).
+- **Why it matters:** Raw averages mix the product's effect with differences in firm age and region. Controlling for those factors isolates the effect, the same question a lender asks when judging whether a borrower's results come from fundamentals or from circumstance.
+:::
+
 
 ## Introduction
 

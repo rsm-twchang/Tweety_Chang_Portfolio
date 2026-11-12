@@ -1,10 +1,23 @@
 ---
-title: "ETL & Data Warehousing with Snowflake"
-format: html
-author: "Tweety"
-date: today
+title: "PO–Invoice Reconciliation & ETL in Snowflake"
+author: "Tweety Chang"
+date: 2024-07-15
+date-format: "MMMM YYYY"
+description: "End-to-end ETL across CSV, XML, PostgreSQL, and Snowflake Marketplace data to reconcile quoted vs. invoiced amounts."
+categories: [Risk & Finance, Data Engineering]
+image: figures/snowflake_weather_database.jpeg
 callout-appearance: minimal
 ---
+
+::: {.biz-value}
+### Business Value & Risk Control
+
+- **Outcome:** Consolidated **400K+ records** from CSV, XML, PostgreSQL, and Snowflake Marketplace into one reconciliation table covering ~**2,100 purchase orders**.
+- **Internal control:** Each purchase order is matched to its supplier invoice and the **quoted-vs-invoiced variance** is calculated automatically, replacing manual tie-outs and surfacing pricing exceptions for review.
+- **Root-cause testing:** An external driver (weather) was tested as an explanation for variances and ruled out, keeping attention on supplier and process issues.
+- **Banking relevance:** The same workflow supports loan operations, such as reconciling borrower reporting against source data and flagging exceptions before they reach a credit memo.
+:::
+
 
 ## Introduction
 
