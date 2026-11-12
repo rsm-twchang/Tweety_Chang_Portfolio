@@ -10,10 +10,10 @@ callout-appearance: minimal
 ---
 
 ::: {.biz-value}
-### Business Value
+### Adjusted Association
 
-- **Outcome:** After controlling for firm age and region, software customers have about **23% more patents** (IRR ≈ e<sup>0.2076</sup>, p < 0.001).
-- **Why it matters:** Raw averages mix the product's effect with differences in firm age and region. Controlling for those factors isolates the effect, the same question a lender asks when judging whether a borrower's results come from fundamentals or from circumstance.
+- **Finding:** Software customers had about 23% higher expected patent counts after controlling for firm age and region.
+- **Limit:** This observational association does not establish that the software caused higher patent output. Selection and unmeasured differences may remain.
 :::
 
 
@@ -381,7 +381,7 @@ print(model.summary())
 ```{python}
 #| echo: false
 #| output: false
-#| fig-cap: "Figure X. Poisson regression coefficients with 95% confidence intervals"
+#| fig-cap: "Poisson regression coefficients with 95% confidence intervals"
 #| label: fig-poisson-coefs
 import numpy as np
 import pandas as pd
@@ -449,7 +449,7 @@ display(HTML(summary_table.to_html(index=True)))
 
 *Note:* Coefficients are on the log scale. Exponentiating a coefficient gives the incidence rate ratio (IRR).
 
-Figure X plots each coefficient estimate with its 95% confidence interval. The dashed vertical line at 0 represents no association on the log scale. Coefficients whose intervals do not cross 0 are statistically distinguishable from 0 at the 5% level.
+The coefficient plot shows each coefficient estimate with its 95% confidence interval. The dashed vertical line at 0 represents no association on the log scale. Coefficients whose intervals do not cross 0 are statistically distinguishable from 0 at the 5% level.
 
 The `iscustomer` effect is clearly positive and statistically significant, indicating higher expected patent counts for Blueprinty customers after controlling for age and region. Regional effects are small and not statistically significant. The positive `age` term and negative `age_squared` term indicate a concave relationship: expected patenting increases with age but the marginal gain declines at higher ages.
 
@@ -459,7 +459,7 @@ The `iscustomer` effect is clearly positive and statistically significant, indic
 ```{python}
 #| echo: false
 #| output: false
-#| fig-cap: "Figure X. Predicted five-year patent counts for Blueprinty customers vs non-customers across firm age (holding region at the reference category)."
+#| fig-cap: "Predicted five-year patent counts for Blueprinty customers vs non-customers across firm age (holding region at the reference category)."
 #| label: fig-predicted-patents
 import numpy as np
 import matplotlib.pyplot as plt
@@ -505,4 +505,4 @@ This figure translates the Poisson regression into predicted five-year patent co
 ------
 
 ## Conclusion
-Overall, these findings reinforce the value of Blueprinty’s software as a meaningful contributor to patent productivity. At the same time, they highlight the role of firm maturity in shaping innovation outcomes. While regional variation appears limited, the analysis underscores the importance of targeting firms at the right stage of development and aligning product value with their innovation capacity. These insights can guide Blueprinty’s strategic messaging and outreach efforts, particularly when engaging established firms seeking to strengthen their patent portfolios.
+Software usage is associated with higher patent counts after adjusting for firm age and region. The analysis does not identify a causal product effect. Further evidence on adoption timing and other firm characteristics would be needed before making claims about productivity gains.

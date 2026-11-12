@@ -129,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#business-value-risk-control" id="toc-business-value-risk-control" class="nav-link active" data-scroll-target="#business-value-risk-control">Business Value &amp; Risk Control</a></li>
+  <li><a href="#business-value-risk-control" id="toc-business-value-risk-control" class="nav-link active" data-scroll-target="#business-value-risk-control">Reconciliation Workflow</a></li>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
   <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a>
@@ -193,15 +193,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="business-value-risk-control" class="level3 biz-value">
-<h3 class="anchored" data-anchor-id="business-value-risk-control">Business Value &amp; Risk Control</h3>
-<ul>
-<li><strong>Outcome:</strong> Consolidated <strong>400K+ records</strong> from CSV, XML, PostgreSQL, and Snowflake Marketplace into one reconciliation table covering ~<strong>2,100 purchase orders</strong>.</li>
-<li><strong>Internal control:</strong> Each purchase order is matched to its supplier invoice and the <strong>quoted-vs-invoiced variance</strong> is calculated automatically, replacing manual tie-outs and surfacing pricing exceptions for review.</li>
-<li><strong>Root-cause testing:</strong> An external driver (weather) was tested as an explanation for variances and ruled out, keeping attention on supplier and process issues.</li>
-<li><strong>Banking relevance:</strong> The same workflow supports loan operations, such as reconciling borrower reporting against source data and flagging exceptions before they reach a credit memo.</li>
-</ul>
-</section>
+<section id="business-value-risk-control" class="level3 biz-value"><h3 class="anchored" data-anchor-id="business-value-risk-control">Reconciliation Workflow</h3><ul><li><strong>Scope:</strong> Combined 400K+ source records across CSV, XML, PostgreSQL, and Snowflake Marketplace. The reconciliation table covered approximately 2,100 purchase orders.</li><li><strong>Output:</strong> Calculated quoted-versus-invoiced differences by purchase order for exception review.</li><li><strong>Finding:</strong> No measurable temperature relationship was observed in the matched sample. This does not rule out every possible weather effect.</li></ul></section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>This project focused on database management and data engineering using PostgreSQL, Snowflake, SQL, and Python. The work centered on building reliable ETL workflows and consolidating multi-source operational and financial data into an analysis-ready format for reporting and correlation analysis.</p>

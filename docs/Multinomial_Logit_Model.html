@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tweety Chang">
-<meta name="description" content="Consumer choice model estimated by MLE and Bayesian MCMC to quantify brand preference, ad aversion, and price sensitivity.">
+<meta name="description" content="Simulation study comparing MLE and Bayesian MCMC estimates of subscription choice parameters.">
 
 <title>Multinomial Logit: Pricing &amp; Choice Modeling – Tweety Chang</title>
 <style>
@@ -133,13 +133,13 @@ window.Quarto = {
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="Multinomial Logit: Pricing &amp; Choice Modeling – Tweety Chang">
-<meta property="og:description" content="Consumer choice model estimated by MLE and Bayesian MCMC to quantify brand preference, ad aversion, and price sensitivity.">
+<meta property="og:description" content="Simulation study comparing MLE and Bayesian MCMC estimates of subscription choice parameters.">
 <meta property="og:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/fig_mnl_price_utility.png">
 <meta property="og:site_name" content="Tweety Chang">
 <meta property="og:image:height" content="748">
 <meta property="og:image:width" content="1132">
 <meta name="twitter:title" content="Multinomial Logit: Pricing &amp; Choice Modeling – Tweety Chang">
-<meta name="twitter:description" content="Consumer choice model estimated by MLE and Bayesian MCMC to quantify brand preference, ad aversion, and price sensitivity.">
+<meta name="twitter:description" content="Simulation study comparing MLE and Bayesian MCMC estimates of subscription choice parameters.">
 <meta name="twitter:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/fig_mnl_price_utility.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -196,7 +196,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#business-value" id="toc-business-value" class="nav-link active" data-scroll-target="#business-value">Business Value</a></li>
+  <li><a href="#business-value" id="toc-business-value" class="nav-link active" data-scroll-target="#business-value">Simulation Results</a></li>
   <li><a href="#likelihood-for-the-multi-nomial-logit-mnl-model" id="toc-likelihood-for-the-multi-nomial-logit-mnl-model" class="nav-link" data-scroll-target="#likelihood-for-the-multi-nomial-logit-mnl-model">1. Likelihood for the Multi-nomial Logit (MNL) Model</a></li>
   <li><a href="#simulate-conjoint-data" id="toc-simulate-conjoint-data" class="nav-link" data-scroll-target="#simulate-conjoint-data">2. Simulate Conjoint Data</a></li>
   <li><a href="#preparing-the-data-for-estimation" id="toc-preparing-the-data-for-estimation" class="nav-link" data-scroll-target="#preparing-the-data-for-estimation">3. Preparing the Data for Estimation</a></li>
@@ -216,7 +216,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    Consumer choice model estimated by MLE and Bayesian MCMC to quantify brand preference, ad aversion, and price sensitivity.
+    Simulation study comparing MLE and Bayesian MCMC estimates of subscription choice parameters.
   </div>
 </div>
 
@@ -245,14 +245,7 @@ window.Quarto = {
 </header>
 
 
-<section id="business-value" class="level3 biz-value">
-<h3 class="anchored" data-anchor-id="business-value">Business Value</h3>
-<ul>
-<li><strong>Outcome:</strong> Consumers show clear brand preference, dislike ads (β ≈ −0.73), and are price-sensitive (β ≈ −0.10 per dollar), which allows willingness to pay to be expressed in dollars.</li>
-<li><strong>Robustness:</strong> Maximum likelihood and Bayesian MCMC give near-identical estimates (posterior SDs within 0.002 of MLE standard errors), which supports the pricing conclusions.</li>
-<li><strong>Banking relevance:</strong> Choice models of this type support product and pricing decisions, such as how customers trade off rate, fees, and features.</li>
-</ul>
-</section>
+<section id="business-value" class="level3 biz-value"><h3 class="anchored" data-anchor-id="business-value">Simulation Results</h3><ul><li><strong>Scope:</strong> Simulated subscription choices were used to compare maximum likelihood and Bayesian MCMC estimators. These are not observed consumer preferences.</li><li><strong>Finding:</strong> Both estimators recovered similar brand, advertising, and price parameters. Agreement checks implementation on this simulation; it does not validate a real-world pricing decision.</li></ul></section>
 <p>This project explores two methods for estimating the MNL model: (1) via Maximum Likelihood, and (2) via a Bayesian approach using a Metropolis-Hastings MCMC algorithm.</p>
 <section id="likelihood-for-the-multi-nomial-logit-mnl-model" class="level2">
 <h2 class="anchored" data-anchor-id="likelihood-for-the-multi-nomial-logit-mnl-model">1. Likelihood for the Multi-nomial Logit (MNL) Model</h2>

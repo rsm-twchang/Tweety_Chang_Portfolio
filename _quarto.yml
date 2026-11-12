@@ -6,6 +6,7 @@ project:
     - index.html
     - about.html
     - projects.html
+    - marketing_data_validation.html
     - assets/
     - figures/
     - favicon.svg

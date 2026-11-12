@@ -129,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#business-value-risk-control" id="toc-business-value-risk-control" class="nav-link active" data-scroll-target="#business-value-risk-control">Business Value &amp; Risk Control</a></li>
+  <li><a href="#business-value-risk-control" id="toc-business-value-risk-control" class="nav-link active" data-scroll-target="#business-value-risk-control">Decision &amp; Evidence</a></li>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
   <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a>
@@ -222,12 +222,12 @@ ul.task-list li input[type="checkbox"] {
 
 
 <section id="business-value-risk-control" class="level3 biz-value">
-<h3 class="anchored" data-anchor-id="business-value-risk-control">Business Value &amp; Risk Control</h3>
+<h3 class="anchored" data-anchor-id="business-value-risk-control">Decision &amp; Evidence</h3>
 <ul>
 <li><strong>Outcome:</strong> At a 4% review cutoff, the model flags <strong>62% of fraudulent transactions</strong> while keeping the false-positive rate at <strong>1.66%</strong>, for an estimated <strong>$40.5M in annual net savings</strong> (assumptions below).</li>
 <li><strong>Risk-appetite decision:</strong> The cutoff was set on net financial impact, weighing fraud losses avoided against review cost and customer friction, rather than on model accuracy alone.</li>
 <li><strong>Model risk control:</strong> Performance was tested on an <strong>out-of-time</strong> sample to check stability under drift, and a shallow, deterministic LightGBM was chosen for stable, explainable feature rankings.</li>
-<li><strong>Banking relevance:</strong> The same discipline applies to credit monitoring: early-warning signals built from behavior (velocity, recency, unusual counterparties) and a documented, threshold-based escalation policy.</li>
+
 </ul>
 </section>
 <section id="introduction" class="level2">
