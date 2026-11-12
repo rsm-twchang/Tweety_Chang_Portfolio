@@ -32,6 +32,40 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  // Living portrait: slow breathing (CSS) plus a gentle tilt toward the pointer
+  var portrait = document.querySelector("[data-portrait]");
+  var portraitBtn = document.querySelector("[data-portrait-toggle]");
+  if (portrait && portraitBtn) {
+    if (reduceMotion) {
+      portraitBtn.hidden = true;
+    } else {
+      var paused = false, raf = 0;
+      portraitBtn.addEventListener("click", function () {
+        paused = !paused;
+        portrait.classList.toggle("is-paused", paused);
+        portraitBtn.setAttribute("aria-pressed", String(paused));
+        portraitBtn.textContent = paused ? "Resume motion" : "Pause motion";
+      });
+      var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      if (finePointer) {
+        window.addEventListener("pointermove", function (e) {
+          if (paused || raf) return;
+          raf = requestAnimationFrame(function () {
+            raf = 0;
+            var r = portrait.getBoundingClientRect();
+            if (r.bottom < 0 || r.top > window.innerHeight) return;
+            var x = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2)));
+            var y = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2)));
+            portrait.style.setProperty("--ry", (x * 6).toFixed(2) + "deg");
+            portrait.style.setProperty("--rx", (-y * 4).toFixed(2) + "deg");
+            portrait.style.setProperty("--lx", (x * 14).toFixed(1) + "px");
+            portrait.style.setProperty("--ly", (y * 10).toFixed(1) + "px");
+          });
+        }, { passive: true });
+      }
+    }
+  }
+
   if (!("IntersectionObserver" in window)) {
     document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-visible"); });
     return;

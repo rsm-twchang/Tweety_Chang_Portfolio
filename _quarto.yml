@@ -52,6 +52,7 @@ format:
     css: styles.css
     toc: true
     toc-title: "On this page"
+    toc-depth: 2
     smooth-scroll: true
     html-math-method: mathjax
     title-block-categories: false

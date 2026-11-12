@@ -26,6 +26,7 @@ link-citations: true
 ## Introduction
 
 Dean Karlan at Yale and John List at the University of Chicago conducted a field experiment to test the effectiveness of different fundraising letters. They sent out 50,000 fundraising letters to potential donors, randomly assigning each letter to one of three treatments: a standard letter, a matching grant letter, or a challenge grant letter. They published the results of this experiment in the _American Economic Review_ in 2007. The article and supporting data are available from the [AEA website](https://www.aeaweb.org/articles?id=10.1257/aer.97.5.1774) and from Innovations for Poverty Action as part of [Harvard's Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/27853&version=4.2).
+
 ---
 
 
@@ -41,6 +42,7 @@ This project involves:
 - Presenting results in a clear, reproducible format using Quarto and Python
 
 The overall goal is to better understand the behavioral response to charitable incentives and how small changes in message framing can impact donor behavior.
+
 ---
 
 
@@ -58,6 +60,7 @@ Within the treatment group, individuals were further randomized into subgroups b
 - *Suggested donation amount:* equal to 1.25× or 1.5× the donor’s previous contribution
 
 The randomized design allows for causal analysis of how these variations influence both the decision to donate and the amount given. This experiment provides a powerful example of how field experiments can be used to study economic behavior in natural settings.
+
 ---
 
 
@@ -310,6 +313,7 @@ for variable in ['mrm2', 'years', 'freq', 'female']:
 | female   | −0.0075       | −1.758 | 0.079   | [-0.016, 0.001] |
 
 None of the estimated treatment effects are statistically significant at the 5% level; the gender indicator is borderline (p = 0.079) but the estimated difference is small.
+
 ---
 
 
@@ -437,6 +441,7 @@ print(f"p-value (3:1 vs 1:1): {pval_13:.4f}")
 |-----------|-------------------------------|---------|
 | 2:1 vs 1:1 | +0.19 | 0.335 |
 | 3:1 vs 2:1 | +0.01 | 0.310 |
+
 ------
 
 ### Effect of Match Ratio on Donation Rates
@@ -455,6 +460,7 @@ print(model.summary().tables[1])  # Show coefficient summary
 |------------|-------------------------------|---------|
 | 2:1 vs 1:1 | +0.19 | 0.338 |
 | 3:1 vs 1:1 | +0.20 | 0.313 |
+
 ------
 
 
@@ -486,6 +492,7 @@ print(f"Difference (3:1 vs 2:1): {diff_3_vs_2:.4f}")
 | 1:1        | 0.0207 (2.07%) |
 | 2:1        | 0.0226 (2.26%) |
 | 3:1        | 0.0227 (2.27%) |
+
 ------
 
 
@@ -549,6 +556,7 @@ axs[1].legend()
 plt.tight_layout()
 plt.show()
 ``` 
+
 ------
 
 **Figure 5. Sampling Distribution of Treatment–Control Differences (Simulated)**
@@ -590,6 +598,7 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 ```
+
 ------
 
 ### Law of Large Numbers
@@ -625,6 +634,7 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 ```
+
 ------------
 
 

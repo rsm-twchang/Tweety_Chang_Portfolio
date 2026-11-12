@@ -202,15 +202,64 @@ h4 { font-size: 24px; line-height: 1.17; font-weight: 600; letter-spacing: .009e
   border-radius: 50%; background: var(--text-2);
 }
 
-/* ---------- About ---------- */
-.about-grid { display: grid; gap: 56px; }
-.about-intro img { width: 140px; height: 140px; border-radius: 50%; margin-bottom: 28px; }
-.about-detail { display: grid; gap: 40px; }
+/* ---------- About + living portrait ---------- */
+.about-hero { display: grid; gap: 40px; align-items: center; }
+.about-copy .eyebrow { margin-bottom: 12px; }
+.about-lede { font-size: clamp(19px, 2.3vw, 24px); line-height: 1.38; color: var(--text-2); margin-top: 20px; max-width: 34ch; font-weight: 500; }
+
+.portrait { position: relative; margin: 0 auto; width: min(76vw, 420px); }
+.portrait-stage {
+  position: relative; aspect-ratio: 480 / 493; perspective: 900px;
+}
+/* soft light pool behind the cut-out */
+.portrait-stage::before {
+  content: ""; position: absolute; inset: 6% 4% 0; border-radius: 50%;
+  background: radial-gradient(closest-side, #ffffff 0%, rgba(255,255,255,.75) 45%, rgba(255,255,255,0) 100%);
+  transform: translate3d(var(--lx, 0px), var(--ly, 0px), 0);
+  transition: transform .8s var(--ease);
+}
+.portrait picture, .portrait img {
+  position: relative; display: block; width: 100%; height: auto;
+}
+.portrait img {
+  /* fade the shoulders into the page instead of a hard crop */
+  -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 99%);
+          mask-image: linear-gradient(to bottom, #000 72%, transparent 99%);
+  transform-origin: 50% 85%;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .8s var(--ease);
+  will-change: transform;
+}
+.portrait picture { animation: breathe 7s var(--ease) infinite; transform-origin: 50% 90%; }
+@keyframes breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-4px) scale(1.012); }
+}
+.portrait.is-paused picture { animation-play-state: paused; }
+.portrait.is-paused img, .portrait.is-paused .portrait-stage::before { transform: none; }
+
+.portrait-controls { display: flex; justify-content: center; margin-top: 14px; }
+.pill {
+  font: inherit; font-size: 12px; letter-spacing: 0; color: var(--text-2);
+  background: transparent; border: 1px solid var(--hairline); border-radius: 980px;
+  padding: 6px 14px; cursor: pointer; transition: color .2s var(--ease), border-color .2s var(--ease);
+}
+.pill:hover { color: var(--text); border-color: var(--text-2); }
+
+.highlights {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px 24px;
+  margin: clamp(56px, 8vw, 96px) 0; padding-top: 40px; border-top: 1px solid var(--hairline);
+}
+.highlights li { display: flex; flex-direction: column; }
+.hl-num { font-size: clamp(34px, 4.6vw, 48px); font-weight: 700; line-height: 1.05; letter-spacing: -0.015em; }
+.hl-label { font-size: 14px; color: var(--text-2); margin-top: 8px; max-width: 26ch; }
+
+.about-detail { display: grid; gap: 48px; }
 .about-block h3 { font-size: 21px; font-weight: 600; margin-bottom: 14px; }
-.about-block p { color: var(--text-2); }
 .edu div, .skills div { padding: 12px 0; border-top: 1px solid var(--hairline); }
 .edu dt, .skills dt { font-weight: 600; }
 .edu dd, .skills dd { color: var(--text-2); }
+.fine { font-size: 14px; color: var(--text-2); margin-top: 16px; }
 
 /* ---------- Contact ---------- */
 .contact { text-align: center; }
@@ -247,8 +296,10 @@ h4 { font-size: 24px; line-height: 1.17; font-weight: 600; letter-spacing: .009e
 @media (min-width: 1024px) {
   .showcase .container { grid-template-columns: 1fr 1fr; gap: 72px; }
   .showcase:nth-of-type(even) .showcase-visual { order: -1; }
-  .about-grid { grid-template-columns: 5fr 7fr; gap: 80px; align-items: start; }
-  .about-intro { position: sticky; top: calc(var(--nav-h) + 48px); }
+  .about-hero { grid-template-columns: 1.1fr 1fr; gap: 64px; }
+  .highlights { grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .about-detail { grid-template-columns: 1fr 1fr; gap: 64px; }
+  .edu div, .skills div { display: block; }
 }
 
 /* ---------- Reduced motion ---------- */
@@ -256,4 +307,6 @@ h4 { font-size: 24px; line-height: 1.17; font-weight: 600; letter-spacing: .009e
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .js .reveal { opacity: 1; transform: none; }
+  .portrait picture { animation: none; }
+  .portrait img, .portrait-stage::before { transform: none !important; }
 }

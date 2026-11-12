@@ -160,24 +160,12 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#business-value" id="toc-business-value" class="nav-link active" data-scroll-target="#business-value">Business Value</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#instead-blueprinty-has-data-on-1500-mature-engineering-firms-including-the-number-of-patents-awarded-over-the-past-five-years-region-firm-age-and-software-usage.-the-goal-is-to-assess-whether-software-users-receive-more-patents-than-non-users." id="toc-instead-blueprinty-has-data-on-1500-mature-engineering-firms-including-the-number-of-patents-awarded-over-the-past-five-years-region-firm-age-and-software-usage.-the-goal-is-to-assess-whether-software-users-receive-more-patents-than-non-users." class="nav-link" data-scroll-target="#instead-blueprinty-has-data-on-1500-mature-engineering-firms-including-the-number-of-patents-awarded-over-the-past-five-years-region-firm-age-and-software-usage.-the-goal-is-to-assess-whether-software-users-receive-more-patents-than-non-users.">Instead, Blueprinty has data on 1,500 mature engineering firms, including the number of patents awarded over the past five years, region, firm age, and software usage. The goal is to assess whether software users receive more patents than non-users.</a></li>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
-  <li><a href="#the-objective-of-this-project-is-to-assess-whether-engineering-firms-that-use-blueprintys-software-produce-more-patents-than-firms-that-do-not-after-accounting-for-firm-age-and-regional-location.-the-analysis-aims-to-test-whether-the-available-data-support-blueprintys-claim-that-its-software-is-associated-with-stronger-patent-performance." id="toc-the-objective-of-this-project-is-to-assess-whether-engineering-firms-that-use-blueprintys-software-produce-more-patents-than-firms-that-do-not-after-accounting-for-firm-age-and-regional-location.-the-analysis-aims-to-test-whether-the-available-data-support-blueprintys-claim-that-its-software-is-associated-with-stronger-patent-performance." class="nav-link" data-scroll-target="#the-objective-of-this-project-is-to-assess-whether-engineering-firms-that-use-blueprintys-software-produce-more-patents-than-firms-that-do-not-after-accounting-for-firm-age-and-regional-location.-the-analysis-aims-to-test-whether-the-available-data-support-blueprintys-claim-that-its-software-is-associated-with-stronger-patent-performance.">The objective of this project is to assess whether engineering firms that use Blueprinty’s software produce more patents than firms that do not, after accounting for firm age and regional location. The analysis aims to test whether the available data support Blueprinty’s claim that its software is associated with stronger patent performance.</a></li>
-  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a>
-  <ul class="collapse">
-  <li><a href="#descriptive-comparison-patents-by-customer-status" id="toc-descriptive-comparison-patents-by-customer-status" class="nav-link" data-scroll-target="#descriptive-comparison-patents-by-customer-status">Descriptive comparison: patents by customer status</a></li>
-  </ul></li>
-  <li><a href="#poisson-model-specification-and-estimation" id="toc-poisson-model-specification-and-estimation" class="nav-link" data-scroll-target="#poisson-model-specification-and-estimation">Poisson Model Specification and Estimation</a>
-  <ul class="collapse">
-  <li><a href="#poisson-log-likelihood-and-the-mle" id="toc-poisson-log-likelihood-and-the-mle" class="nav-link" data-scroll-target="#poisson-log-likelihood-and-the-mle">Poisson log-likelihood and the MLE</a></li>
-  </ul></li>
-  <li><a href="#poisson-regression-model" id="toc-poisson-regression-model" class="nav-link" data-scroll-target="#poisson-regression-model">Poisson Regression Model</a>
-  <ul class="collapse">
-  <li><a href="#poisson-regression-results" id="toc-poisson-regression-results" class="nav-link" data-scroll-target="#poisson-regression-results">Poisson Regression Results</a></li>
-  </ul></li>
+  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a></li>
+  <li><a href="#poisson-model-specification-and-estimation" id="toc-poisson-model-specification-and-estimation" class="nav-link" data-scroll-target="#poisson-model-specification-and-estimation">Poisson Model Specification and Estimation</a></li>
+  <li><a href="#poisson-regression-model" id="toc-poisson-regression-model" class="nav-link" data-scroll-target="#poisson-regression-model">Poisson Regression Model</a></li>
   <li><a href="#model-implications" id="toc-model-implications" class="nav-link" data-scroll-target="#model-implications">Model Implications</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
@@ -232,15 +220,13 @@ window.Quarto = {
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p><a href="https://cedreo.com/floor-plans/blueprint-maker/?utm_source=google&amp;utm_medium=ppc&amp;utm_campaign=ur_g_s_us_nb_floorplan&amp;utm_content=blueprint_maker&amp;utm_term=blueprint%20software&amp;hsa_cam=14665050709&amp;hsa_grp=139247217835&amp;hsa_src=g&amp;hsa_acc=6133015900&amp;hsa_ver=3&amp;hsa_ad=608477980296&amp;hsa_tgt=kwd-510681492&amp;hsa_kw=blueprint%20software&amp;hsa_mt=e&amp;hsa_net=adwords&amp;gad_source=1&amp;gad_campaignid=14665050709&amp;gbraid=0AAAAADDYjZHKIFo4OUxk1pYoWm-0VeD_s&amp;gclid=Cj0KCQiA7rDMBhCjARIsAGDBuEAKQsXUPEdiVMgsJIRjOqUONUA1ywGjZu_IEoYDQ6wlEgoxkeuFLx0aAkS4EALw_wcB">Blueprinty</a> is a small firm that develops blueprint software for patent applications submitted to the U.S. Patent Office. Its marketing team wants to show that firms using the software are more successful in obtaining patent approvals. Ideally, this would be evaluated using approval rates before and after adoption, but such data are unavailable.</p>
-</section>
-<section id="instead-blueprinty-has-data-on-1500-mature-engineering-firms-including-the-number-of-patents-awarded-over-the-past-five-years-region-firm-age-and-software-usage.-the-goal-is-to-assess-whether-software-users-receive-more-patents-than-non-users." class="level2">
-<h2 class="anchored" data-anchor-id="instead-blueprinty-has-data-on-1500-mature-engineering-firms-including-the-number-of-patents-awarded-over-the-past-five-years-region-firm-age-and-software-usage.-the-goal-is-to-assess-whether-software-users-receive-more-patents-than-non-users.">Instead, Blueprinty has data on 1,500 mature engineering firms, including the number of patents awarded over the past five years, region, firm age, and software usage. The goal is to assess whether software users receive more patents than non-users.</h2>
+<p>Instead, Blueprinty has data on 1,500 mature engineering firms, including the number of patents awarded over the past five years, region, firm age, and software usage. The goal is to assess whether software users receive more patents than non-users.</p>
+<hr>
 </section>
 <section id="objective" class="level2">
 <h2 class="anchored" data-anchor-id="objective">Objective</h2>
-</section>
-<section id="the-objective-of-this-project-is-to-assess-whether-engineering-firms-that-use-blueprintys-software-produce-more-patents-than-firms-that-do-not-after-accounting-for-firm-age-and-regional-location.-the-analysis-aims-to-test-whether-the-available-data-support-blueprintys-claim-that-its-software-is-associated-with-stronger-patent-performance." class="level2">
-<h2 class="anchored" data-anchor-id="the-objective-of-this-project-is-to-assess-whether-engineering-firms-that-use-blueprintys-software-produce-more-patents-than-firms-that-do-not-after-accounting-for-firm-age-and-regional-location.-the-analysis-aims-to-test-whether-the-available-data-support-blueprintys-claim-that-its-software-is-associated-with-stronger-patent-performance.">The objective of this project is to assess whether engineering firms that use Blueprinty’s software produce more patents than firms that do not, after accounting for firm age and regional location. The analysis aims to test whether the available data support Blueprinty’s claim that its software is associated with stronger patent performance.</h2>
+<p>The objective of this project is to assess whether engineering firms that use Blueprinty’s software produce more patents than firms that do not, after accounting for firm age and regional location. The analysis aims to test whether the available data support Blueprinty’s claim that its software is associated with stronger patent performance.</p>
+<hr>
 </section>
 <section id="data-description" class="level2">
 <h2 class="anchored" data-anchor-id="data-description">Data Description</h2>

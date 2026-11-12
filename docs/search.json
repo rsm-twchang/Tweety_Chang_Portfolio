@@ -186,42 +186,21 @@
     "href": "AB_Testing.html#introduction",
     "title": "A/B Testing: Do Matching Offers Raise Response?",
     "section": "Introduction",
-    "text": "Introduction"
-  },
-  {
-    "objectID": "AB_Testing.html#dean-karlan-at-yale-and-john-list-at-the-university-of-chicago-conducted-a-field-experiment-to-test-the-effectiveness-of-different-fundraising-letters.-they-sent-out-50000-fundraising-letters-to-potential-donors-randomly-assigning-each-letter-to-one-of-three-treatments-a-standard-letter-a-matching-grant-letter-or-a-challenge-grant-letter.-they-published-the-results-of-this-experiment-in-the-american-economic-review-in-2007.-the-article-and-supporting-data-are-available-from-the-aea-website-and-from-innovations-for-poverty-action-as-part-of-harvards-dataverse.",
-    "href": "AB_Testing.html#dean-karlan-at-yale-and-john-list-at-the-university-of-chicago-conducted-a-field-experiment-to-test-the-effectiveness-of-different-fundraising-letters.-they-sent-out-50000-fundraising-letters-to-potential-donors-randomly-assigning-each-letter-to-one-of-three-treatments-a-standard-letter-a-matching-grant-letter-or-a-challenge-grant-letter.-they-published-the-results-of-this-experiment-in-the-american-economic-review-in-2007.-the-article-and-supporting-data-are-available-from-the-aea-website-and-from-innovations-for-poverty-action-as-part-of-harvards-dataverse.",
-    "title": "A/B Testing: Do Matching Offers Raise Response?",
-    "section": "Dean Karlan at Yale and John List at the University of Chicago conducted a field experiment to test the effectiveness of different fundraising letters. They sent out 50,000 fundraising letters to potential donors, randomly assigning each letter to one of three treatments: a standard letter, a matching grant letter, or a challenge grant letter. They published the results of this experiment in the American Economic Review in 2007. The article and supporting data are available from the AEA website and from Innovations for Poverty Action as part of Harvard’s Dataverse.",
-    "text": "Dean Karlan at Yale and John List at the University of Chicago conducted a field experiment to test the effectiveness of different fundraising letters. They sent out 50,000 fundraising letters to potential donors, randomly assigning each letter to one of three treatments: a standard letter, a matching grant letter, or a challenge grant letter. They published the results of this experiment in the American Economic Review in 2007. The article and supporting data are available from the AEA website and from Innovations for Poverty Action as part of Harvard’s Dataverse."
+    "text": "Introduction\nDean Karlan at Yale and John List at the University of Chicago conducted a field experiment to test the effectiveness of different fundraising letters. They sent out 50,000 fundraising letters to potential donors, randomly assigning each letter to one of three treatments: a standard letter, a matching grant letter, or a challenge grant letter. They published the results of this experiment in the American Economic Review in 2007. The article and supporting data are available from the AEA website and from Innovations for Poverty Action as part of Harvard’s Dataverse."
   },
   {
     "objectID": "AB_Testing.html#objective",
     "href": "AB_Testing.html#objective",
     "title": "A/B Testing: Do Matching Offers Raise Response?",
     "section": "Objective",
-    "text": "Objective\nThis project replicates and interprets the findings from Karlan and List’s (2007) field experiment on charitable giving. Using the original dataset, I examine how the presence and structure of a matching donation offer influence both the likelihood of giving and the amount contributed.\nThis project involves:\n\nAnalyzing treatment effects using t-tests, regression models, and probit analysis\nComparing donation behavior across different match ratios and suggested ask levels\nConducting simulations to illustrate the Law of Large Numbers and the Central Limit Theorem\nPresenting results in a clear, reproducible format using Quarto and Python"
-  },
-  {
-    "objectID": "AB_Testing.html#the-overall-goal-is-to-better-understand-the-behavioral-response-to-charitable-incentives-and-how-small-changes-in-message-framing-can-impact-donor-behavior.",
-    "href": "AB_Testing.html#the-overall-goal-is-to-better-understand-the-behavioral-response-to-charitable-incentives-and-how-small-changes-in-message-framing-can-impact-donor-behavior.",
-    "title": "A/B Testing: Do Matching Offers Raise Response?",
-    "section": "The overall goal is to better understand the behavioral response to charitable incentives and how small changes in message framing can impact donor behavior.",
-    "text": "The overall goal is to better understand the behavioral response to charitable incentives and how small changes in message framing can impact donor behavior."
+    "text": "Objective\nThis project replicates and interprets the findings from Karlan and List’s (2007) field experiment on charitable giving. Using the original dataset, I examine how the presence and structure of a matching donation offer influence both the likelihood of giving and the amount contributed.\nThis project involves:\n\nAnalyzing treatment effects using t-tests, regression models, and probit analysis\nComparing donation behavior across different match ratios and suggested ask levels\nConducting simulations to illustrate the Law of Large Numbers and the Central Limit Theorem\nPresenting results in a clear, reproducible format using Quarto and Python\n\nThe overall goal is to better understand the behavioral response to charitable incentives and how small changes in message framing can impact donor behavior."
   },
   {
     "objectID": "AB_Testing.html#description-of-the-experiment",
     "href": "AB_Testing.html#description-of-the-experiment",
     "title": "A/B Testing: Do Matching Offers Raise Response?",
     "section": "Description of the Experiment",
-    "text": "Description of the Experiment\nIn their 2007 study published in the American Economic Review, Dean Karlan and John List conducted a large-scale natural field experiment to test the effectiveness of matching donations in a real-world fundraising campaign. Over 50,000 previous donors to a U.S. nonprofit were mailed fundraising letters and randomly assigned to one of two groups:\n\nControl group: received a standard fundraising letter with no special offer\nTreatment group: received a similar letter but was offered a matching donation, meaning their contribution would be matched by another donor\n\nWithin the treatment group, individuals were further randomized into subgroups based on:\n\nMatch ratio: \\(1\\!:\\!1\\), \\(2\\!:\\!1\\), or \\(3\\!:\\!1\\)\nMaximum match amount: \\(25{,}000\\), \\(50{,}000\\), \\(100{,}000\\), or unstated\nSuggested donation amount: equal to 1.25× or 1.5× the donor’s previous contribution"
-  },
-  {
-    "objectID": "AB_Testing.html#the-randomized-design-allows-for-causal-analysis-of-how-these-variations-influence-both-the-decision-to-donate-and-the-amount-given.-this-experiment-provides-a-powerful-example-of-how-field-experiments-can-be-used-to-study-economic-behavior-in-natural-settings.",
-    "href": "AB_Testing.html#the-randomized-design-allows-for-causal-analysis-of-how-these-variations-influence-both-the-decision-to-donate-and-the-amount-given.-this-experiment-provides-a-powerful-example-of-how-field-experiments-can-be-used-to-study-economic-behavior-in-natural-settings.",
-    "title": "A/B Testing: Do Matching Offers Raise Response?",
-    "section": "The randomized design allows for causal analysis of how these variations influence both the decision to donate and the amount given. This experiment provides a powerful example of how field experiments can be used to study economic behavior in natural settings.",
-    "text": "The randomized design allows for causal analysis of how these variations influence both the decision to donate and the amount given. This experiment provides a powerful example of how field experiments can be used to study economic behavior in natural settings."
+    "text": "Description of the Experiment\nIn their 2007 study published in the American Economic Review, Dean Karlan and John List conducted a large-scale natural field experiment to test the effectiveness of matching donations in a real-world fundraising campaign. Over 50,000 previous donors to a U.S. nonprofit were mailed fundraising letters and randomly assigned to one of two groups:\n\nControl group: received a standard fundraising letter with no special offer\nTreatment group: received a similar letter but was offered a matching donation, meaning their contribution would be matched by another donor\n\nWithin the treatment group, individuals were further randomized into subgroups based on:\n\nMatch ratio: \\(1\\!:\\!1\\), \\(2\\!:\\!1\\), or \\(3\\!:\\!1\\)\nMaximum match amount: \\(25{,}000\\), \\(50{,}000\\), \\(100{,}000\\), or unstated\nSuggested donation amount: equal to 1.25× or 1.5× the donor’s previous contribution\n\nThe randomized design allows for causal analysis of how these variations influence both the decision to donate and the amount given. This experiment provides a powerful example of how field experiments can be used to study economic behavior in natural settings."
   },
   {
     "objectID": "AB_Testing.html#data-description",
@@ -235,14 +214,7 @@
     "href": "AB_Testing.html#balance-test",
     "title": "A/B Testing: Do Matching Offers Raise Response?",
     "section": "Balance Test",
-    "text": "Balance Test\nTo assess whether the randomization produced comparable treatment and control groups, we tested balance on several pre-treatment characteristics: months since last donation (mrm2), years since first donation, number of prior donations (freq), and a gender indicator (female).\n\nT-Test and Linear Regression for Each Variable\n\n\n\nVariable\nTreatment Coefficient\np-value\n\n\n\n\nmrm2\n0.0137\n0.905\n\n\nyears\n−0.0575\n0.270\n\n\nfreq\n−0.0120\n0.912\n\n\nfemale\n−0.0075\n0.079\n\n\n\nNone of the estimated treatment effects are statistically significant at the 5% level, indicating balance across observable characteristics. These results are consistent with the balance checks reported in Table 1 of Karlan and List (2007).\n\n\nBalance Check for mrm2\n\n\n\nStatistic\nValue\n\n\n\n\nTreatment coefficient\n0.0137\n\n\np-value (t-test)\n0.9049\n\n\np-value (regression)\n0.9050\n\n\n95% confidence interval\n[−0.211, 0.238]\n\n\n\nThe estimated difference in months since last donation between treatment and control groups is small and statistically insignificant, indicating comparable donation recency prior to treatment.\n\n\nAdditional Balance Tests\n\n\nBalance Test — Key Estimates\n\n\n\nVariable\nTreatment coef\nt-stat\np-value\n95% CI\n\n\n\n\nmrm2\n0.0137\n0.119\n0.905\n[-0.211, 0.238]\n\n\nyears\n−0.0575\n−1.103\n0.270\n[-0.160, 0.045]\n\n\nfreq\n−0.0120\n−0.111\n0.912\n[-0.224, 0.200]\n\n\nfemale\n−0.0075\n−1.758\n0.079\n[-0.016, 0.001]"
-  },
-  {
-    "objectID": "AB_Testing.html#none-of-the-estimated-treatment-effects-are-statistically-significant-at-the-5-level-the-gender-indicator-is-borderline-p-0.079-but-the-estimated-difference-is-small.",
-    "href": "AB_Testing.html#none-of-the-estimated-treatment-effects-are-statistically-significant-at-the-5-level-the-gender-indicator-is-borderline-p-0.079-but-the-estimated-difference-is-small.",
-    "title": "A/B Testing: Do Matching Offers Raise Response?",
-    "section": "None of the estimated treatment effects are statistically significant at the 5% level; the gender indicator is borderline (p = 0.079) but the estimated difference is small.",
-    "text": "None of the estimated treatment effects are statistically significant at the 5% level; the gender indicator is borderline (p = 0.079) but the estimated difference is small."
+    "text": "Balance Test\nTo assess whether the randomization produced comparable treatment and control groups, we tested balance on several pre-treatment characteristics: months since last donation (mrm2), years since first donation, number of prior donations (freq), and a gender indicator (female).\n\nT-Test and Linear Regression for Each Variable\n\n\n\nVariable\nTreatment Coefficient\np-value\n\n\n\n\nmrm2\n0.0137\n0.905\n\n\nyears\n−0.0575\n0.270\n\n\nfreq\n−0.0120\n0.912\n\n\nfemale\n−0.0075\n0.079\n\n\n\nNone of the estimated treatment effects are statistically significant at the 5% level, indicating balance across observable characteristics. These results are consistent with the balance checks reported in Table 1 of Karlan and List (2007).\n\n\nBalance Check for mrm2\n\n\n\nStatistic\nValue\n\n\n\n\nTreatment coefficient\n0.0137\n\n\np-value (t-test)\n0.9049\n\n\np-value (regression)\n0.9050\n\n\n95% confidence interval\n[−0.211, 0.238]\n\n\n\nThe estimated difference in months since last donation between treatment and control groups is small and statistically insignificant, indicating comparable donation recency prior to treatment.\n\n\nAdditional Balance Tests\n\n\nBalance Test — Key Estimates\n\n\n\nVariable\nTreatment coef\nt-stat\np-value\n95% CI\n\n\n\n\nmrm2\n0.0137\n0.119\n0.905\n[-0.211, 0.238]\n\n\nyears\n−0.0575\n−1.103\n0.270\n[-0.160, 0.045]\n\n\nfreq\n−0.0120\n−0.111\n0.912\n[-0.224, 0.200]\n\n\nfemale\n−0.0075\n−1.758\n0.079\n[-0.016, 0.001]\n\n\n\nNone of the estimated treatment effects are statistically significant at the 5% level; the gender indicator is borderline (p = 0.079) but the estimated difference is small."
   },
   {
     "objectID": "AB_Testing.html#experimental-results",
@@ -326,28 +298,14 @@
     "href": "Maximum_Likelihood_Estimation.html#introduction",
     "title": "Poisson Regression via MLE: Blueprinty Case",
     "section": "Introduction",
-    "text": "Introduction\nBlueprinty is a small firm that develops blueprint software for patent applications submitted to the U.S. Patent Office. Its marketing team wants to show that firms using the software are more successful in obtaining patent approvals. Ideally, this would be evaluated using approval rates before and after adoption, but such data are unavailable."
-  },
-  {
-    "objectID": "Maximum_Likelihood_Estimation.html#instead-blueprinty-has-data-on-1500-mature-engineering-firms-including-the-number-of-patents-awarded-over-the-past-five-years-region-firm-age-and-software-usage.-the-goal-is-to-assess-whether-software-users-receive-more-patents-than-non-users.",
-    "href": "Maximum_Likelihood_Estimation.html#instead-blueprinty-has-data-on-1500-mature-engineering-firms-including-the-number-of-patents-awarded-over-the-past-five-years-region-firm-age-and-software-usage.-the-goal-is-to-assess-whether-software-users-receive-more-patents-than-non-users.",
-    "title": "Poisson Regression via MLE: Blueprinty Case",
-    "section": "Instead, Blueprinty has data on 1,500 mature engineering firms, including the number of patents awarded over the past five years, region, firm age, and software usage. The goal is to assess whether software users receive more patents than non-users.",
-    "text": "Instead, Blueprinty has data on 1,500 mature engineering firms, including the number of patents awarded over the past five years, region, firm age, and software usage. The goal is to assess whether software users receive more patents than non-users."
+    "text": "Introduction\nBlueprinty is a small firm that develops blueprint software for patent applications submitted to the U.S. Patent Office. Its marketing team wants to show that firms using the software are more successful in obtaining patent approvals. Ideally, this would be evaluated using approval rates before and after adoption, but such data are unavailable.\nInstead, Blueprinty has data on 1,500 mature engineering firms, including the number of patents awarded over the past five years, region, firm age, and software usage. The goal is to assess whether software users receive more patents than non-users."
   },
   {
     "objectID": "Maximum_Likelihood_Estimation.html#objective",
     "href": "Maximum_Likelihood_Estimation.html#objective",
     "title": "Poisson Regression via MLE: Blueprinty Case",
     "section": "Objective",
-    "text": "Objective"
-  },
-  {
-    "objectID": "Maximum_Likelihood_Estimation.html#the-objective-of-this-project-is-to-assess-whether-engineering-firms-that-use-blueprintys-software-produce-more-patents-than-firms-that-do-not-after-accounting-for-firm-age-and-regional-location.-the-analysis-aims-to-test-whether-the-available-data-support-blueprintys-claim-that-its-software-is-associated-with-stronger-patent-performance.",
-    "href": "Maximum_Likelihood_Estimation.html#the-objective-of-this-project-is-to-assess-whether-engineering-firms-that-use-blueprintys-software-produce-more-patents-than-firms-that-do-not-after-accounting-for-firm-age-and-regional-location.-the-analysis-aims-to-test-whether-the-available-data-support-blueprintys-claim-that-its-software-is-associated-with-stronger-patent-performance.",
-    "title": "Poisson Regression via MLE: Blueprinty Case",
-    "section": "The objective of this project is to assess whether engineering firms that use Blueprinty’s software produce more patents than firms that do not, after accounting for firm age and regional location. The analysis aims to test whether the available data support Blueprinty’s claim that its software is associated with stronger patent performance.",
-    "text": "The objective of this project is to assess whether engineering firms that use Blueprinty’s software produce more patents than firms that do not, after accounting for firm age and regional location. The analysis aims to test whether the available data support Blueprinty’s claim that its software is associated with stronger patent performance."
+    "text": "Objective\nThe objective of this project is to assess whether engineering firms that use Blueprinty’s software produce more patents than firms that do not, after accounting for firm age and regional location. The analysis aims to test whether the available data support Blueprinty’s claim that its software is associated with stronger patent performance."
   },
   {
     "objectID": "Maximum_Likelihood_Estimation.html#data-description",
