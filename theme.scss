@@ -1,0 +1,22 @@
+/*-- scss:defaults --*/
+$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+$headings-font-family: "Inter", system-ui, sans-serif;
+$headings-font-weight: 700;
+
+$navy:   #16324f;
+$teal:   #1f7a8c;
+$ink:    #1f2933;
+$muted:  #5b6875;
+$paper:  #f6f8fa;
+
+$primary: $navy;
+$link-color: $teal;
+$body-color: $ink;
+$navbar-bg: #ffffff;
+$navbar-fg: $ink;
+$navbar-hl: $teal;
+$footer-bg: $paper;
+$toc-color: $muted;
+
+/*-- scss:rules --*/
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");

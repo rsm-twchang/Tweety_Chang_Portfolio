@@ -1,21 +1,26 @@
 ---
-title: A Replication of Karlan and List (2007)
-author: Tweety
-date: Apr 22, 2025
-lang: en
+title: "A/B Testing: Do Matching Offers Raise Response?"
+author: "Tweety Chang"
+date: 2025-04-22
+date-format: "MMMM YYYY"
+description: "Replication of Karlan & List (2007): a matching offer lifts response by ~22%, but larger match ratios add no further lift."
+categories: [Experimentation]
+image: figures/fig3_donation_rate_treatment.png
 callout-appearance: minimal
-theme:
-  - cosmo
-  - brand
-
-# disable execution for this page
+lang: en
 execute:
   enabled: false
-
-# any other metadata you already have
-document-css: false
 link-citations: true
 ---
+
+::: {.biz-value}
+### Business Value
+
+- **Outcome:** A matching offer raised the response rate by **0.42 percentage points (about +22% relative, p = 0.002)**.
+- **Cost control:** Raising the match from 1:1 to 2:1 or 3:1 produced **no significant additional lift**, so a richer incentive would add cost without adding results.
+- **Banking relevance:** The same test design applies to pricing and promotion decisions (for example, rate offers or fee waivers), so incentives are validated before they are rolled out across the portfolio.
+:::
+
 
 
 ## Introduction

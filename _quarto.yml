@@ -3,40 +3,75 @@ project:
   output-dir: docs
   resources:
     - figures/
+    - favicon.svg
   render:
     - "*.qmd"
     - "!resume.qmd"
 
 execute:
-  python: .venv/bin/python
+  freeze: auto   # re-run code only when a page's source changes
   echo: false
   warning: false
   message: false
 
 website:
-  title: "Tweety's website"
+  title: "Tweety Chang"
+  description: "Tweety Chang: corporate banking and credit analysis at Bank SinoPac, with a background in accounting and business analytics (UC San Diego MSBA)."
+  site-url: "https://rsm-twchang.github.io/Tweety_Chang_Portfolio/"
+  favicon: favicon.svg
+  open-graph: true
+  twitter-card: true
+  page-navigation: true
+  back-to-top-navigation: true
   navbar:
     left:
+      - href: index.qmd
+        text: Home
       - href: about.qmd
         text: About
-      - href: credit_card_fraud_detection.qmd
-        text: Fraud Detection
-      - href: Intuit_Quickbooks_Upgrade.qmd
-        text: Uplift Modeling
-      - href: database_management.qmd
-        text: Database Management
-      - href: AB_Testing.qmd
-        text: A/B Testing
-      - href: Maximum_Likelihood_Estimation.qmd
-        text: MLE
-      - href: Key_Drivers_Analysis.qmd
-        text: K-Means Clustering
+      - text: Projects
+        menu:
+          - href: projects.qmd
+            text: All Projects
+          - text: "---"
+          - text: "Risk & Finance"
+          - href: credit_card_fraud_detection.qmd
+            text: Credit Card Fraud Detection
+          - href: Intuit_Quickbooks_Upgrade.qmd
+            text: Campaign Profit Optimization
+          - href: database_management.qmd
+            text: Reconciliation & ETL (Snowflake)
+          - text: "---"
+          - text: "Statistics & Experimentation"
+          - href: AB_Testing.qmd
+            text: A/B Testing
+          - href: Maximum_Likelihood_Estimation.qmd
+            text: Poisson Regression (MLE)
+          - href: Multinomial_Logit_Model.qmd
+            text: Multinomial Logit (Choice Model)
+          - href: Key_Drivers_Analysis.qmd
+            text: K-Means Clustering
+    right:
+      - icon: linkedin
+        href: https://www.linkedin.com/in/tweety-chang
+        aria-label: LinkedIn
+      - icon: github
+        href: https://github.com/rsm-twchang
+        aria-label: GitHub
+      - icon: envelope
+        href: mailto:ctweety15@gmail.com
+        aria-label: Email
+  page-footer:
+    left: "© 2026 Tweety Chang"
+    right: "Built with [Quarto](https://quarto.org)"
 
 format:
   html:
     theme:
-      - cosmo
-      - brand
+      light: [cosmo, theme.scss]
     css: styles.css
     toc: true
+    toc-title: "On this page"
+    smooth-scroll: true
+    link-external-newwindow: true
     html-math-method: mathjax

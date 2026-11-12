@@ -1,12 +1,24 @@
 ---
-title: "Multinomial Logit Model"
-format: html
-author: "Tweety"
+title: "Multinomial Logit: Pricing & Choice Modeling"
+author: "Tweety Chang"
 date: 2025-05-20
-callout-appearance: minimal # this hides the blue "i" icon on .callout-notes
+date-format: "MMMM YYYY"
+description: "Consumer choice model estimated by MLE and Bayesian MCMC to quantify brand preference, ad aversion, and price sensitivity."
+categories: [Statistical Modeling, Pricing]
+image: figures/fig_mnl_price_utility.png
+callout-appearance: minimal
 ---
 
-This assignment expores two methods for estimating the MNL model: (1) via Maximum Likelihood, and (2) via a Bayesian approach using a Metropolis-Hastings MCMC algorithm. 
+::: {.biz-value}
+### Business Value
+
+- **Outcome:** Consumers show clear brand preference, dislike ads (β ≈ −0.73), and are price-sensitive (β ≈ −0.10 per dollar), which allows willingness to pay to be expressed in dollars.
+- **Robustness:** Maximum likelihood and Bayesian MCMC give near-identical estimates (posterior SDs within 0.002 of MLE standard errors), which supports the pricing conclusions.
+- **Banking relevance:** Choice models of this type support product and pricing decisions, such as how customers trade off rate, fees, and features.
+:::
+
+
+This project explores two methods for estimating the MNL model: (1) via Maximum Likelihood, and (2) via a Bayesian approach using a Metropolis-Hastings MCMC algorithm. 
 
 
 ## 1. Likelihood for the Multi-nomial Logit (MNL) Model
