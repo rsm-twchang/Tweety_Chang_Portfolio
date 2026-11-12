@@ -30,3 +30,11 @@ table { font-size: .9rem; }
 .nav-footer { font-size: 12px; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto !important; } }
+
+body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; }
+#title-block-header { padding: 2rem 0 1rem; }
+h1.title { letter-spacing: -.04em; text-wrap: balance; }
+main { max-width: 100%; }
+.cell-output-display { overflow-x: auto; }
+:focus-visible { outline: 2px solid #0071e3; outline-offset: 4px; }
+@media (max-width: 767px) { .biz-value { padding: 1.25rem; } h1.title { font-size: 2.25rem; } }

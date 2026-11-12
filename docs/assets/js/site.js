@@ -28,7 +28,7 @@
   }
 
   // Hairline under the nav once the page scrolls
-  function onScroll() { nav.classList.toggle("scrolled", window.scrollY > 8); }
+  function onScroll() { if (nav) nav.classList.toggle("scrolled", window.scrollY > 8); }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
@@ -82,6 +82,7 @@
           if (item) { item.hidden = true; return; }
           a.setAttribute("href", "#experience");
           a.removeAttribute("download");
+          a.textContent = "View My Experience";
         });
       });
   }
