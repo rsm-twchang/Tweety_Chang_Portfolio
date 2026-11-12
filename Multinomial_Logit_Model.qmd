@@ -3,18 +3,17 @@ title: "Multinomial Logit: Pricing & Choice Modeling"
 author: "Tweety Chang"
 date: 2025-05-20
 date-format: "MMMM YYYY"
-description: "Consumer choice model estimated by MLE and Bayesian MCMC to quantify brand preference, ad aversion, and price sensitivity."
+description: "Simulation study comparing MLE and Bayesian MCMC estimates of subscription choice parameters."
 categories: [Statistical Modeling, Pricing]
 image: figures/fig_mnl_price_utility.png
 callout-appearance: minimal
 ---
 
 ::: {.biz-value}
-### Business Value
+### Simulation Results
 
-- **Outcome:** Consumers show clear brand preference, dislike ads (β ≈ −0.73), and are price-sensitive (β ≈ −0.10 per dollar), which allows willingness to pay to be expressed in dollars.
-- **Robustness:** Maximum likelihood and Bayesian MCMC give near-identical estimates (posterior SDs within 0.002 of MLE standard errors), which supports the pricing conclusions.
-- **Banking relevance:** Choice models of this type support product and pricing decisions, such as how customers trade off rate, fees, and features.
+- **Scope:** Simulated subscription choices were used to compare maximum likelihood and Bayesian MCMC estimators. These are not observed consumer preferences.
+- **Finding:** Both estimators recovered similar brand, advertising, and price parameters. Agreement checks implementation on this simulation; it does not validate a real-world pricing decision.
 :::
 
 

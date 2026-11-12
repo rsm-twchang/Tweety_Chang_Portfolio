@@ -3,17 +3,17 @@ title: "K-Means Clustering from Scratch"
 author: "Tweety Chang"
 date: 2025-06-06
 date-format: "MMMM YYYY"
-description: "K-Means implemented from scratch and with scikit-learn; cluster count chosen with WCSS and silhouette score."
+description: "K-Means implementation with an explicit tradeoff between silhouette separation and species-informed interpretation."
 categories: [Machine Learning, Segmentation]
 image: figures/fig6_kmeans_k3.png
 callout-appearance: minimal
 ---
 
 ::: {.biz-value}
-### Business Value
+### Model Tradeoff
 
-- **Outcome:** K-Means was built from scratch and checked against scikit-learn, and three well-separated segments were selected using WCSS and silhouette score.
-- **Banking relevance:** The same unsupervised approach is used for customer and portfolio segmentation, such as grouping borrowers by financial profile to set monitoring intensity.
+- **Finding:** K-Means was implemented from scratch and compared with scikit-learn. Silhouette favored k = 2 (0.612) over k = 3 (0.456).
+- **Judgment:** The three-cluster interpretation considered the WCSS curve and known species structure. Species labels were excluded from fitting features but informed the choice of k, so this is not a fully label-independent selection.
 :::
 
 
@@ -124,7 +124,7 @@ WCSS decreases as the number of clusters increases, which is expected because ad
 **Cluster Quality (Silhouette Score)**
 ![Figure 5. Silhouette Score vs. Number of Clusters](figures/fig5_silhouette.png){#fig5_silhouette}
 
-The silhouette score is highest at k = 2, but remains reasonably strong at k = 3. Because the WCSS elbow occurs at three clusters and the dataset contains three biological species, k = 3 provides a balanced and interpretable solution.
+The silhouette score favors k = 2 (0.612 versus 0.456 for k = 3). The selected k = 3 reflects an interpretability choice informed by the WCSS curve and the known three-species structure; it does not maximize separation.
 
 ### Evaluation of Cluster Quantity
 
@@ -139,9 +139,9 @@ To select the number of clusters, WCSS and silhouette scores were computed for k
 | 6 | 6326.31  | 0.414 |
 | 7 | 6030.08  | 0.370 |
 
-Although the silhouette score is highest at k = 2, this solution collapses two biologically distinct groups into a single cluster. The WCSS curve shows a clear elbow at **k = 3**, indicating substantial variance reduction when moving from 2 to 3 clusters. 
+Species labels were not used as clustering inputs. However, knowledge of the three species informed selection of k = 3, so the final choice was not independent of label information.
 
-Because three clusters preserve meaningful morphological distinctions while still maintaining reasonable separation, **k = 3** provides a more interpretable segmentation.
+The tradeoff is explicit: k = 2 gives stronger silhouette separation, while k = 3 supports a more detailed biological interpretation. Neither criterion alone establishes a universally best cluster count.
 
 ### Final Clustering Result (k = 3)
 ![K-Means clustering result (k = 3)](figures/fig6_kmeans_k3.png){#fig6_kmeans_k3}

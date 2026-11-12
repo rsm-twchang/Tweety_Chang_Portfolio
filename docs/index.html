@@ -10,7 +10,7 @@
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Tweety Chang | Turning Data Into Decisions">
-  <meta property="og:description" content="Finance. Business Analytics. Strategic Thinking.">
+  <meta property="og:description" content="Corporate Credit · Data Validation · Process Improvement">
   <meta property="og:url" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/">
   <meta property="og:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/assets/img/headshot-720.jpg">
   <meta name="twitter:card" content="summary">
@@ -25,7 +25,7 @@
     "@type": "Person",
     "name": "Tweety Chang",
     "alternateName": "Jiun-Han Chang",
-    "jobTitle": "Associate Relationship Manager",
+    "jobTitle": "Assistant Relationship Manager",
     "worksFor": { "@type": "Organization", "name": "Bank SinoPac" },
     "alumniOf": [
       { "@type": "CollegeOrUniversity", "name": "University of California, San Diego" },
@@ -62,9 +62,9 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="home" aria-labelledby="hero-title">
       <div class="container narrow">
-        <h1 id="hero-title" class="reveal">Turning Data Into Decisions.</h1>
-        <p class="hero-sub reveal">Finance. Business Analytics. Strategic Thinking.</p>
-        <p class="hero-intro reveal">I'm Tweety Chang, a finance and business analytics professional passionate about transforming complex data into actionable business insights.</p>
+        <h1 id="hero-title" class="reveal">Financial Analysis. Clearer Decisions.</h1>
+        <p class="hero-sub reveal">Corporate Credit · Data Validation · Process Improvement</p>
+        <p class="hero-intro reveal">I'm Tweety Chang, an Assistant Relationship Manager at Bank SinoPac. I analyze borrower financials, build scenario models, and prepare credit reports that help reviewers assess lending decisions.</p>
         <p class="cta-row reveal">
           <a class="link-cta" href="#projects">Explore My Projects</a>
           <a class="link-cta" href="assets/Tweety_Chang_Resume.pdf" data-resume>View My Resume</a>
@@ -120,7 +120,7 @@
     <section id="projects" aria-labelledby="projects-title">
       <header class="section-head container narrow">
         <h2 id="projects-title" class="reveal">Projects.</h2>
-        <p class="section-lede reveal">Selected work, measured by impact.</p>
+        <p class="section-lede reveal">Tools built. Decisions tested. Results explained.</p>
       </header>
 
       <!-- Project 1 -->
@@ -128,12 +128,12 @@
         <div class="container">
           <div class="showcase-text reveal">
             <p class="eyebrow">Risk Analytics</p>
-            <h3 id="p-fraud">Credit Card Fraud Detection</h3>
+            <h3 id="p-fraud">Fraud Review Prioritization</h3>
             <p class="problem">How can a card issuer catch more fraud without overwhelming its review team with false alarms?</p>
             <p class="approach">Cleaned 97,852 transactions, engineered 3,379 behavioral features, and selected a LightGBM model validated on an out-of-time sample. The review cutoff was set by net financial impact, not by accuracy.</p>
             <ul class="metrics">
               <li><span class="metric-num">62%</span><span class="metric-label">of fraud detected at a 4% review cutoff</span></li>
-              <li><span class="metric-num">$40.5M</span><span class="metric-label">estimated annual net savings</span></li>
+              <li><span class="metric-num">$40.5M</span><span class="metric-label">modeled annual net savings under stated assumptions</span></li>
             </ul>
             <p class="tech">Python · LightGBM · Feature Engineering · Out-of-Time Validation</p>
             <a class="link-cta" href="credit_card_fraud_detection.html">Explore Project<span class="visually-hidden">: Credit Card Fraud Detection</span></a>
@@ -166,15 +166,15 @@
         <div class="container">
           <div class="showcase-text reveal">
             <p class="eyebrow">Marketing Analytics</p>
-            <h3 id="p-intuit">Intuit Campaign Analytics</h3>
+            <h3 id="p-intuit">Profitable Campaign Targeting</h3>
             <p class="problem">Which small businesses should receive a second upgrade offer so that every mailing earns back its cost?</p>
             <p class="approach">Modeled wave-1 response for 75,000 QuickBooks customers, compared logistic regression and neural network models on validation profit, and set a break-even targeting rule for wave 2.</p>
             <p class="tech">Python · Logistic Regression · Neural Networks · Profit Optimization</p>
             <a class="link-cta" href="Intuit_Quickbooks_Upgrade.html">Explore Project<span class="visually-hidden">: Intuit Campaign Analytics</span></a>
           </div>
           <div class="showcase-visual big-stats reveal">
-            <p><span class="stat-xl">15%</span><span class="stat-cap">improvement in campaign profitability</span></p>
-            <p><span class="stat-xl">7%</span><span class="stat-cap">increase in ROMI</span></p>
+            <p><span class="stat-xl">$1.23M</span><span class="stat-cap">projected profit under case assumptions</span></p>
+            <p><span class="stat-xl">$1.17M</span><span class="stat-cap">projected mail-to-all baseline</span></p>
           </div>
         </div>
       </article>
@@ -184,11 +184,11 @@
         <div class="container">
           <div class="showcase-text reveal">
             <p class="eyebrow">Data Engineering</p>
-            <h3 id="p-etl">Invoice &amp; Purchase Order ETL</h3>
+            <h3 id="p-etl">Automated Invoice Reconciliation</h3>
             <p class="problem">Do suppliers invoice what they quoted, and can that check run automatically?</p>
             <p class="approach">Built an ETL pipeline in Snowflake that combines purchase orders, supplier invoices, supplier records, and NOAA weather data, then calculates the quoted-versus-invoiced variance for each purchase order.</p>
             <ul class="metrics">
-              <li><span class="metric-num">500K+</span><span class="metric-label">records processed</span></li>
+              <li><span class="metric-num">400K+</span><span class="metric-label">records processed</span></li>
             </ul>
             <p class="tech">SQL · Snowflake · PostgreSQL · Python</p>
             <a class="link-cta" href="database_management.html">Explore Project<span class="visually-hidden">: Invoice and Purchase Order ETL</span></a>
@@ -218,35 +218,46 @@
         </div>
       </article>
 
+      <article class="showcase" aria-labelledby="p-validation">
+        <div class="container narrow">
+          <p class="eyebrow">Industry Capstone · Team Project</p>
+          <h3 id="p-validation">Marketing Data Validation</h3>
+          <p class="problem">How can reviewers locate inconsistent campaign records before they reach measurement models?</p>
+          <p class="approach">Contributed to a team project developing Python workflows for campaign-name validation, spend reconciliation, and anomaly detection. Configurable checks and comparison reports made exceptions available for investigation.</p>
+          <p class="tech">Python · Data Quality · Reconciliation</p>
+          <a class="link-cta" href="marketing_data_validation.html">Explore Project<span class="visually-hidden">: Marketing Data Validation</span></a>
+        </div>
+      </article>
+
       <!-- Additional projects -->
       <section class="more container" aria-labelledby="more-title">
         <h3 id="more-title" class="more-title reveal">More analysis.</h3>
         <div class="more-grid">
           <article class="more-item reveal">
             <p class="eyebrow">Experimentation</p>
-            <h4>A/B Testing</h4>
-            <p>Does a matching-gift offer raise response, and does a richer match help more? A matching offer increased the response rate by about 22% (p = 0.002); higher match ratios added no significant lift.</p>
+            <h4>Testing Donation Incentives</h4>
+            <p>Does a matching-gift offer raise response, and does a richer match help more? A matching offer increased the response rate by about 22% (p = 0.002); higher match ratios showed no statistically significant additional lift in this sample.</p>
             <p class="tech">Python · t-tests · Regression · Probit</p>
             <a class="link-cta" href="AB_Testing.html">Explore Project<span class="visually-hidden">: A/B Testing</span></a>
           </article>
           <article class="more-item reveal">
             <p class="eyebrow">Statistical Modeling</p>
-            <h4>Poisson Regression via MLE</h4>
+            <h4>Software &amp; Patent Outcomes</h4>
             <p>Is a software product linked to more patents once firm age and region are controlled for? Customers showed about 23% more patents (p &lt; 0.001).</p>
             <p class="tech">Python · Maximum Likelihood · Poisson Regression</p>
             <a class="link-cta" href="Maximum_Likelihood_Estimation.html">Explore Project<span class="visually-hidden">: Poisson Regression via MLE</span></a>
           </article>
           <article class="more-item reveal">
             <p class="eyebrow">Pricing</p>
-            <h4>Multinomial Logit Choice Model</h4>
-            <p>How do brand, advertising, and price drive subscription choice? Estimated by maximum likelihood and Bayesian MCMC, with near-identical results.</p>
+            <h4>Pricing Simulation</h4>
+            <p>Simulation study: estimated subscription choices with maximum likelihood and Bayesian MCMC, comparing recovered preference parameters.</p>
             <p class="tech">Python · MLE · Metropolis-Hastings MCMC</p>
             <a class="link-cta" href="Multinomial_Logit_Model.html">Explore Project<span class="visually-hidden">: Multinomial Logit Choice Model</span></a>
           </article>
           <article class="more-item reveal">
             <p class="eyebrow">Segmentation</p>
-            <h4>K-Means Clustering</h4>
-            <p>Can natural segments be found without labels? K-Means built from scratch, checked against scikit-learn, and tuned with WCSS and silhouette score.</p>
+            <h4>Choosing Useful Segments</h4>
+            <p>Implemented K-Means and compared cluster counts. Two clusters scored highest on silhouette; three were selected for interpretation informed by known species.</p>
             <p class="tech">Python · NumPy · scikit-learn</p>
             <a class="link-cta" href="Key_Drivers_Analysis.html">Explore Project<span class="visually-hidden">: K-Means Clustering</span></a>
           </article>
@@ -263,11 +274,11 @@
             <p class="when">May 2026 – Present</p>
             <div>
               <h3>Bank SinoPac, Los Angeles Branch</h3>
-              <p class="title">Associate Relationship Manager · Credit Analyst, Corporate Banking</p>
+              <p class="title">Assistant Relationship Manager · Credit Analyst, Corporate Banking</p>
               <ul>
-                <li>Analyze borrower financial statements and build structured financial summaries and scenario models.</li>
-                <li>Track facility utilization and credit risk indicators across U.S. corporate and syndicated loans.</li>
-                <li>Coordinate with Credit, Compliance, and Agent Banks, and prepare bilingual credit reports for the Credit Committee and Head Office.</li>
+                <li>Analyze borrower financial statements and build scenario models with explicit assumptions so reviewers can assess repayment capacity and downside cases.</li>
+                <li>Review facility utilization and credit indicators across U.S. corporate and syndicated loans, checking for inconsistencies that require follow-up.</li>
+                <li>Coordinate with Credit, Compliance, and Agent Banks to clarify reporting gaps; prepare bilingual credit reports that make findings, assumptions, and open questions visible to the Credit Committee and Head Office.</li>
               </ul>
             </div>
           </li>
@@ -277,9 +288,9 @@
               <h3>Highspring</h3>
               <p class="title">Content Analyst</p>
               <ul>
-                <li>Reviewed high-volume digital ad content at 99% accuracy and helped define quality metrics for the QA team.</li>
-                <li>Built a JavaScript tracker to monitor review throughput in real time, reducing manual logging errors.</li>
-                <li>Trained and aligned 30+ analysts across five APAC countries on policy and quality standards.</li>
+                <li>Trained 30+ analysts across six markets: South Korea, Japan, the Philippines, Thailand, the United States, and Taiwan.</li>
+                <li>Used JavaScript decision checks and re-review prompts to flag mismatches and support consistent policy decisions.</li>
+                <li>Reviewed digital advertising content against policy requirements and used time tracking to structure the review workflow.</li>
               </ul>
             </div>
           </li>
@@ -289,8 +300,8 @@
               <h3>HP</h3>
               <p class="title">Data Analyst, MSBA Capstone</p>
               <ul>
-                <li>Built a Python spend reconciliation tool that resolved 900+ discrepancies between platform and finance data.</li>
-                <li>Presented findings to leadership; recommendations were adopted into the reporting release process.</li>
+                <li>Contributed to a team project developing Python tools for campaign-name validation, spend reconciliation, and anomaly detection.</li>
+                <li>Produced validation flags and comparison reports to support investigation before downstream marketing analysis.</li>
               </ul>
             </div>
           </li>
@@ -300,7 +311,7 @@
               <h3>HBC Tax Inc.</h3>
               <p class="title">Tax Associate</p>
               <ul>
-                <li>Reconciled individual and business financial statements to source documents in QuickBooks with 100% accuracy.</li>
+                <li>Reconciled individual and business financial statements to source documents in QuickBooks for review.</li>
                 <li>Prepared quarterly variance reports and investigated anomalies for internal review.</li>
               </ul>
             </div>

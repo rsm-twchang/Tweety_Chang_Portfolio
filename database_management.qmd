@@ -10,12 +10,11 @@ callout-appearance: minimal
 ---
 
 ::: {.biz-value}
-### Business Value & Risk Control
+### Reconciliation Workflow
 
-- **Outcome:** Consolidated **400K+ records** from CSV, XML, PostgreSQL, and Snowflake Marketplace into one reconciliation table covering ~**2,100 purchase orders**.
-- **Internal control:** Each purchase order is matched to its supplier invoice and the **quoted-vs-invoiced variance** is calculated automatically, replacing manual tie-outs and surfacing pricing exceptions for review.
-- **Root-cause testing:** An external driver (weather) was tested as an explanation for variances and ruled out, keeping attention on supplier and process issues.
-- **Banking relevance:** The same workflow supports loan operations, such as reconciling borrower reporting against source data and flagging exceptions before they reach a credit memo.
+- **Scope:** Combined 400K+ source records across CSV, XML, PostgreSQL, and Snowflake Marketplace. The reconciliation table covered approximately 2,100 purchase orders.
+- **Output:** Calculated quoted-versus-invoiced differences by purchase order for exception review.
+- **Finding:** No measurable temperature relationship was observed in the matched sample. This does not rule out every possible weather effect.
 :::
 
 

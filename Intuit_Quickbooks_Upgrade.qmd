@@ -10,7 +10,7 @@ callout-appearance: minimal
 ---
 
 ::: {.biz-value}
-### Business Value & Risk Control
+### Decision & Evidence
 
 - **Outcome:** The recommended targeting rule yields a projected profit of **$1.23M** with **ROME of 3.63**, beating a mail-to-all approach ($1.17M) and every logistic baseline tested.
 - **Decision rule:** Customers are contacted only when expected response clears the **break-even rate (2.35%)**, so each dollar of spend has to earn its cost, the same expected-value logic used in credit approval and pricing.
@@ -166,7 +166,7 @@ Both models use the same preprocessing (categorical encoding for discrete fields
 
 #### LR1: baseline logistic regression
 
-Adding the anomaly indicator (`isweird`) improved both **validation profit** and **ROME** relative to the baseline logistic regression, indicating better campaign efficiency under the profit framework. To interpret what the baseline model is learning, Table X summarizes the key signals from the LR1 coefficient output.
+Adding the anomaly indicator (`isweird`) improved both **validation profit** and **ROME** relative to the baseline logistic regression, indicating better campaign efficiency under the profit framework. To interpret what the baseline model is learning, the following summary describes the key signals from the LR1 coefficient output.
 
 ##### Model fit (LR1)
 - **AUC:** 0.755  

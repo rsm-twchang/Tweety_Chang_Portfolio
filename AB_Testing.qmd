@@ -3,7 +3,7 @@ title: "A/B Testing: Do Matching Offers Raise Response?"
 author: "Tweety Chang"
 date: 2025-04-22
 date-format: "MMMM YYYY"
-description: "Replication of Karlan & List (2007): a matching offer lifts response by ~22%, but larger match ratios add no further lift."
+description: "Replication of Karlan & List (2007): a matching offer lifts response by ~22%, with no statistically significant additional lift detected for larger match ratios."
 categories: [Experimentation]
 image: figures/fig3_donation_rate_treatment.png
 callout-appearance: minimal
@@ -14,18 +14,17 @@ link-citations: true
 ---
 
 ::: {.biz-value}
-### Business Value
+### Test Results
 
-- **Outcome:** A matching offer raised the response rate by **0.42 percentage points (about +22% relative, p = 0.002)**.
-- **Cost control:** Raising the match from 1:1 to 2:1 or 3:1 produced **no significant additional lift**, so a richer incentive would add cost without adding results.
-- **Banking relevance:** The same test design applies to pricing and promotion decisions (for example, rate offers or fee waivers), so incentives are validated before they are rolled out across the portfolio.
+- **Finding:** A matching offer raised response by 0.42 percentage points (about 22% relative, p = 0.002) in this replication.
+- **Decision:** Higher match ratios showed no statistically significant additional lift. This does not establish equivalence or rule out a worthwhile effect; compare uncertainty and incentive cost before choosing a ratio.
 :::
 
 
 
 ## Introduction
 
-Dean Karlan at Yale and John List at the University of Chicago conducted a field experiment to test the effectiveness of different fundraising letters. They sent out 50,000 fundraising letters to potential donors, randomly assigning each letter to one of three treatments: a standard letter, a matching grant letter, or a challenge grant letter. They published the results of this experiment in the _American Economic Review_ in 2007. The article and supporting data are available from the [AEA website](https://www.aeaweb.org/articles?id=10.1257/aer.97.5.1774) and from Innovations for Poverty Action as part of [Harvard's Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/27853&version=4.2).
+Karlan and List (2007) randomized previous donors between a control letter and a letter offering a matching donation. Within the matching group, the experiment varied match ratios, match limits, and suggested donation amounts. This project replicates the analysis of the original dataset.
 ---
 
 
@@ -413,7 +412,7 @@ We examine whether larger match ratios within the treatment group lead to higher
 
 Relative to a 1:1 match, increasing the ratio to 2:1 raises the donation rate by approximately 0.19 percentage points (p = 0.335), while moving from 2:1 to 3:1 increases the rate by only 0.01 percentage points (p = 0.310). Neither difference is statistically significant.
 
-These results suggest that higher match ratios do not meaningfully increase participation beyond the presence of a match itself, consistent with the findings in Karlan and List (2007).
+These results suggest that higher match ratios did not show a statistically significant increase in participation beyond offering a match in this sample, consistent with the findings in Karlan and List (2007).
 ```{python}
 #| echo: false
 from scipy.stats import ttest_ind
@@ -494,7 +493,7 @@ We next examine whether the matching donation treatment affects the amount donat
 
 A two-sample t-test and a linear regression both estimate a small difference in donation amounts between treatment and control donors; however, the effects are not statistically significant at conventional levels (p ≈ 0.06). The estimated magnitudes are modest.
 
-Overall, these results suggest that while offering a matching donation increases participation, it does not meaningfully affect the amount donated conditional on giving.
+Overall, these results suggest that while offering a matching donation increases participation, it did not produce a statistically significant difference in amounts among donors in this sample.
 
 ```{python}
 #| echo: false
