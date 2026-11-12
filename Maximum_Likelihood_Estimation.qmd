@@ -22,11 +22,13 @@ callout-appearance: minimal
 [Blueprinty](https://cedreo.com/floor-plans/blueprint-maker/?utm_source=google&utm_medium=ppc&utm_campaign=ur_g_s_us_nb_floorplan&utm_content=blueprint_maker&utm_term=blueprint%20software&hsa_cam=14665050709&hsa_grp=139247217835&hsa_src=g&hsa_acc=6133015900&hsa_ver=3&hsa_ad=608477980296&hsa_tgt=kwd-510681492&hsa_kw=blueprint%20software&hsa_mt=e&hsa_net=adwords&gad_source=1&gad_campaignid=14665050709&gbraid=0AAAAADDYjZHKIFo4OUxk1pYoWm-0VeD_s&gclid=Cj0KCQiA7rDMBhCjARIsAGDBuEAKQsXUPEdiVMgsJIRjOqUONUA1ywGjZu_IEoYDQ6wlEgoxkeuFLx0aAkS4EALw_wcB)  is a small firm that develops blueprint software for patent applications submitted to the U.S. Patent Office. Its marketing team wants to show that firms using the software are more successful in obtaining patent approvals. Ideally, this would be evaluated using approval rates before and after adoption, but such data are unavailable.
 
 Instead, Blueprinty has data on 1,500 mature engineering firms, including the number of patents awarded over the past five years, region, firm age, and software usage. The goal is to assess whether software users receive more patents than non-users.
+
 ---
 
 ## Objective
 
 The objective of this project is to assess whether engineering firms that use Blueprinty’s software produce more patents than firms that do not, after accounting for firm age and regional location. The analysis aims to test whether the available data support Blueprinty’s claim that its software is associated with stronger patent performance.
+
 ---
 
 ## Data Description
@@ -137,6 +139,7 @@ region_counts = pd.crosstab(df['region'], df['iscustomer'], margins=True)
 print("\nRegion Distribution by Customer Status:")
 region_counts
 ```
+
 ------
 
 ## Poisson Model Specification and Estimation
@@ -268,6 +271,7 @@ lambda_mle = result.x[0]
 print(f"The MLE of lambda is: {lambda_mle:.4f}")
 print(np.mean(Y), lambda_mle)
 ```
+
 ------
 
 ## Poisson Regression Model

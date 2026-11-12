@@ -128,56 +128,16 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#business-value-risk-control" id="toc-business-value-risk-control" class="nav-link active" data-scroll-target="#business-value-risk-control">Decision &amp; Evidence</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
-  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a>
-  <ul class="collapse">
-  <li><a href="#numeric-variables" id="toc-numeric-variables" class="nav-link" data-scroll-target="#numeric-variables">Numeric Variables</a></li>
-  <li><a href="#categorical-variables" id="toc-categorical-variables" class="nav-link" data-scroll-target="#categorical-variables">Categorical Variables</a></li>
-  <li><a href="#temporal-variable" id="toc-temporal-variable" class="nav-link" data-scroll-target="#temporal-variable">Temporal Variable</a></li>
-  <li><a href="#amount" id="toc-amount" class="nav-link" data-scroll-target="#amount">Amount</a></li>
-  <li><a href="#merch-state" id="toc-merch-state" class="nav-link" data-scroll-target="#merch-state">Merch State</a></li>
-  <li><a href="#merch-zip" id="toc-merch-zip" class="nav-link" data-scroll-target="#merch-zip">Merch Zip</a></li>
-  <li><a href="#fraud-target-variable" id="toc-fraud-target-variable" class="nav-link" data-scroll-target="#fraud-target-variable">Fraud (Target Variable)</a></li>
-  </ul></li>
-  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a>
-  <ul class="collapse">
-  <li><a href="#outlier-removal" id="toc-outlier-removal" class="nav-link" data-scroll-target="#outlier-removal">Outlier Removal</a></li>
-  <li><a href="#data-exclusions-transaction-type" id="toc-data-exclusions-transaction-type" class="nav-link" data-scroll-target="#data-exclusions-transaction-type">Data Exclusions – Transaction Type</a></li>
-  <li><a href="#handling-missing-and-invalid-values" id="toc-handling-missing-and-invalid-values" class="nav-link" data-scroll-target="#handling-missing-and-invalid-values">Handling Missing and Invalid Values</a></li>
-  <li><a href="#data-status-after-cleaning" id="toc-data-status-after-cleaning" class="nav-link" data-scroll-target="#data-status-after-cleaning">Data Status After Cleaning</a></li>
-  </ul></li>
+  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a></li>
   <li><a href="#variable-creation" id="toc-variable-creation" class="nav-link" data-scroll-target="#variable-creation">Variable Creation</a></li>
-  <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection">Feature Selection</a>
-  <ul class="collapse">
-  <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering">1. Filtering</a></li>
-  <li><a href="#wrapping" id="toc-wrapping" class="nav-link" data-scroll-target="#wrapping">2. Wrapping</a></li>
-  <li><a href="#results-summary" id="toc-results-summary" class="nav-link" data-scroll-target="#results-summary">Results Summary</a></li>
-  <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations">Observations</a></li>
-  <li><a href="#wrapper-results-forward-selection" id="toc-wrapper-results-forward-selection" class="nav-link" data-scroll-target="#wrapper-results-forward-selection">Wrapper Results (Forward Selection)</a></li>
-  <li><a href="#feature-selection-conclusion" id="toc-feature-selection-conclusion" class="nav-link" data-scroll-target="#feature-selection-conclusion">Feature Selection Conclusion</a></li>
-  </ul></li>
-  <li><a href="#preliminary-model-exploration" id="toc-preliminary-model-exploration" class="nav-link" data-scroll-target="#preliminary-model-exploration">Preliminary Model Exploration</a>
-  <ul class="collapse">
-  <li><a href="#models-compared" id="toc-models-compared" class="nav-link" data-scroll-target="#models-compared">Models Compared</a></li>
-  <li><a href="#hyperparameters" id="toc-hyperparameters" class="nav-link" data-scroll-target="#hyperparameters">Hyperparameters</a></li>
-  <li><a href="#model-performance-comparison" id="toc-model-performance-comparison" class="nav-link" data-scroll-target="#model-performance-comparison">Model Performance Comparison</a></li>
-  </ul></li>
-  <li><a href="#final-model-performance" id="toc-final-model-performance" class="nav-link" data-scroll-target="#final-model-performance">Final Model Performance</a>
-  <ul class="collapse">
-  <li><a href="#model-selection" id="toc-model-selection" class="nav-link" data-scroll-target="#model-selection">Model Selection</a></li>
-  <li><a href="#hyperparameters-1" id="toc-hyperparameters-1" class="nav-link" data-scroll-target="#hyperparameters-1">Hyperparameters</a></li>
-  <li><a href="#performance-summary" id="toc-performance-summary" class="nav-link" data-scroll-target="#performance-summary">Performance Summary</a></li>
-  </ul></li>
-  <li><a href="#financial-impact-and-recommended-cutoff" id="toc-financial-impact-and-recommended-cutoff" class="nav-link" data-scroll-target="#financial-impact-and-recommended-cutoff">Financial Impact and Recommended Cutoff</a>
-  <ul class="collapse">
-  <li><a href="#financial-assumptions" id="toc-financial-assumptions" class="nav-link" data-scroll-target="#financial-assumptions">Financial Assumptions</a></li>
-  <li><a href="#financial-curves" id="toc-financial-curves" class="nav-link" data-scroll-target="#financial-curves">Financial Curves</a></li>
-  <li><a href="#cutoff-comparison" id="toc-cutoff-comparison" class="nav-link" data-scroll-target="#cutoff-comparison">Cutoff Comparison</a></li>
-  <li><a href="#recommended-cutoff-4" id="toc-recommended-cutoff-4" class="nav-link" data-scroll-target="#recommended-cutoff-4">Recommended Cutoff: 4%</a></li>
-  </ul></li>
+  <li><a href="#feature-selection" id="toc-feature-selection" class="nav-link" data-scroll-target="#feature-selection">Feature Selection</a></li>
+  <li><a href="#preliminary-model-exploration" id="toc-preliminary-model-exploration" class="nav-link" data-scroll-target="#preliminary-model-exploration">Preliminary Model Exploration</a></li>
+  <li><a href="#final-model-performance" id="toc-final-model-performance" class="nav-link" data-scroll-target="#final-model-performance">Final Model Performance</a></li>
+  <li><a href="#financial-impact-and-recommended-cutoff" id="toc-financial-impact-and-recommended-cutoff" class="nav-link" data-scroll-target="#financial-impact-and-recommended-cutoff">Financial Impact and Recommended Cutoff</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 </nav>
@@ -221,13 +181,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="business-value-risk-control" class="level3 biz-value">
-<h3 class="anchored" data-anchor-id="business-value-risk-control">Decision &amp; Evidence</h3>
+<section id="decision-evidence" class="level3 biz-value">
+<h3 class="anchored" data-anchor-id="decision-evidence">Decision &amp; Evidence</h3>
 <ul>
 <li><strong>Outcome:</strong> At a 4% review cutoff, the model flags <strong>62% of fraudulent transactions</strong> while keeping the false-positive rate at <strong>1.66%</strong>, for an estimated <strong>$40.5M in annual net savings</strong> (assumptions below).</li>
 <li><strong>Risk-appetite decision:</strong> The cutoff was set on net financial impact, weighing fraud losses avoided against review cost and customer friction, rather than on model accuracy alone.</li>
 <li><strong>Model risk control:</strong> Performance was tested on an <strong>out-of-time</strong> sample to check stability under drift, and a shallow, deterministic LightGBM was chosen for stable, explainable feature rankings.</li>
-
 </ul>
 </section>
 <section id="introduction" class="level2">

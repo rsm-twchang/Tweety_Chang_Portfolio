@@ -128,28 +128,17 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#business-value-risk-control" id="toc-business-value-risk-control" class="nav-link active" data-scroll-target="#business-value-risk-control">Reconciliation Workflow</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
-  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a>
   <ul class="collapse">
-  <li><a href="#purchase-order-data-csv-41-monthly-files" id="toc-purchase-order-data-csv-41-monthly-files" class="nav-link" data-scroll-target="#purchase-order-data-csv-41-monthly-files">1. Purchase Order Data (CSV – 41 Monthly Files)</a></li>
-  <li><a href="#supplier-invoice-data-xml" id="toc-supplier-invoice-data-xml" class="nav-link" data-scroll-target="#supplier-invoice-data-xml">2. Supplier Invoice Data (XML)</a></li>
-  <li><a href="#supplier-data-postgresql" id="toc-supplier-data-postgresql" class="nav-link" data-scroll-target="#supplier-data-postgresql">3. Supplier Data (PostgreSQL)</a></li>
-  <li><a href="#weather-data-snowflake-marketplace-noaa-via-cybersyn" id="toc-weather-data-snowflake-marketplace-noaa-via-cybersyn" class="nav-link" data-scroll-target="#weather-data-snowflake-marketplace-noaa-via-cybersyn">4. Weather Data (Snowflake Marketplace – NOAA via Cybersyn)</a></li>
-  <li><a href="#snowflake-marketplace-setup" id="toc-snowflake-marketplace-setup" class="nav-link" data-scroll-target="#snowflake-marketplace-setup">Snowflake Marketplace Setup</a></li>
-  </ul></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
+  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a></li>
   <li><a href="#case-overview" id="toc-case-overview" class="nav-link" data-scroll-target="#case-overview">Case Overview</a></li>
   <li><a href="#purchase-order-aggregation" id="toc-purchase-order-aggregation" class="nav-link" data-scroll-target="#purchase-order-aggregation">Purchase Order Aggregation</a></li>
   <li><a href="#invoice-amount-for-each-purchase-order-id" id="toc-invoice-amount-for-each-purchase-order-id" class="nav-link" data-scroll-target="#invoice-amount-for-each-purchase-order-id">Invoice Amount for Each Purchase Order ID</a></li>
   <li><a href="#joining-purchase-orders-and-invoices" id="toc-joining-purchase-orders-and-invoices" class="nav-link" data-scroll-target="#joining-purchase-orders-and-invoices">Joining Purchase Orders and Invoices</a></li>
   <li><a href="#supplier-postal-codes" id="toc-supplier-postal-codes" class="nav-link" data-scroll-target="#supplier-postal-codes">Supplier Postal Codes</a></li>
   <li><a href="#weather-data" id="toc-weather-data" class="nav-link" data-scroll-target="#weather-data">Weather Data</a></li>
-  <li><a href="#joining-everything-together" id="toc-joining-everything-together" class="nav-link" data-scroll-target="#joining-everything-together">Joining Everything Together</a>
-  <ul class="collapse">
-  <li><a href="#result" id="toc-result" class="nav-link" data-scroll-target="#result">Result</a></li>
-  </ul></li>
+  <li><a href="#joining-everything-together" id="toc-joining-everything-together" class="nav-link" data-scroll-target="#joining-everything-together">Joining Everything Together</a></li>
   <li><a href="#observation" id="toc-observation" class="nav-link" data-scroll-target="#observation">Observation</a></li>
   </ul>
 </nav>
@@ -193,7 +182,14 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="business-value-risk-control" class="level3 biz-value"><h3 class="anchored" data-anchor-id="business-value-risk-control">Reconciliation Workflow</h3><ul><li><strong>Scope:</strong> Combined 400K+ source records across CSV, XML, PostgreSQL, and Snowflake Marketplace. The reconciliation table covered approximately 2,100 purchase orders.</li><li><strong>Output:</strong> Calculated quoted-versus-invoiced differences by purchase order for exception review.</li><li><strong>Finding:</strong> No measurable temperature relationship was observed in the matched sample. This does not rule out every possible weather effect.</li></ul></section>
+<section id="reconciliation-workflow" class="level3 biz-value">
+<h3 class="anchored" data-anchor-id="reconciliation-workflow">Reconciliation Workflow</h3>
+<ul>
+<li><strong>Scope:</strong> Combined 400K+ source records across CSV, XML, PostgreSQL, and Snowflake Marketplace. The reconciliation table covered approximately 2,100 purchase orders.</li>
+<li><strong>Output:</strong> Calculated quoted-versus-invoiced differences by purchase order for exception review.</li>
+<li><strong>Finding:</strong> No measurable temperature relationship was observed in the matched sample. This does not rule out every possible weather effect.</li>
+</ul>
+</section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>This project focused on database management and data engineering using PostgreSQL, Snowflake, SQL, and Python. The work centered on building reliable ETL workflows and consolidating multi-source operational and financial data into an analysis-ready format for reporting and correlation analysis.</p>
