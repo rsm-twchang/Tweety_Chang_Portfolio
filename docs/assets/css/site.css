@@ -370,3 +370,15 @@ section[id] { scroll-margin-top: 24px; }
  .nav-links { position: static; display: flex; flex-wrap: wrap; gap: 8px 16px; border: 0; padding: 12px 0; }
  .nav-links a { font-size: 14px; padding: 4px 0; }
 }
+
+/* About: editorial typography paired with the existing interactive portrait. */
+.about-hero { position: relative; padding: 24px 0; }
+.about-copy h2 { font-size: clamp(40px,5.5vw,74px); line-height: 1.04; letter-spacing: -.055em; max-width: 13ch; }
+.about-copy h2 span { color: #6e6e73; }
+.about-copy .eyebrow { letter-spacing: .04em; font-size: 12px; }
+.about-lede { font-size: clamp(17px,1.7vw,20px); line-height: 1.55; max-width: 43ch; font-weight: 400; }
+.about .portrait { width: min(80vw, 480px); }
+.about .portrait-stage::before { background: radial-gradient(ellipse,#e5e9ef 0%,rgba(229,233,239,.45) 45%,transparent 72%); }
+.portrait-controls .pill { min-height: 40px; padding: 8px 16px; }
+@media (min-width: 1024px) { .about-hero { grid-template-columns: 1.15fr 1fr; gap: 40px; } }
+@media (max-width: 733px) { .about-copy h2 { font-size: clamp(38px,9.8vw,64px); } .about-hero { gap: 28px; } }
