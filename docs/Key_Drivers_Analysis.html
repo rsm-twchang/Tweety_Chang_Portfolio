@@ -128,22 +128,11 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#business-value" id="toc-business-value" class="nav-link active" data-scroll-target="#business-value">Model Tradeoff</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
-  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a>
-  <ul class="collapse">
-  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
-  <li><a href="#features-used-for-clustering" id="toc-features-used-for-clustering" class="nav-link" data-scroll-target="#features-used-for-clustering">Features used for clustering</a></li>
-  </ul></li>
-  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">K-Means Clustering</a>
-  <ul class="collapse">
-  <li><a href="#selecting-the-number-of-clusters" id="toc-selecting-the-number-of-clusters" class="nav-link" data-scroll-target="#selecting-the-number-of-clusters">Selecting the Number of Clusters</a></li>
-  <li><a href="#comparison-with-scikit-learn-implementation" id="toc-comparison-with-scikit-learn-implementation" class="nav-link" data-scroll-target="#comparison-with-scikit-learn-implementation">Comparison with scikit-learn implementation</a></li>
-  <li><a href="#evaluation-of-cluster-quantity" id="toc-evaluation-of-cluster-quantity" class="nav-link" data-scroll-target="#evaluation-of-cluster-quantity">Evaluation of Cluster Quantity</a></li>
-  <li><a href="#final-clustering-result-k-3" id="toc-final-clustering-result-k-3" class="nav-link" data-scroll-target="#final-clustering-result-k-3">Final Clustering Result (k = 3)</a></li>
-  </ul></li>
+  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a></li>
+  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">K-Means Clustering</a></li>
   <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
   </ul>
 </nav>
@@ -187,7 +176,13 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="business-value" class="level3 biz-value"><h3 class="anchored" data-anchor-id="business-value">Model Tradeoff</h3><ul><li><strong>Finding:</strong> K-Means was implemented from scratch and compared with scikit-learn. Silhouette favored k = 2 (0.612) over k = 3 (0.456).</li><li><strong>Judgment:</strong> The three-cluster interpretation considered the WCSS curve and known species structure. Species labels were excluded from fitting features but informed the choice of k, so this is not a fully label-independent selection.</li></ul></section>
+<section id="model-tradeoff" class="level3 biz-value">
+<h3 class="anchored" data-anchor-id="model-tradeoff">Model Tradeoff</h3>
+<ul>
+<li><strong>Finding:</strong> K-Means was implemented from scratch and compared with scikit-learn. Silhouette favored k = 2 (0.612) over k = 3 (0.456).</li>
+<li><strong>Judgment:</strong> The three-cluster interpretation considered the WCSS curve and known species structure. Species labels were excluded from fitting features but informed the choice of k, so this is not a fully label-independent selection.</li>
+</ul>
+</section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Clustering helps reveal patterns when there is no target variable to predict. Here, K-Means is used to explore the <a href="https://www.kaggle.com/datasets/parulpandey/palmer-archipelago-antarctica-penguin-data">Palmer Penguins</a> dataset through two measurements—<strong>bill length</strong> and <strong>flipper length</strong>—to see whether the data naturally separates into distinct groups <strong>without using species labels</strong>. After forming clusters, we compare them back to the species categories to check how well morphology alone reflects biological differences.</p>

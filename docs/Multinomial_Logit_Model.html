@@ -195,9 +195,8 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#business-value" id="toc-business-value" class="nav-link active" data-scroll-target="#business-value">Simulation Results</a></li>
-  <li><a href="#likelihood-for-the-multi-nomial-logit-mnl-model" id="toc-likelihood-for-the-multi-nomial-logit-mnl-model" class="nav-link" data-scroll-target="#likelihood-for-the-multi-nomial-logit-mnl-model">1. Likelihood for the Multi-nomial Logit (MNL) Model</a></li>
+  <ul class="collapse">
+  <li><a href="#likelihood-for-the-multi-nomial-logit-mnl-model" id="toc-likelihood-for-the-multi-nomial-logit-mnl-model" class="nav-link active" data-scroll-target="#likelihood-for-the-multi-nomial-logit-mnl-model">1. Likelihood for the Multi-nomial Logit (MNL) Model</a></li>
   <li><a href="#simulate-conjoint-data" id="toc-simulate-conjoint-data" class="nav-link" data-scroll-target="#simulate-conjoint-data">2. Simulate Conjoint Data</a></li>
   <li><a href="#preparing-the-data-for-estimation" id="toc-preparing-the-data-for-estimation" class="nav-link" data-scroll-target="#preparing-the-data-for-estimation">3. Preparing the Data for Estimation</a></li>
   <li><a href="#estimation-via-maximum-likelihood" id="toc-estimation-via-maximum-likelihood" class="nav-link" data-scroll-target="#estimation-via-maximum-likelihood">4. Estimation via Maximum Likelihood</a></li>
@@ -245,7 +244,13 @@ window.Quarto = {
 </header>
 
 
-<section id="business-value" class="level3 biz-value"><h3 class="anchored" data-anchor-id="business-value">Simulation Results</h3><ul><li><strong>Scope:</strong> Simulated subscription choices were used to compare maximum likelihood and Bayesian MCMC estimators. These are not observed consumer preferences.</li><li><strong>Finding:</strong> Both estimators recovered similar brand, advertising, and price parameters. Agreement checks implementation on this simulation; it does not validate a real-world pricing decision.</li></ul></section>
+<section id="simulation-results" class="level3 biz-value">
+<h3 class="anchored" data-anchor-id="simulation-results">Simulation Results</h3>
+<ul>
+<li><strong>Scope:</strong> Simulated subscription choices were used to compare maximum likelihood and Bayesian MCMC estimators. These are not observed consumer preferences.</li>
+<li><strong>Finding:</strong> Both estimators recovered similar brand, advertising, and price parameters. Agreement checks implementation on this simulation; it does not validate a real-world pricing decision.</li>
+</ul>
+</section>
 <p>This project explores two methods for estimating the MNL model: (1) via Maximum Likelihood, and (2) via a Bayesian approach using a Metropolis-Hastings MCMC algorithm.</p>
 <section id="likelihood-for-the-multi-nomial-logit-mnl-model" class="level2">
 <h2 class="anchored" data-anchor-id="likelihood-for-the-multi-nomial-logit-mnl-model">1. Likelihood for the Multi-nomial Logit (MNL) Model</h2>
@@ -288,7 +293,7 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="99fd4838" class="cell" data-message="false" data-execution_count="1">
+<div id="c44a5755" class="cell" data-message="false" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-overflow-wrap code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> product</span>
@@ -376,7 +381,7 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 <section id="preparing-the-data-for-estimation" class="level2">
 <h2 class="anchored" data-anchor-id="preparing-the-data-for-estimation">3. Preparing the Data for Estimation</h2>
 <p>The “hard part” of the MNL likelihood function is organizing the data, as we need to keep track of 3 dimensions (consumer <span class="math inline">\(i\)</span>, covariate <span class="math inline">\(k\)</span>, and product <span class="math inline">\(j\)</span>) instead of the typical 2 dimensions for cross-sectional regression models (consumer <span class="math inline">\(i\)</span> and covariate <span class="math inline">\(k\)</span>). The fact that each task for each respondent has the same number of alternatives (3) helps. In addition, we need to convert the categorical variables for brand and ads into binary variables.</p>
-<div id="7cfd6aee" class="cell" data-execution_count="2">
+<div id="7b6f4cf0" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>   resp  task  choice brand   ad  price  brand_N  brand_P  ad_yes  task_id
 0     1     1       1     N  Yes     28        1        0       1        0
@@ -406,7 +411,7 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 </div>
 </div>
 </div>
-<div id="6e4730d2" class="cell" data-execution_count="4">
+<div id="9703d599" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
@@ -486,7 +491,7 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 </div>
 </div>
 </div>
-<div id="327d7f7a" class="cell" data-execution_count="6">
+<div id="2d50ea01" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
@@ -547,7 +552,7 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 <li><strong>price</strong>: -0.100</li>
 </ul>
 <p>Posterior standard deviations closely match the MLE standard errors (within ±0.001). The 95% credible intervals are nearly identical to the MLE confidence intervals. These results reflect strong agreement between the two methods given the large sample size and weakly informative priors.</p>
-<div id="49fc69b0" class="cell" data-execution_count="7">
+<div id="28a1e37a" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -558,7 +563,7 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 </div>
 </div>
 <p>The posterior histogram is approximately normal and centered near 0.95. The distribution is symmetric and unimodal, with most density between 0.75 and 1.15. This indicates a well-identified parameter with low uncertainty.</p>
-<div id="ffd3da8f" class="cell" data-execution_count="8">
+<div id="fd0dbd0c" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -585,7 +590,7 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 </div>
 </div>
 </div>
-<div id="f9905ee8" class="cell" data-execution_count="10">
+<div id="c07a4f94" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 

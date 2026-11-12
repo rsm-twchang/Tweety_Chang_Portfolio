@@ -128,37 +128,13 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#business-value-risk-control" id="toc-business-value-risk-control" class="nav-link active" data-scroll-target="#business-value-risk-control">Decision &amp; Evidence</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
-  <li><a href="#data-and-problem-setup" id="toc-data-and-problem-setup" class="nav-link" data-scroll-target="#data-and-problem-setup">Data and Problem Setup</a>
-  <ul class="collapse">
-  <li><a href="#data-source-and-unit-of-analysis" id="toc-data-source-and-unit-of-analysis" class="nav-link" data-scroll-target="#data-source-and-unit-of-analysis">Data source and unit of analysis</a></li>
-  <li><a href="#outcome-definition" id="toc-outcome-definition" class="nav-link" data-scroll-target="#outcome-definition">Outcome definition</a></li>
-  <li><a href="#predictor-variables-summary" id="toc-predictor-variables-summary" class="nav-link" data-scroll-target="#predictor-variables-summary">Predictor variables (summary)</a></li>
-  <li><a href="#trainvalidation-split" id="toc-trainvalidation-split" class="nav-link" data-scroll-target="#trainvalidation-split">Train/validation split</a></li>
-  </ul></li>
-  <li><a href="#exploratory-analysis" id="toc-exploratory-analysis" class="nav-link" data-scroll-target="#exploratory-analysis">Exploratory Analysis</a>
-  <ul class="collapse">
-  <li><a href="#response-rate-by-zip-bin" id="toc-response-rate-by-zip-bin" class="nav-link" data-scroll-target="#response-rate-by-zip-bin">Response rate by ZIP bin</a></li>
-  <li><a href="#zip5-drill-down-within-zip_bins-1" id="toc-zip5-drill-down-within-zip_bins-1" class="nav-link" data-scroll-target="#zip5-drill-down-within-zip_bins-1">ZIP5 drill-down within zip_bins = 1</a></li>
-  <li><a href="#confirming-the-anomaly-zips-00801-and-00804" id="toc-confirming-the-anomaly-zips-00801-and-00804" class="nav-link" data-scroll-target="#confirming-the-anomaly-zips-00801-and-00804">Confirming the anomaly ZIPs: 00801 and 00804</a></li>
-  </ul></li>
-  <li><a href="#modeling-approach" id="toc-modeling-approach" class="nav-link" data-scroll-target="#modeling-approach">Modeling Approach</a>
-  <ul class="collapse">
-  <li><a href="#baselines-logistic-regression-lr1lr2" id="toc-baselines-logistic-regression-lr1lr2" class="nav-link" data-scroll-target="#baselines-logistic-regression-lr1lr2">Baselines: logistic regression (LR1–LR2)</a></li>
-  <li><a href="#feature-refinement-version-path-construction" id="toc-feature-refinement-version-path-construction" class="nav-link" data-scroll-target="#feature-refinement-version-path-construction">Feature refinement: version path construction</a></li>
-  <li><a href="#benchmark-mail-to-all-strategy" id="toc-benchmark-mail-to-all-strategy" class="nav-link" data-scroll-target="#benchmark-mail-to-all-strategy">Benchmark: mail-to-all strategy</a></li>
-  <li><a href="#neural-network-exploration" id="toc-neural-network-exploration" class="nav-link" data-scroll-target="#neural-network-exploration">Neural network exploration</a></li>
-  <li><a href="#lr3-logistic-regression-with-interactions" id="toc-lr3-logistic-regression-with-interactions" class="nav-link" data-scroll-target="#lr3-logistic-regression-with-interactions">LR3: logistic regression with interactions</a></li>
-  </ul></li>
-  <li><a href="#recommendation-and-expected-impact" id="toc-recommendation-and-expected-impact" class="nav-link" data-scroll-target="#recommendation-and-expected-impact">Recommendation and Expected Impact</a>
-  <ul class="collapse">
-  <li><a href="#recommended-wave-2-targeting-rule" id="toc-recommended-wave-2-targeting-rule" class="nav-link" data-scroll-target="#recommended-wave-2-targeting-rule">Recommended wave-2 targeting rule</a></li>
-  <li><a href="#expected-financial-impact" id="toc-expected-financial-impact" class="nav-link" data-scroll-target="#expected-financial-impact">Expected financial impact</a></li>
-  <li><a href="#operational-notes" id="toc-operational-notes" class="nav-link" data-scroll-target="#operational-notes">Operational notes</a></li>
-  </ul></li>
+  <li><a href="#data-and-problem-setup" id="toc-data-and-problem-setup" class="nav-link" data-scroll-target="#data-and-problem-setup">Data and Problem Setup</a></li>
+  <li><a href="#exploratory-analysis" id="toc-exploratory-analysis" class="nav-link" data-scroll-target="#exploratory-analysis">Exploratory Analysis</a></li>
+  <li><a href="#modeling-approach" id="toc-modeling-approach" class="nav-link" data-scroll-target="#modeling-approach">Modeling Approach</a></li>
+  <li><a href="#recommendation-and-expected-impact" id="toc-recommendation-and-expected-impact" class="nav-link" data-scroll-target="#recommendation-and-expected-impact">Recommendation and Expected Impact</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
@@ -202,8 +178,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="business-value-risk-control" class="level3 biz-value">
-<h3 class="anchored" data-anchor-id="business-value-risk-control">Decision &amp; Evidence</h3>
+<section id="decision-evidence" class="level3 biz-value">
+<h3 class="anchored" data-anchor-id="decision-evidence">Decision &amp; Evidence</h3>
 <ul>
 <li><strong>Outcome:</strong> The recommended targeting rule yields a projected profit of <strong>$1.23M</strong> with <strong>ROME of 3.63</strong>, beating a mail-to-all approach ($1.17M) and every logistic baseline tested.</li>
 <li><strong>Decision rule:</strong> Customers are contacted only when expected response clears the <strong>break-even rate (2.35%)</strong>, so each dollar of spend has to earn its cost, the same expected-value logic used in credit approval and pricing.</li>
