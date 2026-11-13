@@ -40,7 +40,7 @@
   var layers = document.querySelector("[data-portrait-layers]");
   var controls = document.querySelector("[data-portrait-controls]");
   if (portrait && layers && controls) {
-    var NAMES = ["blink", "warm", "soft", "smile", "laugh", "grin", "wink", "surprise", "puff", "frown",
+    var NAMES = ["natural", "blink", "warm", "soft", "smile", "laugh", "grin", "wink", "surprise", "puff", "frown",
                  "concern", "concern2", "tilt", "look-left", "look-right", "look-up", "look-down",
                  "turn-left", "turn-right"];
     var frames = {};
@@ -190,8 +190,7 @@
     pauseBtn.addEventListener("focus", loadFrames, { once: true });
 
     var SEQUENCES = {
-      surprise: [["surprise", 1300], ["soft", 600]],
-      smile: [["soft", 260], ["smile", 700], ["laugh", 1400], ["grin", 600], ["warm", 600]]
+      smile: [["natural", 2600]]
     };
     controls.addEventListener("click", function (e) {
       var btn = e.target.closest("[data-expression]");

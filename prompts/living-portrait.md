@@ -52,7 +52,7 @@ Each frame has a `-480.webp` (1×) and a `-960.webp` (2×) version. Pick 960 whe
 | look-up / look-down | `look-up`, `look-down` | eyes up / down |
 | turn-left / turn-right | `turn-left`, `turn-right` | head turned toward the viewer's left / right, small smile |
 | soft, smile, laugh, grin, warm | same names | rising smile intensity |
-| surprise | `surprise` | raised brows, open mouth |
+| natural | `natural` | one natural, open smile (the Smile button) |
 | concern | `concern` | worried brows (used when the cursor reaches Pause) |
 | wink, puff, tilt, frown, concern2 | same names | playful frames for portrait taps |
 
@@ -94,7 +94,7 @@ Only one frame has `.is-on` at a time. No frame on = the base photo shows.
 | State | Caption (12px, --muted, aria-live="polite") | Buttons |
 |---|---|---|
 | Paused (on load) | Taking a moment. | Play |
-| Live | A little more human. | Surprise · Smile · Pause |
+| Live | A little more human. | Smile · Pause |
 Button style: pill, 12px, colour --muted, 1px --line border, radius 980px, padding 8px 16px, min-height 44px. Hover: colour --fg, border --muted. Play/Pause carries `aria-pressed` and an aria-label of "Play portrait" or "Pause portrait".
 
 ## 8. Behaviour
@@ -110,8 +110,7 @@ Button style: pill, 12px, colour --muted, 1px --line border, radius 980px, paddi
 6. **Gaze (touch).** On scroll, `off = (portrait top + 0.4h − viewport middle) / viewport height`. `|off| < .1` → smile; `|off| > .45` → base; off > 0 → look-up, off < 0 → look-down.
 7. **Blinks.** Only while facing forward (no gaze frame on). Every 2.8–6.2 s, show blink for 130 ms; 15% of the time, blink twice (120 ms, a 140 ms gap, 120 ms).
 8. **Sequences** (frame, ms), then return to the gaze frame:
-   - Surprise: surprise 1300 → soft 600
-   - Smile: soft 260 → smile 700 → laugh 1400 → grin 600 → warm 600
+   - Smile: natural 2600
    - Tap the photo while live, cycling: wink 900 → warm 500 | puff 1300 → grin 700 | tilt 1400 → soft 500 | frown 900 → laugh 1200 → warm 500 | concern2 1100 → grin 800
 9. **Pause** returns to the base photo, stops breathing, tilt, and blinks, and restores the paused caption and Play.
 10. Stop the blink timer while `document.hidden`.
