@@ -425,11 +425,13 @@ The moderate learning rate ensures gradual updates across boosting rounds, avoid
 - OOT performance remains consistent with wrapper-stage expectations.
 - No large divergence between datasets, suggesting controlled overfitting.
 
-The final model is therefore suitable for operational deployment under a defined fraud detection threshold.
+The model supports a coursework review-policy comparison. Operational deployment would require leakage checks, calibrated cost assumptions, and prospective validation.
 
 -----
 
 ## Financial Impact and Recommended Cutoff
+
+> **Interpretation note:** The table reports higher net savings at 5% and 6% than at 4%; the 4% cutoff is a review-volume trade-off, not the profit maximum shown here. The source data description covers 2010, while the financial assumptions below refer to two months and a 10-million-transaction annual portfolio. Reconcile those time and scaling bases before treating the annual dollar values as validated estimates.
 
 ### Financial Assumptions
 
