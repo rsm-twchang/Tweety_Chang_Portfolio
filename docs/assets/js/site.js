@@ -83,7 +83,8 @@
       }
     }
 
-    function settle() { show(paused ? null : follow); }
+    var smiling = false;    // Smile is held: one natural smile, nothing else
+    function settle() { show(paused ? null : smiling ? "natural" : follow); }
 
     function play(steps) {
       if (paused) return;
@@ -103,7 +104,7 @@
       clearTimers();
       if (paused || reduceMotion) return;
       later(function () {
-        if (busy || follow || document.hidden) return scheduleIdle();
+        if (busy || follow || smiling || document.hidden) return scheduleIdle();
         play(Math.random() < 0.15 ? [["blink", 120], [null, 140], ["blink", 120]] : [["blink", 130]]);
       }, 2800 + Math.random() * 3400);
     }
@@ -111,7 +112,7 @@
     function setFollow(name) {
       if (name === follow) return;
       follow = name;
-      if (!busy && !paused) show(follow);
+      if (!busy && !paused && !smiling) show(follow);
     }
 
     // Cursor position relative to her face, in portrait widths
@@ -152,7 +153,7 @@
       note.textContent = paused ? "Taking a moment." : "A little more human.";
       exprBtns.forEach(function (b) { b.hidden = paused; });
       clearTimers(); busy = false;
-      if (paused) { follow = null; show(null); }
+      if (paused) { follow = null; smiling = false; if (smileBtn) smileBtn.setAttribute("aria-pressed", "false"); show(null); }
       else { if (!finePointer) follow = frameFromScroll(); settle(); scheduleIdle(); }
     }
 
@@ -189,13 +190,14 @@
     }
     pauseBtn.addEventListener("focus", loadFrames, { once: true });
 
-    var SEQUENCES = {
-      smile: [["natural", 2600]]
-    };
-    controls.addEventListener("click", function (e) {
-      var btn = e.target.closest("[data-expression]");
-      if (btn) play(SEQUENCES[btn.getAttribute("data-expression")]);
-    });
+    // Smile is a toggle: it holds one natural smile until pressed again or paused
+    var smileBtn = controls.querySelector('[data-expression="smile"]');
+    function setSmiling(on) {
+      smiling = on;
+      if (smileBtn) smileBtn.setAttribute("aria-pressed", String(on));
+      clearTimers(); busy = false; settle(); scheduleIdle();
+    }
+    if (smileBtn) smileBtn.addEventListener("click", function () { setSmiling(!smiling); });
 
     pauseBtn.addEventListener("click", function () { setLive(paused); });
 
