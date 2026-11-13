@@ -429,3 +429,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline
 .project-details summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .project-details .project-summary { margin-top: 0; }
 @media (max-width: 640px) { .more-grid { grid-template-columns: minmax(0,1fr); } }
+
+/* A readable narrative with the portrait alongside the introduction. */
+.about-hero { align-items: start; }
+.about-story { max-width: 60ch; }
+.about-story .about-lede { max-width: none; font-size: clamp(16px,1.4vw,18px); line-height: 1.7; margin: 22px 0 0; }
+.about-detail { margin-top: clamp(48px,7vw,88px); }
+.capstone-result { margin: 0; padding-block: 30px; }
+.capstone-result figcaption { color: var(--text-2); font-size: .85rem; line-height: 1.5; margin-top: 20px; }
+@media (min-width: 1024px) { .about-hero > .portrait { position: sticky; top: 96px; } }
+@media (max-width: 1023px) { .about-story { max-width: 68ch; } .about-hero { display: flex; flex-direction: column; } .about-hero > .portrait { align-self: center; } }
