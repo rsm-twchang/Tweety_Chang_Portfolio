@@ -32,7 +32,8 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  // Living portrait. Opens paused on the original suit photo; Play turns it live.
+  // Living portrait. Pointer entry activates tracking; Play also works on touch.
+  // An explicit Pause keeps tracking off until the visitor presses Play again.
   // Live: she looks toward the cursor, smiles as it nears her face, and blinks.
   // Touch screens: gaze and smile follow the portrait's position while scrolling.
   // Every expression is a real photo frame, cut out and aligned to the original.
@@ -48,10 +49,10 @@
     var current = null;     // frame on screen (null = original photo)
     var follow = null;      // frame chosen by cursor or scroll position
     var paused = true;
+    var autoStart = !reduceMotion;
     var busy = false;       // a scripted sequence is playing
     var timers = [];
     var pauseBtn = controls.querySelector("[data-portrait-toggle]");
-    var note = controls.querySelector("[data-portrait-note]");
     var exprBtns = controls.querySelectorAll("[data-expression]");
     var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     var size = (window.devicePixelRatio || 1) > 1.5 ? 960 : 480;
@@ -67,9 +68,12 @@
         img.className = "frame";
         img.alt = "";
         img.decoding = "async";
+        img.addEventListener("load", function () {
+          frames[name] = img;
+          if (current === name) { current = null; show(name); }
+        });
         img.src = "assets/img/portrait/" + name + "-" + size + ".webp";
         layers.appendChild(img);
-        frames[name] = img;
       });
     }
 
@@ -150,7 +154,6 @@
       pauseBtn.textContent = paused ? "Play" : "Pause";
       pauseBtn.setAttribute("aria-pressed", String(!paused));
       pauseBtn.setAttribute("aria-label", paused ? "Play portrait" : "Pause portrait");
-      note.textContent = paused ? "Taking a moment." : "A little more human.";
       exprBtns.forEach(function (b) { b.hidden = paused; });
       clearTimers(); busy = false;
       if (paused) { follow = null; smiling = false; if (smileBtn) smileBtn.setAttribute("aria-pressed", "false"); show(null); }
@@ -161,6 +164,13 @@
     if (finePointer) {
       window.addEventListener("pointermove", function (e) {
         lastX = e.clientX; lastY = e.clientY;
+        if (autoStart && paused) {
+          var bounds = portrait.getBoundingClientRect();
+          if (lastX >= bounds.left && lastX <= bounds.right && lastY >= bounds.top && lastY <= bounds.bottom) {
+            autoStart = false;
+            setLive(true);
+          }
+        }
         if (raf || paused) return;
         raf = requestAnimationFrame(function () {
           raf = 0;
@@ -199,7 +209,7 @@
     }
     if (smileBtn) smileBtn.addEventListener("click", function () { setSmiling(!smiling); });
 
-    pauseBtn.addEventListener("click", function () { setLive(paused); });
+    pauseBtn.addEventListener("click", function () { autoStart = false; setLive(paused); });
 
     // Tap the portrait: wake it up when paused, otherwise a small surprise
     var PLAYFUL = [
@@ -211,6 +221,7 @@
     ];
     var playfulIndex = 0;
     layers.addEventListener("click", function () {
+      autoStart = false;
       if (paused) setLive(true);
       else play(PLAYFUL[playfulIndex++ % PLAYFUL.length]);
     });
