@@ -202,44 +202,32 @@
       <!-- Additional projects -->
       <section class="more container" aria-labelledby="more-title">
         <h3 id="more-title" class="more-title reveal">More analysis.</h3>
-        <div class="more-grid">
-          <article class="more-item reveal">
+        <section class="more-grid" aria-label="Analytical projects">
+          <article class="more-item reveal" aria-labelledby="analysis-0">
             <p class="eyebrow">Experimentation</p>
-            <h4>Testing Donation Incentives</h4>
-            <p><strong>Problem.</strong> Determine whether matching gifts increase donations and whether larger matches add value.</p>
-            <p><strong>Technical solution.</strong> Compared treatment and control response rates using t-tests, regression, and probit models.</p>
-            <p><strong>Key results.</strong> Matching increased response by about 22% (p = 0.002). Larger matches showed no statistically significant additional lift in this sample.</p>
-            <p class="tech"><strong>Tech stack.</strong> Python · t-tests · Regression · Probit</p>
+            <h4 id="analysis-0">Testing Donation Incentives</h4>
+            <dl class="project-summary"><dt>Problem</dt><dd>Determine whether matching gifts increase donations and whether larger matches add value.</dd><dt>Technical solution</dt><dd>Compared treatment and control response rates using t-tests, regression, and probit models.</dd><dt>Key results</dt><dd>Matching increased response by about 22% (p = 0.002). Larger matches showed no statistically significant additional lift in this sample.</dd><dt>Tech stack</dt><dd>Python · t-tests · Regression · Probit</dd></dl>
             <a class="link-cta" href="AB_Testing.html">Explore Project<span class="visually-hidden">: A/B Testing</span></a>
           </article>
-          <article class="more-item reveal">
+          <article class="more-item reveal" aria-labelledby="analysis-1">
             <p class="eyebrow">Statistical Modeling</p>
-            <h4>Software &amp; Patent Outcomes</h4>
-            <p><strong>Problem.</strong> Assess whether software customers have more patents after accounting for firm age and region.</p>
-            <p><strong>Technical solution.</strong> Estimated a Poisson count model using maximum likelihood, controlling for age and region.</p>
-            <p><strong>Key results.</strong> Customers had about 23% more expected patents (p &lt; 0.001). This is an association, not evidence of a causal effect.</p>
-            <p class="tech"><strong>Tech stack.</strong> Python · Maximum Likelihood · Poisson Regression</p>
+            <h4 id="analysis-1">Software &amp; Patent Outcomes</h4>
+            <dl class="project-summary"><dt>Problem</dt><dd>Assess whether software customers have more patents after accounting for firm age and region.</dd><dt>Technical solution</dt><dd>Estimated a Poisson count model using maximum likelihood, controlling for age and region.</dd><dt>Key results</dt><dd>Customers had about 23% more expected patents (p &lt; 0.001). This is an association, not evidence of a causal effect.</dd><dt>Tech stack</dt><dd>Python · Maximum Likelihood · Poisson Regression</dd></dl>
             <a class="link-cta" href="Maximum_Likelihood_Estimation.html">Explore Project<span class="visually-hidden">: Poisson Regression via MLE</span></a>
           </article>
-          <article class="more-item reveal">
+          <article class="more-item reveal" aria-labelledby="analysis-2">
             <p class="eyebrow">Pricing</p>
-            <h4>Pricing Simulation</h4>
-            <p><strong>Problem.</strong> Estimate subscription preferences from simulated customer choices.</p>
-            <p><strong>Technical solution.</strong> Fit a multinomial logit model with maximum likelihood and Bayesian Metropolis–Hastings sampling.</p>
-            <p><strong>Key results.</strong> Compared preference estimates from both methods against the simulation parameters; results describe simulated behavior.</p>
-            <p class="tech"><strong>Tech stack.</strong> Python · MLE · Metropolis-Hastings MCMC</p>
+            <h4 id="analysis-2">Pricing Simulation</h4>
+            <dl class="project-summary"><dt>Problem</dt><dd>Estimate subscription preferences from simulated customer choices.</dd><dt>Technical solution</dt><dd>Fit a multinomial logit model with maximum likelihood and Bayesian Metropolis–Hastings sampling.</dd><dt>Key results</dt><dd>Compared preference estimates from both methods against the simulation parameters; results describe simulated behavior.</dd><dt>Tech stack</dt><dd>Python · MLE · Metropolis-Hastings MCMC</dd></dl>
             <a class="link-cta" href="Multinomial_Logit_Model.html">Explore Project<span class="visually-hidden">: Multinomial Logit Choice Model</span></a>
           </article>
-          <article class="more-item reveal">
+          <article class="more-item reveal" aria-labelledby="analysis-3">
             <p class="eyebrow">Segmentation</p>
-            <h4>Choosing Useful Segments</h4>
-            <p><strong>Problem.</strong> Choose a cluster count that balances separation and interpretability.</p>
-            <p><strong>Technical solution.</strong> Applied K-Means and compared cluster counts using silhouette scores and known species for interpretation.</p>
-            <p><strong>Key results.</strong> k = 2 had the highest silhouette score. k = 3 was selected for species-informed interpretation, so the choice was not fully unsupervised.</p>
-            <p class="tech"><strong>Tech stack.</strong> Python · NumPy · scikit-learn</p>
+            <h4 id="analysis-3">Choosing Useful Segments</h4>
+            <dl class="project-summary"><dt>Problem</dt><dd>Choose a cluster count that balances separation and interpretability.</dd><dt>Technical solution</dt><dd>Applied K-Means and compared cluster counts using silhouette scores and known species for interpretation.</dd><dt>Key results</dt><dd>k = 2 had the highest silhouette score. k = 3 was selected for species-informed interpretation, so the choice was not fully unsupervised.</dd><dt>Tech stack</dt><dd>Python · NumPy · scikit-learn</dd></dl>
             <a class="link-cta" href="Key_Drivers_Analysis.html">Explore Project<span class="visually-hidden">: K-Means Clustering</span></a>
           </article>
-        </div>
+        </section>
       </section>
     </section>
 
@@ -325,8 +313,8 @@
               <div class="portrait-breathe">
                 <div class="portrait-layers" data-portrait-layers>
                   <picture>
-                    <source type="image/webp" srcset="assets/img/portrait-v2/neutral-480.webp 480w, assets/img/portrait-v2/neutral-960.webp 960w" sizes="(min-width: 1024px) 480px, 80vw">
-                    <img src="assets/img/portrait-v2/neutral-480.webp" width="480" height="537" alt="Portrait of Tweety Chang in a dark blazer and white shirt" decoding="async">
+                    <source type="image/webp" srcset="assets/img/portrait-cutout/neutral-480.webp 480w, assets/img/portrait-cutout/neutral-960.webp 960w" sizes="(min-width: 1024px) 480px, 80vw">
+                    <img src="assets/img/portrait-cutout/neutral-480.webp" width="480" height="537" alt="Portrait of Tweety Chang in a dark blazer and white shirt" decoding="async">
                   </picture>
                 </div>
               </div>

@@ -71,7 +71,7 @@
           frames[name] = img;
           if (current === name) { current = null; show(name); }
         });
-        img.src = "assets/img/portrait-v2/" + name + "-" + size + ".webp";
+        img.src = "assets/img/portrait-cutout/" + name + "-" + size + ".webp";
         layers.appendChild(img);
       });
     }
@@ -87,6 +87,7 @@
       if (name === current) return;
       if (current && frames[current]) frames[current].classList.remove("is-on", "is-blink");
       current = name;
+      layers.classList.toggle("has-frame", !!(name && frames[name]));
       if (name && frames[name]) {
         frames[name].classList.toggle("is-blink", !!blink);
         frames[name].classList.add("is-on");
