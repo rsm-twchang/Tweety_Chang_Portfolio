@@ -82,157 +82,250 @@
 
       </header>
 
-      <article class="showcase capstone" aria-labelledby="p-validation">
-        <div class="container">
-          <header class="showcase-text">
-            <p class="eyebrow">MSBA CAPSTONE PROJECT</p>
-            <h3 id="p-validation">HP Marketing<br>Data Validation.</h3>
-            <p class="problem">Better inputs.<br>More reliable analysis.</p>
-            <p class="approach">Built a Python reconciliation workflow to flag discrepancies and trace their causes. HP leadership adopted the reporting changes I proposed as part of the MSBA team capstone.</p>
-            <p class="tech">Python · Data Quality · Anomaly Detection</p>
-          </header>
-          <figure class="deliverables capstone-result" aria-labelledby="hp-impact">
-            <p class="delivery-number">900+<span id="hp-impact">discrepancies flagged for investigation</span></p>
-            <figcaption>Python validation and reconciliation · MSBA team capstone</figcaption>
-          </figure>
-        </div>
-      </article>
+<article class="showcase project-feature" aria-labelledby="p-validation">
+<section class="container project-layout" aria-label="HP Marketing Data Validation overview">
+<header class="showcase-text">
+<p class="eyebrow">MSBA capstone · team contribution</p>
+<h3 id="p-validation">HP Marketing Data Validation</h3>
+<p class="problem">How can marketing teams investigate discrepancies before using spend reports?</p>
+<p class="approach">Built a Python reconciliation workflow to flag discrepancies and trace their causes. HP leadership adopted the reporting changes I proposed as part of the team capstone.</p>
+<ul class="metrics">
+<li><span class="metric-num">900+</span><span class="metric-label">discrepancies flagged for investigation</span>
+</li>
+</ul>
+<p class="tech">Python · Reconciliation · Data Validation</p>
+<p class="project-note">Flags identify records for review; they do not prove a record is incorrect.</p><a class="link-cta" href="marketing_data_validation.html">Explore Project<span class="visually-hidden">: HP Marketing Data Validation</span></a>
+</header>
+<figure class="pipeline-visual">
+<ol class="pipeline-steps">
+<li><strong>Validate</strong><span>Check campaign naming rules</span>
+</li>
+<li><strong>Reconcile</strong><span>Compare source and reporting totals</span>
+</li>
+<li><strong>Investigate</strong><span>Trace exceptions and report findings</span>
+</li>
+</ol>
+<figcaption>Public workflow summary. Client source identifiers and internal screenshots are omitted.</figcaption>
+</figure>
+</section>
+</article>
 
-      <!-- Project 1 -->
-      <article class="showcase tint" aria-labelledby="p-fraud">
-        <div class="container">
-          <div class="showcase-text reveal">
-            <p class="eyebrow">Risk Analytics</p>
-            <h3 id="p-fraud">Fraud Review Prioritization</h3>
-            <p class="problem">How can a card issuer catch more fraud without overwhelming its review team with false alarms?</p>
-            <p class="approach">Cleaned 97,852 transactions, engineered 3,379 behavioral features, and selected a LightGBM model validated on an out-of-time sample. The review cutoff was set by net financial impact, not by accuracy.</p>
-            <ul class="metrics">
-              <li><span class="metric-num">62%</span><span class="metric-label">of fraud detected at a 4% review cutoff</span></li>
-              <li><span class="metric-num">$40.5M</span><span class="metric-label">modeled annual net savings under stated assumptions</span></li>
-            </ul>
-            <p class="tech">Python · LightGBM · Feature Engineering · Out-of-Time Validation</p>
-            <a class="link-cta" href="credit_card_fraud_detection.html">Explore Project<span class="visually-hidden">: Credit Card Fraud Detection</span></a>
-          </div>
-          <figure class="showcase-visual reveal">
-            <svg class="chart" viewBox="0 0 480 300" role="img" aria-labelledby="fraud-chart-title fraud-chart-desc">
-              <title id="fraud-chart-title">Fraud detected by review cutoff</title>
-              <desc id="fraud-chart-desc">Share of fraud detected rises from 33.3% at a 1% cutoff to 72.1% at 6%. The recommended 4% cutoff detects 62.0%.</desc>
-              <g class="bars">
-                <rect x="20"  y="180" width="56" height="80"  /><rect x="96"  y="158" width="56" height="102"/>
-                <rect x="172" y="129" width="56" height="131"/><rect class="hl" x="248" y="108" width="56" height="152"/>
-                <rect x="324" y="95"  width="56" height="165"/><rect x="400" y="83"  width="56" height="177"/>
-              </g>
-              <g class="vals">
-                <text x="48"  y="170">33%</text><text x="124" y="148">42%</text><text x="200" y="119">54%</text>
-                <text class="hl" x="276" y="98">62%</text><text x="352" y="85">67%</text><text x="428" y="73">72%</text>
-              </g>
-              <g class="axis">
-                <text x="48" y="284">1%</text><text x="124" y="284">2%</text><text x="200" y="284">3%</text>
-                <text class="hl" x="276" y="284">4%</text><text x="352" y="284">5%</text><text x="428" y="284">6%</text>
-              </g>
-            </svg>
-            <figcaption>Fraud detected by review cutoff. Beyond 4%, false-positive costs grow faster than savings.</figcaption>
-          </figure>
-        </div>
-      </article>
+<article class="showcase project-feature tint" aria-labelledby="p-fraud">
+<section class="container project-layout" aria-label="Fraud Review Prioritization overview">
+<header class="showcase-text">
+<p class="eyebrow">Risk analytics · coursework</p>
+<h3 id="p-fraud">Fraud Review Prioritization</h3>
+<p class="problem">How much fraud can a review team catch at a limited review volume?</p>
+<p class="approach">Cleaned transaction data, built 3,379 behavioral features, and compared models including LightGBM with an out-of-time sample. Evaluated review cutoffs using fraud capture and false-positive costs.</p>
+<ul class="metrics">
+<li><span class="metric-num">62%</span><span class="metric-label">fraud capture at the 4% review cutoff</span>
+</li>
+<li><span class="metric-num">1.66%</span><span class="metric-label">false-positive rate at that cutoff</span>
+</li>
+</ul>
+<p class="tech">Python · LightGBM · Feature Engineering · Time-based Validation</p>
+<p class="project-note">Coursework results. The 4% recommendation balances review volume and capture; it is not the highest-profit cutoff in the reported table.</p><a class="link-cta" href="credit_card_fraud_detection.html">Explore Project<span class="visually-hidden">: Fraud Review Prioritization</span></a>
+</header>
+<figure class="evidence-chart">
+<ul class="evidence-bars" aria-label="Reported fraud capture by review cutoff.">
+<li><span class="evidence-label">1% review</span><meter aria-label="1% review" min="0" max="100" value="33.3">33.3</meter><strong>33.3%</strong>
+</li>
+<li><span class="evidence-label">4% review</span><meter aria-label="4% review" min="0" max="100" value="62">62</meter><strong>62%</strong>
+</li>
+<li><span class="evidence-label">6% review</span><meter aria-label="6% review" min="0" max="100" value="72.1">72.1</meter><strong>72.1%</strong>
+</li>
+</ul>
+<figcaption>Reported fraud capture by review cutoff.</figcaption>
+</figure>
+</section>
+</article>
 
-      <!-- Project 2 -->
-      <article class="showcase" aria-labelledby="p-intuit">
-        <div class="container">
-          <div class="showcase-text reveal">
-            <p class="eyebrow">Marketing Analytics</p>
-            <h3 id="p-intuit">Profitable Campaign Targeting</h3>
-            <p class="problem">Which customers should receive an upgrade offer to improve expected campaign profit?</p>
-            <p class="approach">Modeled wave-1 response for 75,000 QuickBooks customers, compared logistic regression and neural network models on validation profit, and set a break-even targeting rule for wave 2.</p>
-            <p class="tech">Python · Logistic Regression · Neural Networks · Profit Optimization</p>
-            <a class="link-cta" href="Intuit_Quickbooks_Upgrade.html">Explore Project<span class="visually-hidden">: Intuit Campaign Analytics</span></a>
-          </div>
-          <div class="showcase-visual big-stats reveal">
-            <p><span class="stat-xl">$1.23M</span><span class="stat-cap">projected profit under case assumptions</span></p>
-            <p><span class="stat-xl">$1.17M</span><span class="stat-cap">projected mail-to-all baseline</span></p>
-          </div>
-        </div>
-      </article>
+<article class="showcase project-feature" aria-labelledby="p-intuit">
+<section class="container project-layout" aria-label="Profitable Campaign Targeting overview">
+<header class="showcase-text">
+<p class="eyebrow">Campaign analytics · coursework</p>
+<h3 id="p-intuit">Profitable Campaign Targeting</h3>
+<p class="problem">Which customers should receive an upgrade offer to improve expected profit?</p>
+<p class="approach">Compared logistic regression and neural networks on 75,000 customer records. Converted response scores into a mailing rule using campaign economics and a 50% wave-two response adjustment.</p>
+<ul class="metrics">
+<li><span class="metric-num">+$56.7K</span><span class="metric-label">projected profit versus mail-to-all</span>
+</li>
+<li><span class="metric-num">$1.226M</span><span class="metric-label">projected profit under case assumptions</span>
+</li>
+</ul>
+<p class="tech">Python · Logistic Regression · Neural Networks · Profit Modeling</p>
+<p class="project-note">Projected lift, not realized revenue. Validate response rates before using the rule in a live campaign.</p><a class="link-cta" href="Intuit_Quickbooks_Upgrade.html">Explore Project<span class="visually-hidden">: Profitable Campaign Targeting</span></a>
+</header>
+<figure class="evidence-chart">
+<ul class="evidence-bars" aria-label="Projected campaign profit ($). Based on the case’s response and cost assumptions.">
+<li><span class="evidence-label">Mail to all</span><meter aria-label="Mail to all" min="0" max="1300000" value="1168918.8">1168918.8</meter><strong>$1.169M</strong>
+</li>
+<li><span class="evidence-label">Targeted</span><meter aria-label="Targeted" min="0" max="1300000" value="1225587.45">1225587.45</meter><strong>$1.226M</strong>
+</li>
+</ul>
+<figcaption>Projected campaign profit ($). Based on the case’s response and cost assumptions.</figcaption>
+</figure>
+</section>
+</article>
 
-      <!-- Project 3 -->
-      <article class="showcase tint" aria-labelledby="p-etl">
-        <div class="container">
-          <div class="showcase-text reveal">
-            <p class="eyebrow">Data Engineering</p>
-            <h3 id="p-etl">Automated Invoice Reconciliation</h3>
-            <p class="problem">Do suppliers invoice what they quoted, and can that check run automatically?</p>
-            <p class="approach">Built an ETL pipeline in Snowflake that combines purchase orders, supplier invoices, supplier records, and NOAA weather data, then calculates the quoted-versus-invoiced variance for each purchase order.</p>
-            <ul class="metrics">
-              <li><span class="metric-num">400K+</span><span class="metric-label">records processed</span></li>
-            </ul>
-            <p class="tech">SQL · Snowflake · PostgreSQL · Python</p>
-            <a class="link-cta" href="database_management.html">Explore Project<span class="visually-hidden">: Invoice and Purchase Order ETL</span></a>
-          </div>
-          <figure class="showcase-visual reveal">
-            <svg class="flow" viewBox="0 0 480 300" role="img" aria-labelledby="etl-title etl-desc">
-              <title id="etl-title">ETL pipeline</title>
-              <desc id="etl-desc">Four sources (purchase order CSV files, invoice XML, supplier records in PostgreSQL, and weather data from Snowflake Marketplace) load into Snowflake, which produces a purchase order to invoice reconciliation table.</desc>
-              <g class="src">
-                <text x="0" y="52">Purchase orders · CSV</text>
-                <text x="0" y="118">Invoices · XML</text>
-                <text x="0" y="184">Suppliers · PostgreSQL</text>
-                <text x="0" y="250">Weather · Marketplace</text>
-              </g>
-              <g class="lines">
-                <path d="M170 47 C 220 47, 220 150, 262 150"/><path d="M170 113 C 220 113, 220 150, 262 150"/>
-                <path d="M170 179 C 220 179, 220 150, 262 150"/><path d="M170 245 C 220 245, 220 150, 262 150"/>
-                <path d="M350 150 H 380"/>
-              </g>
-              <rect class="node" x="262" y="128" width="88" height="44" rx="10"/>
-              <text class="node-label" x="306" y="155">Snowflake</text>
-              <text class="out" x="388" y="146">Variance</text>
-              <text class="out" x="388" y="164">by PO</text>
-            </svg>
-            <figcaption>Four sources, one reconciliation table.</figcaption>
-          </figure>
-        </div>
-      </article>
+<article class="showcase project-feature tint" aria-labelledby="p-etl">
+<section class="container project-layout" aria-label="PO–Invoice Reconciliation overview">
+<header class="showcase-text">
+<p class="eyebrow">Data engineering · coursework</p>
+<h3 id="p-etl">PO–Invoice Reconciliation</h3>
+<p class="problem">How can a team compare quoted and invoiced amounts across disconnected sources?</p>
+<p class="approach">Led a five-person team integrating four source types. Loaded data into Snowflake, aggregated purchase orders and invoices, and joined them on PO and supplier IDs to calculate financial variances.</p>
+<ul class="metrics">
+<li><span class="metric-num">400K+</span><span class="metric-label">source records consolidated</span>
+</li>
+<li><span class="metric-num">~2,100</span><span class="metric-label">purchase orders in the reconciliation table</span>
+</li>
+</ul>
+<p class="tech">SQL · Snowflake · PostgreSQL · Python</p>
+<p class="project-note">Weather enrichment yielded ~1,300 matched records; no measurable temperature relationship was observed in that sample.</p><a class="link-cta" href="database_management.html">Explore Project<span class="visually-hidden">: PO–Invoice Reconciliation</span></a>
+</header>
+<figure class="pipeline-visual">
+<ol class="pipeline-steps">
+<li><strong>Ingest</strong><span>CSV orders · XML invoices<br>PostgreSQL suppliers · NOAA weather</span>
+</li>
+<li><strong>Transform in Snowflake</strong><span>Aggregate PO and invoice totals<br>Join by PO + supplier</span>
+</li>
+<li><strong>Reconcile</strong><span>Quoted − invoiced amount<br>Enrich by ZIP + date</span>
+</li>
+</ol>
+<figcaption>Processing happens in Snowflake; weather enrichment produces a separate matched sample.</figcaption>
+</figure>
+</section>
+</article>
 
+<article class="showcase project-feature" aria-labelledby="p-ab">
+<section class="container project-layout" aria-label="Testing Donation Incentives overview">
+<header class="showcase-text">
+<p class="eyebrow">Experimentation · replication</p>
+<h3 id="p-ab">Testing Donation Incentives</h3>
+<p class="problem">Does offering a matching gift increase donor response?</p>
+<p class="approach">Replicated the matching-gift experiment using treatment/control comparisons, t-tests, linear regression, and probit. Tested larger match ratios separately.</p>
+<ul class="metrics">
+<li><span class="metric-num">+0.42 pp</span><span class="metric-label">estimated response-rate lift</span>
+</li>
+<li><span class="metric-num">p = .002</span><span class="metric-label">reported significance of the matching offer</span>
+</li>
+</ul>
+<p class="tech">Python · pandas · SciPy · statsmodels</p>
+<p class="project-note">About 22% relative lift. Larger matches showed no statistically significant additional lift; this does not establish equivalence.</p><a class="link-cta" href="AB_Testing.html">Explore Project<span class="visually-hidden">: Testing Donation Incentives</span></a>
+</header>
+<figure class="evidence-chart">
+<ul class="evidence-bars" aria-label="Observed donation rates (%); regression estimates a 0.42 percentage-point effect.">
+<li><span class="evidence-label">Control</span><meter aria-label="Control" min="0" max="3" value="1.79">1.79</meter><strong>1.79%</strong>
+</li>
+<li><span class="evidence-label">Matching offer</span><meter aria-label="Matching offer" min="0" max="3" value="2.2">2.2</meter><strong>2.2%</strong>
+</li>
+</ul>
+<figcaption>Observed donation rates (%); regression estimates a 0.42 percentage-point effect.</figcaption>
+</figure>
+</section>
+</article>
 
+<article class="showcase project-feature tint" aria-labelledby="p-poisson">
+<section class="container project-layout" aria-label="Software &amp; Patent Outcomes overview">
+<header class="showcase-text">
+<p class="eyebrow">Statistical modeling · coursework</p>
+<h3 id="p-poisson">Software &amp; Patent Outcomes</h3>
+<p class="problem">Is software use associated with more patents after accounting for firm differences?</p>
+<p class="approach">Implemented the Poisson likelihood and estimated count models with firm age, age-squared, and region controls. Interpreted the customer coefficient as an incidence rate ratio.</p>
+<ul class="metrics">
+<li><span class="metric-num">1.23×</span><span class="metric-label">expected patent count for customers</span>
+</li>
+<li><span class="metric-num">p < .001</span><span class="metric-label">reported customer-association significance</span>
+</li>
+</ul>
+<p class="tech">Python · NumPy · SciPy · statsmodels</p>
+<p class="project-note">Observational analysis. The model does not establish that software adoption causes higher patent output.</p><a class="link-cta" href="Maximum_Likelihood_Estimation.html">Explore Project<span class="visually-hidden">: Software &amp; Patent Outcomes</span></a>
+</header>
+<figure class="evidence-chart">
+<ul class="evidence-bars" aria-label="Adjusted expected patent count ratio; non-customers = 1.00. Association, not causation.">
+<li><span class="evidence-label">Non-customer</span><meter aria-label="Non-customer" min="0" max="1.5" value="1">1</meter><strong>1</strong>
+</li>
+<li><span class="evidence-label">Customer</span><meter aria-label="Customer" min="0" max="1.5" value="1.23">1.23</meter><strong>1.23</strong>
+</li>
+</ul>
+<figcaption>Adjusted expected patent count ratio; non-customers = 1.00. Association, not causation.</figcaption>
+</figure>
+</section>
+</article>
 
-      <!-- Additional projects -->
-      <section class="more container" aria-labelledby="more-title">
-        <h3 id="more-title" class="more-title reveal">More analysis.</h3>
-        <section class="more-grid" aria-label="Analytical projects">
-          <article class="more-item reveal" aria-labelledby="analysis-0">
-            <p class="eyebrow">Experimentation</p>
-            <h4 id="analysis-0">Testing Donation Incentives</h4>
-            <p class="project-result">Matching increased response by about 22% (p = 0.002). Larger matches showed no statistically significant additional lift in this sample.</p>
-            <p class="tech">Python · t-tests · Regression · Probit</p>
-            <details class="project-details"><summary>How it works</summary><dl class="project-summary"><dt>Problem</dt><dd>Determine whether matching gifts increase donations and whether larger matches add value.</dd><dt>Technical solution</dt><dd>Compared treatment and control response rates using t-tests, regression, and probit models.</dd></dl></details>
-            <a class="link-cta" href="AB_Testing.html">Explore Project<span class="visually-hidden">: A/B Testing</span></a>
-          </article>
-          <article class="more-item reveal" aria-labelledby="analysis-1">
-            <p class="eyebrow">Statistical Modeling</p>
-            <h4 id="analysis-1">Software &amp; Patent Outcomes</h4>
-            <p class="project-result">Customers had about 23% more expected patents (p &lt; 0.001). This is an association, not evidence of a causal effect.</p>
-            <p class="tech">Python · Maximum Likelihood · Poisson Regression</p>
-            <details class="project-details"><summary>How it works</summary><dl class="project-summary"><dt>Problem</dt><dd>Assess whether software customers have more patents after accounting for firm age and region.</dd><dt>Technical solution</dt><dd>Estimated a Poisson count model using maximum likelihood, controlling for age and region.</dd></dl></details>
-            <a class="link-cta" href="Maximum_Likelihood_Estimation.html">Explore Project<span class="visually-hidden">: Poisson Regression via MLE</span></a>
-          </article>
-          <article class="more-item reveal" aria-labelledby="analysis-2">
-            <p class="eyebrow">Pricing</p>
-            <h4 id="analysis-2">Pricing Simulation</h4>
-            <p class="project-result">Compared preference estimates from both methods against the simulation parameters; results describe simulated behavior.</p>
-            <p class="tech">Python · MLE · Metropolis-Hastings MCMC</p>
-            <details class="project-details"><summary>How it works</summary><dl class="project-summary"><dt>Problem</dt><dd>Estimate subscription preferences from simulated customer choices.</dd><dt>Technical solution</dt><dd>Fit a multinomial logit model with maximum likelihood and Bayesian Metropolis–Hastings sampling.</dd></dl></details>
-            <a class="link-cta" href="Multinomial_Logit_Model.html">Explore Project<span class="visually-hidden">: Multinomial Logit Choice Model</span></a>
-          </article>
-          <article class="more-item reveal" aria-labelledby="analysis-3">
-            <p class="eyebrow">Segmentation</p>
-            <h4 id="analysis-3">Choosing Useful Segments</h4>
-            <p class="project-result">k = 2 had the highest silhouette score. k = 3 was selected for species-informed interpretation, so the choice was not fully unsupervised.</p>
-            <p class="tech">Python · NumPy · scikit-learn</p>
-            <details class="project-details"><summary>How it works</summary><dl class="project-summary"><dt>Problem</dt><dd>Choose a cluster count that balances separation and interpretability.</dd><dt>Technical solution</dt><dd>Applied K-Means and compared cluster counts using silhouette scores and known species for interpretation.</dd></dl></details>
-            <a class="link-cta" href="Key_Drivers_Analysis.html">Explore Project<span class="visually-hidden">: K-Means Clustering</span></a>
-          </article>
-        </section>
-      </section>
+<article class="showcase project-feature" aria-labelledby="p-pricing">
+<section class="container project-layout" aria-label="Subscription Choice Modeling overview">
+<header class="showcase-text">
+<p class="eyebrow">Pricing · simulation</p>
+<h3 id="p-pricing">Subscription Choice Modeling</h3>
+<p class="problem">Can two estimators recover known price and product preferences from simulated choices?</p>
+<p class="approach">Simulated 100 respondents completing 10 tasks each. Implemented multinomial logit estimation with maximum likelihood and Metropolis–Hastings MCMC, then compared recovered coefficients.</p>
+<ul class="metrics">
+<li><span class="metric-num">1,000</span><span class="metric-label">simulated choice tasks</span>
+</li>
+<li><span class="metric-num">−0.100</span><span class="metric-label">reported posterior mean of the price coefficient</span>
+</li>
+</ul>
+<p class="tech">Python · NumPy · SciPy · MLE · Bayesian MCMC</p>
+<p class="project-note">Simulated data only. The report rounds the posterior price estimate to −0.100 in its earlier summary.</p><a class="link-cta" href="Multinomial_Logit_Model.html">Explore Project<span class="visually-hidden">: Subscription Choice Modeling</span></a>
+</header>
+<figure class="parameter-visual">
+<table>
+<caption>Price sensitivity coefficient</caption>
+<thead>
+<tr>
+<th scope="col">Parameter</th>
+<th scope="col">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">Simulation input</th>
+<td>−0.100</td>
+</tr>
+<tr>
+<th scope="row">MLE estimate</th>
+<td>−0.0995</td>
+</tr>
+<tr>
+<th scope="row">MCMC estimate</th>
+<td>−0.0997</td>
+</tr>
+</tbody>
+</table>
+<figcaption>Estimates from the report’s final comparison. Agreement checks this simulation, not real consumer demand.</figcaption>
+</figure>
+</section>
+</article>
+
+<article class="showcase project-feature tint" aria-labelledby="p-kmeans">
+<section class="container project-layout" aria-label="Choosing Useful Clusters overview">
+<header class="showcase-text">
+<p class="eyebrow">Segmentation · coursework</p>
+<h3 id="p-kmeans">Choosing Useful Clusters</h3>
+<p class="problem">When should interpretability outweigh a stronger statistical separation score?</p>
+<p class="approach">Implemented K-Means from scratch and compared it with scikit-learn using bill and flipper measurements. Evaluated k = 2–7 with WCSS and silhouette scores.</p>
+<ul class="metrics">
+<li><span class="metric-num">0.612</span><span class="metric-label">silhouette score at k = 2</span>
+</li>
+<li><span class="metric-num">0.456</span><span class="metric-label">silhouette score at k = 3</span>
+</li>
+</ul>
+<p class="tech">Python · NumPy · scikit-learn</p>
+<p class="project-note">k = 3 was chosen for species-informed interpretation. Species labels were excluded from fitting, but influenced k selection.</p><a class="link-cta" href="Key_Drivers_Analysis.html">Explore Project<span class="visually-hidden">: Choosing Useful Clusters</span></a>
+</header>
+<figure class="evidence-chart">
+<ul class="evidence-bars" aria-label="Silhouette scores: higher values indicate stronger separation.">
+<li><span class="evidence-label">k = 2</span><meter aria-label="k = 2" min="0" max="1" value="0.612">0.612</meter><strong>0.612</strong>
+</li>
+<li><span class="evidence-label">k = 3</span><meter aria-label="k = 3" min="0" max="1" value="0.456">0.456</meter><strong>0.456</strong>
+</li>
+</ul>
+<figcaption>Silhouette scores: higher values indicate stronger separation.</figcaption>
+</figure>
+</section>
+</article>
     </section>
 
     <!-- ============ EXPERIENCE ============ -->
@@ -311,12 +404,10 @@
           <div class="about-copy">
             <h2 id="about-title" class="reveal">About Tweety.</h2>
             <section class="about-story" aria-label="Background and career interests">
-            <p class="about-lede reveal">I’m Tweety Chang. I work with financial and operational data, combining an accounting foundation with an M.S. in Business Analytics from UC San Diego. I earned my B.S. in Accountancy at Northern Illinois University through a dual-degree program with Asia University in Taiwan.</p>
-            <p class="about-lede reveal">I’m currently an Associate Relationship Manager on Bank SinoPac’s syndicated lending team in Los Angeles. I analyze borrower financials for credit committee memos, track budgets and schedules on hyperscale data center construction loans, and write reports in English and Chinese for our Taiwan head office.</p>
-            <p class="about-lede reveal">For my HP capstone project, I built a Python reconciliation workflow that flagged 900+ discrepancies and traced their causes. HP leadership adopted the reporting changes I proposed. At Highspring, I trained 30+ reviewers across five Asia-Pacific countries. My coursework also includes ETL pipelines that consolidated 400,000+ records and a fraud model with a cutoff based on the cost of each error.</p>
-            <p class="about-lede reveal">Working on data center deals showed me where I want to take my next step: data and operations analytics in technology and manufacturing. I want to use SQL, Python, and my accounting background to investigate business questions and improve how teams work.</p>
-            <p class="about-lede reveal">Outside work, I served as president of Ascend, organizing monthly events for 50–100 students. I’m also a Toastmasters member, and I enjoy hiking and ball sports.</p>
-            </section>
+<p class="about-lede reveal">I’m Tweety Chang, an Associate Relationship Manager on Bank SinoPac’s syndicated lending team in Los Angeles. I analyze borrower financials, track budgets and schedules on data center construction loans, and prepare bilingual credit reports.</p>
+<p class="about-lede reveal">My work combines accounting judgment with Python and SQL. At HP, my capstone work flagged 900+ discrepancies and informed reporting changes adopted by leadership. At Highspring, I trained 30+ reviewers.</p>
+<p class="about-lede reveal">I’m pursuing data and operations analytics roles in technology and manufacturing, supported by an M.S. in Business Analytics and a dual-degree accounting education.</p>
+</section>
           </div>
           <figure class="portrait reveal is-paused" data-portrait>
             <div class="portrait-stage">
