@@ -53,6 +53,7 @@
     var busy = false;       // a scripted sequence is playing
     var timers = [];
     var pauseBtn = controls.querySelector("[data-portrait-toggle]");
+    var note = controls.querySelector("[data-portrait-note]");
     var exprBtns = controls.querySelectorAll("[data-expression]");
     var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     var size = (window.devicePixelRatio || 1) > 1.5 ? 960 : 480;
@@ -154,6 +155,7 @@
       pauseBtn.textContent = paused ? "Play" : "Pause";
       pauseBtn.setAttribute("aria-pressed", String(!paused));
       pauseBtn.setAttribute("aria-label", paused ? "Play portrait" : "Pause portrait");
+      if (note) note.textContent = paused ? "Taking a moment." : "A little more human.";
       exprBtns.forEach(function (b) { b.hidden = paused; });
       clearTimers(); busy = false;
       if (paused) { follow = null; smiling = false; if (smileBtn) smileBtn.setAttribute("aria-pressed", "false"); show(null); }
