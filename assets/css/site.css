@@ -402,3 +402,17 @@ section[id] { scroll-margin-top: 24px; }
 /* Same framing for all approved portrait photographs. */
 .portrait-stage { aspect-ratio: 1186 / 1327; }
 .portrait-layers { border-radius: 24px; overflow: hidden; }
+
+/* Compact semantic summaries: two columns on desktop, one on phones. */
+.more-grid { align-items: stretch; }
+.more-item { min-width: 0; display: flex; flex-direction: column; }
+.more-item h4 { font-size: clamp(1.35rem, 2.4vw, 1.8rem); line-height: 1.2; overflow-wrap: anywhere; }
+.project-summary { margin: 12px 0 24px; }
+.project-summary dt { margin: 18px 0 5px; font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text); }
+.project-summary dd { margin: 0; color: var(--text-2); line-height: 1.65; }
+.more-item > .link-cta { margin-top: auto; align-self: flex-start; padding-block: 12px; }
+a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.portrait-layers { border-radius: 0; overflow: visible; }
+.portrait-stage::before { display: none; }
+
+.portrait-layers.has-frame picture { visibility: hidden; }
