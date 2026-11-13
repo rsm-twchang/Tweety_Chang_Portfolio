@@ -209,7 +209,7 @@ h4 { font-size: 24px; line-height: 1.17; font-weight: 600; letter-spacing: .009e
 .about-lede { font-size: clamp(19px, 2.3vw, 24px); line-height: 1.38; color: var(--text-2); margin-top: 20px; max-width: 34ch; font-weight: 500; }
 
 .portrait { position: relative; margin: 0 auto; width: min(76vw, 420px); }
-.portrait-stage { position: relative; aspect-ratio: 480 / 491; perspective: 900px; }
+.portrait-stage { position: relative; aspect-ratio: 480 / 494; perspective: 900px; }
 /* soft light pool behind the cut-out */
 .portrait-stage::before {
   content: ""; position: absolute; inset: 6% 4% 0; border-radius: 50%;
@@ -386,10 +386,11 @@ section[id] { scroll-margin-top: 24px; }
 
 /* Enlarged, aligned portrait frames; playback is opt-in. */
 .about .portrait { width: min(84vw, 520px); }
-.portrait-stage { aspect-ratio: 480 / 491; }
+.portrait-stage { aspect-ratio: 480 / 494; }
 .portrait-controls .pill { min-height: 44px; }
 .portrait-controls .pill:disabled { opacity: .55; cursor: default; }
 .education-list div { display: block; padding: 20px 0; }
 .education-list dt { margin-bottom: 7px; }
 .education-list .degree, .education-list .academic-detail { display: block; }
 .education-list .academic-detail { margin-top: 5px; font-size: 14px; line-height: 1.5; }
+.pill[hidden] { display: none; }
