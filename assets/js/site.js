@@ -41,7 +41,7 @@
   var layers = document.querySelector("[data-portrait-layers]");
   var controls = document.querySelector("[data-portrait-controls]");
   if (portrait && layers && controls) {
-    var NAMES = ["natural", "blink", "warm", "soft", "smile", "laugh", "grin", "wink", "surprise", "puff", "frown",
+    var NAMES = ["blink", "laugh", "wink", "surprise", "puff", "frown",
                  "concern", "concern2", "tilt", "look-left", "look-right", "look-up", "look-down",
                  "turn-left", "turn-right"];
     var frames = {};
@@ -79,6 +79,8 @@
     }
 
     function show(name, blink) {
+      // Use one teeth-showing smile for every smiling interaction.
+      if (["natural", "warm", "soft", "smile", "grin"].indexOf(name) !== -1) name = "laugh";
       if (name === current) return;
       if (current && frames[current]) frames[current].classList.remove("is-on", "is-blink");
       current = name;
