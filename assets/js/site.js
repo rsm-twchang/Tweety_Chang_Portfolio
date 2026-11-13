@@ -32,27 +32,46 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  // Living portrait using the existing, aligned expression assets.
-  // Mouse: she smiles more as the cursor gets closer to her face.
-  // Touch: the same tiers follow the portrait's position as the page scrolls.
+  // Living portrait. Opens paused on the original suit photo; Play turns it live.
+  // Live: she looks toward the cursor, smiles as it nears her face, and blinks.
+  // Touch screens: gaze and smile follow the portrait's position while scrolling.
+  // Every expression is a real photo frame, cut out and aligned to the original.
   var portrait = document.querySelector("[data-portrait]");
   var layers = document.querySelector("[data-portrait-layers]");
   var controls = document.querySelector("[data-portrait-controls]");
   if (portrait && layers && controls) {
-    var NAMES = ["blink", "warm", "soft", "smile", "laugh", "wink", "surprise", "puff", "frown"];
-    var TIERS = [null, "warm", "soft", "smile", "laugh"];   // far -> close
+    var NAMES = ["blink", "warm", "soft", "smile", "laugh", "grin", "wink", "surprise", "puff", "frown",
+                 "concern", "concern2", "tilt", "look-left", "look-right", "look-up", "look-down",
+                 "turn-left", "turn-right"];
     var frames = {};
-    var current = null;     // frame on screen
-    var follow = null;      // expression chosen by pointer/scroll position
+    var loaded = false;
+    var current = null;     // frame on screen (null = original photo)
+    var follow = null;      // frame chosen by cursor or scroll position
     var paused = true;
     var busy = false;       // a scripted sequence is playing
     var timers = [];
     var pauseBtn = controls.querySelector("[data-portrait-toggle]");
+    var note = controls.querySelector("[data-portrait-note]");
+    var exprBtns = controls.querySelectorAll("[data-expression]");
     var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     var size = (window.devicePixelRatio || 1) > 1.5 ? 960 : 480;
 
     function later(fn, ms) { var t = setTimeout(fn, ms); timers.push(t); return t; }
     function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+    function loadFrames() {
+      if (loaded) return;
+      loaded = true;
+      NAMES.forEach(function (name) {
+        var img = new Image();
+        img.className = "frame";
+        img.alt = "";
+        img.decoding = "async";
+        img.src = "assets/img/portrait/" + name + "-" + size + ".webp";
+        layers.appendChild(img);
+        frames[name] = img;
+      });
+    }
 
     function show(name, blink) {
       if (name === current) return;
@@ -64,10 +83,10 @@
       }
     }
 
-    // Return to whatever the pointer position asks for
     function settle() { show(paused ? null : follow); }
 
     function play(steps) {
+      if (paused) return;
       clearTimers();
       busy = true;
       var i = 0;
@@ -79,7 +98,7 @@
       })();
     }
 
-    // Idle life while the face is neutral: natural blinks
+    // Natural blinks while she faces forward
     function scheduleIdle() {
       clearTimers();
       if (paused || reduceMotion) return;
@@ -95,54 +114,59 @@
       if (!busy && !paused) show(follow);
     }
 
-    // Distance from the cursor to the face, measured in portrait widths
-    function tierFromPointer(x, y) {
+    // Cursor position relative to her face, in portrait widths
+    function frameFromPointer(x, y) {
       var r = layers.getBoundingClientRect();
-      var fx = r.left + r.width * 0.5, fy = r.top + r.height * 0.36;
-      var d = Math.hypot(x - fx, y - fy) / r.width;
-      if (d < 0.16) return TIERS[4];
-      if (d < 0.42) return TIERS[3];
-      if (d < 0.8)  return TIERS[2];
-      if (d < 1.3)  return TIERS[1];
-      return TIERS[0];
+      var dx = (x - (r.left + r.width * 0.5)) / r.width;
+      var dy = (y - (r.top + r.height * 0.36)) / r.width;
+      var d = Math.hypot(dx, dy);
+      if (d < 0.16) return "smile";
+      if (d < 0.36) return "soft";
+      if (Math.abs(dx) >= Math.abs(dy) * 0.8) {
+        // Turn the head once the cursor is past 65% of the way to that side's window edge
+        var fx = r.left + r.width * 0.5;
+        var room = dx > 0 ? window.innerWidth - fx : fx;
+        var far = Math.abs(x - fx) > room * 0.65;
+        if (dx > 0) return far ? "turn-right" : "look-right";
+        return far ? "turn-left" : "look-left";
+      }
+      return dy < 0 ? "look-up" : "look-down";
     }
 
-    // Touch screens: how close the portrait is to the middle of the viewport
-    function tierFromScroll() {
+    // Touch: look toward the middle of the screen, smile when centered
+    function frameFromScroll() {
       var r = layers.getBoundingClientRect();
-      var off = Math.abs((r.top + r.height * 0.4) - window.innerHeight / 2) / window.innerHeight;
-      if (off < 0.1) return TIERS[3];
-      if (off < 0.22) return TIERS[2];
-      if (off < 0.36) return TIERS[1];
-      return TIERS[0];
+      var off = ((r.top + r.height * 0.4) - window.innerHeight / 2) / window.innerHeight;
+      if (Math.abs(off) < 0.1) return "smile";
+      if (Math.abs(off) > 0.45) return null;
+      return off > 0 ? "look-up" : "look-down";
     }
 
-    function loadFrames() {
-      NAMES.forEach(function (name) {
-        var img = new Image();
-        img.className = "frame";
-        img.alt = "";
-        img.decoding = "async";
-        img.src = "assets/img/portrait/" + name + "-" + size + ".webp";
-        layers.appendChild(img);
-        frames[name] = img;
-      });
-      controls.hidden = false;
-      scheduleIdle();
-      if (!finePointer) setFollow(tierFromScroll());
+    function setLive(live) {
+      paused = !live;
+      if (live) loadFrames();
+      portrait.classList.toggle("is-paused", paused);
+      pauseBtn.textContent = paused ? "Play" : "Pause";
+      pauseBtn.setAttribute("aria-pressed", String(!paused));
+      pauseBtn.setAttribute("aria-label", paused ? "Play portrait" : "Pause portrait");
+      note.textContent = paused ? "Taking a moment." : "A little more human.";
+      exprBtns.forEach(function (b) { b.hidden = paused; });
+      clearTimers(); busy = false;
+      if (paused) { follow = null; show(null); }
+      else { if (!finePointer) follow = frameFromScroll(); settle(); scheduleIdle(); }
     }
 
     var raf = 0, lastX = 0, lastY = 0;
     if (finePointer) {
       window.addEventListener("pointermove", function (e) {
         lastX = e.clientX; lastY = e.clientY;
-        if (raf) return;
+        if (raf || paused) return;
         raf = requestAnimationFrame(function () {
           raf = 0;
           var r = portrait.getBoundingClientRect();
           if (r.bottom < -200 || r.top > window.innerHeight + 200) return;
-          if (!paused) setFollow(tierFromPointer(lastX, lastY));
-          if (paused || reduceMotion) return;
+          if (!pauseBtn.matches(":hover")) setFollow(frameFromPointer(lastX, lastY));
+          if (reduceMotion) return;
           // Gentle tilt toward the pointer
           var x = Math.max(-1, Math.min(1, (lastX - (r.left + r.width / 2)) / (window.innerWidth / 2)));
           var y = Math.max(-1, Math.min(1, (lastY - (r.top + r.height / 2)) / (window.innerHeight / 2)));
@@ -153,24 +177,41 @@
         });
       }, { passive: true });
       document.documentElement.addEventListener("pointerleave", function () { setFollow(null); });
+      // About to pause? She looks a little concerned.
+      pauseBtn.addEventListener("pointerenter", function () { if (!paused) setFollow("concern"); });
+      // Start loading frames as soon as someone reaches for Play
+      pauseBtn.addEventListener("pointerenter", loadFrames, { once: true });
     } else {
       window.addEventListener("scroll", function () {
-        if (raf || paused || !Object.keys(frames).length) return;
-        raf = requestAnimationFrame(function () { raf = 0; setFollow(tierFromScroll()); });
+        if (raf || paused) return;
+        raf = requestAnimationFrame(function () { raf = 0; setFollow(frameFromScroll()); });
       }, { passive: true });
     }
+    pauseBtn.addEventListener("focus", loadFrames, { once: true });
 
-    pauseBtn.addEventListener("click", function () {
-      if (reduceMotion) return;
-      if (!Object.keys(frames).length) loadFrames();
-      paused = !paused;
-      portrait.classList.toggle("is-paused", paused);
-      pauseBtn.setAttribute("aria-pressed", String(!paused));
-      pauseBtn.setAttribute("aria-label", paused ? "Play portrait interaction" : "Pause portrait interaction");
-      pauseBtn.textContent = paused ? "Play" : "Pause";
-      clearTimers(); busy = false;
-      if (paused) show(null);
-      else { if (!finePointer) follow = tierFromScroll(); settle(); scheduleIdle(); }
+    var SEQUENCES = {
+      surprise: [["surprise", 1300], ["soft", 600]],
+      smile: [["soft", 260], ["smile", 700], ["laugh", 1400], ["grin", 600], ["warm", 600]]
+    };
+    controls.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-expression]");
+      if (btn) play(SEQUENCES[btn.getAttribute("data-expression")]);
+    });
+
+    pauseBtn.addEventListener("click", function () { setLive(paused); });
+
+    // Tap the portrait: wake it up when paused, otherwise a small surprise
+    var PLAYFUL = [
+      [["wink", 900], ["warm", 500]],
+      [["puff", 1300], ["grin", 700]],
+      [["tilt", 1400], ["soft", 500]],
+      [["frown", 900], ["laugh", 1200], ["warm", 500]],
+      [["concern2", 1100], ["grin", 800]]
+    ];
+    var playfulIndex = 0;
+    layers.addEventListener("click", function () {
+      if (paused) setLive(true);
+      else play(PLAYFUL[playfulIndex++ % PLAYFUL.length]);
     });
 
     document.addEventListener("visibilitychange", function () {
@@ -179,9 +220,6 @@
     });
 
     controls.hidden = false;
-    pauseBtn.disabled = reduceMotion;
-    if (reduceMotion) pauseBtn.setAttribute("aria-label", "Portrait interaction disabled by reduced motion preference");
-
   }
 
   if (!("IntersectionObserver" in window)) {
