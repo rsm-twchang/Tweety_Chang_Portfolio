@@ -398,3 +398,7 @@ section[id] { scroll-margin-top: 24px; }
 /* Leadership and Certifications share the third column as separate blocks */
 .about-stack { display: grid; gap: 48px; align-content: start; }
 .org-note { font-weight: 400; color: var(--text-2); font-size: .75em; }
+
+/* Same framing for all approved portrait photographs. */
+.portrait-stage { aspect-ratio: 1186 / 1327; }
+.portrait-layers { border-radius: 24px; overflow: hidden; }

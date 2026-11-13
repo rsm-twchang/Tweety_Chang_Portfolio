@@ -36,14 +36,12 @@
   // An explicit Pause keeps tracking off until the visitor presses Play again.
   // Live: she looks toward the cursor, smiles as it nears her face, and blinks.
   // Touch screens: gaze and smile follow the portrait's position while scrolling.
-  // Every expression is a real photo frame, cut out and aligned to the original.
+  // User-approved source photographs, plus one generated upper-right gaze extension.
   var portrait = document.querySelector("[data-portrait]");
   var layers = document.querySelector("[data-portrait-layers]");
   var controls = document.querySelector("[data-portrait-controls]");
   if (portrait && layers && controls) {
-    var NAMES = ["blink", "laugh", "wink", "surprise", "puff", "frown",
-                 "concern", "concern2", "tilt", "look-left", "look-right", "look-up", "look-down",
-                 "turn-left", "turn-right"];
+    var NAMES = ["smile", "look-left", "look-right", "look-up", "look-down", "look-upper-right", "wink", "surprise", "frown", "tilt"];
     var frames = {};
     var loaded = false;
     var current = null;     // frame on screen (null = original photo)
@@ -73,14 +71,19 @@
           frames[name] = img;
           if (current === name) { current = null; show(name); }
         });
-        img.src = "assets/img/portrait/" + name + "-" + size + ".webp";
+        img.src = "assets/img/portrait-v2/" + name + "-" + size + ".webp";
         layers.appendChild(img);
       });
     }
 
     function show(name, blink) {
       // Use one teeth-showing smile for every smiling interaction.
-      if (["natural", "warm", "soft", "smile", "grin"].indexOf(name) !== -1) name = "laugh";
+      if (["natural", "warm", "soft", "laugh", "grin"].indexOf(name) !== -1) name = "smile";
+      if (name === "turn-left") name = "look-left";
+      if (name === "turn-right") name = "look-right";
+      if (name === "blink") name = "wink";
+      if (name === "concern" || name === "concern2") name = "tilt";
+      if (name === "puff") name = "surprise";
       if (name === current) return;
       if (current && frames[current]) frames[current].classList.remove("is-on", "is-blink");
       current = name;
@@ -128,6 +131,7 @@
       var dx = (x - (r.left + r.width * 0.5)) / r.width;
       var dy = (y - (r.top + r.height * 0.36)) / r.width;
       var d = Math.hypot(dx, dy);
+      if (dx > 0.22 && dy < -0.22) return "look-upper-right";
       if (d < 0.16) return "smile";
       if (d < 0.36) return "soft";
       if (Math.abs(dx) >= Math.abs(dy) * 0.8) {
