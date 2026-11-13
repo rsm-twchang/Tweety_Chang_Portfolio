@@ -394,3 +394,7 @@ section[id] { scroll-margin-top: 24px; }
 .education-list .degree, .education-list .academic-detail { display: block; }
 .education-list .academic-detail { margin-top: 5px; font-size: 14px; line-height: 1.5; }
 .pill[hidden] { display: none; }
+
+/* Leadership and Certifications share the third column as separate blocks */
+.about-stack { display: grid; gap: 48px; align-content: start; }
+.org-note { font-weight: 400; color: var(--text-2); font-size: .75em; }
