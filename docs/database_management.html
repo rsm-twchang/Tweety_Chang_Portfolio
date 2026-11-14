@@ -185,9 +185,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="reconciliation-workflow" class="level3 biz-value">
 <h3 class="anchored" data-anchor-id="reconciliation-workflow">Reconciliation Workflow</h3>
 <ul>
-<li><strong>Scope:</strong> Combined 400K+ source records across CSV, XML, PostgreSQL, and Snowflake Marketplace. The reconciliation table covered approximately 2,100 purchase orders.</li>
-<li><strong>Output:</strong> Calculated quoted-versus-invoiced differences by purchase order for exception review.</li>
-<li><strong>Finding:</strong> No measurable temperature relationship was observed in the matched sample. This does not rule out every possible weather effect.</li>
+<li><strong>Question:</strong> How can quoted and invoiced amounts be compared across disconnected operational sources?</li>
+<li><strong>Analysis:</strong> Led a five-person team combining CSV orders, XML invoices, PostgreSQL supplier data, and NOAA weather data in Snowflake. Aggregated PO and invoice totals, then joined on PO and supplier IDs.</li>
+<li><strong>Result:</strong> Consolidated 400K+ source records and produced a reconciliation table covering approximately 2,100 purchase orders, with quoted-minus-invoiced differences for exception review.</li>
+<li><strong>Scope:</strong> Weather enrichment produced approximately 1,300 matched records. No measurable temperature relationship was observed in that subset; it does not describe every order or rule out all weather effects.</li>
 </ul>
 </section>
 <section id="introduction" class="level2">

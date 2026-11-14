@@ -12,8 +12,10 @@ callout-appearance: minimal
 ::: {.biz-value}
 ### Adjusted Association
 
-- **Finding:** Software customers had about 23% higher expected patent counts after controlling for firm age and region.
-- **Limit:** This observational association does not establish that the software caused higher patent output. Selection and unmeasured differences may remain.
+- **Question:** Are software customers associated with higher patent counts after accounting for firm age and region?
+- **Analysis:** Implemented the Poisson likelihood and estimated count models with customer status, firm age, age-squared, and region controls.
+- **Finding:** The customer coefficient was 0.2076 (p < 0.001), implying about 23% higher expected patent counts: exp(0.2076) ≈ 1.23.
+- **Interpretation:** This is an adjusted association from observational data. It does not establish that software adoption causes more patents.
 :::
 
 

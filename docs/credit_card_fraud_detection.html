@@ -184,9 +184,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="decision-evidence" class="level3 biz-value">
 <h3 class="anchored" data-anchor-id="decision-evidence">Decision &amp; Evidence</h3>
 <ul>
-<li><strong>Outcome:</strong> At a 4% review cutoff, the model flags <strong>62% of fraudulent transactions</strong> while keeping the false-positive rate at <strong>1.66%</strong>, for an estimated <strong>$40.5M in annual net savings</strong> (assumptions below).</li>
-<li><strong>Risk-appetite decision:</strong> The cutoff was set on net financial impact, weighing fraud losses avoided against review cost and customer friction, rather than on model accuracy alone.</li>
-<li><strong>Model risk control:</strong> Performance was tested on an <strong>out-of-time</strong> sample to check stability under drift, and a shallow, deterministic LightGBM was chosen for stable, explainable feature rankings.</li>
+<li><strong>Question:</strong> How much fraud can be captured within a constrained review workload?</li>
+<li><strong>Analysis:</strong> Cleaned transaction data, engineered 3,379 behavioral features, and compared models including LightGBM with an out-of-time sample. Evaluated review cutoffs using fraud capture and false-positive costs.</li>
+<li><strong>Result:</strong> At the recommended 4% review cutoff, the reported fraud capture rate was 62% and the false-positive rate was 1.658%.</li>
+<li><strong>Decision limits:</strong> The 4% cutoff is a review-volume trade-off, not the highest-profit cutoff in the source table. Annual savings depend on unresolved time/population scaling assumptions; see the financial-impact interpretation note below.</li>
 </ul>
 </section>
 <section id="introduction" class="level2">

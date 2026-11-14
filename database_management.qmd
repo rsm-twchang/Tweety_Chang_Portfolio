@@ -12,9 +12,10 @@ callout-appearance: minimal
 ::: {.biz-value}
 ### Reconciliation Workflow
 
-- **Scope:** Combined 400K+ source records across CSV, XML, PostgreSQL, and Snowflake Marketplace. The reconciliation table covered approximately 2,100 purchase orders.
-- **Output:** Calculated quoted-versus-invoiced differences by purchase order for exception review.
-- **Finding:** No measurable temperature relationship was observed in the matched sample. This does not rule out every possible weather effect.
+- **Question:** How can quoted and invoiced amounts be compared across disconnected operational sources?
+- **Analysis:** Led a five-person team combining CSV orders, XML invoices, PostgreSQL supplier data, and NOAA weather data in Snowflake. Aggregated PO and invoice totals, then joined on PO and supplier IDs.
+- **Result:** Consolidated 400K+ source records and produced a reconciliation table covering approximately 2,100 purchase orders, with quoted-minus-invoiced differences for exception review.
+- **Scope:** Weather enrichment produced approximately 1,300 matched records. No measurable temperature relationship was observed in that subset; it does not describe every order or rule out all weather effects.
 :::
 
 

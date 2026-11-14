@@ -247,8 +247,10 @@ window.Quarto = {
 <section id="simulation-results" class="level3 biz-value">
 <h3 class="anchored" data-anchor-id="simulation-results">Simulation Results</h3>
 <ul>
-<li><strong>Scope:</strong> Simulated subscription choices were used to compare maximum likelihood and Bayesian MCMC estimators. These are not observed consumer preferences.</li>
-<li><strong>Finding:</strong> Both estimators recovered similar brand, advertising, and price parameters. Agreement checks implementation on this simulation; it does not validate a real-world pricing decision.</li>
+<li><strong>Question:</strong> Can maximum likelihood and Bayesian estimation recover known subscription preferences from simulated choices?</li>
+<li><strong>Analysis:</strong> Simulated 100 respondents completing 10 choice tasks each, with three alternatives per task. Fit a multinomial logit model with MLE and Metropolis–Hastings MCMC.</li>
+<li><strong>Result:</strong> The final comparison reports price coefficients of −0.0995 (MLE) and −0.0997 (MCMC), close to the simulation input of −0.1000.</li>
+<li><strong>Scope:</strong> There are 1,000 simulated choices and 3,000 alternative rows. Estimator agreement checks this simulation; it does not validate real consumer demand or a live pricing policy.</li>
 </ul>
 </section>
 <p>This project explores two methods for estimating the MNL model: (1) via Maximum Likelihood, and (2) via a Bayesian approach using a Metropolis-Hastings MCMC algorithm.</p>
