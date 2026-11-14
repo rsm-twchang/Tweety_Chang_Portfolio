@@ -85,6 +85,6 @@ Keep customer features, model scores, and mailing decisions in separate outputs.
 
 ## Website structure
 
-Each case study uses the same six content fields: title, business question, analytical approach, technologies, one or two numeric results, and a purposeful figure. All eight cases have a descriptive Explore Project link; HP points to the sanitized public summary.
+The homepage follows the four featured project designs from PR #21: HP, fraud, campaign targeting, and PO–invoice reconciliation. The additional-project list is omitted from the homepage. All standalone case pages remain available. Content improvements belong inside the Explore Project case pages: business question, analytical approach, measured result, and interpretation limits. Existing case-page plots, code, headings, and TOC anchors are preserved.
 
-The site remains buildless HTML/CSS/JS. Purpose-built SVG graphics use accessible titles/descriptions, direct value labels, and explicit scales; the pricing graphic compares recovered coefficients. The patent graphic exponentiates the published coefficient interval (0.1470–0.2681) to show an approximate 95% incidence-rate-ratio interval of 1.16–1.31. No charting dependency, canvas-only text, new profile widget, or invented business outcome was added. The homepage and `docs/` mirrors must stay synchronized for GitHub Pages.
+The site remains buildless HTML/CSS/JS. Keep homepage assets and their `docs/` mirrors synchronized; edit both Quarto source and rendered case-page summaries when the source datasets cannot be re-executed.

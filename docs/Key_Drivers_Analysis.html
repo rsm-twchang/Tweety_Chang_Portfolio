@@ -179,8 +179,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="model-tradeoff" class="level3 biz-value">
 <h3 class="anchored" data-anchor-id="model-tradeoff">Model Tradeoff</h3>
 <ul>
-<li><strong>Finding:</strong> K-Means was implemented from scratch and compared with scikit-learn. Silhouette favored k = 2 (0.612) over k = 3 (0.456).</li>
-<li><strong>Judgment:</strong> The three-cluster interpretation considered the WCSS curve and known species structure. Species labels were excluded from fitting features but informed the choice of k, so this is not a fully label-independent selection.</li>
+<li><strong>Question:</strong> How should cluster separation and interpretability influence the choice of k?</li>
+<li><strong>Analysis:</strong> Implemented K-Means from scratch and compared it with scikit-learn using bill and flipper measurements. Evaluated k = 2–7 with WCSS and silhouette scores.</li>
+<li><strong>Result:</strong> Silhouette favored k = 2 (0.612) over k = 3 (0.456). The custom and library implementations produced similar broad structure, with different centroid locations.</li>
+<li><strong>Judgment:</strong> The three-cluster choice considered the WCSS curve and known species structure. Species labels were excluded from fitting but influenced k selection; the choice was not fully label-independent.</li>
 </ul>
 </section>
 <section id="introduction" class="level2">

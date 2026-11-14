@@ -181,10 +181,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="decision-evidence" class="level3 biz-value">
 <h3 class="anchored" data-anchor-id="decision-evidence">Decision &amp; Evidence</h3>
 <ul>
-<li><strong>Outcome:</strong> The recommended targeting rule yields a projected profit of <strong>$1.23M</strong> with <strong>ROME of 3.63</strong>, beating a mail-to-all approach ($1.17M) and every logistic baseline tested.</li>
-<li><strong>Decision rule:</strong> Customers are contacted only when expected response clears the <strong>break-even rate (2.35%)</strong>, so each dollar of spend has to earn its cost, the same expected-value logic used in credit approval and pricing.</li>
-<li><strong>Conservative assumptions:</strong> Wave-2 response was haircut to <strong>50% of wave-1</strong>, and the anomalous ZIP segment was isolated so one region could not distort the full portfolio.</li>
-<li><strong>Monitoring:</strong> The model is meant for ranking and cutoff selection, with recalibration once wave-2 results arrive.</li>
+<li><strong>Question:</strong> Which customers should receive a second-wave upgrade offer to improve expected campaign profit?</li>
+<li><strong>Analysis:</strong> Compared logistic regression and neural networks on 75,000 customer records, then translated response scores into a break-even mailing rule.</li>
+<li><strong>Projected result:</strong> The recommended policy produced $1,225,587.45 in projected profit versus $1,168,918.80 for mail-to-all: a difference of $56,668.65, or about 4.85%.</li>
+<li><strong>Decision rule:</strong> Mail when 0.5 × predicted wave-one response is at least 2.35%. Results depend on the assumed 50% wave-two response adjustment and case economics; they are projections, not realized profit.</li>
 </ul>
 </section>
 <section id="introduction" class="level2">

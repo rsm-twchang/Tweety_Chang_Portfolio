@@ -12,9 +12,10 @@ callout-appearance: minimal
 ::: {.biz-value}
 ### Decision & Evidence
 
-- **Outcome:** At a 4% review cutoff, the model flags **62% of fraudulent transactions** while keeping the false-positive rate at **1.66%**, for an estimated **$40.5M in annual net savings** (assumptions below).
-- **Risk-appetite decision:** The cutoff was set on net financial impact, weighing fraud losses avoided against review cost and customer friction, rather than on model accuracy alone.
-- **Model risk control:** Performance was tested on an **out-of-time** sample to check stability under drift, and a shallow, deterministic LightGBM was chosen for stable, explainable feature rankings.
+- **Question:** How much fraud can be captured within a constrained review workload?
+- **Analysis:** Cleaned transaction data, engineered 3,379 behavioral features, and compared models including LightGBM with an out-of-time sample. Evaluated review cutoffs using fraud capture and false-positive costs.
+- **Result:** At the recommended 4% review cutoff, the reported fraud capture rate was 62% and the false-positive rate was 1.658%.
+- **Decision limits:** The 4% cutoff is a review-volume trade-off, not the highest-profit cutoff in the source table. Annual savings depend on unresolved time/population scaling assumptions; see the financial-impact interpretation note below.
 :::
 
 

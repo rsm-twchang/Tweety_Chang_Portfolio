@@ -16,8 +16,10 @@ link-citations: true
 ::: {.biz-value}
 ### Test Results
 
-- **Finding:** A matching offer raised response by 0.42 percentage points (about 22% relative, p = 0.002) in this replication.
-- **Decision:** Higher match ratios showed no statistically significant additional lift. This does not establish equivalence or rule out a worthwhile effect; compare uncertainty and incentive cost before choosing a ratio.
+- **Question:** Does a matching-gift offer increase donor response, and do larger matches add more?
+- **Analysis:** Replicated an existing randomized field experiment using treatment/control comparisons, balance checks, linear regression, and probit. Match-ratio comparisons use the matching group only.
+- **Finding:** The matching offer increased response by 0.42 percentage points (about 22% relative; p = 0.002). The probit estimate was similar at 0.43 percentage points.
+- **Decision:** Larger match ratios showed no statistically significant additional lift in this sample. This is not proof of equivalence; compare confidence intervals and incentive costs before choosing a ratio.
 :::
 
 

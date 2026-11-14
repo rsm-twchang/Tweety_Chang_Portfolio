@@ -12,8 +12,10 @@ callout-appearance: minimal
 ::: {.biz-value}
 ### Model Tradeoff
 
-- **Finding:** K-Means was implemented from scratch and compared with scikit-learn. Silhouette favored k = 2 (0.612) over k = 3 (0.456).
-- **Judgment:** The three-cluster interpretation considered the WCSS curve and known species structure. Species labels were excluded from fitting features but informed the choice of k, so this is not a fully label-independent selection.
+- **Question:** How should cluster separation and interpretability influence the choice of k?
+- **Analysis:** Implemented K-Means from scratch and compared it with scikit-learn using bill and flipper measurements. Evaluated k = 2–7 with WCSS and silhouette scores.
+- **Result:** Silhouette favored k = 2 (0.612) over k = 3 (0.456). The custom and library implementations produced similar broad structure, with different centroid locations.
+- **Judgment:** The three-cluster choice considered the WCSS curve and known species structure. Species labels were excluded from fitting but influenced k selection; the choice was not fully label-independent.
 :::
 
 

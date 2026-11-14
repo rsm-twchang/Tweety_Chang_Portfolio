@@ -213,8 +213,10 @@ window.Quarto = {
 <section id="adjusted-association" class="level3 biz-value">
 <h3 class="anchored" data-anchor-id="adjusted-association">Adjusted Association</h3>
 <ul>
-<li><strong>Finding:</strong> Software customers had about 23% higher expected patent counts after controlling for firm age and region.</li>
-<li><strong>Limit:</strong> This observational association does not establish that the software caused higher patent output. Selection and unmeasured differences may remain.</li>
+<li><strong>Question:</strong> Are software customers associated with higher patent counts after accounting for firm age and region?</li>
+<li><strong>Analysis:</strong> Implemented the Poisson likelihood and estimated count models with customer status, firm age, age-squared, and region controls.</li>
+<li><strong>Finding:</strong> The customer coefficient was 0.2076 (p &lt; 0.001), implying about 23% higher expected patent counts: exp(0.2076) ≈ 1.23.</li>
+<li><strong>Interpretation:</strong> This is an adjusted association from observational data. It does not establish that software adoption causes more patents.</li>
 </ul>
 </section>
 <section id="introduction" class="level2">

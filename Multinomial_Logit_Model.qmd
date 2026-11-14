@@ -12,8 +12,10 @@ callout-appearance: minimal
 ::: {.biz-value}
 ### Simulation Results
 
-- **Scope:** Simulated subscription choices were used to compare maximum likelihood and Bayesian MCMC estimators. These are not observed consumer preferences.
-- **Finding:** Both estimators recovered similar brand, advertising, and price parameters. Agreement checks implementation on this simulation; it does not validate a real-world pricing decision.
+- **Question:** Can maximum likelihood and Bayesian estimation recover known subscription preferences from simulated choices?
+- **Analysis:** Simulated 100 respondents completing 10 choice tasks each, with three alternatives per task. Fit a multinomial logit model with MLE and Metropolis–Hastings MCMC.
+- **Result:** The final comparison reports price coefficients of −0.0995 (MLE) and −0.0997 (MCMC), close to the simulation input of −0.1000.
+- **Scope:** There are 1,000 simulated choices and 3,000 alternative rows. Estimator agreement checks this simulation; it does not validate real consumer demand or a live pricing policy.
 :::
 
 
