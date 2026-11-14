@@ -161,13 +161,13 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
-  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a></li>
-  <li><a href="#poisson-model-specification-and-estimation" id="toc-poisson-model-specification-and-estimation" class="nav-link" data-scroll-target="#poisson-model-specification-and-estimation">Poisson Model Specification and Estimation</a></li>
-  <li><a href="#poisson-regression-model" id="toc-poisson-regression-model" class="nav-link" data-scroll-target="#poisson-regression-model">Poisson Regression Model</a></li>
-  <li><a href="#model-implications" id="toc-model-implications" class="nav-link" data-scroll-target="#model-implications">Model Implications</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#the-question" id="toc-the-question" class="nav-link active" data-scroll-target="#the-question">The Question</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#a-baseline-poisson-model" id="toc-a-baseline-poisson-model" class="nav-link" data-scroll-target="#a-baseline-poisson-model">A Baseline Poisson Model</a></li>
+  <li><a href="#poisson-regression" id="toc-poisson-regression" class="nav-link" data-scroll-target="#poisson-regression">Poisson Regression</a></li>
+  <li><a href="#robustness" id="toc-robustness" class="nav-link" data-scroll-target="#robustness">Robustness</a></li>
+  <li><a href="#what-it-means" id="toc-what-it-means" class="nav-link" data-scroll-target="#what-it-means">What It Means</a></li>
+  <li><a href="#limitations-and-next-steps" id="toc-limitations-and-next-steps" class="nav-link" data-scroll-target="#limitations-and-next-steps">Limitations and Next Steps</a></li>
   </ul>
 </nav>
     </div>
@@ -213,25 +213,19 @@ window.Quarto = {
 <section id="adjusted-association" class="level3 biz-value">
 <h3 class="anchored" data-anchor-id="adjusted-association">Adjusted Association</h3>
 <ul>
-<li><strong>Question:</strong> Are software customers associated with higher patent counts after accounting for firm age and region?</li>
-<li><strong>Analysis:</strong> Implemented the Poisson likelihood and estimated count models with customer status, firm age, age-squared, and region controls.</li>
-<li><strong>Finding:</strong> The customer coefficient was 0.2076 (p &lt; 0.001), implying about 23% higher expected patent counts: exp(0.2076) ≈ 1.23.</li>
-<li><strong>Interpretation:</strong> This is an adjusted association from observational data. It does not establish that software adoption causes more patents.</li>
+<li><strong>Question:</strong> Do engineering firms that use Blueprinty’s software earn more patents, once firm age and region are taken into account?</li>
+<li><strong>Approach:</strong> Derived the Poisson likelihood, maximized it by hand, and confirmed the result against statsmodels. Then tested the finding under overdispersion with robust standard errors and a negative binomial model.</li>
+<li><strong>Finding:</strong> Customers have about <strong>23% more expected patents</strong> (incidence rate ratio 1.23, 95% CI 1.15–1.32 across all three specifications), or about <strong>0.8 more patents per firm</strong> over five years.</li>
+<li><strong>Caveat:</strong> Customers were not randomly assigned, so this is an adjusted association, not proof that the software causes more patents.</li>
 </ul>
 </section>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p><a href="https://cedreo.com/floor-plans/blueprint-maker/?utm_source=google&amp;utm_medium=ppc&amp;utm_campaign=ur_g_s_us_nb_floorplan&amp;utm_content=blueprint_maker&amp;utm_term=blueprint%20software&amp;hsa_cam=14665050709&amp;hsa_grp=139247217835&amp;hsa_src=g&amp;hsa_acc=6133015900&amp;hsa_ver=3&amp;hsa_ad=608477980296&amp;hsa_tgt=kwd-510681492&amp;hsa_kw=blueprint%20software&amp;hsa_mt=e&amp;hsa_net=adwords&amp;gad_source=1&amp;gad_campaignid=14665050709&amp;gbraid=0AAAAADDYjZHKIFo4OUxk1pYoWm-0VeD_s&amp;gclid=Cj0KCQiA7rDMBhCjARIsAGDBuEAKQsXUPEdiVMgsJIRjOqUONUA1ywGjZu_IEoYDQ6wlEgoxkeuFLx0aAkS4EALw_wcB">Blueprinty</a> is a small firm that develops blueprint software for patent applications submitted to the U.S. Patent Office. Its marketing team wants to show that firms using the software are more successful in obtaining patent approvals. Ideally, this would be evaluated using approval rates before and after adoption, but such data are unavailable.</p>
-<p>Instead, Blueprinty has data on 1,500 mature engineering firms, including the number of patents awarded over the past five years, region, firm age, and software usage. The goal is to assess whether software users receive more patents than non-users.</p>
-<hr>
+<section id="the-question" class="level2">
+<h2 class="anchored" data-anchor-id="the-question">The Question</h2>
+<p>Blueprinty, a fictional company in this case study, sells software that helps firms prepare patent applications. Its marketing team wants evidence that customers are more successful at getting patents. Approval rates before and after adoption are not available. What is available is a cross-section of 1,500 mature engineering firms: patents awarded over the last five years, region, firm age, and whether the firm uses Blueprinty.</p>
+<p>The analysis asks whether customers earn more patents after accounting for age and region, and how confident that conclusion can be.</p>
 </section>
-<section id="objective" class="level2">
-<h2 class="anchored" data-anchor-id="objective">Objective</h2>
-<p>The objective of this project is to assess whether engineering firms that use Blueprinty’s software produce more patents than firms that do not, after accounting for firm age and regional location. The analysis aims to test whether the available data support Blueprinty’s claim that its software is associated with stronger patent performance.</p>
-<hr>
-</section>
-<section id="data-description" class="level2">
-<h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -262,55 +256,30 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>region</code></td>
-<td style="text-align: left;">Firm geographic region (categorical: Midwest, Southwest, Northwest, Northeast, etc.)</td>
+<td style="text-align: left;">Midwest, Northeast, Northwest, South, or Southwest</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>age</code></td>
-<td style="text-align: left;">Years since incorporation (continuous)</td>
+<td style="text-align: left;">Years since incorporation</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><code>iscustomer</code></td>
-<td style="text-align: left;">Blueprinty software user indicator (1 = customer, 0 = non-customer)</td>
+<td style="text-align: left;">1 = Blueprinty customer, 0 = non-customer</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
-<section id="descriptive-comparison-patents-by-customer-status" class="level3">
-<h3 class="anchored" data-anchor-id="descriptive-comparison-patents-by-customer-status">Descriptive comparison: patents by customer status</h3>
+<p>Customers average <strong>4.13</strong> patents over five years versus <strong>3.47</strong> for non-customers. That raw gap cannot be taken at face value, because customers differ from non-customers in ways that may also affect patenting.</p>
+<p><strong>Figure 1. Distribution of patent counts by Blueprinty usage</strong> <img src="figures/fig1_blueprinty_patent_hist.png" id="fig-blueprinty-hist" class="img-fluid" alt="Distribution of patent counts by Blueprinty usage"></p>
+<p>Patent counts are right-skewed, as count data usually are, and customers sit modestly further right.</p>
+<p><strong>Firm age by customer status</strong></p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: right;">Customer status</th>
-<th>Group</th>
-<th style="text-align: right;">Mean patents (5 years)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">0</td>
-<td>Non-customer</td>
-<td style="text-align: right;">3.473</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">1</td>
-<td>Customer</td>
-<td style="text-align: right;">4.133</td>
-</tr>
-</tbody>
-</table>
-<p>Blueprinty customers have a higher average number of patents awarded over the past five years (4.133) than non-customers (3.473). This difference is descriptive and does not account for other factors such as firm age or region, which are addressed in the regression analysis.</p>
-<p><strong>Figure 1. Distribution of Patent Counts by Blueprinty Usage</strong><br>
-<img src="figures/fig1_blueprinty_patent_hist.png" id="fig-blueprinty-hist" class="img-fluid" alt="Figure 1. Distribution of Patent Counts by Blueprinty Usage"></p>
-<p>The histogram shows a right-skewed distribution of patent counts, which is typical for count outcomes. Firms using Blueprinty’s software show a modest rightward shift, suggesting higher patent counts are somewhat more common among customers.</p>
-<p>Descriptively, Blueprinty customers average 4.133 patents over five years versus 3.473 for non-customers. This comparison is correlational: customers are not randomly selected, and differences in firm age or region may explain part of the gap. The regression analysis tests whether the association remains after controlling for these factors.</p>
-<p><strong>Firm age by Blueprinty customer status</strong></p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: right;">iscustomer</th>
-<th style="text-align: right;">N</th>
+<th style="text-align: right;">Customer</th>
+<th style="text-align: right;">Firms</th>
 <th style="text-align: right;">Mean age</th>
 <th style="text-align: right;">Median age</th>
 <th style="text-align: right;">SD</th>
@@ -318,14 +287,14 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1019</td>
+<td style="text-align: right;">No</td>
+<td style="text-align: right;">1,019</td>
 <td style="text-align: right;">26.10</td>
 <td style="text-align: right;">25.50</td>
 <td style="text-align: right;">6.95</td>
 </tr>
 <tr class="even">
-<td style="text-align: right;">1</td>
+<td style="text-align: right;">Yes</td>
 <td style="text-align: right;">481</td>
 <td style="text-align: right;">26.90</td>
 <td style="text-align: right;">26.50</td>
@@ -333,14 +302,13 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>Customer and non-customer firms have similar age distributions: customers are slightly older on average (26.90 vs 26.10 years) and have a slightly higher median age (26.5 vs 25.5). Age is therefore included as a control in the regression.</p>
-<p><strong>Region by Blueprinty customer status (counts)</strong></p>
+<p><strong>Region by customer status</strong></p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Region</th>
-<th style="text-align: right;">Non-customer (0)</th>
-<th style="text-align: right;">Customer (1)</th>
+<th style="text-align: right;">Non-customers</th>
+<th style="text-align: right;">Customers</th>
 <th style="text-align: right;">Total</th>
 </tr>
 </thead>
@@ -377,249 +345,255 @@ window.Quarto = {
 </tr>
 <tr class="even">
 <td>Total</td>
-<td style="text-align: right;">1019</td>
+<td style="text-align: right;">1,019</td>
 <td style="text-align: right;">481</td>
-<td style="text-align: right;">1500</td>
+<td style="text-align: right;">1,500</td>
 </tr>
 </tbody>
 </table>
-<p>Customer status varies by region, with a large share of customers located in the Northeast. Because region is related to adoption, it is controlled for in the regression to reduce confounding.</p>
-<hr>
+<p>Age is similar across groups, but region is not: <strong>68% of customers are in the Northeast</strong>, where most non-customers are not. Both variables are therefore controlled for in the model.</p>
 </section>
+<section id="a-baseline-poisson-model" class="level2">
+<h2 class="anchored" data-anchor-id="a-baseline-poisson-model">A Baseline Poisson Model</h2>
+<p>Because patents are non-negative counts, the natural starting point is <span class="math inline">\(Y_i \sim \text{Poisson}(\lambda)\)</span>. For <span class="math inline">\(n\)</span> independent firms the log-likelihood is</p>
+<p><span class="math display">\[
+\ell(\lambda) = -n\lambda + \left(\sum_{i=1}^n y_i\right)\log\lambda - \sum_{i=1}^n \log(y_i!).
+\]</span></p>
+<p>Setting the derivative <span class="math inline">\(-n + \sum y_i / \lambda\)</span> to zero gives <span class="math inline">\(\hat\lambda = \bar y\)</span>. Numerically maximizing the likelihood confirms it: <span class="math inline">\(\hat\lambda = 3.6847 = \bar y\)</span>.</p>
+<p><strong>Figure 2. Poisson log-likelihood across values of λ</strong> <img src="figures/fig2_poisson_loglik_vs_lambda.png" id="fig-poisson-loglik" class="img-fluid" alt="Poisson log-likelihood across values of lambda"></p>
 </section>
-<section id="poisson-model-specification-and-estimation" class="level2">
-<h2 class="anchored" data-anchor-id="poisson-model-specification-and-estimation">Poisson Model Specification and Estimation</h2>
-<p>We model the number of patents awarded to each firm over a fixed five-year period. Because <strong>patents</strong> is a nonnegative count outcome, a Poisson model provides a natural starting point.</p>
-<p>Let (Y_i) denote the number of patents awarded to firm (i) in the last five years. We assume:</p>
-<p>[ Y_i () ]</p>
-<p>where () is the expected number of patents per firm over the five-year window.</p>
-<p>For a sample of (n) independent firms with observed counts (y_1, y_2, , y_n), the log-likelihood function is:</p>
-<p>[ (y_1,,y_n) = -n+ (<em>{i=1}^n y_i)() - </em>{i=1}^n (y_i!) ]</p>
-<p>We estimate () using maximum likelihood (MLE). This baseline model provides a benchmark before adding firm characteristics (e.g., Blueprinty usage, firm age, and region) in a regression framework.</p>
-<section id="poisson-log-likelihood-and-the-mle" class="level3">
-<h3 class="anchored" data-anchor-id="poisson-log-likelihood-and-the-mle">Poisson log-likelihood and the MLE</h3>
-<p><strong>Figure 2. Poisson Log-Likelihood vs.&nbsp;Lambda</strong><br>
-<img src="figures/fig2_poisson_loglik_vs_lambda.png" id="fig-poisson-loglik" class="img-fluid" alt="Figure 2. Poisson Log-Likelihood vs.&nbsp;Lambda"></p>
-<p>This figure shows the Poisson log-likelihood as a function of <span class="math inline">\(\lambda\)</span> for the observed patent counts. The log-likelihood is maximized at the sample mean, so the Poisson MLE is:</p>
+<section id="poisson-regression" class="level2">
+<h2 class="anchored" data-anchor-id="poisson-regression">Poisson Regression</h2>
+<p>To compare firms on equal terms, each firm gets its own rate:</p>
 <p><span class="math display">\[
-\hat{\lambda} = \bar{Y}.
+Y_i \sim \text{Poisson}(\lambda_i), \qquad \log \lambda_i = X_i^\top \beta,
 \]</span></p>
-<p>For independent observations <span class="math inline">\(y_1,\ldots,y_n\)</span>, the Poisson log-likelihood is:</p>
-<p><span class="math display">\[
-\ell(\lambda)
-= -n\lambda
-+ \left(\sum_{i=1}^n y_i\right)\log(\lambda)
-- \sum_{i=1}^n \log(y_i!).
-\]</span></p>
-<p>Differentiating and setting the derivative to zero gives:</p>
-<p><span class="math display">\[
-\frac{\partial \ell}{\partial \lambda}
-= -n + \frac{\sum_{i=1}^n y_i}{\lambda} = 0
-\quad \Rightarrow \quad
-\hat{\lambda} = \frac{1}{n}\sum_{i=1}^n y_i = \bar{y}.
-\]</span></p>
-<p>In this dataset, <span class="math inline">\(\hat{\lambda}=3.6847\)</span>, matching <span class="math inline">\(\bar{y}=3.6847\)</span> up to rounding.</p>
-<hr>
-</section>
-</section>
-<section id="poisson-regression-model" class="level2">
-<h2 class="anchored" data-anchor-id="poisson-regression-model">Poisson Regression Model</h2>
-<p>Next, we model five-year patent counts using a Poisson regression. Let <span class="math inline">\(Y_i\)</span> be the number of patents awarded to firm <span class="math inline">\(i\)</span> over the last five years:</p>
-<p><span class="math display">\[
-Y_i \sim \text{Poisson}(\lambda_i), \qquad \log(\lambda_i) = X_i^\top \beta,
-\]</span></p>
-<p>equivalently <span class="math inline">\(\lambda_i = \exp(X_i^\top \beta)\)</span>. The covariate vector <span class="math inline">\(X_i\)</span> includes firm age, age squared, region indicators, and Blueprinty usage (<code>iscustomer</code>).</p>
-<p><strong>Poisson regression (GLM) results</strong></p>
-<table class="caption-top table">
+<p>where <span class="math inline">\(X_i\)</span> contains customer status, age, age squared, and region indicators (Midwest as the reference).</p>
+<p><strong>Checking the hand-written likelihood.</strong> Maximizing the custom log-likelihood with BFGS reproduces the statsmodels GLM estimates to four decimal places, which confirms the implementation. Age is centered here to keep the optimization well-conditioned.</p>
+<div id="d43ff2df" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
-<th>Variable</th>
-<th style="text-align: right;">Coefficient</th>
-<th style="text-align: right;">Std. Error</th>
-<th style="text-align: right;">z</th>
-<th style="text-align: right;">p-value</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Hand-written MLE</th>
+<th data-quarto-table-cell-role="th">statsmodels GLM</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Intercept</td>
-<td style="text-align: right;">1.3447</td>
-<td style="text-align: right;">0.038</td>
-<td style="text-align: right;">35.059</td>
-<td style="text-align: right;">&lt;0.001</td>
+<th data-quarto-table-cell-role="th">const</th>
+<td>1.3447</td>
+<td>1.3447</td>
 </tr>
 <tr class="even">
-<td>Northeast (vs Midwest)</td>
-<td style="text-align: right;">0.0292</td>
-<td style="text-align: right;">0.044</td>
-<td style="text-align: right;">0.669</td>
-<td style="text-align: right;">0.504</td>
+<th data-quarto-table-cell-role="th">age_c</th>
+<td>-0.0080</td>
+<td>-0.0080</td>
 </tr>
 <tr class="odd">
-<td>Northwest (vs Midwest)</td>
-<td style="text-align: right;">-0.0176</td>
-<td style="text-align: right;">0.054</td>
-<td style="text-align: right;">-0.327</td>
-<td style="text-align: right;">0.744</td>
+<th data-quarto-table-cell-role="th">age_c2</th>
+<td>-0.0030</td>
+<td>-0.0030</td>
 </tr>
 <tr class="even">
-<td>South (vs Midwest)</td>
-<td style="text-align: right;">0.0566</td>
-<td style="text-align: right;">0.053</td>
-<td style="text-align: right;">1.074</td>
-<td style="text-align: right;">0.283</td>
+<th data-quarto-table-cell-role="th">iscustomer</th>
+<td>0.2076</td>
+<td>0.2076</td>
 </tr>
 <tr class="odd">
-<td>Southwest (vs Midwest)</td>
-<td style="text-align: right;">0.0506</td>
-<td style="text-align: right;">0.047</td>
-<td style="text-align: right;">1.072</td>
-<td style="text-align: right;">0.284</td>
+<th data-quarto-table-cell-role="th">region_Northeast</th>
+<td>0.0292</td>
+<td>0.0292</td>
 </tr>
 <tr class="even">
-<td>Blueprinty customer (<code>iscustomer</code>)</td>
-<td style="text-align: right;">0.2076</td>
-<td style="text-align: right;">0.031</td>
-<td style="text-align: right;">6.719</td>
-<td style="text-align: right;">&lt;0.001</td>
+<th data-quarto-table-cell-role="th">region_Northwest</th>
+<td>-0.0176</td>
+<td>-0.0176</td>
 </tr>
 <tr class="odd">
-<td>Age (centered) <code>age_c</code></td>
-<td style="text-align: right;">-0.0080</td>
-<td style="text-align: right;">0.002</td>
-<td style="text-align: right;">-3.843</td>
-<td style="text-align: right;">&lt;0.001</td>
+<th data-quarto-table-cell-role="th">region_South</th>
+<td>0.0566</td>
+<td>0.0566</td>
 </tr>
 <tr class="even">
-<td>Age(^2) (centered) <code>age_c2</code></td>
-<td style="text-align: right;">-0.0030</td>
-<td style="text-align: right;">0.000</td>
-<td style="text-align: right;">-11.513</td>
-<td style="text-align: right;">&lt;0.001</td>
+<th data-quarto-table-cell-role="th">region_Southwest</th>
+<td>0.0506</td>
+<td>0.0506</td>
 </tr>
 </tbody>
 </table>
-<p><em>Notes:</em> Reference region is <strong>Midwest</strong>. Age is centered at the sample mean; <code>age_c2 = age_c^2</code>.</p>
-<p>Holding firm age and region constant, Blueprinty customers have higher expected patent counts. The coefficient on <code>iscustomer</code> is 0.2076 (p &lt; 0.001), implying an expected increase of about (e^{0.2076}-1 %) in patents for customers relative to non-customers.</p>
-<p>Age shows a concave pattern: the negative linear and squared centered terms indicate that expected patent output declines with age and falls faster at higher ages (relative to the sample mean). Regional indicators are not statistically significant, suggesting no meaningful regional differences once firm characteristics are controlled for.</p>
-<p><strong>Figure 3. Poisson Regression Coefficients (95% CI)</strong><br>
-<img src="figures/fig3_poisson_coef_plot.png" id="fig-poisson-coefs" class="img-fluid" alt="Figure 3. Poisson Regression Coefficients (95% CI)"></p>
-<p>The figure shows Poisson regression coefficient estimates with 95% confidence intervals (dashed line at 0 indicates “no effect” on the log scale). The <code>iscustomer</code> estimate is positive and its confidence interval does not cross zero, indicating a statistically significant association between Blueprinty usage and higher expected patent counts. Regional coefficients cluster near zero and their intervals overlap zero, suggesting no meaningful regional differences after controlling for other variables. The negative squared-age term indicates a concave relationship between age and patent output: patenting increases with age but at a diminishing rate.</p>
-<section id="poisson-regression-results" class="level3">
-<h3 class="anchored" data-anchor-id="poisson-regression-results">Poisson Regression Results</h3>
+
+</div>
+</div>
+</div>
+<p><strong>Results (uncentered age)</strong></p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 10%">
-<col style="width: 16%">
+<col style="width: 12%">
 <col style="width: 20%">
-<col style="width: 15%">
-<col style="width: 15%">
-<col style="width: 10%">
-<col style="width: 11%">
+<col style="width: 25%">
+<col style="width: 6%">
+<col style="width: 18%">
+<col style="width: 16%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Term</th>
 <th style="text-align: right;">Estimate</th>
 <th style="text-align: right;">Std. Error</th>
-<th style="text-align: right;">z value</th>
+<th style="text-align: right;">z</th>
 <th style="text-align: right;">p-value</th>
-<th style="text-align: right;">2.5%</th>
-<th style="text-align: right;">97.5%</th>
+<th style="text-align: center;">95% CI</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>const</td>
-<td style="text-align: right;">-0.5089</td>
+<td>Intercept</td>
+<td style="text-align: right;">−0.5089</td>
 <td style="text-align: right;">0.1832</td>
-<td style="text-align: right;">-2.7783</td>
-<td style="text-align: right;">0.0055</td>
-<td style="text-align: right;">-0.8679</td>
-<td style="text-align: right;">-0.1499</td>
+<td style="text-align: right;">−2.78</td>
+<td style="text-align: right;">0.006</td>
+<td style="text-align: center;">−0.868 to −0.150</td>
 </tr>
 <tr class="even">
 <td>age</td>
 <td style="text-align: right;">0.1486</td>
 <td style="text-align: right;">0.0139</td>
-<td style="text-align: right;">10.7162</td>
+<td style="text-align: right;">10.72</td>
 <td style="text-align: right;">&lt;0.001</td>
-<td style="text-align: right;">0.1214</td>
-<td style="text-align: right;">0.1758</td>
+<td style="text-align: center;">0.121 to 0.176</td>
 </tr>
 <tr class="odd">
-<td>age_squared</td>
-<td style="text-align: right;">-0.0030</td>
+<td>age²</td>
+<td style="text-align: right;">−0.0030</td>
 <td style="text-align: right;">0.0003</td>
-<td style="text-align: right;">-11.5132</td>
+<td style="text-align: right;">−11.51</td>
 <td style="text-align: right;">&lt;0.001</td>
-<td style="text-align: right;">-0.0035</td>
-<td style="text-align: right;">-0.0025</td>
+<td style="text-align: center;">−0.0035 to −0.0025</td>
 </tr>
 <tr class="even">
-<td>iscustomer</td>
-<td style="text-align: right;">0.2076</td>
+<td><strong>iscustomer</strong></td>
+<td style="text-align: right;"><strong>0.2076</strong></td>
 <td style="text-align: right;">0.0309</td>
-<td style="text-align: right;">6.7192</td>
+<td style="text-align: right;">6.72</td>
 <td style="text-align: right;">&lt;0.001</td>
-<td style="text-align: right;">0.1470</td>
-<td style="text-align: right;">0.2681</td>
+<td style="text-align: center;">0.147 to 0.268</td>
 </tr>
 <tr class="odd">
-<td>region_Northeast</td>
+<td>Northeast</td>
 <td style="text-align: right;">0.0292</td>
 <td style="text-align: right;">0.0436</td>
-<td style="text-align: right;">0.6686</td>
-<td style="text-align: right;">0.5037</td>
-<td style="text-align: right;">-0.0563</td>
-<td style="text-align: right;">0.1147</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">0.504</td>
+<td style="text-align: center;">−0.056 to 0.115</td>
 </tr>
 <tr class="even">
-<td>region_Northwest</td>
-<td style="text-align: right;">-0.0176</td>
+<td>Northwest</td>
+<td style="text-align: right;">−0.0176</td>
 <td style="text-align: right;">0.0538</td>
-<td style="text-align: right;">-0.3268</td>
-<td style="text-align: right;">0.7438</td>
-<td style="text-align: right;">-0.1230</td>
-<td style="text-align: right;">0.0878</td>
+<td style="text-align: right;">−0.33</td>
+<td style="text-align: right;">0.744</td>
+<td style="text-align: center;">−0.123 to 0.088</td>
 </tr>
 <tr class="odd">
-<td>region_South</td>
+<td>South</td>
 <td style="text-align: right;">0.0566</td>
 <td style="text-align: right;">0.0527</td>
-<td style="text-align: right;">1.0740</td>
-<td style="text-align: right;">0.2828</td>
-<td style="text-align: right;">-0.0467</td>
-<td style="text-align: right;">0.1598</td>
+<td style="text-align: right;">1.07</td>
+<td style="text-align: right;">0.283</td>
+<td style="text-align: center;">−0.047 to 0.160</td>
 </tr>
 <tr class="even">
-<td>region_Southwest</td>
+<td>Southwest</td>
 <td style="text-align: right;">0.0506</td>
 <td style="text-align: right;">0.0472</td>
-<td style="text-align: right;">1.0716</td>
-<td style="text-align: right;">0.2839</td>
-<td style="text-align: right;">-0.0419</td>
-<td style="text-align: right;">0.1431</td>
+<td style="text-align: right;">1.07</td>
+<td style="text-align: right;">0.284</td>
+<td style="text-align: center;">−0.042 to 0.143</td>
 </tr>
 </tbody>
 </table>
-<p><em>Note:</em> Coefficients are on the log scale. Exponentiating a coefficient gives the incidence rate ratio (IRR).</p>
-<p>The coefficient plot shows each coefficient estimate with its 95% confidence interval. The dashed vertical line at 0 represents no association on the log scale. Coefficients whose intervals do not cross 0 are statistically distinguishable from 0 at the 5% level.</p>
-<p>The <code>iscustomer</code> effect is clearly positive and statistically significant, indicating higher expected patent counts for Blueprinty customers after controlling for age and region. Regional effects are small and not statistically significant. The positive <code>age</code> term and negative <code>age_squared</code> term indicate a concave relationship: expected patenting increases with age but the marginal gain declines at higher ages.</p>
-<hr>
+<p><em>Coefficients are on the log scale; exp(coefficient) is the incidence rate ratio (IRR).</em></p>
+<ul>
+<li><strong>Customers:</strong> exp(0.2076) = 1.23, so customers have about 23% more expected patents than otherwise similar non-customers.</li>
+<li><strong>Age:</strong> the positive age term and negative age² term put the peak at about <strong>25 years</strong> (0.1486 / (2 × 0.0030)). Expected patents rise for younger firms and fall for older ones.</li>
+<li><strong>Region:</strong> no region differs significantly from the Midwest once age and customer status are included. The Northeast’s high raw patent count reflects its concentration of customers.</li>
+</ul>
+<p><strong>Figure 3. Coefficients with 95% confidence intervals</strong> <img src="figures/fig3_poisson_coef_plot.png" id="fig-poisson-coefs" class="img-fluid" alt="Poisson regression coefficients with 95% confidence intervals"></p>
 </section>
+<section id="robustness" class="level2">
+<h2 class="anchored" data-anchor-id="robustness">Robustness</h2>
+<p>A Poisson model assumes the variance equals the mean. Here the Pearson statistic is about 1.39 times its degrees of freedom, so the data are mildly overdispersed and the plain Poisson standard errors are too small. Two standard fixes, robust (sandwich) standard errors and a negative binomial model, leave the conclusion unchanged:</p>
+<div id="15a56455" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-stdout">
+<pre><code>Pearson chi-square / df = 2072.7 / 1492 = 1.39; negative binomial alpha = 0.092</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Coefficient</th>
+<th data-quarto-table-cell-role="th">Std. error</th>
+<th data-quarto-table-cell-role="th">IRR</th>
+<th data-quarto-table-cell-role="th">IRR 95% CI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Poisson</th>
+<td>0.2076</td>
+<td>0.0309</td>
+<td>1.231</td>
+<td>1.158 – 1.308</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Poisson, robust SE</th>
+<td>0.2076</td>
+<td>0.0352</td>
+<td>1.231</td>
+<td>1.149 – 1.319</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Negative binomial</th>
+<td>0.2073</td>
+<td>0.0361</td>
+<td>1.23</td>
+<td>1.146 – 1.321</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The customer effect stays at an IRR of 1.23 in every specification, and the widest interval (negative binomial) still runs from about 1.15 to 1.32.</p>
 </section>
-<section id="model-implications" class="level2">
-<h2 class="anchored" data-anchor-id="model-implications">Model Implications</h2>
-<p><strong>Model fit and assumptions</strong> The Pearson chi-square statistic relative to degrees of freedom is approximately (2070/1492 ), suggesting mild overdispersion. As a robustness check, we report results using robust (sandwich) standard errors; the main conclusion for <code>iscustomer</code> is unchanged.</p>
-<p><strong>Figure 4. Predicted Patents by Blueprinty Usage</strong><br>
-<img src="figures/fig4_predicted_patents.png" id="fig-predicted-patents" class="img-fluid" alt="Figure 4. Predicted Patents by Blueprinty Usage"></p>
-<p>This figure translates the Poisson regression into predicted five-year patent counts at representative firm ages. Across all ages shown, Blueprinty customers are predicted to produce more patents than comparable non-customers (holding other covariates fixed). The gap is largest in the mid-age range, consistent with the nonlinear age pattern captured by the positive age and negative age_squared terms.</p>
-<hr>
+<section id="what-it-means" class="level2">
+<h2 class="anchored" data-anchor-id="what-it-means">What It Means</h2>
+<p><strong>Figure 4. Predicted five-year patents by firm age (Midwest)</strong> <img src="figures/fig4_predicted_patents.png" id="fig-predicted-patents" class="img-fluid" alt="Predicted patents by Blueprinty usage"></p>
+<div id="c6434db1" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-stdout">
+<pre><code>Average predicted patents: 3.44 as non-customers vs 4.23 as customers (+0.79 per firm over five years)</code></pre>
+</div>
+</div>
+<p>Because the effect is multiplicative, the absolute gap is largest where patenting peaks, around age 25. Across the actual firms in the data, switching every firm to customer status raises predicted output by about 0.8 patents over five years.</p>
 </section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Software usage is associated with higher patent counts after adjusting for firm age and region. The analysis does not identify a causal product effect. Further evidence on adoption timing and other firm characteristics would be needed before making claims about productivity gains.</p>
+<section id="limitations-and-next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-and-next-steps">Limitations and Next Steps</h2>
+<ul>
+<li><strong>Selection, not causation.</strong> Firms chose to buy the software. More productive or better-funded firms may be the ones that buy, which would inflate the estimate. Adoption timing, or a before-and-after panel, would allow a difference-in-differences design.</li>
+<li><strong>Omitted variables.</strong> Firm size, R&amp;D spending, and industry are not in the data and could explain part of the gap.</li>
+<li><strong>Outcome definition.</strong> Patents awarded is not the same as approval rate, which is what Blueprinty actually wants to claim.</li>
+<li><strong>Recommendation for Blueprinty.</strong> The data support a careful claim (“customers earn about 23% more patents than comparable firms”), not a causal one (“our software increases patents by 23%”).</li>
+</ul>
 
 
 </section>

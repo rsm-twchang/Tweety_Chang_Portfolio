@@ -28,6 +28,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -139,7 +174,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#supplier-postal-codes" id="toc-supplier-postal-codes" class="nav-link" data-scroll-target="#supplier-postal-codes">Supplier Postal Codes</a></li>
   <li><a href="#weather-data" id="toc-weather-data" class="nav-link" data-scroll-target="#weather-data">Weather Data</a></li>
   <li><a href="#joining-everything-together" id="toc-joining-everything-together" class="nav-link" data-scroll-target="#joining-everything-together">Joining Everything Together</a></li>
+  <li><a href="#core-sql-logic" id="toc-core-sql-logic" class="nav-link" data-scroll-target="#core-sql-logic">Core SQL Logic</a></li>
   <li><a href="#observation" id="toc-observation" class="nav-link" data-scroll-target="#observation">Observation</a></li>
+  <li><a href="#what-i-would-add-in-production" id="toc-what-i-would-add-in-production" class="nav-link" data-scroll-target="#what-i-would-add-in-production">What I Would Add in Production</a></li>
   </ul>
 </nav>
     </div>
@@ -193,7 +230,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>This project focused on database management and data engineering using PostgreSQL, Snowflake, SQL, and Python. The work centered on building reliable ETL workflows and consolidating multi-source operational and financial data into an analysis-ready format for reporting and correlation analysis.</p>
+<p>Purchase orders, supplier invoices, and supplier records lived in three different systems and formats. To check whether suppliers billed what they quoted, the data first had to be brought into one place and matched order by order. This project built that pipeline in Snowflake: extract from CSV, XML, and PostgreSQL, load, transform with SQL, and produce one reconciliation table, then test whether an external factor, weather, explains the gaps.</p>
 <hr>
 </section>
 <section id="objective" class="level2">
@@ -344,7 +381,7 @@ The dataset was installed in Snowflake as the <code>WEATHER__ENVIRONMENT</code> 
 </div>
 </div>
 </div>
-<p>This value captures the difference between the quoted purchase amount and the invoiced amount.</p>
+<p>Despite its name, the field is <strong>quoted minus invoiced</strong>: a positive value means the supplier billed less than quoted, and a negative value means the supplier billed more than quoted, which is the case to escalate. Renaming it <code>quoted_minus_invoiced</code> would remove that ambiguity.</p>
 <p>The final reconciliation table contains approximately <strong>2,100</strong> matched records and provides a clear view of pricing differences across suppliers and transactions.</p>
 <hr>
 </section>
@@ -355,7 +392,7 @@ The dataset was installed in Snowflake as the <code>WEATHER__ENVIRONMENT</code> 
 <ul>
 <li>SupplierID<br>
 </li>
-<li>PostalPostalCode</li>
+<li><code>PostalPostalCode</code> (the source schema’s actual column name)</li>
 </ul>
 <p>This table provides the geographic link needed to connect supplier activity with external data sources.</p>
 <hr>
@@ -409,10 +446,52 @@ The dataset was installed in Snowflake as the <code>WEATHER__ENVIRONMENT</code> 
 <hr>
 </section>
 </section>
+<section id="core-sql-logic" class="level2">
+<h2 class="anchored" data-anchor-id="core-sql-logic">Core SQL Logic</h2>
+<p>The reconciliation reduces to two aggregations and a join. A simplified version, with column names shortened for readability:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- 1. One quoted total per purchase order (line items -&gt; PO)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> po_totals <span class="kw">AS</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> purchase_order_id,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>       supplier_id,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>       order_date,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>       <span class="fu">SUM</span>(received_qty <span class="op">*</span> expected_unit_price) <span class="kw">AS</span> po_amount</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span>   purchase_order_lines</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span>  <span class="kw">BY</span> purchase_order_id, supplier_id, order_date;</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">-- 2. One invoiced total per purchase order (excluding tax)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> invoice_totals <span class="kw">AS</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> purchase_order_id,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>       supplier_id,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>       transaction_date,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>       <span class="fu">SUM</span>(amount_excluding_tax) <span class="kw">AS</span> invoice_amount</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span>   supplier_transactions</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span>  <span class="kw">BY</span> purchase_order_id, supplier_id, transaction_date;</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">-- 3. Reconciliation: quoted minus invoiced, by order</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">TABLE</span> po_invoice_reconciliation <span class="kw">AS</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> p.purchase_order_id,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>       p.supplier_id,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>       i.transaction_date,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>       p.po_amount,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>       i.invoice_amount,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>       p.po_amount <span class="op">-</span> i.invoice_amount <span class="kw">AS</span> invoiced_vs_quoted</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span>   po_totals p</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="kw">JOIN</span>   invoice_totals i</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span>   p.purchase_order_id <span class="op">=</span> i.purchase_order_id</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a> <span class="kw">AND</span>   p.supplier_id      <span class="op">=</span> i.supplier_id;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
 <section id="observation" class="level2">
 <h2 class="anchored" data-anchor-id="observation">Observation</h2>
-<p>After joining the datasets, no measurable relationship was observed between daily temperature and the difference between quoted and invoiced amounts. The invoiced_vs_quoted values did not vary in a way that suggested weather influence.</p>
-<p>Based on this analysis, weather conditions do not appear to explain invoice discrepancies in this dataset.</p>
+<p>After joining weather to the roughly 1,300 orders with matching temperature data, quoted-versus-invoiced gaps showed no visible pattern across daily high temperatures. This was a descriptive check, not a formal test, and it covers only the subset with weather coverage. Within those limits, weather does not explain the invoice discrepancies, which points attention back to supplier- and process-level causes.</p>
+</section>
+<section id="what-i-would-add-in-production" class="level2">
+<h2 class="anchored" data-anchor-id="what-i-would-add-in-production">What I Would Add in Production</h2>
+<ul>
+<li><strong>Data quality tests at every stage:</strong> row counts in and out of each step, uniqueness of <code>purchase_order_id</code> in the totals tables, and null checks on amounts and keys.</li>
+<li><strong>Explicit handling of unmatched records:</strong> purchase orders with no invoice, and invoices with no purchase order, are often the most important exceptions. An inner join silently drops both, so they belong in their own exception table.</li>
+<li><strong>Tolerance-based flags:</strong> flag gaps above a threshold (for example, more than 2% or more than $500) so reviewers see only material differences.</li>
+<li><strong>Incremental loads and scheduling:</strong> load only new monthly files and run on a schedule, using Snowflake tasks or an orchestrator, instead of rebuilding everything by hand.</li>
+</ul>
 
 
 </section>
