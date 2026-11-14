@@ -452,27 +452,53 @@ a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline
 .project-feature .tech { font-size: .8rem; line-height: 1.6; }
 .project-feature figure { margin: 0; min-width: 0; }
 .project-feature figcaption { margin-top: 22px; font-size: .8rem; line-height: 1.55; color: var(--text-2); }
-.evidence-bars { display: grid; gap: 28px; padding: 0; list-style: none; }
-.evidence-bars li { display: grid; gap: 8px; grid-template-columns: minmax(0,1fr) auto; align-items: center; }
-.evidence-label { font-size: .9rem; grid-column: 1 / -1; }
-.evidence-bars meter { width: 100%; height: 24px; border: 0; appearance: none; background: #e5e5e7; border-radius: 5px; overflow: hidden; }
-.evidence-bars meter::-webkit-meter-bar { background: #e5e5e7; border: 0; }
-.evidence-bars meter::-webkit-meter-optimum-value { background: var(--accent); }
-.evidence-bars meter::-moz-meter-bar { background: var(--accent); }
-.evidence-bars strong { min-width: 5ch; font-size: .9rem; text-align: right; font-variant-numeric: tabular-nums; }
-.pipeline-steps { list-style: none; margin: 0; padding: 0; counter-reset: steps; }
-.pipeline-steps li { counter-increment: steps; padding: 20px 0 20px 50px; border-top: 1px solid var(--hairline); position: relative; }
-.pipeline-steps li::before { content: '0' counter(steps); position: absolute; left: 0; top: 22px; color: var(--accent); font-size: .8rem; }
-.pipeline-steps strong, .pipeline-steps span { display: block; }
-.pipeline-steps strong { font-size: 1.15rem; margin-bottom: 7px; }
-.pipeline-steps span { color: var(--text-2); font-size: .9rem; line-height: 1.6; }
-.parameter-visual table { width: 100%; border-collapse: collapse; font-size: .95rem; }
-.parameter-visual caption { text-align: left; font-weight: 600; padding-bottom: 24px; }
-.parameter-visual th, .parameter-visual td { text-align: left; padding: 16px 8px; border-bottom: 1px solid var(--hairline); }
-.parameter-visual td { color: var(--accent); font-variant-numeric: tabular-nums; }
 @media (max-width: 900px) { .project-feature .project-layout { grid-template-columns: minmax(0,1fr); gap: 40px; } .project-feature figure { width: 100%; max-width: 620px; } .project-feature .metric-label { max-width: 26ch; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 .about-story { padding: 0; }
 
 .project-feature h3[id] { scroll-margin-top: calc(var(--nav-h) + 32px); }
+
+/* Bespoke project graphics: typography, measured geometry, and one blue accent. */
+.project-feature .project-layout { gap: clamp(44px,6vw,88px); }
+.project-artwork { width: 100%; align-self: center; }
+.project-artwork .pv-kicker { color: var(--text-2); font-size: 11px; font-weight: 600; letter-spacing: .12em; line-height: 1.5; margin: 0 0 24px; }
+.pv-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.pv-svg text { fill: var(--text); font-family: var(--font); font-variant-numeric: tabular-nums; }
+.pv-svg .pv-label { font-size: 20px; }
+.pv-svg .pv-axis { font-size: 18px; fill: var(--text-2); }
+.pv-svg .pv-value { font-size: 26px; font-weight: 600; letter-spacing: -.035em; }
+.pv-svg .pv-value-small { font-size: 20px; font-weight: 600; letter-spacing: -.025em; }
+.pv-svg .pv-hero { font-size: 134px; font-weight: 600; letter-spacing: -.065em; }
+.pv-svg .pv-hero-medium { font-size: 76px; font-weight: 600; letter-spacing: -.055em; }
+.pv-svg .pv-subtitle { font-size: 23px; font-weight: 500; letter-spacing: -.025em; }
+.pv-svg .pv-result { font-size: 44px; font-weight: 600; letter-spacing: -.045em; }
+.pv-rule { stroke: #d2d2d7; stroke-width: 1; }
+.pv-faint { stroke: #e5e5e7; stroke-width: 1; }
+.pv-reference { stroke: #a1a1a6; stroke-width: 1.2; stroke-dasharray: 4 5; }
+.pv-confidence { stroke: var(--accent); stroke-width: 3; }
+.pv-bar-muted { fill: #c6c6cb; }
+.pv-bar-accent, .pv-dot { fill: var(--accent); }
+.pv-bar-dark, .pv-dot-dark, .pv-warehouse { fill: var(--text); }
+.pv-source { fill: transparent; stroke: #d2d2d7; stroke-width: 1; }
+.pv-svg .pv-source-label { font-size: 17px; font-weight: 500; }
+.pv-svg .pv-warehouse-label { font-size: 27px; font-weight: 600; fill: #fff; letter-spacing: -.02em; }
+.project-feature .project-artwork figcaption { margin: 16px 0 0; font-size: 13px; line-height: 1.6; color: var(--text-2); max-width: 52ch; }
+@media (max-width: 900px) { .project-artwork { max-width: 560px; } .project-feature .project-layout { gap: 48px; } }
+@media (max-width: 480px) { .project-artwork .pv-kicker { font-size: 10px; letter-spacing: .08em; margin-bottom: 18px; } .project-feature .project-artwork figcaption { font-size: 12px; } }
+/* Lead with the visual on phones, then let readers inspect the method. */
+@media (max-width: 600px) {
+  .project-feature .project-layout { row-gap: 18px; }
+  .project-feature .showcase-text { display: contents; }
+  .project-feature .eyebrow { order: 0; margin: 0; }
+  .project-feature h3 { order: 1; margin: 0; }
+  .project-feature .problem { order: 2; margin: 0; }
+  .project-feature .project-artwork { order: 3; padding: 18px 0 12px; }
+  .project-feature .approach { order: 4; margin: 0; }
+  .project-feature .metrics { order: 5; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; margin: 6px 0; }
+  .project-feature .metric-num { font-size: clamp(26px,7vw,34px); }
+  .project-feature .metric-label { max-width: none; font-size: 12px; }
+  .project-feature .tech { order: 6; margin: 6px 0 0; }
+  .project-feature .project-note { order: 7; margin: 0; }
+  .project-feature .link-cta { order: 8; justify-self: start; }
+}
