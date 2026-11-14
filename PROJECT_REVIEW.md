@@ -85,6 +85,6 @@ Keep customer features, model scores, and mailing decisions in separate outputs.
 
 ## Website structure
 
-The homepage follows the four featured project designs from PR #21: HP, fraud, campaign targeting, and PO–invoice reconciliation. The additional-project list is omitted from the homepage. All standalone case pages remain available. Content improvements belong inside the Explore Project case pages: business question, analytical approach, measured result, and interpretation limits. Existing case-page plots, code, headings, and TOC anchors are preserved.
+The homepage follows the four featured project designs from PR #21: HP, fraud, campaign targeting, and PO–invoice reconciliation. Four additional analyses appear as compact result-and-tool summaries, with methods available through native disclosures. All standalone case pages remain available. Content improvements belong inside the Explore Project case pages: business question, analytical approach, measured result, and interpretation limits. Existing case-page plots, code, headings, and TOC anchors are preserved.
 
 The site remains buildless HTML/CSS/JS. Keep homepage assets and their `docs/` mirrors synchronized; edit both Quarto source and rendered case-page summaries when the source datasets cannot be re-executed.
