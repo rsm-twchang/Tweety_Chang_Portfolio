@@ -21,7 +21,7 @@ callout-appearance: minimal
 
 ## Introduction
 
-This project focused on database management and data engineering using PostgreSQL, Snowflake, SQL, and Python. The work centered on building reliable ETL workflows and consolidating multi-source operational and financial data into an analysis-ready format for reporting and correlation analysis.
+Purchase orders, supplier invoices, and supplier records lived in three different systems and formats. To check whether suppliers billed what they quoted, the data first had to be brought into one place and matched order by order. This project built that pipeline in Snowflake: extract from CSV, XML, and PostgreSQL, load, transform with SQL, and produce one reconciliation table, then test whether an external factor, weather, explains the gaps.
 
 ---
 
@@ -145,7 +145,7 @@ A new field, `invoiced_vs_quoted`, measures the gap between the quoted purchase 
 **invoiced_vs_quoted = POAmount − InvoiceAmount**
 :::
 
-This value captures the difference between the quoted purchase amount and the invoiced amount.
+Despite its name, the field is **quoted minus invoiced**: a positive value means the supplier billed less than quoted, and a negative value means the supplier billed more than quoted, which is the case to escalate. Renaming it `quoted_minus_invoiced` would remove that ambiguity.
 
 The final reconciliation table contains approximately **2,100** matched records and provides a clear view of pricing differences across suppliers and transactions.
 
@@ -158,7 +158,7 @@ Supplier reference data was extracted from PostgreSQL and loaded into Snowflake.
 A simple reference table was created containing:
 
 - SupplierID  
-- PostalPostalCode  
+- `PostalPostalCode` (the source schema's actual column name)  
 
 This table provides the geographic link needed to connect supplier activity with external data sources.
 
@@ -210,10 +210,53 @@ Approximately **1,300** matched records were produced.
 
 ---
 
+## Core SQL Logic
+
+The reconciliation reduces to two aggregations and a join. A simplified version, with column names shortened for readability:
+
+```sql
+-- 1. One quoted total per purchase order (line items -> PO)
+CREATE OR REPLACE TABLE po_totals AS
+SELECT purchase_order_id,
+       supplier_id,
+       order_date,
+       SUM(received_qty * expected_unit_price) AS po_amount
+FROM   purchase_order_lines
+GROUP  BY purchase_order_id, supplier_id, order_date;
+
+-- 2. One invoiced total per purchase order (excluding tax)
+CREATE OR REPLACE TABLE invoice_totals AS
+SELECT purchase_order_id,
+       supplier_id,
+       transaction_date,
+       SUM(amount_excluding_tax) AS invoice_amount
+FROM   supplier_transactions
+GROUP  BY purchase_order_id, supplier_id, transaction_date;
+
+-- 3. Reconciliation: quoted minus invoiced, by order
+CREATE OR REPLACE TABLE po_invoice_reconciliation AS
+SELECT p.purchase_order_id,
+       p.supplier_id,
+       i.transaction_date,
+       p.po_amount,
+       i.invoice_amount,
+       p.po_amount - i.invoice_amount AS invoiced_vs_quoted
+FROM   po_totals p
+JOIN   invoice_totals i
+  ON   p.purchase_order_id = i.purchase_order_id
+ AND   p.supplier_id      = i.supplier_id;
+```
+
 ## Observation
 
-After joining the datasets, no measurable relationship was observed between daily temperature and the difference between quoted and invoiced amounts. The invoiced_vs_quoted values did not vary in a way that suggested weather influence.
+After joining weather to the roughly 1,300 orders with matching temperature data, quoted-versus-invoiced gaps showed no visible pattern across daily high temperatures. This was a descriptive check, not a formal test, and it covers only the subset with weather coverage. Within those limits, weather does not explain the invoice discrepancies, which points attention back to supplier- and process-level causes.
 
-Based on this analysis, weather conditions do not appear to explain invoice discrepancies in this dataset.
+## What I Would Add in Production
+
+- **Data quality tests at every stage:** row counts in and out of each step, uniqueness of `purchase_order_id` in the totals tables, and null checks on amounts and keys.
+- **Explicit handling of unmatched records:** purchase orders with no invoice, and invoices with no purchase order, are often the most important exceptions. An inner join silently drops both, so they belong in their own exception table.
+- **Tolerance-based flags:** flag gaps above a threshold (for example, more than 2% or more than $500) so reviewers see only material differences.
+- **Incremental loads and scheduling:** load only new monthly files and run on a schedule, using Snowflake tasks or an orchestrator, instead of rebuilding everything by hand.
+
 
 

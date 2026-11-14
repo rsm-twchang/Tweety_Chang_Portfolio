@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tweety Chang">
-<meta name="description" content="K-Means implementation with an explicit tradeoff between silhouette separation and species-informed interpretation.">
+<meta name="description" content="K-Means built from scratch, validated against scikit-learn, and improved by feature scaling: agreement with species rises from 0.63 to 0.88 (adjusted Rand).">
 
 <title>K-Means Clustering from Scratch – Tweety Chang</title>
 <style>
@@ -31,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <link href="./favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -62,17 +62,20 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="K-Means Clustering from Scratch – Tweety Chang">
-<meta property="og:description" content="K-Means implementation with an explicit tradeoff between silhouette separation and species-informed interpretation.">
+<meta property="og:description" content="K-Means built from scratch, validated against scikit-learn, and improved by feature scaling: agreement with species rises from 0.63 to 0.88 (adjusted Rand).">
 <meta property="og:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/fig6_kmeans_k3.png">
 <meta property="og:site_name" content="Tweety Chang">
 <meta property="og:image:height" content="590">
 <meta property="og:image:width" content="790">
 <meta name="twitter:title" content="K-Means Clustering from Scratch – Tweety Chang">
-<meta name="twitter:description" content="K-Means implementation with an explicit tradeoff between silhouette separation and species-informed interpretation.">
+<meta name="twitter:description" content="K-Means built from scratch, validated against scikit-learn, and improved by feature scaling: agreement with species rises from 0.63 to 0.88 (adjusted Rand).">
 <meta name="twitter:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/fig6_kmeans_k3.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -129,11 +132,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
-  <li><a href="#data-description" id="toc-data-description" class="nav-link" data-scroll-target="#data-description">Data Description</a></li>
-  <li><a href="#k-means-clustering" id="toc-k-means-clustering" class="nav-link" data-scroll-target="#k-means-clustering">K-Means Clustering</a></li>
-  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  <li><a href="#the-question" id="toc-the-question" class="nav-link active" data-scroll-target="#the-question">The Question</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#k-means-from-scratch" id="toc-k-means-from-scratch" class="nav-link" data-scroll-target="#k-means-from-scratch">K-Means From Scratch</a></li>
+  <li><a href="#choosing-k" id="toc-choosing-k" class="nav-link" data-scroll-target="#choosing-k">Choosing k</a></li>
+  <li><a href="#does-scaling-matter" id="toc-does-scaling-matter" class="nav-link" data-scroll-target="#does-scaling-matter">Does Scaling Matter?</a></li>
+  <li><a href="#takeaways-and-limitations" id="toc-takeaways-and-limitations" class="nav-link" data-scroll-target="#takeaways-and-limitations">Takeaways and Limitations</a></li>
   </ul>
 </nav>
     </div>
@@ -147,7 +151,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    K-Means implementation with an explicit tradeoff between silhouette separation and species-informed interpretation.
+    K-Means built from scratch, validated against scikit-learn, and improved by feature scaling: agreement with species rises from 0.63 to 0.88 (adjusted Rand).
   </div>
 </div>
 
@@ -176,65 +180,30 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="model-tradeoff" class="level3 biz-value">
-<h3 class="anchored" data-anchor-id="model-tradeoff">Model Tradeoff</h3>
+<section id="results" class="level3 biz-value">
+<h3 class="anchored" data-anchor-id="results">Results</h3>
 <ul>
-<li><strong>Question:</strong> How should cluster separation and interpretability influence the choice of k?</li>
-<li><strong>Analysis:</strong> Implemented K-Means from scratch and compared it with scikit-learn using bill and flipper measurements. Evaluated k = 2–7 with WCSS and silhouette scores.</li>
-<li><strong>Result:</strong> Silhouette favored k = 2 (0.612) over k = 3 (0.456). The custom and library implementations produced similar broad structure, with different centroid locations.</li>
-<li><strong>Judgment:</strong> The three-cluster choice considered the WCSS curve and known species structure. Species labels were excluded from fitting but influenced k selection; the choice was not fully label-independent.</li>
+<li><strong>Question:</strong> Can two body measurements separate penguin species without using the labels, and how should the number of clusters be chosen?</li>
+<li><strong>Approach:</strong> Wrote K-Means from scratch, validated it against scikit-learn, and compared k = 2–7 with WCSS and silhouette scores.</li>
+<li><strong>Key finding:</strong> Feature scaling mattered more than the algorithm. Standardizing the two measurements raised agreement with the true species from <strong>0.63 to 0.88</strong> (adjusted Rand index) and recovered Chinstrap penguins as their own cluster.</li>
+<li><strong>Judgment:</strong> Silhouette slightly prefers k = 2. k = 3 is chosen because, once features are scaled, it costs little separation and matches a real three-group structure. Species labels never enter the fitting.</li>
 </ul>
 </section>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Clustering helps reveal patterns when there is no target variable to predict. Here, K-Means is used to explore the <a href="https://www.kaggle.com/datasets/parulpandey/palmer-archipelago-antarctica-penguin-data">Palmer Penguins</a> dataset through two measurements—<strong>bill length</strong> and <strong>flipper length</strong>—to see whether the data naturally separates into distinct groups <strong>without using species labels</strong>. After forming clusters, we compare them back to the species categories to check how well morphology alone reflects biological differences.</p>
-<p>K-Means is an <strong>unsupervised</strong> method that assigns each observation to one of <code>k</code> clusters by minimizing within-cluster variation. Because the result depends on the choice of <code>k</code> and on initialization, it is useful to inspect how the algorithm evolves and to evaluate multiple cluster counts rather than relying on a single run.</p>
-<p>This page includes a from-scratch implementation alongside the <code>scikit-learn</code> version, visualizes centroid updates across iterations, and uses <strong>WCSS</strong> and <strong>silhouette score</strong> to guide the choice of <code>k</code>.</p>
-<hr>
+<section id="the-question" class="level2">
+<h2 class="anchored" data-anchor-id="the-question">The Question</h2>
+<p>Clustering looks for structure when there is no target variable. This project asks whether two measurements, <strong>bill length</strong> and <strong>flipper length</strong>, are enough to separate the three penguin species in the <a href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins</a> data without seeing the labels. The labels are used only afterwards, to grade the result.</p>
+<p>Segmenting customers or borrowers raises the same questions as this project: which features to use, how to scale them, and how many groups the data actually supports.</p>
 </section>
-<section id="objective" class="level2">
-<h2 class="anchored" data-anchor-id="objective">Objective</h2>
-<p>The objective of this analysis is to apply K-Means clustering to the <em>Palmer Penguins</em> dataset using <strong>bill length</strong> and <strong>flipper length</strong>, and to examine whether these two measurements alone reveal meaningful structure without using species labels. To make the method transparent, K-Means is implemented both <strong>from scratch</strong> and with <code>scikit-learn</code>, and the results are compared in terms of centroid locations and cluster assignments. We also visualize how centroids and memberships change across iterations to understand convergence behavior. Finally, we evaluate multiple values of <code>k</code> using <strong>within-cluster sum of squares (WCSS)</strong> and <strong>silhouette score</strong>, then interpret the selected clustering by comparing groups back to species categories after the clustering step.</p>
-<hr>
-</section>
-<section id="data-description" class="level2">
-<h2 class="anchored" data-anchor-id="data-description">Data Description</h2>
-<p>This project uses the <em>Palmer Penguins</em> dataset. Each row represents one observed penguin and includes metadata (species, island, sex, year) plus physical measurements recorded in standard units.</p>
-<section id="variables" class="level3">
-<h3 class="anchored" data-anchor-id="variables">Variables</h3>
-<ul>
-<li><code>species</code>: Adélie, Chinstrap, or Gentoo<br>
-</li>
-<li><code>island</code>: island of observation<br>
-</li>
-<li><code>bill_length_mm</code>: bill length (mm)<br>
-</li>
-<li><code>bill_depth_mm</code>: bill depth (mm)<br>
-</li>
-<li><code>flipper_length_mm</code>: flipper length (mm)<br>
-</li>
-<li><code>body_mass_g</code>: body mass (g)<br>
-</li>
-<li><code>sex</code>: recorded biological sex (when available)<br>
-</li>
-<li><code>year</code>: observation year</li>
-</ul>
-</section>
-<section id="features-used-for-clustering" class="level3">
-<h3 class="anchored" data-anchor-id="features-used-for-clustering">Features used for clustering</h3>
-<p>K-Means is fit using two continuous features:</p>
-<ul>
-<li><strong>Bill length (<code>bill_length_mm</code>)</strong></li>
-<li><strong>Flipper length (<code>flipper_length_mm</code>)</strong></li>
-</ul>
-<p>Species is not used during clustering; it is used afterward to interpret how clusters align with known categories.</p>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>The dataset has 333 penguins with complete measurements: 146 Adélie, 68 Chinstrap, and 119 Gentoo. Clustering uses only <code>bill_length_mm</code> and <code>flipper_length_mm</code>.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Data Preview (first 5 rows)
+<span class="screen-reader-only">Note</span>Data preview (first 5 rows)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -320,124 +289,242 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-</section>
-<section id="k-means-clustering" class="level2">
-<h2 class="anchored" data-anchor-id="k-means-clustering">K-Means Clustering</h2>
-<section id="selecting-the-number-of-clusters" class="level3">
-<h3 class="anchored" data-anchor-id="selecting-the-number-of-clusters">Selecting the Number of Clusters</h3>
-<p><strong>Figure 1. Custom K-Means — Iteration 1</strong> <img src="figures/fig_kmeans_iter1.png" id="fig_kmeans_iter1" class="img-fluid" alt="Figure 1. Custom K-Means — Iteration 1"></p>
-<p>With randomly initialized centroids, clusters are still loosely defined and several regions overlap, especially in the middle of the plot. The centroid markers show starting positions that do not yet match the densest parts of the data.</p>
-<p><strong>Figure 2. Custom K-Means — Iteration 2</strong> <img src="figures/fig_kmeans_iter2.png" id="fig_kmeans_iter2" class="img-fluid" alt="Figure 2. Custom K-Means — Iteration 2"></p>
-<p>After one update, centroids shift sharply toward high-density areas and the cluster boundaries become more coherent. Most of the separation emerges here, with a clearer split between the high–flipper-length group and the two lower bands.</p>
-<p><strong>Figure 3. Custom K-Means — Final clustering (Iteration 10)</strong><br>
-<img src="figures/fig_kmeans_iter10.png" id="fig-kmeans-final" class="img-fluid" alt="Figure 3. Custom K-Means — Final clustering (Iteration 10)"></p>
-<p>Iteration 10 represents the converged solution. Centroid movement is negligible relative to earlier iterations, and cluster assignments are stable. The final clustering forms three distinct groups, primarily separated by flipper length with bill length refining boundaries within clusters.</p>
-</section>
-<section id="comparison-with-scikit-learn-implementation" class="level3">
-<h3 class="anchored" data-anchor-id="comparison-with-scikit-learn-implementation">Comparison with scikit-learn implementation</h3>
-<p>To validate the custom K-Means implementation, the final centroids are compared with those obtained from <code>scikit-learn</code>. Each centroid is shown as:</p>
-<p><strong>(Bill Length, Flipper Length)</strong></p>
-<table class="caption-top table">
+<section id="k-means-from-scratch" class="level2">
+<h2 class="anchored" data-anchor-id="k-means-from-scratch">K-Means From Scratch</h2>
+<p>K-Means alternates two steps until assignments stop changing: assign each point to its nearest centroid, then move each centroid to the mean of its points. Because the result depends on the random starting centroids, the implementation runs several restarts and keeps the solution with the lowest within-cluster sum of squares (WCSS).</p>
+<p><strong>Figure 1. Iteration 1:</strong> random starting centroids, with overlapping groups. <img src="figures/fig_kmeans_iter1.png" id="fig-kmeans-iter1" class="img-fluid" alt="Custom K-Means, iteration 1"></p>
+<p><strong>Figure 2. Iteration 2:</strong> one update moves centroids toward the dense regions, and most of the structure appears. <img src="figures/fig_kmeans_iter2.png" id="fig-kmeans-iter2" class="img-fluid" alt="Custom K-Means, iteration 2"></p>
+<p><strong>Figure 3. Converged solution:</strong> centroid movement has stopped. <img src="figures/fig_kmeans_iter10.png" id="fig-kmeans-final" class="img-fluid" alt="Custom K-Means, converged"></p>
+<section id="validation-against-scikit-learn" class="level3">
+<h3 class="anchored" data-anchor-id="validation-against-scikit-learn">Validation against scikit-learn</h3>
+<div id="58de6d7e" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Cluster</th>
-<th style="text-align: left;">Custom Implementation</th>
-<th style="text-align: left;">scikit-learn</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Custom (bill, flipper)</th>
+<th data-quarto-table-cell-role="th">scikit-learn (bill, flipper)</th>
+<th data-quarto-table-cell-role="th">Custom WCSS</th>
+<th data-quarto-table-cell-role="th">scikit-learn WCSS</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">(38.45, 187.05)</td>
-<td style="text-align: left;">(39.56, 188.14)</td>
+<th data-quarto-table-cell-role="th">Cluster 1</th>
+<td>(38.45, 187.05)</td>
+<td>(38.45, 187.05)</td>
+<td>13859.5</td>
+<td>13858.9</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">(47.63, 216.92)</td>
-<td style="text-align: left;">(48.14, 219.29)</td>
+<th data-quarto-table-cell-role="th">Cluster 2</th>
+<td>(45.95, 196.73)</td>
+<td>(45.95, 196.84)</td>
+<td></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">(45.95, 196.73)</td>
-<td style="text-align: left;">(46.50, 201.77)</td>
+<th data-quarto-table-cell-role="th">Cluster 3</th>
+<td>(47.63, 216.92)</td>
+<td>(47.65, 217.00)</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<p>The centroid locations are close across implementations. Small differences are expected due to initialization and convergence tolerance, but both methods identify the same overall cluster structure.</p>
-<section id="within-cluster-sum-of-squares-wcss" class="level4">
-<h4 class="anchored" data-anchor-id="within-cluster-sum-of-squares-wcss">Within-Cluster Sum of Squares (WCSS)</h4>
-<p><strong>Selecting the Number of Clusters (WCSS)</strong> <img src="figures/fig4_wcss.png" id="fig4_wcss" class="img-fluid" alt="Figure 4. Within-Cluster Sum of Squares (WCSS) vs.&nbsp;Number of Clusters"></p>
-<p>WCSS decreases as the number of clusters increases, which is expected because additional clusters reduce within-group variance. The largest drop occurs between k = 2 and k = 3, after which the curve begins to flatten. This “elbow” suggests that three clusters capture most of the structure in the data without adding unnecessary complexity.</p>
-</section>
-<section id="silhouette-score" class="level4">
-<h4 class="anchored" data-anchor-id="silhouette-score">Silhouette Score</h4>
-<p><strong>Cluster Quality (Silhouette Score)</strong> <img src="figures/fig5_silhouette.png" id="fig5_silhouette" class="img-fluid" alt="Figure 5. Silhouette Score vs.&nbsp;Number of Clusters"></p>
-<p>The silhouette score favors k = 2 (0.612 versus 0.456 for k = 3). The selected k = 3 reflects an interpretability choice informed by the WCSS curve and the known three-species structure; it does not maximize separation.</p>
+
+</div>
+</div>
+</div>
+<p>With restarts, the custom implementation and scikit-learn reach the same solution. A single K-Means run can stop in a worse local optimum, which is why an earlier version of this analysis showed different centroids for the two implementations.</p>
 </section>
 </section>
-<section id="evaluation-of-cluster-quantity" class="level3">
-<h3 class="anchored" data-anchor-id="evaluation-of-cluster-quantity">Evaluation of Cluster Quantity</h3>
-<p>To select the number of clusters, WCSS and silhouette scores were computed for k = 2 to 7.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: right;">K</th>
-<th style="text-align: right;">WCSS</th>
-<th style="text-align: right;">Silhouette Score</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">20949.79</td>
-<td style="text-align: right;">0.612</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">14269.56</td>
-<td style="text-align: right;"><strong>0.456</strong></td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">9587.14</td>
-<td style="text-align: right;">0.445</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">7597.61</td>
-<td style="text-align: right;">0.410</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">6326.31</td>
-<td style="text-align: right;">0.414</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">6030.08</td>
-<td style="text-align: right;">0.370</td>
-</tr>
-</tbody>
-</table>
-<p>Species labels were not used as clustering inputs. However, knowledge of the three species informed selection of k = 3, so the final choice was not independent of label information.</p>
-<p>The tradeoff is explicit: k = 2 gives stronger silhouette separation, while k = 3 supports a more detailed biological interpretation. Neither criterion alone establishes a universally best cluster count.</p>
-</section>
-<section id="final-clustering-result-k-3" class="level3">
-<h3 class="anchored" data-anchor-id="final-clustering-result-k-3">Final Clustering Result (k = 3)</h3>
-<div id="fig6_kmeans_k3" class="quarto-figure quarto-figure-center anchored">
+<section id="choosing-k" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-k">Choosing k</h2>
+<div id="ead28924" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="figures/fig6_kmeans_k3.png" class="img-fluid figure-img"></p>
-<figcaption>K-Means clustering result (k = 3)</figcaption>
+<p><img src="Key_Drivers_Analysis_files/figure-html/cell-6-output-1.png" width="720" height="298" class="figure-img"></p>
 </figure>
 </div>
-<p>With k = 3, the algorithm separates the data into three distinct groups. The upper cluster captures penguins with the longest flippers and bills, the lower-left cluster represents shorter measurements, and the middle cluster occupies the intermediate range. Centroids (black markers) lie near the center of each group, indicating stable cluster formation.</p>
-<hr>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">WCSS (raw)</th>
+<th data-quarto-table-cell-role="th">Silhouette (raw)</th>
+<th data-quarto-table-cell-role="th">Silhouette (standardized)</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">k</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>20949.8</td>
+<td>0.612</td>
+<td>0.539</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>13858.9</td>
+<td>0.480</td>
+<td>0.519</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>9587.1</td>
+<td>0.445</td>
+<td>0.504</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>7423.0</td>
+<td>0.425</td>
+<td>0.433</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>6326.3</td>
+<td>0.414</td>
+<td>0.401</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7</th>
+<td>5257.1</td>
+<td>0.431</td>
+<td>0.410</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The WCSS curve bends at k = 3, and silhouette is highest at k = 2. On raw features, the gap between k = 2 and k = 3 is large (0.612 vs.&nbsp;0.480). After standardizing, it nearly disappears (0.539 vs.&nbsp;0.519), so k = 3 gives up very little separation in exchange for a finer, more useful segmentation.</p>
 </section>
+<section id="does-scaling-matter" class="level2">
+<h2 class="anchored" data-anchor-id="does-scaling-matter">Does Scaling Matter?</h2>
+<p>Flipper length varies about 2.5 times as much as bill length (standard deviation 14.0 mm vs.&nbsp;5.5 mm), so on raw data it dominates the distance calculation and bill length has little influence on the clusters. Standardizing gives both measurements equal weight. The labels are used here only to grade the clusters, never to fit them:</p>
+<div id="98906525" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-stdout">
+<pre><code>Adjusted Rand index vs. species: raw 0.63, standardized 0.88</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Cluster 1</th>
+<th data-quarto-table-cell-role="th">Cluster 2</th>
+<th data-quarto-table-cell-role="th">Cluster 3</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Raw features</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Adelie</th>
+<td>106</td>
+<td>38</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Chinstrap</th>
+<td>9</td>
+<td>54</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Gentoo</th>
+<td>0</td>
+<td>2</td>
+<td>117</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Cluster 1</th>
+<th data-quarto-table-cell-role="th">Cluster 2</th>
+<th data-quarto-table-cell-role="th">Cluster 3</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Standardized</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Adelie</th>
+<td>141</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Chinstrap</th>
+<td>5</td>
+<td>59</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Gentoo</th>
+<td>0</td>
+<td>1</td>
+<td>118</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Raw features:</strong> Gentoo separates cleanly, but 54 of 68 Chinstrap penguins share a middle cluster with 38 Adélie penguins, so that cluster is not a single species.</li>
+<li><strong>Standardized:</strong> each cluster corresponds to one species, and 59 of 68 Chinstrap penguins are grouped together. Adjusted Rand index rises from 0.63 to 0.88.</li>
+</ul>
+<p><strong>Figure 4. Final raw-feature clustering (k = 3)</strong> <img src="figures/fig6_kmeans_k3.png" id="fig-kmeans-k3" class="img-fluid" alt="K-Means clustering result, k = 3"></p>
 </section>
-<section id="interpretation" class="level2">
-<h2 class="anchored" data-anchor-id="interpretation">Interpretation</h2>
-<p>The three clusters differ primarily along flipper length. One group shows substantially shorter flippers and bills, another shows the longest measurements, and the third occupies the intermediate range.</p>
-<p>Centroid values indicate that flipper length drives most of the separation, with differences exceeding 20–30 mm between groups. Cluster sizes are reasonably balanced, suggesting the segmentation is not dominated by outliers.</p>
+<section id="takeaways-and-limitations" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways-and-limitations">Takeaways and Limitations</h2>
+<ul>
+<li><strong>Scale before you cluster.</strong> With distance-based methods, the units of the inputs decide the result. Here, scaling changed the answer more than the choice of k did.</li>
+<li><strong>Restart K-Means.</strong> A single run can stop in a poor local optimum. Multiple restarts, or k-means++ initialization, should be the default.</li>
+<li><strong>k is a judgment call.</strong> The metrics narrow the choice; the purpose of the segmentation decides it.</li>
+<li><strong>Limitations:</strong> only two features are used, and K-Means assumes round, similar-sized clusters. Adding bill depth, or trying a Gaussian mixture model that allows elongated clusters, would be natural next steps.</li>
+</ul>
 
 
 </section>

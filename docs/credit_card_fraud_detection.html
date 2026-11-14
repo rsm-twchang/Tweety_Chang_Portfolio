@@ -138,7 +138,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#preliminary-model-exploration" id="toc-preliminary-model-exploration" class="nav-link" data-scroll-target="#preliminary-model-exploration">Preliminary Model Exploration</a></li>
   <li><a href="#final-model-performance" id="toc-final-model-performance" class="nav-link" data-scroll-target="#final-model-performance">Final Model Performance</a></li>
   <li><a href="#financial-impact-and-recommended-cutoff" id="toc-financial-impact-and-recommended-cutoff" class="nav-link" data-scroll-target="#financial-impact-and-recommended-cutoff">Financial Impact and Recommended Cutoff</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#takeaways-and-limitations" id="toc-takeaways-and-limitations" class="nav-link" data-scroll-target="#takeaways-and-limitations">Takeaways and Limitations</a></li>
   </ul>
 </nav>
     </div>
@@ -184,22 +184,19 @@ ul.task-list li input[type="checkbox"] {
 <section id="decision-evidence" class="level3 biz-value">
 <h3 class="anchored" data-anchor-id="decision-evidence">Decision &amp; Evidence</h3>
 <ul>
-<li><strong>Question:</strong> How much fraud can be captured within a constrained review workload?</li>
-<li><strong>Analysis:</strong> Cleaned transaction data, engineered 3,379 behavioral features, and compared models including LightGBM with an out-of-time sample. Evaluated review cutoffs using fraud capture and false-positive costs.</li>
-<li><strong>Result:</strong> At the recommended 4% review cutoff, the reported fraud capture rate was 62% and the false-positive rate was 1.658%.</li>
-<li><strong>Decision limits:</strong> The 4% cutoff is a review-volume trade-off, not the highest-profit cutoff in the source table. Annual savings depend on unresolved time/population scaling assumptions; see the financial-impact interpretation note below.</li>
+<li><strong>Question:</strong> With a limited review team, which transactions should be reviewed to catch the most fraud?</li>
+<li><strong>Approach:</strong> Cleaned 97,852 transactions, engineered 3,379 behavioral features, selected 20 with a filter-and-wrapper process, and chose LightGBM over four alternatives using a held-out later time period.</li>
+<li><strong>Result:</strong> Reviewing the top 4% of transactions catches <strong>62% of fraud</strong> at a 1.66% false-positive rate, with modeled annual savings of $40.5M under the case’s cost assumptions.</li>
+<li><strong>Risk to manage:</strong> Detection falls from 75% to 53% on the later time period. Fraud patterns drift, so the model would need monitoring and regular retraining.</li>
 </ul>
 </section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>Credit card fraud poses a persistent risk to financial institutions, resulting in substantial financial losses and increased operational burden. As digital transactions continue to grow, detecting fraudulent behavior accurately and efficiently has become increasingly important.</p>
-<p>This project develops a structured analytical framework for identifying fraudulent credit card transactions using historical transaction data. The dataset contains 97,852 transactions, of which 2,047 are labeled as fraudulent, reflecting a highly imbalanced classification problem.</p>
-<p>The report outlines the full modeling workflow, from data preparation to model evaluation, with emphasis on building a practical and deployable fraud detection system.</p>
+<p>A fraud team cannot review every transaction. The practical question is not “is this transaction fraud?” but “which few percent of transactions should analysts look at first?” This project builds a fraud score for 97,852 card transactions from 2010, of which 2,047 (2.1%) are fraud, and sets the review cutoff on business value rather than accuracy.</p>
 </section>
 <section id="objective" class="level2">
 <h2 class="anchored" data-anchor-id="objective">Objective</h2>
-<p>The primary objective of this project is to build a machine learning model capable of identifying fraudulent transactions while controlling false positives.</p>
-<p>Specifically, the goals are:</p>
+<p>The project had four goals:</p>
 <ul>
 <li>Develop a robust fraud detection pipeline including cleaning, feature engineering, and model selection<br>
 </li>
@@ -648,8 +645,9 @@ ul.task-list li input[type="checkbox"] {
 <p>Each variable was ranked independently using the Kolmogorov–Smirnov (KS) statistic.<br>
 The top candidate features were selected based on:</p>
 <ul>
-<li>130 variables (≈10% of total features)</li>
-<li>260 variables (≈20% of total features)</li>
+<li>130 variables (about 4% of all features)</li>
+<li>260 variables (about 8%)</li>
+<li>520 variables (about 15%), added in the second round below</li>
 </ul>
 <p>These filtered sets were passed to the wrapper stage.</p>
 </section>
@@ -760,7 +758,7 @@ The top candidate features were selected based on:</p>
 <li>Increasing the filter pool from 130 to 260 improved performance.</li>
 <li>Expanding wrappers from 10 to 20 features did not materially improve results.</li>
 </ul>
-<p>Based on these findings, LightGBM with 260 filtered candidates was selected for subsequent modeling.</p>
+<p>Because a larger candidate pool helped, a second round tested 520 candidates.</p>
 </section>
 <section id="wrapper-results-forward-selection" class="level3">
 <h3 class="anchored" data-anchor-id="wrapper-results-forward-selection">Wrapper Results (Forward Selection)</h3>
@@ -844,8 +842,7 @@ Performance is measured using <strong>FDR@3%</strong>.</p>
 </section>
 <section id="feature-selection-conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="feature-selection-conclusion">Feature Selection Conclusion</h3>
-<p>Increasing the number of filtered candidates improved wrapper performance.<br>
-With 520 filters and 20 wrappers, both LightGBM and Random Forest achieved an average performance of 0.73.</p>
+<p>The best result came from 520 candidates and 20 selected features (FDR@3% = 0.73 for both models).</p>
 <p>LightGBM was selected as the final wrapper model because it is deterministic and produces stable feature rankings across runs, whereas Random Forest introduces variability due to its stochastic nature.</p>
 <p>The forward selection curve shows performance stabilizing after approximately 12 features. However, to ensure sufficient coverage of relevant signals, we retained 20 features (approximately twice the saturation size) for the final model.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
@@ -1033,22 +1030,21 @@ With 520 filters and 20 wrappers, both LightGBM and Random Forest achieved an av
 <li><code>max_depth = default</code></li>
 </ul>
 <p>The configuration favors a shallow boosting structure with limited leaf growth. This reduces variance and improves stability under time drift, which is critical for fraud detection.</p>
-<p>The moderate learning rate ensures gradual updates across boosting rounds, avoiding aggressive fitting to short-term noise.</p>
 </section>
 <section id="performance-summary" class="level3">
 <h3 class="anchored" data-anchor-id="performance-summary">Performance Summary</h3>
 <ul>
-<li>Train and test scores are stable.</li>
-<li>OOT performance remains consistent with wrapper-stage expectations.</li>
-<li>No large divergence between datasets, suggesting controlled overfitting.</li>
+<li><strong>Train and test agree</strong> (0.744 vs.&nbsp;0.749), so the model is not overfitting the period it was trained on.</li>
+<li><strong>Out-of-time performance drops to 0.530</strong>, about 29% below test. Fraud tactics in the later period differ from those the model learned. This is the main risk of the model: it works, but it ages, and in production it would need drift monitoring and regular retraining.</li>
 </ul>
-<p>The model supports a coursework review-policy comparison. Operational deployment would require leakage checks, calibrated cost assumptions, and prospective validation.</p>
 <hr>
 </section>
 </section>
 <section id="financial-impact-and-recommended-cutoff" class="level2">
 <h2 class="anchored" data-anchor-id="financial-impact-and-recommended-cutoff">Financial Impact and Recommended Cutoff</h2>
-<p><strong>Interpretation note:</strong> The table reports higher net savings at 5% and 6% than at 4%; the 4% cutoff is a review-volume trade-off, not the profit maximum shown here. The source data description covers 2010, while the financial assumptions below refer to two months and a 10-million-transaction annual portfolio. Reconcile those time and scaling bases before treating the annual dollar values as validated estimates.</p>
+<blockquote class="blockquote">
+<p><strong>How to read the dollar figures:</strong> The cutoff table is evaluated on the out-of-time sample (its 53.5% detection at 3% matches the out-of-time FDR). Dollar values are then annualized and scaled to a 10-million-transaction portfolio using the case’s assumptions below. Treat them as a way to compare cutoffs, not as a forecast.</p>
+</blockquote>
 <section id="financial-assumptions" class="level3">
 <h3 class="anchored" data-anchor-id="financial-assumptions">Financial Assumptions</h3>
 <p>To translate model performance into business impact, the following assumptions were applied:</p>
@@ -1128,39 +1124,50 @@ With 520 filters and 20 wrappers, both LightGBM and Random Forest achieved an av
 </section>
 <section id="recommended-cutoff-4" class="level3">
 <h3 class="anchored" data-anchor-id="recommended-cutoff-4">Recommended Cutoff: 4%</h3>
-<p>At a 4% cutoff:</p>
-<ul>
-<li>62% of fraudulent transactions are detected<br>
-</li>
-<li>False positive rate remains controlled at 1.658%<br>
-</li>
-<li>Estimated annual savings: <strong>$40.5 million</strong></li>
-</ul>
-<p>Although higher cutoffs increase fraud detection, they also introduce rising false positive costs and operational friction. The 4% threshold balances fraud capture and customer impact while delivering strong financial return.</p>
+<p>Savings keep rising past 4%, so 4% is not the dollar-maximizing choice. It is where each extra percent of reviews stops paying off as well:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Move cutoff</th>
+<th style="text-align: right;">Extra fraud caught</th>
+<th style="text-align: right;">Extra savings</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2% → 3%</td>
+<td style="text-align: right;">+11.7 pts</td>
+<td style="text-align: right;">+$7.4M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3% → 4%</td>
+<td style="text-align: right;">+8.5 pts</td>
+<td style="text-align: right;">+$4.8M</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4% → 5%</td>
+<td style="text-align: right;">+5.3 pts</td>
+<td style="text-align: right;">+$2.6M</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5% → 6%</td>
+<td style="text-align: right;">+4.8 pts</td>
+<td style="text-align: right;">+$2.1M</td>
+</tr>
+</tbody>
+</table>
+<p>Beyond 4%, each additional 1% of transactions reviewed (about 100,000 a year at this portfolio size) catches about 40% less new fraud than the step before, while more legitimate customers are flagged. At 4% the team catches <strong>62% of fraud</strong> with a <strong>1.66% false-positive rate</strong>. If review capacity grows, moving to 5% is the next step the numbers support.</p>
 <hr>
 </section>
 </section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>This project developed a data-driven credit card fraud detection model using 97,852 transactions, of which approximately 2% were fraudulent.</p>
-<p>A structured pipeline was implemented, including data cleaning, feature engineering, feature selection, and model comparison. From 3,379 engineered variables, the top 20 were selected using a filter-and-wrapper approach.</p>
-<p>Among the models evaluated, LightGBM demonstrated the strongest balance between in-sample performance and out-of-time stability. The final model achieved:</p>
+<section id="takeaways-and-limitations" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways-and-limitations">Takeaways and Limitations</h2>
 <ul>
-<li>Train FDR: 0.744<br>
-</li>
-<li>Test FDR: 0.749<br>
-</li>
-<li>OOT FDR: 0.530</li>
+<li><strong>Set cutoffs on value and capacity, not accuracy.</strong> With 2% fraud, a model that flags nothing is 98% accurate. Detection at a fixed review rate is the metric that matters.</li>
+<li><strong>Behavior beats raw fields.</strong> The most predictive features describe how a card is behaving: how many states it was used in today, and how today’s spending compares with the last two weeks.</li>
+<li><strong>Fraud drifts.</strong> The 29% out-of-time drop is the most important result for anyone deploying this model. It needs monitoring, scheduled retraining, and a fallback rule set.</li>
+<li><strong>Limitations:</strong> the dollar estimates rest on case-study assumptions ($400 per fraud caught, $20 per false positive, ×6 annualization, 10M-transaction portfolio). Before deployment, the next steps would be leakage checks on time-windowed features and validation on future data.</li>
 </ul>
-<p>A 4% decision cutoff was selected based on financial impact analysis. At this threshold:</p>
-<ul>
-<li>62% of fraud is detected<br>
-</li>
-<li>False positive rate remains controlled at 1.658%<br>
-</li>
-<li>Estimated annual savings: <strong>$40.5 million</strong></li>
-</ul>
-<p>The results indicate that behavioral feature engineering combined with boosted tree models provides strong performance under time drift. Future improvements may focus on additional data sources and enhanced behavioral signals to further improve OOT stability.</p>
 
 
 </section>

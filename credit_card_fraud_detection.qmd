@@ -12,26 +12,20 @@ callout-appearance: minimal
 ::: {.biz-value}
 ### Decision & Evidence
 
-- **Question:** How much fraud can be captured within a constrained review workload?
-- **Analysis:** Cleaned transaction data, engineered 3,379 behavioral features, and compared models including LightGBM with an out-of-time sample. Evaluated review cutoffs using fraud capture and false-positive costs.
-- **Result:** At the recommended 4% review cutoff, the reported fraud capture rate was 62% and the false-positive rate was 1.658%.
-- **Decision limits:** The 4% cutoff is a review-volume trade-off, not the highest-profit cutoff in the source table. Annual savings depend on unresolved time/population scaling assumptions; see the financial-impact interpretation note below.
+- **Question:** With a limited review team, which transactions should be reviewed to catch the most fraud?
+- **Approach:** Cleaned 97,852 transactions, engineered 3,379 behavioral features, selected 20 with a filter-and-wrapper process, and chose LightGBM over four alternatives using a held-out later time period.
+- **Result:** Reviewing the top 4% of transactions catches **62% of fraud** at a 1.66% false-positive rate, with modeled annual savings of $40.5M under the case's cost assumptions.
+- **Risk to manage:** Detection falls from 75% to 53% on the later time period. Fraud patterns drift, so the model would need monitoring and regular retraining.
 :::
 
 
 ## Introduction
 
-Credit card fraud poses a persistent risk to financial institutions, resulting in substantial financial losses and increased operational burden. As digital transactions continue to grow, detecting fraudulent behavior accurately and efficiently has become increasingly important.
-
-This project develops a structured analytical framework for identifying fraudulent credit card transactions using historical transaction data. The dataset contains 97,852 transactions, of which 2,047 are labeled as fraudulent, reflecting a highly imbalanced classification problem.
-
-The report outlines the full modeling workflow, from data preparation to model evaluation, with emphasis on building a practical and deployable fraud detection system.
+A fraud team cannot review every transaction. The practical question is not "is this transaction fraud?" but "which few percent of transactions should analysts look at first?" This project builds a fraud score for 97,852 card transactions from 2010, of which 2,047 (2.1%) are fraud, and sets the review cutoff on business value rather than accuracy.
 
 ## Objective
 
-The primary objective of this project is to build a machine learning model capable of identifying fraudulent transactions while controlling false positives.
-
-Specifically, the goals are:
+The project had four goals:
 
 - Develop a robust fraud detection pipeline including cleaning, feature engineering, and model selection  
 - Evaluate model performance using out-of-time validation  
@@ -262,8 +256,9 @@ Feature selection was conducted in two stages: filtering and wrapping.
 Each variable was ranked independently using the Kolmogorov–Smirnov (KS) statistic.  
 The top candidate features were selected based on:
 
-- 130 variables (≈10% of total features)
-- 260 variables (≈20% of total features)
+- 130 variables (about 4% of all features)
+- 260 variables (about 8%)
+- 520 variables (about 15%), added in the second round below
 
 These filtered sets were passed to the wrapper stage.
 
@@ -302,7 +297,7 @@ The wrapper objective was **Fraud Detection Rate at 3% (FDR@3%)**.
 - Increasing the filter pool from 130 to 260 improved performance.
 - Expanding wrappers from 10 to 20 features did not materially improve results.
 
-Based on these findings, LightGBM with 260 filtered candidates was selected for subsequent modeling.
+Because a larger candidate pool helped, a second round tested 520 candidates.
 
 ### Wrapper Results (Forward Selection)
 
@@ -329,8 +324,7 @@ Performance is measured using **FDR@3%**.
 The performance curve increases rapidly in the first few steps and stabilizes after approximately 12 features, indicating diminishing returns from adding additional variables.
 
 ### Feature Selection Conclusion
-Increasing the number of filtered candidates improved wrapper performance.  
-With 520 filters and 20 wrappers, both LightGBM and Random Forest achieved an average performance of 0.73.
+The best result came from 520 candidates and 20 selected features (FDR@3% = 0.73 for both models).
 
 LightGBM was selected as the final wrapper model because it is deterministic and produces stable feature rankings across runs, whereas Random Forest introduces variability due to its stochastic nature.
 
@@ -418,21 +412,17 @@ Training and testing scores are closely aligned, indicating controlled model com
 
 The configuration favors a shallow boosting structure with limited leaf growth. This reduces variance and improves stability under time drift, which is critical for fraud detection.
 
-The moderate learning rate ensures gradual updates across boosting rounds, avoiding aggressive fitting to short-term noise.
 
 ### Performance Summary
 
-- Train and test scores are stable.
-- OOT performance remains consistent with wrapper-stage expectations.
-- No large divergence between datasets, suggesting controlled overfitting.
-
-The model supports a coursework review-policy comparison. Operational deployment would require leakage checks, calibrated cost assumptions, and prospective validation.
+- **Train and test agree** (0.744 vs. 0.749), so the model is not overfitting the period it was trained on.
+- **Out-of-time performance drops to 0.530**, about 29% below test. Fraud tactics in the later period differ from those the model learned. This is the main risk of the model: it works, but it ages, and in production it would need drift monitoring and regular retraining.
 
 -----
 
 ## Financial Impact and Recommended Cutoff
 
-> **Interpretation note:** The table reports higher net savings at 5% and 6% than at 4%; the 4% cutoff is a review-volume trade-off, not the profit maximum shown here. The source data description covers 2010, while the financial assumptions below refer to two months and a 10-million-transaction annual portfolio. Reconcile those time and scaling bases before treating the annual dollar values as validated estimates.
+> **How to read the dollar figures:** The cutoff table is evaluated on the out-of-time sample (its 53.5% detection at 3% matches the out-of-time FDR). Dollar values are then annualized and scaled to a 10-million-transaction portfolio using the case's assumptions below. Treat them as a way to compare cutoffs, not as a forecast.
 
 ### Financial Assumptions
 
@@ -468,32 +458,22 @@ Fraud capture increases steadily as the cutoff expands. However, false positive 
 
 ### Recommended Cutoff: 4%
 
-At a 4% cutoff:
+Savings keep rising past 4%, so 4% is not the dollar-maximizing choice. It is where each extra percent of reviews stops paying off as well:
 
-- 62% of fraudulent transactions are detected  
-- False positive rate remains controlled at 1.658%  
-- Estimated annual savings: **$40.5 million**
+| Move cutoff | Extra fraud caught | Extra savings |
+|:-----------|-------------------:|--------------:|
+| 2% → 3% | +11.7 pts | +$7.4M |
+| 3% → 4% | +8.5 pts | +$4.8M |
+| 4% → 5% | +5.3 pts | +$2.6M |
+| 5% → 6% | +4.8 pts | +$2.1M |
 
-Although higher cutoffs increase fraud detection, they also introduce rising false positive costs and operational friction. The 4% threshold balances fraud capture and customer impact while delivering strong financial return.
+Beyond 4%, each additional 1% of transactions reviewed (about 100,000 a year at this portfolio size) catches about 40% less new fraud than the step before, while more legitimate customers are flagged. At 4% the team catches **62% of fraud** with a **1.66% false-positive rate**. If review capacity grows, moving to 5% is the next step the numbers support.
 
 -----
 
-## Summary
+## Takeaways and Limitations
 
-This project developed a data-driven credit card fraud detection model using 97,852 transactions, of which approximately 2% were fraudulent. 
-
-A structured pipeline was implemented, including data cleaning, feature engineering, feature selection, and model comparison. From 3,379 engineered variables, the top 20 were selected using a filter-and-wrapper approach.
-
-Among the models evaluated, LightGBM demonstrated the strongest balance between in-sample performance and out-of-time stability. The final model achieved:
-
-- Train FDR: 0.744  
-- Test FDR: 0.749  
-- OOT FDR: 0.530  
-
-A 4% decision cutoff was selected based on financial impact analysis. At this threshold:
-
-- 62% of fraud is detected  
-- False positive rate remains controlled at 1.658%  
-- Estimated annual savings: **$40.5 million**
-
-The results indicate that behavioral feature engineering combined with boosted tree models provides strong performance under time drift. Future improvements may focus on additional data sources and enhanced behavioral signals to further improve OOT stability.
+- **Set cutoffs on value and capacity, not accuracy.** With 2% fraud, a model that flags nothing is 98% accurate. Detection at a fixed review rate is the metric that matters.
+- **Behavior beats raw fields.** The most predictive features describe how a card is behaving: how many states it was used in today, and how today's spending compares with the last two weeks.
+- **Fraud drifts.** The 29% out-of-time drop is the most important result for anyone deploying this model. It needs monitoring, scheduled retraining, and a fallback rule set.
+- **Limitations:** the dollar estimates rest on case-study assumptions ($400 per fraud caught, $20 per false positive, ×6 annualization, 10M-transaction portfolio). Before deployment, the next steps would be leakage checks on time-windowed features and validation on future data.
