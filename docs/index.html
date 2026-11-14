@@ -88,12 +88,16 @@
             <p class="eyebrow">MSBA CAPSTONE PROJECT</p>
             <h3 id="p-validation">HP Marketing<br>Data Validation.</h3>
             <p class="problem">Better inputs.<br>More reliable analysis.</p>
-            <p class="approach">Built a Python reconciliation workflow to flag discrepancies and trace their causes. HP leadership adopted the reporting changes I proposed as part of the MSBA team capstone.</p>
+            <p class="approach">Contributed to Python workflows that check campaign names, reconcile spending, and flag unusual patterns before marketing measurement. The tools flagged 900+ anomalies to support budget planning and financial decision-making.</p>
             <p class="tech">Python · Data Quality · Anomaly Detection</p>
           </header>
-          <figure class="deliverables capstone-result" aria-labelledby="hp-impact">
-            <p class="delivery-number">900+<span id="hp-impact">discrepancies flagged for investigation</span></p>
-            <figcaption>Python validation and reconciliation · MSBA team capstone</figcaption>
+          <figure class="deliverables" aria-label="Validation tools delivered by the team">
+            <p class="delivery-number">3<span>validation tools delivered by the team</span></p>
+            <ol class="tool-list">
+              <li><span class="tool-index">01</span><span><strong>Campaign names</strong><small>Check naming conventions</small></span></li>
+              <li><span class="tool-index">02</span><span><strong>Spend reconciliation</strong><small>Compare source and reporting totals</small></span></li>
+              <li><span class="tool-index">03</span><span><strong>Anomaly detection</strong><small>Prioritize unusual patterns for review</small></span></li>
+            </ol>
           </figure>
         </div>
       </article>
@@ -195,44 +199,6 @@
 
 
 
-      <!-- Additional projects -->
-      <section class="more container" aria-labelledby="more-title">
-        <h3 id="more-title" class="more-title reveal">More analysis.</h3>
-        <section class="more-grid" aria-label="Analytical projects">
-          <article class="more-item reveal" aria-labelledby="analysis-0">
-            <p class="eyebrow">Experimentation</p>
-            <h4 id="analysis-0">Testing Donation Incentives</h4>
-            <p class="project-result">Matching increased response by about 22% (p = 0.002). Larger matches showed no statistically significant additional lift in this sample.</p>
-            <p class="tech">Python · t-tests · Regression · Probit</p>
-            <details class="project-details"><summary>How it works</summary><dl class="project-summary"><dt>Problem</dt><dd>Determine whether matching gifts increase donations and whether larger matches add value.</dd><dt>Technical solution</dt><dd>Compared treatment and control response rates using t-tests, regression, and probit models.</dd></dl></details>
-            <a class="link-cta" href="AB_Testing.html">Explore Project<span class="visually-hidden">: A/B Testing</span></a>
-          </article>
-          <article class="more-item reveal" aria-labelledby="analysis-1">
-            <p class="eyebrow">Statistical Modeling</p>
-            <h4 id="analysis-1">Software &amp; Patent Outcomes</h4>
-            <p class="project-result">Customers had about 23% more expected patents (p &lt; 0.001). This is an association, not evidence of a causal effect.</p>
-            <p class="tech">Python · Maximum Likelihood · Poisson Regression</p>
-            <details class="project-details"><summary>How it works</summary><dl class="project-summary"><dt>Problem</dt><dd>Assess whether software customers have more patents after accounting for firm age and region.</dd><dt>Technical solution</dt><dd>Estimated a Poisson count model using maximum likelihood, controlling for age and region.</dd></dl></details>
-            <a class="link-cta" href="Maximum_Likelihood_Estimation.html">Explore Project<span class="visually-hidden">: Poisson Regression via MLE</span></a>
-          </article>
-          <article class="more-item reveal" aria-labelledby="analysis-2">
-            <p class="eyebrow">Pricing</p>
-            <h4 id="analysis-2">Pricing Simulation</h4>
-            <p class="project-result">Compared preference estimates from both methods against the simulation parameters; results describe simulated behavior.</p>
-            <p class="tech">Python · MLE · Metropolis-Hastings MCMC</p>
-            <details class="project-details"><summary>How it works</summary><dl class="project-summary"><dt>Problem</dt><dd>Estimate subscription preferences from simulated customer choices.</dd><dt>Technical solution</dt><dd>Fit a multinomial logit model with maximum likelihood and Bayesian Metropolis–Hastings sampling.</dd></dl></details>
-            <a class="link-cta" href="Multinomial_Logit_Model.html">Explore Project<span class="visually-hidden">: Multinomial Logit Choice Model</span></a>
-          </article>
-          <article class="more-item reveal" aria-labelledby="analysis-3">
-            <p class="eyebrow">Segmentation</p>
-            <h4 id="analysis-3">Choosing Useful Segments</h4>
-            <p class="project-result">k = 2 had the highest silhouette score. k = 3 was selected for species-informed interpretation, so the choice was not fully unsupervised.</p>
-            <p class="tech">Python · NumPy · scikit-learn</p>
-            <details class="project-details"><summary>How it works</summary><dl class="project-summary"><dt>Problem</dt><dd>Choose a cluster count that balances separation and interpretability.</dd><dt>Technical solution</dt><dd>Applied K-Means and compared cluster counts using silhouette scores and known species for interpretation.</dd></dl></details>
-            <a class="link-cta" href="Key_Drivers_Analysis.html">Explore Project<span class="visually-hidden">: K-Means Clustering</span></a>
-          </article>
-        </section>
-      </section>
     </section>
 
     <!-- ============ EXPERIENCE ============ -->
