@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tweety Chang">
-<meta name="description" content="Simulation study comparing MLE and Bayesian MCMC estimates of subscription choice parameters.">
+<meta name="description" content="A conjoint choice model, estimated two ways, recovers every true preference and prices each feature in dollars.">
 
-<title>Multinomial Logit: Pricing &amp; Choice Modeling – Tweety Chang</title>
+<title>What Is a Streaming Feature Worth? – Tweety Chang</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <link href="./favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -97,9 +97,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -132,14 +129,14 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Multinomial Logit: Pricing &amp; Choice Modeling – Tweety Chang">
-<meta property="og:description" content="Simulation study comparing MLE and Bayesian MCMC estimates of subscription choice parameters.">
+<meta property="og:title" content="What Is a Streaming Feature Worth? – Tweety Chang">
+<meta property="og:description" content="A conjoint choice model, estimated two ways, recovers every true preference and prices each feature in dollars.">
 <meta property="og:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/fig_mnl_price_utility.png">
 <meta property="og:site_name" content="Tweety Chang">
 <meta property="og:image:height" content="748">
 <meta property="og:image:width" content="1132">
-<meta name="twitter:title" content="Multinomial Logit: Pricing &amp; Choice Modeling – Tweety Chang">
-<meta name="twitter:description" content="Simulation study comparing MLE and Bayesian MCMC estimates of subscription choice parameters.">
+<meta name="twitter:title" content="What Is a Streaming Feature Worth? – Tweety Chang">
+<meta name="twitter:description" content="A conjoint choice model, estimated two ways, recovers every true preference and prices each feature in dollars.">
 <meta name="twitter:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/fig_mnl_price_utility.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -211,12 +208,15 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Multinomial Logit: Pricing &amp; Choice Modeling</h1>
+<h1 class="title">What Is a Streaming Feature Worth?</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Choice Modeling</div>
+  </div>
   </div>
 
 <div>
   <div class="description">
-    Simulation study comparing MLE and Bayesian MCMC estimates of subscription choice parameters.
+    A conjoint choice model, estimated two ways, recovers every true preference and prices each feature in dollars.
   </div>
 </div>
 
@@ -245,8 +245,8 @@ window.Quarto = {
 </header>
 
 
-<section id="simulation-results" class="level3 biz-value">
-<h3 class="anchored" data-anchor-id="simulation-results">Simulation Results</h3>
+<section id="at-a-glance" class="level3 biz-value">
+<h3 class="anchored" data-anchor-id="at-a-glance">At a glance</h3>
 <ul>
 <li><strong>Question:</strong> Can a multinomial logit model recover known subscription preferences from conjoint choices, and do maximum likelihood and Bayesian estimation agree?</li>
 <li><strong>Design:</strong> 100 simulated respondents × 10 choice tasks × 3 alternatives (1,000 choices, 3,000 alternative rows). Attributes: brand, ads, and monthly price.</li>
@@ -295,7 +295,7 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="e4472424" class="cell" data-message="false" data-execution_count="1">
+<div id="d377768a" class="cell" data-message="false" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-overflow-wrap code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> product</span>
@@ -384,14 +384,98 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 <h2 class="anchored" data-anchor-id="preparing-the-data">3. Preparing the Data</h2>
 <p>The main work in an MNL model is organizing the data, as we need to keep track of 3 dimensions (consumer <span class="math inline">\(i\)</span>, covariate <span class="math inline">\(k\)</span>, and product <span class="math inline">\(j\)</span>) instead of the typical 2 dimensions for cross-sectional regression models (consumer <span class="math inline">\(i\)</span> and covariate <span class="math inline">\(k\)</span>). The fact that each task for each respondent has the same number of alternatives (3) helps. Brand and ads are converted to indicator variables, with Hulu and ad-free as the baselines.</p>
 <p>Estimation uses <code>conjoint_data.csv</code>, the course-provided dataset generated with the same design and true parameters as the simulation code above. Its rows therefore differ from the simulated preview.</p>
-<div id="cc3a39f5" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-stdout">
-<pre><code>   resp  task  choice brand   ad  price  brand_N  brand_P  ad_yes  task_id
-0     1     1       1     N  Yes     28        1        0       1        0
-1     1     1       0     H  Yes     16        0        0       1        0
-2     1     1       0     P  Yes     16        0        1       1        0
-3     1     2       0     N  Yes     32        1        0       1        1
-4     1     2       1     P  Yes     16        0        1       1        1</code></pre>
+<div id="7ef2a0c9" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="3">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">resp</th>
+<th style="text-align: right;">task</th>
+<th style="text-align: right;">choice</th>
+<th style="text-align: left;">brand</th>
+<th style="text-align: left;">ad</th>
+<th style="text-align: right;">price</th>
+<th style="text-align: right;">brand_N</th>
+<th style="text-align: right;">brand_P</th>
+<th style="text-align: right;">ad_yes</th>
+<th style="text-align: right;">task_id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">H</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">P</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">N</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">P</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <p>Each <code>task_id</code> groups the three alternatives shown in one task. In task 0, for example, the Netflix offer with ads at $28 (choice = 1) was selected over Hulu and Prime offers at $16.</p>
@@ -415,54 +499,49 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 </div>
 </div>
 </div>
-<div id="d0eb3e0a" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display" data-execution_count="4">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<div id="162d5f12" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">MLE Coefficient</th>
-<th data-quarto-table-cell-role="th">Std. Error</th>
-<th data-quarto-table-cell-role="th">95% CI Lower</th>
-<th data-quarto-table-cell-role="th">95% CI Upper</th>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">MLE Coefficient</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">95% CI Lower</th>
+<th style="text-align: right;">95% CI Upper</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">brand_N</th>
-<td>0.941195</td>
-<td>0.114229</td>
-<td>0.717306</td>
-<td>1.165084</td>
+<td style="text-align: left;">brand_N</td>
+<td style="text-align: right;">0.9412</td>
+<td style="text-align: right;">0.1142</td>
+<td style="text-align: right;">0.7173</td>
+<td style="text-align: right;">1.1651</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">brand_P</th>
-<td>0.501616</td>
-<td>0.120818</td>
-<td>0.264813</td>
-<td>0.738419</td>
+<td style="text-align: left;">brand_P</td>
+<td style="text-align: right;">0.5016</td>
+<td style="text-align: right;">0.1208</td>
+<td style="text-align: right;">0.2648</td>
+<td style="text-align: right;">0.7384</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">ad_yes</th>
-<td>-0.731994</td>
-<td>0.088559</td>
-<td>-0.905571</td>
-<td>-0.558418</td>
+<td style="text-align: left;">ad_yes</td>
+<td style="text-align: right;">-0.7320</td>
+<td style="text-align: right;">0.0886</td>
+<td style="text-align: right;">-0.9056</td>
+<td style="text-align: right;">-0.5584</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">price</th>
-<td>-0.099480</td>
-<td>0.006357</td>
-<td>-0.111941</td>
-<td>-0.087020</td>
+<td style="text-align: left;">price</td>
+<td style="text-align: right;">-0.0995</td>
+<td style="text-align: right;">0.0064</td>
+<td style="text-align: right;">-0.1119</td>
+<td style="text-align: right;">-0.0870</td>
 </tr>
 </tbody>
 </table>
-
-</div>
 </div>
 </div>
 <p>All four coefficients have the expected sign and every 95% confidence interval excludes zero: Netflix 0.941, Prime 0.502, ads −0.732, and price −0.0995 per dollar.</p>
@@ -486,78 +565,73 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 </div>
 </div>
 </div>
-<div id="247e19ab" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display" data-execution_count="6">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<div id="91bd3094" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="7">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Posterior Mean</th>
-<th data-quarto-table-cell-role="th">Posterior Std</th>
-<th data-quarto-table-cell-role="th">95% CI Lower</th>
-<th data-quarto-table-cell-role="th">95% CI Upper</th>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Posterior Mean</th>
+<th style="text-align: right;">Posterior Std</th>
+<th style="text-align: right;">95% CI Lower</th>
+<th style="text-align: right;">95% CI Upper</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">brand_N</th>
-<td>0.954482</td>
-<td>0.111946</td>
-<td>0.737799</td>
-<td>1.172539</td>
+<td style="text-align: left;">brand_N</td>
+<td style="text-align: right;">0.9545</td>
+<td style="text-align: right;">0.1119</td>
+<td style="text-align: right;">0.7378</td>
+<td style="text-align: right;">1.1725</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">brand_P</th>
-<td>0.506766</td>
-<td>0.112751</td>
-<td>0.285853</td>
-<td>0.728708</td>
+<td style="text-align: left;">brand_P</td>
+<td style="text-align: right;">0.5068</td>
+<td style="text-align: right;">0.1128</td>
+<td style="text-align: right;">0.2859</td>
+<td style="text-align: right;">0.7287</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">ad_yes</th>
-<td>-0.732992</td>
-<td>0.088405</td>
-<td>-0.910828</td>
-<td>-0.566985</td>
+<td style="text-align: left;">ad_yes</td>
+<td style="text-align: right;">-0.7330</td>
+<td style="text-align: right;">0.0884</td>
+<td style="text-align: right;">-0.9108</td>
+<td style="text-align: right;">-0.5670</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">price</th>
-<td>-0.099719</td>
-<td>0.006344</td>
-<td>-0.112362</td>
-<td>-0.087510</td>
+<td style="text-align: left;">price</td>
+<td style="text-align: right;">-0.0997</td>
+<td style="text-align: right;">0.0063</td>
+<td style="text-align: right;">-0.1124</td>
+<td style="text-align: right;">-0.0875</td>
 </tr>
 </tbody>
 </table>
-
 </div>
 </div>
-</div>
-<div id="3c8b890d" class="cell" data-execution_count="7">
+<div id="badafb6b" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-stdout">
 <pre><code>Acceptance rate after burn-in: 56.9%</code></pre>
 </div>
 </div>
 <p>Posterior means are close to the MLE: Netflix 0.954, Prime 0.507, ads −0.733, and price −0.0997. The 57% acceptance rate is above the roughly 23% usually targeted for random-walk samplers in several dimensions, so larger proposal steps would explore the posterior faster. The two diagnostics below check the Netflix coefficient.</p>
-<div id="01ef6264" class="cell" data-execution_count="8">
+<div id="2bd95189" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Multinomial_Logit_Model_files/figure-html/cell-9-output-1.png" width="566" height="374" class="figure-img"></p>
+<p><img src="Multinomial_Logit_Model_files/figure-html/cell-10-output-1.png" loading="lazy" decoding="async" width="566" height="374" class="figure-img"></p>
 <figcaption>Posterior Histogram for brand_N</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>The posterior is unimodal and roughly normal, centered near 0.95 with most mass between 0.75 and 1.15.</p>
-<div id="72f6cb5d" class="cell" data-execution_count="9">
+<div id="a156bfe0" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Multinomial_Logit_Model_files/figure-html/cell-10-output-1.png" width="566" height="374" class="figure-img"></p>
+<p><img src="Multinomial_Logit_Model_files/figure-html/cell-11-output-1.png" loading="lazy" decoding="async" width="566" height="374" class="figure-img"></p>
 <figcaption>Trace Plot for brand_N</figcaption>
 </figure>
 </div>
@@ -583,129 +657,130 @@ u_{ij} = (1 \times Netflix_j) + (0.5 \times Prime_j) + (-0.8*Ads_j) - 0.1\times 
 </div>
 </div>
 </div>
-<div id="a7d1849e" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display" data-execution_count="11">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<div id="9165cefc" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="12">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Bayes Mean</th>
-<th data-quarto-table-cell-role="th">Bayes Std. Dev.</th>
-<th data-quarto-table-cell-role="th">Bayes CI Lower</th>
-<th data-quarto-table-cell-role="th">Bayes CI Upper</th>
-<th data-quarto-table-cell-role="th">MLE Mean</th>
-<th data-quarto-table-cell-role="th">MLE Std. Error</th>
-<th data-quarto-table-cell-role="th">MLE CI Lower</th>
-<th data-quarto-table-cell-role="th">MLE CI Upper</th>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Bayes Mean</th>
+<th style="text-align: right;">Bayes Std. Dev.</th>
+<th style="text-align: right;">Bayes CI Lower</th>
+<th style="text-align: right;">Bayes CI Upper</th>
+<th style="text-align: right;">MLE Mean</th>
+<th style="text-align: right;">MLE Std. Error</th>
+<th style="text-align: right;">MLE CI Lower</th>
+<th style="text-align: right;">MLE CI Upper</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">brand_N</th>
-<td>0.954482</td>
-<td>0.111946</td>
-<td>0.737799</td>
-<td>1.172539</td>
-<td>0.941195</td>
-<td>0.114229</td>
-<td>0.717306</td>
-<td>1.165084</td>
+<td style="text-align: left;">brand_N</td>
+<td style="text-align: right;">0.9545</td>
+<td style="text-align: right;">0.1119</td>
+<td style="text-align: right;">0.7378</td>
+<td style="text-align: right;">1.1725</td>
+<td style="text-align: right;">0.9412</td>
+<td style="text-align: right;">0.1142</td>
+<td style="text-align: right;">0.7173</td>
+<td style="text-align: right;">1.1651</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">brand_P</th>
-<td>0.506766</td>
-<td>0.112751</td>
-<td>0.285853</td>
-<td>0.728708</td>
-<td>0.501616</td>
-<td>0.120818</td>
-<td>0.264813</td>
-<td>0.738419</td>
+<td style="text-align: left;">brand_P</td>
+<td style="text-align: right;">0.5068</td>
+<td style="text-align: right;">0.1128</td>
+<td style="text-align: right;">0.2859</td>
+<td style="text-align: right;">0.7287</td>
+<td style="text-align: right;">0.5016</td>
+<td style="text-align: right;">0.1208</td>
+<td style="text-align: right;">0.2648</td>
+<td style="text-align: right;">0.7384</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">ad_yes</th>
-<td>-0.732992</td>
-<td>0.088405</td>
-<td>-0.910828</td>
-<td>-0.566985</td>
-<td>-0.731994</td>
-<td>0.088559</td>
-<td>-0.905571</td>
-<td>-0.558418</td>
+<td style="text-align: left;">ad_yes</td>
+<td style="text-align: right;">-0.7330</td>
+<td style="text-align: right;">0.0884</td>
+<td style="text-align: right;">-0.9108</td>
+<td style="text-align: right;">-0.5670</td>
+<td style="text-align: right;">-0.7320</td>
+<td style="text-align: right;">0.0886</td>
+<td style="text-align: right;">-0.9056</td>
+<td style="text-align: right;">-0.5584</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">price</th>
-<td>-0.099719</td>
-<td>0.006344</td>
-<td>-0.112362</td>
-<td>-0.087510</td>
-<td>-0.099480</td>
-<td>0.006357</td>
-<td>-0.111941</td>
-<td>-0.087020</td>
+<td style="text-align: left;">price</td>
+<td style="text-align: right;">-0.0997</td>
+<td style="text-align: right;">0.0063</td>
+<td style="text-align: right;">-0.1124</td>
+<td style="text-align: right;">-0.0875</td>
+<td style="text-align: right;">-0.0995</td>
+<td style="text-align: right;">0.0064</td>
+<td style="text-align: right;">-0.1119</td>
+<td style="text-align: right;">-0.0870</td>
 </tr>
 </tbody>
 </table>
-
 </div>
 </div>
-</div>
-<div id="c1636c79" class="cell" data-execution_count="12">
-<div class="cell-output cell-output-display" data-execution_count="12">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<div id="5f856369" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="13">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">True</th>
-<th data-quarto-table-cell-role="th">MLE</th>
-<th data-quarto-table-cell-role="th">Bayes</th>
-<th data-quarto-table-cell-role="th">Within MLE 95% CI</th>
-<th data-quarto-table-cell-role="th">Within Bayes 95% CI</th>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">True</th>
+<th style="text-align: right;">MLE</th>
+<th style="text-align: right;">Bayes</th>
+<th style="text-align: left;">Within MLE 95% CI</th>
+<th style="text-align: left;">Within Bayes 95% CI</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">brand_N</th>
-<td>1.0</td>
-<td>0.9412</td>
-<td>0.9545</td>
-<td>True</td>
-<td>True</td>
+<td style="text-align: left;">brand_N</td>
+<td style="text-align: right;">1.0000</td>
+<td style="text-align: right;">0.9412</td>
+<td style="text-align: right;">0.9545</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">brand_P</th>
-<td>0.5</td>
-<td>0.5016</td>
-<td>0.5068</td>
-<td>True</td>
-<td>True</td>
+<td style="text-align: left;">brand_P</td>
+<td style="text-align: right;">0.5000</td>
+<td style="text-align: right;">0.5016</td>
+<td style="text-align: right;">0.5068</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">ad_yes</th>
-<td>-0.8</td>
-<td>-0.7320</td>
-<td>-0.7330</td>
-<td>True</td>
-<td>True</td>
+<td style="text-align: left;">ad_yes</td>
+<td style="text-align: right;">-0.8000</td>
+<td style="text-align: right;">-0.7320</td>
+<td style="text-align: right;">-0.7330</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">price</th>
-<td>-0.1</td>
-<td>-0.0995</td>
-<td>-0.0997</td>
-<td>True</td>
-<td>True</td>
+<td style="text-align: left;">price</td>
+<td style="text-align: right;">-0.1000</td>
+<td style="text-align: right;">-0.0995</td>
+<td style="text-align: right;">-0.0997</td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Yes</td>
 </tr>
 </tbody>
 </table>
-
-</div>
 </div>
 </div>
 <p>Both estimators place every true value inside its 95% interval. The largest gap is the ad coefficient (true −0.8, estimated about −0.73), which is well within sampling error for 1,000 choices. With weak priors and this much data, the Bayesian and MLE results are practically equivalent; their uncertainty estimates differ most for Prime (0.113 vs.&nbsp;0.121).</p>

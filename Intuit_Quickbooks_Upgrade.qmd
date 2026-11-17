@@ -1,16 +1,16 @@
 ---
-title: "Campaign Profit Optimization: QuickBooks Upgrade"
+title: "Profitable Campaign Targeting"
 author: "Tweety Chang"
 date: 2025-02-15
 date-format: "MMMM YYYY"
-description: "Response model and break-even mailing rule for a 75K-business upsell campaign, selected on projected profit rather than accuracy."
-categories: [Risk & Finance, Machine Learning]
+description: "Who should get a second upgrade offer? A profit-based mailing rule that beats mailing everyone by $57K while contacting about a third of the list."
+categories: [Marketing Analytics]
 image: figures/fig6_version_upgrade_pred.png
 callout-appearance: minimal
 ---
 
 ::: {.biz-value}
-### Decision & Evidence
+### At a glance
 
 - **Question:** Which wave-1 non-responders should receive a second upgrade offer so that every mailing earns back its cost?
 - **Approach:** Compared logistic regression and neural network models on 75,000 businesses, ranked by validation-sample profit rather than accuracy, and turned the winning score into a break-even mailing rule.

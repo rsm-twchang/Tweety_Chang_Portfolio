@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tweety Chang">
-<meta name="description" content="Response model and break-even mailing rule for a 75K-business upsell campaign, selected on projected profit rather than accuracy.">
+<meta name="description" content="Who should get a second upgrade offer? A profit-based mailing rule that beats mailing everyone by $57K while contacting about a third of the list.">
 
-<title>Campaign Profit Optimization: QuickBooks Upgrade – Tweety Chang</title>
+<title>Profitable Campaign Targeting – Tweety Chang</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -65,14 +65,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Campaign Profit Optimization: QuickBooks Upgrade – Tweety Chang">
-<meta property="og:description" content="Response model and break-even mailing rule for a 75K-business upsell campaign, selected on projected profit rather than accuracy.">
+<meta property="og:title" content="Profitable Campaign Targeting – Tweety Chang">
+<meta property="og:description" content="Who should get a second upgrade offer? A profit-based mailing rule that beats mailing everyone by $57K while contacting about a third of the list.">
 <meta property="og:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/fig6_version_upgrade_pred.png">
 <meta property="og:site_name" content="Tweety Chang">
 <meta property="og:image:height" content="337">
 <meta property="og:image:width" content="433">
-<meta name="twitter:title" content="Campaign Profit Optimization: QuickBooks Upgrade – Tweety Chang">
-<meta name="twitter:description" content="Response model and break-even mailing rule for a 75K-business upsell campaign, selected on projected profit rather than accuracy.">
+<meta name="twitter:title" content="Profitable Campaign Targeting – Tweety Chang">
+<meta name="twitter:description" content="Who should get a second upgrade offer? A profit-based mailing rule that beats mailing everyone by $57K while contacting about a third of the list.">
 <meta name="twitter:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/fig6_version_upgrade_pred.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -145,12 +145,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Campaign Profit Optimization: QuickBooks Upgrade</h1>
+<h1 class="title">Profitable Campaign Targeting</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Marketing Analytics</div>
+  </div>
   </div>
 
 <div>
   <div class="description">
-    Response model and break-even mailing rule for a 75K-business upsell campaign, selected on projected profit rather than accuracy.
+    Who should get a second upgrade offer? A profit-based mailing rule that beats mailing everyone by $57K while contacting about a third of the list.
   </div>
 </div>
 
@@ -179,8 +182,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="decision-evidence" class="level3 biz-value">
-<h3 class="anchored" data-anchor-id="decision-evidence">Decision &amp; Evidence</h3>
+<section id="at-a-glance" class="level3 biz-value">
+<h3 class="anchored" data-anchor-id="at-a-glance">At a glance</h3>
 <ul>
 <li><strong>Question:</strong> Which wave-1 non-responders should receive a second upgrade offer so that every mailing earns back its cost?</li>
 <li><strong>Approach:</strong> Compared logistic regression and neural network models on 75,000 businesses, ranked by validation-sample profit rather than accuracy, and turned the winning score into a break-even mailing rule.</li>
@@ -591,10 +594,10 @@ The per-dollar effect is small by construction; the practical impact depends on 
 <h4 class="anchored" data-anchor-id="geographic-effects-lr1">Geographic effects (LR1)</h4>
 <p><code>zip_bins</code> shows large differences relative to the reference bin, with most bins having substantially lower odds than the reference category. This aligns with the earlier EDA result that a localized geographic segment behaves differently and supports isolating that segment explicitly (rather than relying on binning alone).</p>
 <p><strong>Figure 1. LR1 prediction profiles across key predictors</strong><br>
-<img src="figures/fig1_lr1_prediction_profiles.png" id="fig-lr1-profiles" class="img-fluid" alt="Figure 1. LR1 prediction profiles across key predictors"></p>
+<img src="figures/fig1_lr1_prediction_profiles.png" id="fig-lr1-profiles" class="img-fluid" loading="lazy" decoding="async" alt="Figure 1. LR1 prediction profiles across key predictors"></p>
 <p>Response probability is dominated by geography: <code>zip_bins = 1</code> is a clear outlier, while other bins remain near a low baseline. Behavioral variables show predictable structure—probability increases with <code>numords</code> and is higher for <code>upgraded = 1</code> and <code>version1 = 1</code>. Recency is strongly negative: response probability declines as <code>last</code> increases. <code>sex</code>, <code>bizflag</code>, and <code>sincepurch</code> are nearly flat over the plotted ranges, suggesting limited incremental value in this specification.</p>
 <p><strong>Figure 2. LR1 permutation importance (AUC decrease)</strong><br>
-<img src="figures/fig2_lr1_permutation_importance.png" id="fig-lr1-permimp" class="img-fluid" alt="Figure 2. LR1 permutation importance (AUC decrease)"></p>
+<img src="figures/fig2_lr1_permutation_importance.png" id="fig-lr1-permimp" class="img-fluid" loading="lazy" decoding="async" alt="Figure 2. LR1 permutation importance (AUC decrease)"></p>
 <p>Permutation importance ranks <code>zip_bins</code> as the strongest driver of model discrimination, followed by <code>upgraded</code> and <code>last</code>. <code>numords</code> and <code>version1</code> provide moderate contribution; remaining variables add minimal lift. The concentration of signal in the geography feature supports isolating the outlier ZIP behavior explicitly (via <code>isweird</code>) rather than relying on broad ZIP binning alone.</p>
 </section>
 <section id="lr2-enhanced-logistic-regression-anomalous-zip-isolation" class="level4">
@@ -625,10 +628,10 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 <h5 class="anchored" data-anchor-id="variable-importance">Variable importance</h5>
 <p>Figure 3 confirms the same conclusion from a predictive standpoint. Permuting <code>isweird</code> produces the largest AUC degradation, followed by <code>upgraded</code> and <code>last</code>. <code>zip_bins</code> contributes relatively little once the outlier ZIP behavior is modeled explicitly.</p>
 <p><strong>Figure 3. LR2 permutation importance (AUC decrease)</strong><br>
-<img src="figures/fig3_lr2_permutation_importance.png" id="fig-lr2-permimp" class="img-fluid" alt="Figure 3. LR2 permutation importance (AUC decrease)"></p>
+<img src="figures/fig3_lr2_permutation_importance.png" id="fig-lr2-permimp" class="img-fluid" loading="lazy" decoding="async" alt="Figure 3. LR2 permutation importance (AUC decrease)"></p>
 <p><code>isweird</code> is the dominant driver of LR2 discrimination: permuting it produces the largest AUC drop, far exceeding any other feature. After isolating the 00801/00804 segment, <code>zip_bins</code> contributes little incremental lift, while <code>upgraded</code> and purchase recency (<code>last</code>) remain the strongest broad-based predictors outside the anomaly. This supports modeling the outlier ZIP behavior explicitly with <code>isweird</code> rather than relying on ZIP-bin effects that would blur a concentrated segment signal.</p>
 <p><strong>Figure 4. LR2 prediction profiles across key predictors</strong><br>
-<img src="figures/fig4_lr2_prediction_profiles.png" id="fig-lr2-profiles-a" class="img-fluid" alt="Figure 4. LR2 prediction profiles across key predictors"></p>
+<img src="figures/fig4_lr2_prediction_profiles.png" id="fig-lr2-profiles-a" class="img-fluid" loading="lazy" decoding="async" alt="Figure 4. LR2 prediction profiles across key predictors"></p>
 <p>After adding <code>isweird</code>, the geographic spike shifts from <code>zip_bins</code> to the anomaly indicator. Predicted probability increases sharply when <code>isweird = 1</code>, while the <code>zip_bins</code> profile becomes largely flat, indicating limited incremental segmentation value once the outlier ZIPs are modeled explicitly. Purchase-history signals remain stable: probability increases with <code>numords</code>, and is higher for <code>upgraded = 1</code> and <code>version1 = 1</code>, while <code>last</code> remains strongly negative.</p>
 <p>On the validation sample, LR2 (baseline predictors + <code>isweird</code>, with <code>zip_bins</code> retained) achieves <strong>profit = 35,444.61</strong> and <strong>ROME = 3.88</strong>, with projected profit of <strong>1,202,490.81</strong>. The confusion matrix is TP = 743, FP = 5,736, TN = 15,661, FN = 360. Relative to LR1, the primary change is a reduction in false positives (fewer low-probability customers mailed), which improves campaign efficiency while keeping overall capture of responders comparable.</p>
 </section>
@@ -637,7 +640,7 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 <section id="feature-refinement-one-version-path-variable" class="level3">
 <h3 class="anchored" data-anchor-id="feature-refinement-one-version-path-variable">Feature refinement: one version-path variable</h3>
 <p><strong>Figure 5. LR2 prediction profiles for key predictors</strong><br>
-<img src="figures/fig5_lr2_prediction_profiles.png" id="fig-lr2-profiles" class="img-fluid" alt="Figure 5. LR2 prediction profiles for key predictors"></p>
+<img src="figures/fig5_lr2_prediction_profiles.png" id="fig-lr2-profiles" class="img-fluid" loading="lazy" decoding="async" alt="Figure 5. LR2 prediction profiles for key predictors"></p>
 <p>The prediction profiles show positive shifts for both <code>version1 = 1</code> and <code>upgraded = 1</code>, but these fields describe overlapping aspects of product history and are not mutually exclusive. To make version behavior interpretable and usable for targeting, the two indicators are recoded into a single categorical feature, <code>version_upgrade</code>, representing mutually exclusive version paths.</p>
 <p><strong>Definition of <code>version_upgrade</code> (derived from <code>version1</code> and <code>upgraded</code>)</strong></p>
 <ul>
@@ -652,7 +655,7 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 <p>This recode removes ambiguity in interpretation and prevents the model from splitting a single business concept across two correlated indicators.</p>
 <p>Model scoring is unchanged by this recode; it only makes version behavior easier to interpret.</p>
 <p><strong>Figure 6. Predicted response by version path (<code>version_upgrade</code>)</strong><br>
-<img src="figures/fig6_version_upgrade_pred.png" id="fig-version-upgrade" class="img-fluid" alt="Figure 6. Predicted response by version path (version_upgrade)"></p>
+<img src="figures/fig6_version_upgrade_pred.png" id="fig-version-upgrade" class="img-fluid" loading="lazy" decoding="async" alt="Figure 6. Predicted response by version path (version_upgrade)"></p>
 <p>Customers who previously <strong>upgraded to version 2</strong> have the highest predicted response. Customers still on <strong>version 1</strong> score next. Customers who <strong>directly purchased version 2</strong> have the lowest predicted response, indicating lower incremental upgrade propensity under the wave-1 offer.</p>
 </section>
 <section id="benchmark-mail-to-all-strategy" class="level3">
@@ -682,13 +685,13 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 <h3 class="anchored" data-anchor-id="neural-network-exploration">Neural network exploration</h3>
 <p>A simple multilayer perceptron (MLP) classifier with a single hidden unit was trained on the same inputs used in the logistic model (including <code>isweird</code> and <code>version_upgrade</code>). The objective of this step was to test whether a nonlinear learner identifies materially different structure or improves ranking beyond the logistic specification.</p>
 <p><strong>Figure 7. MLP (1-unit) prediction profiles across key predictors</strong><br>
-<img src="figures/fig7_mlp1unit_prediction_profiles.png" id="fig-mlp1unit-profiles" class="img-fluid" alt="Figure 7. MLP (1-unit) prediction profiles across key predictors"></p>
+<img src="figures/fig7_mlp1unit_prediction_profiles.png" id="fig-mlp1unit-profiles" class="img-fluid" loading="lazy" decoding="async" alt="Figure 7. MLP (1-unit) prediction profiles across key predictors"></p>
 <p>Predicted response increases sharply for <code>isweird = 1</code>. Outside the anomaly segment, effects are modest and mostly monotone: higher <code>numords</code> raises response, and larger <code>last</code> (less recent) lowers response. Differences across <code>version_upgrade</code> remain visible, while <code>sex</code>, <code>bizflag</code>, <code>sincepurch</code>, and most <code>zip_bins</code> variation are small in the plotted range.</p>
 <p><strong>Figure 8. MLP (1-unit) permutation importance (AUC decrease)</strong><br>
-<img src="figures/fig8_mlp1unit_permutation_importance.png" id="fig-mlp1unit-permimp" class="img-fluid" alt="Figure 8. MLP (1-unit) permutation importance (AUC decrease)"></p>
+<img src="figures/fig8_mlp1unit_permutation_importance.png" id="fig-mlp1unit-permimp" class="img-fluid" loading="lazy" decoding="async" alt="Figure 8. MLP (1-unit) permutation importance (AUC decrease)"></p>
 <p>Permutation importance is concentrated in <code>isweird</code>, followed by <code>last</code> and <code>version_upgrade</code>, with <code>numords</code> providing a smaller lift. Most <code>zip_bins</code> indicators contribute little once the anomaly ZIP segment is captured directly.</p>
 <p><strong>Figure 9. MLP permutation importance with a larger hidden layer</strong><br>
-<img src="figures/fig9_mlp_hidden10_permimp.png" id="fig-mlp-hidden10-permimp" class="img-fluid" alt="Figure 9. MLP permutation importance with a larger hidden layer"></p>
+<img src="figures/fig9_mlp_hidden10_permimp.png" id="fig-mlp-hidden10-permimp" class="img-fluid" loading="lazy" decoding="async" alt="Figure 9. MLP permutation importance with a larger hidden layer"></p>
 <p>Across both configurations, <code>isweird</code> remains the largest contributor to discrimination, confirming that the anomaly ZIP segment is the strongest signal in the data. Increasing model complexity shifts the relative importance among several features—most noticeably <code>version_upgrade</code>, <code>last</code>, <code>sincepurch</code>, and <code>sex</code>—indicating that nonlinear interactions may be present even when the top driver is unchanged. These shifts are treated as hypothesis-generating: they motivate testing explicit interaction terms in a constrained model (e.g., logistic regression with selected interactions) rather than relying on depth alone.</p>
 <section id="larger-network-screening-for-interactions" class="level4">
 <h4 class="anchored" data-anchor-id="larger-network-screening-for-interactions">Larger network: screening for interactions</h4>
@@ -729,7 +732,7 @@ Customers in ZIP codes 00801/00804 have substantially higher odds of responding,
 <section id="interpretation-permutation-importance-mlp1" class="level4">
 <h4 class="anchored" data-anchor-id="interpretation-permutation-importance-mlp1">Interpretation: permutation importance (MLP1)</h4>
 <p><strong>Figure 10. MLP1 permutation importance (AUC decrease)</strong><br>
-<img src="figures/fig10_mlp1_permutation_importance.png" id="fig-mlp1-permimp" class="img-fluid" alt="Figure 10. MLP1 permutation importance (AUC decrease)"></p>
+<img src="figures/fig10_mlp1_permutation_importance.png" id="fig-mlp1-permimp" class="img-fluid" loading="lazy" decoding="async" alt="Figure 10. MLP1 permutation importance (AUC decrease)"></p>
 <p>The importance ranking is concentrated in a small set of features. <code>isweird</code> produces the largest AUC drop when permuted, indicating that the anomaly ZIP segment is the strongest discriminator.</p>
 <hr>
 </section>

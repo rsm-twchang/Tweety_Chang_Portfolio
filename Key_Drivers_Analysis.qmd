@@ -1,16 +1,16 @@
 ---
-title: "K-Means Clustering from Scratch"
+title: "Finding Species Without Labels"
 author: "Tweety Chang"
 date: 2025-06-06
 date-format: "MMMM YYYY"
-description: "K-Means built from scratch, validated against scikit-learn, and improved by feature scaling: agreement with species rises from 0.63 to 0.88 (adjusted Rand)."
-categories: [Machine Learning, Segmentation]
+description: "K-Means built from scratch. Scaling the inputs raises agreement with the true species from 0.63 to 0.88."
+categories: [Machine Learning]
 image: figures/fig6_kmeans_k3.png
 callout-appearance: minimal
 ---
 
 ::: {.biz-value}
-### Results
+### At a glance
 
 - **Question:** Can two body measurements separate penguin species without using the labels, and how should the number of clusters be chosen?
 - **Approach:** Wrote K-Means from scratch, validated it against scikit-learn, and compared k = 2–7 with WCSS and silhouette scores.
@@ -33,6 +33,32 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score, adjusted_rand_score
 from sklearn.preprocessing import StandardScaler
 ```
+
+```{python}
+#| echo: false
+# Render DataFrames as Markdown tables: lighter pages, no notebook scripts, site styling
+import numpy as _np
+from IPython.display import Markdown
+
+def md(df, digits=None, index=True):
+    d = df.reset_index() if index else df.copy()
+    if index and d.columns[0] in ("index", None):
+        d = d.rename(columns={d.columns[0]: ""})
+    def fmt(v):
+        if isinstance(v, (bool, _np.bool_)):
+            return "Yes" if v else "No"
+        if isinstance(v, (float, _np.floating)):
+            return f"{v:,.{digits}f}" if digits is not None else f"{v:,}"
+        if isinstance(v, (int, _np.integer)):
+            return f"{v:,}"
+        return str(v)
+    num = [d[c].map(lambda v: isinstance(v, (int, float, _np.number)) and not isinstance(v, (bool, _np.bool_))).all() for c in d.columns]
+    head = "| " + " | ".join(str(c) for c in d.columns) + " |"
+    rule = "|" + "|".join("---:" if n else ":---" for n in num) + "|"
+    rows = ["| " + " | ".join(fmt(v) for v in r) + " |" for r in d.itertuples(index=False)]
+    return Markdown("\n".join([head, rule, *rows]))
+```
+
 
 ```{python}
 #| echo: false
@@ -98,11 +124,11 @@ def kmeans(X, k, n_restarts=10, max_iter=100, seed=0):
 labels_c, cent_c, wcss_c = kmeans(X, 3)
 sk = KMeans(n_clusters=3, n_init=10, random_state=42).fit(X)
 order_c, order_s = np.argsort(cent_c[:, 1]), np.argsort(sk.cluster_centers_[:, 1])
-pd.DataFrame({
+md(pd.DataFrame({
     "Custom (bill, flipper)": [f"({a:.2f}, {b:.2f})" for a, b in cent_c[order_c]],
     "scikit-learn (bill, flipper)": [f"({a:.2f}, {b:.2f})" for a, b in sk.cluster_centers_[order_s]],
 }, index=["Cluster 1", "Cluster 2", "Cluster 3"]).assign(
-    **{"Custom WCSS": [round(wcss_c, 1), "", ""], "scikit-learn WCSS": [round(sk.inertia_, 1), "", ""]})
+    **{"Custom WCSS": [f"{wcss_c:,.1f}", "", ""], "scikit-learn WCSS": [f"{sk.inertia_:,.1f}", "", ""]}))
 ```
 
 With restarts, the custom implementation and scikit-learn reach the same solution. A single K-Means run can stop in a worse local optimum, which is why an earlier version of this analysis showed different centroids for the two implementations.
@@ -132,7 +158,7 @@ for a in ax:
     a.spines[["top", "right"]].set_visible(False)
 plt.tight_layout()
 plt.show()
-scores
+md(scores)
 ```
 
 The WCSS curve bends at k = 3, and silhouette is highest at k = 2. On raw features, the gap between k = 2 and k = 3 is large (0.612 vs. 0.480). After standardizing, it nearly disappears (0.539 vs. 0.519), so k = 3 gives up very little separation in exchange for a finer, more useful segmentation.
@@ -154,8 +180,8 @@ def species_table(labels):
 
 print(f"Adjusted Rand index vs. species: raw {adjusted_rand_score(data['species'], raw3.labels_):.2f}, "
       f"standardized {adjusted_rand_score(data['species'], std3.labels_):.2f}")
-display(species_table(raw3.labels_).rename_axis("Raw features"))
-display(species_table(std3.labels_).rename_axis("Standardized"))
+display(md(species_table(raw3.labels_).rename_axis("Raw features")))
+display(md(species_table(std3.labels_).rename_axis("Standardized")))
 ```
 
 - **Raw features:** Gentoo separates cleanly, but 54 of 68 Chinstrap penguins share a middle cluster with 38 Adélie penguins, so that cluster is not a single species.

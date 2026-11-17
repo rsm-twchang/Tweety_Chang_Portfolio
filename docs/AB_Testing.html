@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tweety Chang">
-<meta name="description" content="Replication of Karlan &amp; List (2007): a matching offer lifts response by about 23%, with no statistically significant additional lift detected for larger match ratios.">
+<meta name="description" content="A field experiment with 50,083 donors. Offering a match lifts response by 23%; a bigger match adds nothing.">
 
-<title>A/B Testing: Do Matching Offers Raise Response? – Tweety Chang</title>
+<title>Do Matching Offers Raise Giving? – Tweety Chang</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -65,14 +65,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="A/B Testing: Do Matching Offers Raise Response? – Tweety Chang">
-<meta property="og:description" content="Replication of Karlan &amp; List (2007): a matching offer lifts response by about 23%, with no statistically significant additional lift detected for larger match ratios.">
+<meta property="og:title" content="Do Matching Offers Raise Giving? – Tweety Chang">
+<meta property="og:description" content="A field experiment with 50,083 donors. Offering a match lifts response by 23%; a bigger match adds nothing.">
 <meta property="og:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/fig3_donation_rate_treatment.png">
 <meta property="og:site_name" content="Tweety Chang">
 <meta property="og:image:height" content="390">
 <meta property="og:image:width" content="589">
-<meta name="twitter:title" content="A/B Testing: Do Matching Offers Raise Response? – Tweety Chang">
-<meta name="twitter:description" content="Replication of Karlan &amp; List (2007): a matching offer lifts response by about 23%, with no statistically significant additional lift detected for larger match ratios.">
+<meta name="twitter:title" content="Do Matching Offers Raise Giving? – Tweety Chang">
+<meta name="twitter:description" content="A field experiment with 50,083 donors. Offering a match lifts response by 23%; a bigger match adds nothing.">
 <meta name="twitter:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/fig3_donation_rate_treatment.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -145,12 +145,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">A/B Testing: Do Matching Offers Raise Response?</h1>
+<h1 class="title">Do Matching Offers Raise Giving?</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Experimentation</div>
+  </div>
   </div>
 
 <div>
   <div class="description">
-    Replication of Karlan &amp; List (2007): a matching offer lifts response by about 23%, with no statistically significant additional lift detected for larger match ratios.
+    A field experiment with 50,083 donors. Offering a match lifts response by 23%; a bigger match adds nothing.
   </div>
 </div>
 
@@ -179,8 +182,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="test-results" class="level3 biz-value">
-<h3 class="anchored" data-anchor-id="test-results">Test Results</h3>
+<section id="at-a-glance" class="level3 biz-value">
+<h3 class="anchored" data-anchor-id="at-a-glance">At a glance</h3>
 <ul>
 <li><strong>Question:</strong> Does offering to match donations increase giving, and does a bigger match (2:1 or 3:1) work better than 1:1?</li>
 <li><strong>Data:</strong> 50,083 past donors randomly assigned in a published field experiment (Karlan &amp; List, 2007).</li>
@@ -495,7 +498,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="result-1-the-match-offer-raises-response" class="level2">
 <h2 class="anchored" data-anchor-id="result-1-the-match-offer-raises-response">Result 1: The Match Offer Raises Response</h2>
-<p><strong>Figure 1. Response rate by group</strong> <img src="figures/fig3_donation_rate_treatment.png" id="fig-donation-rate" class="img-fluid" alt="Donation rate by treatment status"></p>
+<p><strong>Figure 1. Response rate by group</strong> <img src="figures/fig3_donation_rate_treatment.png" id="fig-donation-rate" class="img-fluid" loading="lazy" decoding="async" alt="Donation rate by treatment status"></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 19%">
@@ -527,7 +530,7 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 <p>The response rate rises from <strong>1.79% to 2.20%</strong>. In absolute terms that is small, but relative to the low baseline it is a <strong>23% lift</strong>, and the two models agree.</p>
-<p><strong>Figure 2. Average donation per letter (including non-donors)</strong> <img src="figures/fig2_avg_donation_amount.png" id="fig-avg-donation" class="img-fluid" alt="Average donation amount by group"></p>
+<p><strong>Figure 2. Average donation per letter (including non-donors)</strong> <img src="figures/fig2_avg_donation_amount.png" id="fig-avg-donation" class="img-fluid" loading="lazy" decoding="async" alt="Average donation amount by group"></p>
 <p>Revenue per letter mailed rises from <strong>$0.81 to $0.97</strong> (+$0.15, about 19%). That estimate is less precise (p = 0.06), because donation amounts vary far more than the yes/no decision to give.</p>
 </section>
 <section id="result-2-bigger-matches-do-not-help" class="level2">
@@ -569,15 +572,15 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="result-3-matches-bring-in-more-donors-not-bigger-gifts">Result 3: Matches Bring In More Donors, Not Bigger Gifts</h2>
 <p>Among the 1,034 people who donated, the average gift was <strong>$45.54 in the control group and $43.87 in the treatment group</strong> (difference −$1.67, p = 0.56). The higher revenue per letter therefore comes from more people giving, not from larger gifts.</p>
 <p>This comparison conditions on donating, which happened after randomization, so it describes donors rather than measuring a clean causal effect.</p>
-<p><strong>Figure 3. Distribution of gift sizes among donors</strong> <img src="figures/fig4_donation_amount_distribution.png" id="fig-donation-dist" class="img-fluid" alt="Distribution of donation amounts by treatment status"></p>
+<p><strong>Figure 3. Distribution of gift sizes among donors</strong> <img src="figures/fig4_donation_amount_distribution.png" id="fig-donation-dist" class="img-fluid" loading="lazy" decoding="async" alt="Distribution of donation amounts by treatment status"></p>
 </section>
 <section id="why-sample-size-matters" class="level2">
 <h2 class="anchored" data-anchor-id="why-sample-size-matters">Why Sample Size Matters</h2>
 <p>A 0.4-point effect on a 2% base is hard to detect. Simulations show why this experiment needed tens of thousands of letters.</p>
-<p><strong>Figure 4. Simulated treatment–control differences, 500 donors per group</strong> <img src="figures/fig5_sampling_dist_simulated.png" id="fig-sampling-dist" class="img-fluid" alt="Sampling distribution of treatment–control differences"></p>
+<p><strong>Figure 4. Simulated treatment–control differences, 500 donors per group</strong> <img src="figures/fig5_sampling_dist_simulated.png" id="fig-sampling-dist" class="img-fluid" loading="lazy" decoding="async" alt="Sampling distribution of treatment–control differences"></p>
 <p>Across 10,000 simulated experiments with response rates of 1.8% and 2.2%, the estimated difference is centered on the true 0.4 points but spreads widely around zero. With only 500 donors per group, many experiments would show no effect, or even the wrong sign.</p>
-<p><strong>Figure 5. Running estimate of the difference as observations accumulate (law of large numbers)</strong> <img src="figures/fig6_cumulative_mean_difference.png" id="fig-lln" class="img-fluid" alt="Cumulative mean difference"></p>
-<p><strong>Figure 6. Sampling distributions at n = 50, 200, 500, and 1,000 per group (central limit theorem)</strong> <img src="figures/fig7_sampling_dist_by_sample_size.png" id="fig-clt" class="img-fluid" alt="Sampling distributions by sample size"></p>
+<p><strong>Figure 5. Running estimate of the difference as observations accumulate (law of large numbers)</strong> <img src="figures/fig6_cumulative_mean_difference.png" id="fig-lln" class="img-fluid" loading="lazy" decoding="async" alt="Cumulative mean difference"></p>
+<p><strong>Figure 6. Sampling distributions at n = 50, 200, 500, and 1,000 per group (central limit theorem)</strong> <img src="figures/fig7_sampling_dist_by_sample_size.png" id="fig-clt" class="img-fluid" loading="lazy" decoding="async" alt="Sampling distributions by sample size"></p>
 <p>As the sample grows, the running estimate settles on the full-sample difference and the sampling distributions narrow and become approximately normal. That is what makes a t-test valid here, and why small tests of low-response campaigns are often inconclusive.</p>
 </section>
 <section id="takeaways-and-limitations" class="level2">

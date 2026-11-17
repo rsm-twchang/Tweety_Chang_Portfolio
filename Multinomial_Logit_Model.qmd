@@ -1,16 +1,16 @@
 ---
-title: "Multinomial Logit: Pricing & Choice Modeling"
+title: "What Is a Streaming Feature Worth?"
 author: "Tweety Chang"
 date: 2025-05-20
 date-format: "MMMM YYYY"
-description: "Simulation study comparing MLE and Bayesian MCMC estimates of subscription choice parameters."
-categories: [Statistical Modeling, Pricing]
+description: "A conjoint choice model, estimated two ways, recovers every true preference and prices each feature in dollars."
+categories: [Choice Modeling]
 image: figures/fig_mnl_price_utility.png
 callout-appearance: minimal
 ---
 
 ::: {.biz-value}
-### Simulation Results
+### At a glance
 
 - **Question:** Can a multinomial logit model recover known subscription preferences from conjoint choices, and do maximum likelihood and Bayesian estimation agree?
 - **Design:** 100 simulated respondents × 10 choice tasks × 3 alternatives (1,000 choices, 3,000 alternative rows). Attributes: brand, ads, and monthly price.
@@ -21,6 +21,31 @@ callout-appearance: minimal
 
 Conjoint analysis estimates how much each product feature is worth to customers. This project builds a multinomial logit (MNL) model from first principles, simulates a streaming-service conjoint study with known preferences, and checks whether two estimators recover them: maximum likelihood (MLE) and a Bayesian Metropolis–Hastings sampler written from scratch.
 
+
+```{python}
+#| echo: false
+# Render DataFrames as Markdown tables: lighter pages, no notebook scripts, site styling
+import numpy as _np
+from IPython.display import Markdown
+
+def md(df, digits=None, index=True):
+    d = df.reset_index() if index else df.copy()
+    if index and d.columns[0] in ("index", None):
+        d = d.rename(columns={d.columns[0]: ""})
+    def fmt(v):
+        if isinstance(v, (bool, _np.bool_)):
+            return "Yes" if v else "No"
+        if isinstance(v, (float, _np.floating)):
+            return f"{v:,.{digits}f}" if digits is not None else f"{v:,}"
+        if isinstance(v, (int, _np.integer)):
+            return f"{v:,}"
+        return str(v)
+    num = [d[c].map(lambda v: isinstance(v, (int, float, _np.number)) and not isinstance(v, (bool, _np.bool_))).all() for c in d.columns]
+    head = "| " + " | ".join(str(c) for c in d.columns) + " |"
+    rule = "|" + "|".join("---:" if n else ":---" for n in num) + "|"
+    rows = ["| " + " | ".join(fmt(v) for v in r) + " |" for r in d.itertuples(index=False)]
+    return Markdown("\n".join([head, rule, *rows]))
+```
 
 ## 1. The Multinomial Logit Likelihood
 
@@ -173,7 +198,7 @@ df["ad_yes"] = (df["ad"] == "Yes").astype(int)
 # Create a unique task identifier for each choice task (for grouping alternatives)
 df["task_id"] = (df["resp"] - 1) * 10 + (df["task"] - 1)
 
-print(df.head())
+md(df.head(), index=False)
 ```
 
 Each `task_id` groups the three alternatives shown in one task. In task 0, for example, the Netflix offer with ads at $28 (choice = 1) was selected over Hulu and Prime offers at $16.
@@ -228,7 +253,7 @@ mle_summary = pd.DataFrame({
 
 ```{python}
 # | echo: false
-mle_summary
+md(mle_summary, digits=4)
 ```
 
 All four coefficients have the expected sign and every 95% confidence interval excludes zero: Netflix 0.941, Prime 0.502, ads −0.732, and price −0.0995 per dollar.
@@ -291,7 +316,7 @@ posterior_summary = pd.DataFrame({
 
 ```{python}
 # | echo: false
-posterior_summary
+md(posterior_summary, digits=4)
 ```
 
 ```{python}
@@ -361,7 +386,7 @@ comparison_df = pd.concat([bayes_summary, mle_summary], axis=1)
 :::: 
 ```{python}
 # | echo: false
-comparison_df
+md(comparison_df, digits=4)
 ```
 
 ```{python}
@@ -373,8 +398,8 @@ recovery = pd.DataFrame({
     "Bayes": comparison_df["Bayes Mean"],
     "Within MLE 95% CI": (true_beta >= comparison_df["MLE CI Lower"]) & (true_beta <= comparison_df["MLE CI Upper"]),
     "Within Bayes 95% CI": (true_beta >= comparison_df["Bayes CI Lower"]) & (true_beta <= comparison_df["Bayes CI Upper"]),
-}).round(4)
-recovery
+})
+md(recovery, digits=4)
 ```
 
 Both estimators place every true value inside its 95% interval. The largest gap is the ad coefficient (true −0.8, estimated about −0.73), which is well within sampling error for 1,000 choices. With weak priors and this much data, the Bayesian and MLE results are practically equivalent; their uncertainty estimates differ most for Prime (0.113 vs. 0.121).

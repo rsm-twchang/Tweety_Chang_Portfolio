@@ -10,6 +10,7 @@ project:
     - assets/
     - figures/
     - favicon.svg
+    - listings.json   # empty: category labels are plain text, no listing page
   render:
     - "*.qmd"
     - "!resume.qmd"
@@ -19,6 +20,9 @@ execute:
   echo: false
   warning: false
   message: false
+
+filters:
+  - filters/lazy-images.lua
 
 website:
   title: "Tweety Chang"
@@ -56,4 +60,4 @@ format:
     toc-depth: 2
     smooth-scroll: true
     html-math-method: mathjax
-    title-block-categories: false
+    title-block-categories: true

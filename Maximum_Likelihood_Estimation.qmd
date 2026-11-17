@@ -1,16 +1,16 @@
 ---
-title: "Poisson Regression via MLE: Blueprinty Case"
+title: "Do Software Customers Earn More Patents?"
 author: "Tweety Chang"
 date: 2025-05-07
 date-format: "MMMM YYYY"
-description: "Count-data model estimated by maximum likelihood: software customers show ~23% more patents after controlling for firm age and region."
+description: "A Poisson model estimated by hand: customers earn about 23% more patents than comparable firms, across three model specifications."
 categories: [Statistical Modeling]
 image: figures/fig4_predicted_patents.png
 callout-appearance: minimal
 ---
 
 ::: {.biz-value}
-### Adjusted Association
+### At a glance
 
 - **Question:** Do engineering firms that use Blueprinty's software earn more patents, once firm age and region are taken into account?
 - **Approach:** Derived the Poisson likelihood, maximized it by hand, and confirmed the result against statsmodels. Then tested the finding under overdispersion with robust standard errors and a negative binomial model.
@@ -33,6 +33,32 @@ warnings.filterwarnings("ignore")
 
 ```{python}
 #| echo: false
+# Render DataFrames as Markdown tables: lighter pages, no notebook scripts, site styling
+import numpy as _np
+from IPython.display import Markdown
+
+def md(df, digits=None, index=True):
+    d = df.reset_index() if index else df.copy()
+    if index and d.columns[0] in ("index", None):
+        d = d.rename(columns={d.columns[0]: ""})
+    def fmt(v):
+        if isinstance(v, (bool, _np.bool_)):
+            return "Yes" if v else "No"
+        if isinstance(v, (float, _np.floating)):
+            return f"{v:,.{digits}f}" if digits is not None else f"{v:,}"
+        if isinstance(v, (int, _np.integer)):
+            return f"{v:,}"
+        return str(v)
+    num = [d[c].map(lambda v: isinstance(v, (int, float, _np.number)) and not isinstance(v, (bool, _np.bool_))).all() for c in d.columns]
+    head = "| " + " | ".join(str(c) for c in d.columns) + " |"
+    rule = "|" + "|".join("---:" if n else ":---" for n in num) + "|"
+    rows = ["| " + " | ".join(fmt(v) for v in r) + " |" for r in d.itertuples(index=False)]
+    return Markdown("\n".join([head, rule, *rows]))
+```
+
+
+```{python}
+#| echo: false
 #| output: false
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -40,8 +66,6 @@ import seaborn as sns
 # Read the data 
 df = pd.read_csv('blueprinty.csv')
 
-# Check structure of the data
-df.head()
 ```
 
 ## Data
@@ -241,8 +265,8 @@ res = minimize(poisson_regression_neg_loglikelihood, np.zeros(Xc.shape[1]),
                args=(d["patents"].to_numpy(), Xc.to_numpy()), method="BFGS")
 glm_c = sm.GLM(d["patents"], Xc, family=sm.families.Poisson()).fit()
 check = pd.DataFrame({"Hand-written MLE": res.x, "statsmodels GLM": glm_c.params.to_numpy()},
-                     index=Xc.columns).round(4)
-check
+                     index=Xc.columns)
+md(check, digits=4)
 ```
 
 ```{python}
@@ -355,7 +379,7 @@ rob = pd.DataFrame({k: {"Coefficient": round(v[0], 4), "Std. error": round(v[1],
                     for k, v in rows.items()}).T
 print(f"Pearson chi-square / df = {pois.pearson_chi2:.1f} / {pois.df_resid:.0f} = {pois.pearson_chi2 / pois.df_resid:.2f};"
       f" negative binomial alpha = {nb.params['alpha']:.3f}")
-rob
+md(rob)
 ```
 
 The customer effect stays at an IRR of 1.23 in every specification, and the widest interval (negative binomial) still runs from about 1.15 to 1.32.
