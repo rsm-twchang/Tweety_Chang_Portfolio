@@ -1,16 +1,16 @@
 ---
-title: "Credit Card Fraud Detection"
+title: "Fraud Review Prioritization"
 author: "Tweety Chang"
 date: 2025-03-15
 date-format: "MMMM YYYY"
-description: "Fraud scoring model on 97K card transactions with a review cutoff set by net financial impact: 62% of fraud caught at a 1.7% false-positive rate."
-categories: [Risk & Finance, Machine Learning]
+description: "Which transactions should a fraud team review first? A LightGBM score that catches 62% of fraud in the top 4% of transactions, at a 1.7% false-positive rate."
+categories: [Risk Analytics]
 image: figures/financial_curve.png
 callout-appearance: minimal
 ---
 
 ::: {.biz-value}
-### Decision & Evidence
+### At a glance
 
 - **Question:** With a limited review team, which transactions should be reviewed to catch the most fraud?
 - **Approach:** Cleaned 97,852 transactions, engineered 3,379 behavioral features, selected 20 with a filter-and-wrapper process, and chose LightGBM over four alternatives using a held-out later time period.

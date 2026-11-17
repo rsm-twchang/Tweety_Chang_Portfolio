@@ -1,16 +1,16 @@
 ---
-title: "PO–Invoice Reconciliation & ETL in Snowflake"
+title: "Automated Invoice Reconciliation"
 author: "Tweety Chang"
 date: 2024-07-15
 date-format: "MMMM YYYY"
-description: "End-to-end ETL across CSV, XML, PostgreSQL, and Snowflake Marketplace data to reconcile quoted vs. invoiced amounts."
-categories: [Risk & Finance, Data Engineering]
+description: "Four data sources, one Snowflake pipeline: every purchase order matched to its invoice, with the gap calculated for review."
+categories: [Data Engineering]
 image: figures/snowflake_weather_database.jpeg
 callout-appearance: minimal
 ---
 
 ::: {.biz-value}
-### Reconciliation Workflow
+### At a glance
 
 - **Question:** How can quoted and invoiced amounts be compared across disconnected operational sources?
 - **Analysis:** Led a five-person team combining CSV orders, XML invoices, PostgreSQL supplier data, and NOAA weather data in Snowflake. Aggregated PO and invoice totals, then joined on PO and supplier IDs.

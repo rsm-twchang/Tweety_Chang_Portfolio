@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tweety Chang">
-<meta name="description" content="Fraud scoring model on 97K card transactions with a review cutoff set by net financial impact: 62% of fraud caught at a 1.7% false-positive rate.">
+<meta name="description" content="Which transactions should a fraud team review first? A LightGBM score that catches 62% of fraud in the top 4% of transactions, at a 1.7% false-positive rate.">
 
-<title>Credit Card Fraud Detection – Tweety Chang</title>
+<title>Fraud Review Prioritization – Tweety Chang</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -65,14 +65,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Credit Card Fraud Detection – Tweety Chang">
-<meta property="og:description" content="Fraud scoring model on 97K card transactions with a review cutoff set by net financial impact: 62% of fraud caught at a 1.7% false-positive rate.">
+<meta property="og:title" content="Fraud Review Prioritization – Tweety Chang">
+<meta property="og:description" content="Which transactions should a fraud team review first? A LightGBM score that catches 62% of fraud in the top 4% of transactions, at a 1.7% false-positive rate.">
 <meta property="og:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/financial_curve.png">
 <meta property="og:site_name" content="Tweety Chang">
 <meta property="og:image:height" content="827">
 <meta property="og:image:width" content="1350">
-<meta name="twitter:title" content="Credit Card Fraud Detection – Tweety Chang">
-<meta name="twitter:description" content="Fraud scoring model on 97K card transactions with a review cutoff set by net financial impact: 62% of fraud caught at a 1.7% false-positive rate.">
+<meta name="twitter:title" content="Fraud Review Prioritization – Tweety Chang">
+<meta name="twitter:description" content="Which transactions should a fraud team review first? A LightGBM score that catches 62% of fraud in the top 4% of transactions, at a 1.7% false-positive rate.">
 <meta name="twitter:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/financial_curve.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -147,12 +147,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Credit Card Fraud Detection</h1>
+<h1 class="title">Fraud Review Prioritization</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Risk Analytics</div>
+  </div>
   </div>
 
 <div>
   <div class="description">
-    Fraud scoring model on 97K card transactions with a review cutoff set by net financial impact: 62% of fraud caught at a 1.7% false-positive rate.
+    Which transactions should a fraud team review first? A LightGBM score that catches 62% of fraud in the top 4% of transactions, at a 1.7% false-positive rate.
   </div>
 </div>
 
@@ -181,8 +184,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="decision-evidence" class="level3 biz-value">
-<h3 class="anchored" data-anchor-id="decision-evidence">Decision &amp; Evidence</h3>
+<section id="at-a-glance" class="level3 biz-value">
+<h3 class="anchored" data-anchor-id="at-a-glance">At a glance</h3>
 <ul>
 <li><strong>Question:</strong> With a limited review team, which transactions should be reviewed to catch the most fraud?</li>
 <li><strong>Approach:</strong> Cleaned 97,852 transactions, engineered 3,379 behavioral features, selected 20 with a filter-and-wrapper process, and chose LightGBM over four alternatives using a held-out later time period.</li>
@@ -388,27 +391,27 @@ ul.task-list li input[type="checkbox"] {
 <section id="amount-distribution-full-scale" class="level4">
 <h4 class="anchored" data-anchor-id="amount-distribution-full-scale">Amount Distribution (Full Scale)</h4>
 <p><strong>Figure 1. Transaction amount distribution (full scale)</strong><br>
-<img src="figures/amount_full.png" id="fig-amount-full" class="img-fluid" alt="Figure 1. Transaction amount distribution (full scale)"></p>
+<img src="figures/amount_full.png" id="fig-amount-full" class="img-fluid" loading="lazy" decoding="async" alt="Figure 1. Transaction amount distribution (full scale)"></p>
 <p>To better visualize the heavy tail, the density axis is log-transformed.</p>
 </section>
 <section id="amount-distribution-log-scale" class="level4">
 <h4 class="anchored" data-anchor-id="amount-distribution-log-scale">Amount Distribution (Log Scale)</h4>
 <p><strong>Figure 2. Transaction amount distribution (log scale)</strong><br>
-<img src="figures/amount_log.png" id="fig-amount-log" class="img-fluid" alt="Figure 2. Transaction amount distribution (log scale)"></p>
+<img src="figures/amount_log.png" id="fig-amount-log" class="img-fluid" loading="lazy" decoding="async" alt="Figure 2. Transaction amount distribution (log scale)"></p>
 <p>The log-scale view highlights the spread of high-value transactions without being dominated by the tail.</p>
 </section>
 </section>
 <section id="merch-state" class="level3">
 <h3 class="anchored" data-anchor-id="merch-state">Merch State</h3>
 <p><strong>Figure 3. Top 20 merchant states by transaction count</strong><br>
-<img src="figures/merch_state_top20.png" id="fig-merch-state" class="img-fluid" alt="Figure 3. Top 20 merchant states by transaction count"></p>
+<img src="figures/merch_state_top20.png" id="fig-merch-state" class="img-fluid" loading="lazy" decoding="async" alt="Figure 3. Top 20 merchant states by transaction count"></p>
 <p>The top 20 merchant states account for a large share of transactions.<br>
 <strong>TN</strong> has the highest volume (12,169 transactions), followed by several other high-activity states. Transaction activity is clearly concentrated geographically rather than evenly distributed across states.</p>
 </section>
 <section id="merch-zip" class="level3">
 <h3 class="anchored" data-anchor-id="merch-zip">Merch Zip</h3>
 <p><strong>Figure 4. Top 20 merchant ZIP codes by transaction count</strong><br>
-<img src="figures/merch_zip_top20.png" id="fig-merch-zip" class="img-fluid" alt="Figure 4. Top 20 merchant ZIP codes by transaction count"></p>
+<img src="figures/merch_zip_top20.png" id="fig-merch-zip" class="img-fluid" loading="lazy" decoding="async" alt="Figure 4. Top 20 merchant ZIP codes by transaction count"></p>
 <ul>
 <li>ZIP code <strong>38118</strong> alone accounts for 11,998 transactions.</li>
 <li>A small number of ZIP codes represent a disproportionate share of activity.</li>
@@ -418,7 +421,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="fraud-target-variable" class="level3">
 <h3 class="anchored" data-anchor-id="fraud-target-variable">Fraud (Target Variable)</h3>
 <p><strong>Figure 5. Fraud vs non-fraud distribution</strong><br>
-<img src="figures/fraud_distribution.png" id="fig-fraud-distribution" class="img-fluid" alt="Figure 5. Fraud vs non-fraud distribution"></p>
+<img src="figures/fraud_distribution.png" id="fig-fraud-distribution" class="img-fluid" loading="lazy" decoding="async" alt="Figure 5. Fraud vs non-fraud distribution"></p>
 <ul>
 <li>95,805 non-fraud transactions<br>
 </li>
@@ -836,7 +839,7 @@ Performance is measured using <strong>FDR@3%</strong>.</p>
 <section id="stepwise-selection-performance" class="level4">
 <h4 class="anchored" data-anchor-id="stepwise-selection-performance">Stepwise Selection Performance</h4>
 <p><strong>Figure 6. Forward stepwise selection performance curve</strong><br>
-<img src="figures/stepwise_selection.png" id="fig-stepwise-selection" class="img-fluid" alt="Figure 6. Forward stepwise selection performance curve"></p>
+<img src="figures/stepwise_selection.png" id="fig-stepwise-selection" class="img-fluid" loading="lazy" decoding="async" alt="Figure 6. Forward stepwise selection performance curve"></p>
 <p>The performance curve increases rapidly in the first few steps and stabilizes after approximately 12 features, indicating diminishing returns from adding additional variables.</p>
 </section>
 </section>
@@ -988,7 +991,7 @@ Performance is measured using <strong>FDR@3%</strong>.</p>
 <section id="model-performance-comparison" class="level3">
 <h3 class="anchored" data-anchor-id="model-performance-comparison">Model Performance Comparison</h3>
 <p><strong>Figure 7. Model performance comparison (FDR@3%)</strong><br>
-<img src="figures/model_boxplot_fdr3.png" id="fig-model-comparison" class="img-fluid" alt="Figure 7. Model performance comparison (FDR@3%)"></p>
+<img src="figures/model_boxplot_fdr3.png" id="fig-model-comparison" class="img-fluid" loading="lazy" decoding="async" alt="Figure 7. Model performance comparison (FDR@3%)"></p>
 <p>LightGBM shows the strongest overall performance and the best OOT results among the models tested, which is the main factor for model selection in this project.</p>
 <hr>
 </section>
@@ -1061,7 +1064,7 @@ Performance is measured using <strong>FDR@3%</strong>.</p>
 <section id="financial-curves" class="level3">
 <h3 class="anchored" data-anchor-id="financial-curves">Financial Curves</h3>
 <p><strong>Figure 8. Financial impact curve across cutoff percentages</strong><br>
-<img src="figures/financial_curve.png" id="fig-financial-curve" class="img-fluid" alt="Figure 8. Financial impact curve across cutoff percentages"></p>
+<img src="figures/financial_curve.png" id="fig-financial-curve" class="img-fluid" loading="lazy" decoding="async" alt="Figure 8. Financial impact curve across cutoff percentages"></p>
 <ul>
 <li><strong>Green:</strong> Fraud dollars captured<br>
 </li>

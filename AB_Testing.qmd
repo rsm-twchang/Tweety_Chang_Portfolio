@@ -1,9 +1,9 @@
 ---
-title: "A/B Testing: Do Matching Offers Raise Response?"
+title: "Do Matching Offers Raise Giving?"
 author: "Tweety Chang"
 date: 2025-04-22
 date-format: "MMMM YYYY"
-description: "Replication of Karlan & List (2007): a matching offer lifts response by about 23%, with no statistically significant additional lift detected for larger match ratios."
+description: "A field experiment with 50,083 donors. Offering a match lifts response by 23%; a bigger match adds nothing."
 categories: [Experimentation]
 image: figures/fig3_donation_rate_treatment.png
 callout-appearance: minimal
@@ -14,7 +14,7 @@ link-citations: true
 ---
 
 ::: {.biz-value}
-### Test Results
+### At a glance
 
 - **Question:** Does offering to match donations increase giving, and does a bigger match (2:1 or 3:1) work better than 1:1?
 - **Data:** 50,083 past donors randomly assigned in a published field experiment (Karlan & List, 2007).

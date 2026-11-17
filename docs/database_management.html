@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tweety Chang">
-<meta name="description" content="End-to-end ETL across CSV, XML, PostgreSQL, and Snowflake Marketplace data to reconcile quoted vs.&nbsp;invoiced amounts.">
+<meta name="description" content="Four data sources, one Snowflake pipeline: every purchase order matched to its invoice, with the gap calculated for review.">
 
-<title>PO–Invoice Reconciliation &amp; ETL in Snowflake – Tweety Chang</title>
+<title>Automated Invoice Reconciliation – Tweety Chang</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -100,14 +100,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="PO–Invoice Reconciliation &amp; ETL in Snowflake – Tweety Chang">
-<meta property="og:description" content="End-to-end ETL across CSV, XML, PostgreSQL, and Snowflake Marketplace data to reconcile quoted vs.&nbsp;invoiced amounts.">
+<meta property="og:title" content="Automated Invoice Reconciliation – Tweety Chang">
+<meta property="og:description" content="Four data sources, one Snowflake pipeline: every purchase order matched to its invoice, with the gap calculated for review.">
 <meta property="og:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/snowflake_weather_database.jpeg">
 <meta property="og:site_name" content="Tweety Chang">
 <meta property="og:image:height" content="1065">
 <meta property="og:image:width" content="1600">
-<meta name="twitter:title" content="PO–Invoice Reconciliation &amp; ETL in Snowflake – Tweety Chang">
-<meta name="twitter:description" content="End-to-end ETL across CSV, XML, PostgreSQL, and Snowflake Marketplace data to reconcile quoted vs.&nbsp;invoiced amounts.">
+<meta name="twitter:title" content="Automated Invoice Reconciliation – Tweety Chang">
+<meta name="twitter:description" content="Four data sources, one Snowflake pipeline: every purchase order matched to its invoice, with the gap calculated for review.">
 <meta name="twitter:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/snowflake_weather_database.jpeg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -185,12 +185,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">PO–Invoice Reconciliation &amp; ETL in Snowflake</h1>
+<h1 class="title">Automated Invoice Reconciliation</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Data Engineering</div>
+  </div>
   </div>
 
 <div>
   <div class="description">
-    End-to-end ETL across CSV, XML, PostgreSQL, and Snowflake Marketplace data to reconcile quoted vs.&nbsp;invoiced amounts.
+    Four data sources, one Snowflake pipeline: every purchase order matched to its invoice, with the gap calculated for review.
   </div>
 </div>
 
@@ -219,8 +222,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="reconciliation-workflow" class="level3 biz-value">
-<h3 class="anchored" data-anchor-id="reconciliation-workflow">Reconciliation Workflow</h3>
+<section id="at-a-glance" class="level3 biz-value">
+<h3 class="anchored" data-anchor-id="at-a-glance">At a glance</h3>
 <ul>
 <li><strong>Question:</strong> How can quoted and invoiced amounts be compared across disconnected operational sources?</li>
 <li><strong>Analysis:</strong> Led a five-person team combining CSV orders, XML invoices, PostgreSQL supplier data, and NOAA weather data in Snowflake. Aggregated PO and invoice totals, then joined on PO and supplier IDs.</li>
@@ -303,8 +306,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The NOAA Weather &amp; Environment dataset was accessed through Snowflake Marketplace (Cybersyn provider).<br>
 The dataset was installed in Snowflake as the <code>WEATHER__ENVIRONMENT</code> database.</p>
 <p><strong>Figure 1. Snowflake Marketplace – Weather &amp; Environment Product</strong><br>
-<img src="figures/snowflake_marketplace_weather.jpeg" id="fig-marketplace" class="img-fluid" alt="Snowflake Marketplace – Weather &amp; Environment"></p>
-<p><strong>Figure 2. Installed Weather - Environment Database In Snowflake</strong> <img src="figures/snowflake_weather_database.jpeg" id="fig-weather-db" class="img-fluid" alt="Installed WEATHER__ENVIRONMENT database"></p>
+<img src="figures/snowflake_marketplace_weather.jpeg" id="fig-marketplace" class="img-fluid" loading="lazy" decoding="async" alt="Snowflake Marketplace – Weather &amp; Environment"></p>
+<p><strong>Figure 2. Installed Weather - Environment Database In Snowflake</strong> <img src="figures/snowflake_weather_database.jpeg" id="fig-weather-db" class="img-fluid" loading="lazy" decoding="async" alt="Installed WEATHER__ENVIRONMENT database"></p>
 <hr>
 </section>
 </section>

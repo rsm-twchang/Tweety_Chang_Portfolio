@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tweety Chang">
-<meta name="description" content="Count-data model estimated by maximum likelihood: software customers show ~23% more patents after controlling for firm age and region.">
+<meta name="description" content="A Poisson model estimated by hand: customers earn about 23% more patents than comparable firms, across three model specifications.">
 
-<title>Poisson Regression via MLE: Blueprinty Case – Tweety Chang</title>
+<title>Do Software Customers Earn More Patents? – Tweety Chang</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -31,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <link href="./favicon.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -62,9 +62,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -97,14 +94,14 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Poisson Regression via MLE: Blueprinty Case – Tweety Chang">
-<meta property="og:description" content="Count-data model estimated by maximum likelihood: software customers show ~23% more patents after controlling for firm age and region.">
+<meta property="og:title" content="Do Software Customers Earn More Patents? – Tweety Chang">
+<meta property="og:description" content="A Poisson model estimated by hand: customers earn about 23% more patents than comparable firms, across three model specifications.">
 <meta property="og:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/fig4_predicted_patents.png">
 <meta property="og:site_name" content="Tweety Chang">
 <meta property="og:image:height" content="470">
 <meta property="og:image:width" content="740">
-<meta name="twitter:title" content="Poisson Regression via MLE: Blueprinty Case – Tweety Chang">
-<meta name="twitter:description" content="Count-data model estimated by maximum likelihood: software customers show ~23% more patents after controlling for firm age and region.">
+<meta name="twitter:title" content="Do Software Customers Earn More Patents? – Tweety Chang">
+<meta name="twitter:description" content="A Poisson model estimated by hand: customers earn about 23% more patents than comparable firms, across three model specifications.">
 <meta name="twitter:image" content="https://rsm-twchang.github.io/Tweety_Chang_Portfolio/figures/fig4_predicted_patents.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -176,12 +173,15 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Poisson Regression via MLE: Blueprinty Case</h1>
+<h1 class="title">Do Software Customers Earn More Patents?</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Statistical Modeling</div>
+  </div>
   </div>
 
 <div>
   <div class="description">
-    Count-data model estimated by maximum likelihood: software customers show ~23% more patents after controlling for firm age and region.
+    A Poisson model estimated by hand: customers earn about 23% more patents than comparable firms, across three model specifications.
   </div>
 </div>
 
@@ -210,8 +210,8 @@ window.Quarto = {
 </header>
 
 
-<section id="adjusted-association" class="level3 biz-value">
-<h3 class="anchored" data-anchor-id="adjusted-association">Adjusted Association</h3>
+<section id="at-a-glance" class="level3 biz-value">
+<h3 class="anchored" data-anchor-id="at-a-glance">At a glance</h3>
 <ul>
 <li><strong>Question:</strong> Do engineering firms that use Blueprinty’s software earn more patents, once firm age and region are taken into account?</li>
 <li><strong>Approach:</strong> Derived the Poisson likelihood, maximized it by hand, and confirmed the result against statsmodels. Then tested the finding under overdispersion with robust standard errors and a negative binomial model.</li>
@@ -272,7 +272,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Customers average <strong>4.13</strong> patents over five years versus <strong>3.47</strong> for non-customers. That raw gap cannot be taken at face value, because customers differ from non-customers in ways that may also affect patenting.</p>
-<p><strong>Figure 1. Distribution of patent counts by Blueprinty usage</strong> <img src="figures/fig1_blueprinty_patent_hist.png" id="fig-blueprinty-hist" class="img-fluid" alt="Distribution of patent counts by Blueprinty usage"></p>
+<p><strong>Figure 1. Distribution of patent counts by Blueprinty usage</strong> <img src="figures/fig1_blueprinty_patent_hist.png" id="fig-blueprinty-hist" class="img-fluid" loading="lazy" decoding="async" alt="Distribution of patent counts by Blueprinty usage"></p>
 <p>Patent counts are right-skewed, as count data usually are, and customers sit modestly further right.</p>
 <p><strong>Firm age by customer status</strong></p>
 <table class="caption-top table">
@@ -360,7 +360,7 @@ window.Quarto = {
 \ell(\lambda) = -n\lambda + \left(\sum_{i=1}^n y_i\right)\log\lambda - \sum_{i=1}^n \log(y_i!).
 \]</span></p>
 <p>Setting the derivative <span class="math inline">\(-n + \sum y_i / \lambda\)</span> to zero gives <span class="math inline">\(\hat\lambda = \bar y\)</span>. Numerically maximizing the likelihood confirms it: <span class="math inline">\(\hat\lambda = 3.6847 = \bar y\)</span>.</p>
-<p><strong>Figure 2. Poisson log-likelihood across values of λ</strong> <img src="figures/fig2_poisson_loglik_vs_lambda.png" id="fig-poisson-loglik" class="img-fluid" alt="Poisson log-likelihood across values of lambda"></p>
+<p><strong>Figure 2. Poisson log-likelihood across values of λ</strong> <img src="figures/fig2_poisson_loglik_vs_lambda.png" id="fig-poisson-loglik" class="img-fluid" loading="lazy" decoding="async" alt="Poisson log-likelihood across values of lambda"></p>
 </section>
 <section id="poisson-regression" class="level2">
 <h2 class="anchored" data-anchor-id="poisson-regression">Poisson Regression</h2>
@@ -370,64 +370,59 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \log \lambda_i = X_i^\top \beta,
 \]</span></p>
 <p>where <span class="math inline">\(X_i\)</span> contains customer status, age, age squared, and region indicators (Midwest as the reference).</p>
 <p><strong>Checking the hand-written likelihood.</strong> Maximizing the custom log-likelihood with BFGS reproduces the statsmodels GLM estimates to four decimal places, which confirms the implementation. Age is centered here to keep the optimization well-conditioned.</p>
-<div id="d43ff2df" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display" data-execution_count="8">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<div id="579d4549" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="9">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Hand-written MLE</th>
-<th data-quarto-table-cell-role="th">statsmodels GLM</th>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Hand-written MLE</th>
+<th style="text-align: right;">statsmodels GLM</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">const</th>
-<td>1.3447</td>
-<td>1.3447</td>
+<td style="text-align: left;">const</td>
+<td style="text-align: right;">1.3447</td>
+<td style="text-align: right;">1.3447</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">age_c</th>
-<td>-0.0080</td>
-<td>-0.0080</td>
+<td style="text-align: left;">age_c</td>
+<td style="text-align: right;">-0.0080</td>
+<td style="text-align: right;">-0.0080</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">age_c2</th>
-<td>-0.0030</td>
-<td>-0.0030</td>
+<td style="text-align: left;">age_c2</td>
+<td style="text-align: right;">-0.0030</td>
+<td style="text-align: right;">-0.0030</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">iscustomer</th>
-<td>0.2076</td>
-<td>0.2076</td>
+<td style="text-align: left;">iscustomer</td>
+<td style="text-align: right;">0.2076</td>
+<td style="text-align: right;">0.2076</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">region_Northeast</th>
-<td>0.0292</td>
-<td>0.0292</td>
+<td style="text-align: left;">region_Northeast</td>
+<td style="text-align: right;">0.0292</td>
+<td style="text-align: right;">0.0292</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">region_Northwest</th>
-<td>-0.0176</td>
-<td>-0.0176</td>
+<td style="text-align: left;">region_Northwest</td>
+<td style="text-align: right;">-0.0176</td>
+<td style="text-align: right;">-0.0176</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">region_South</th>
-<td>0.0566</td>
-<td>0.0566</td>
+<td style="text-align: left;">region_South</td>
+<td style="text-align: right;">0.0566</td>
+<td style="text-align: right;">0.0566</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">region_Southwest</th>
-<td>0.0506</td>
-<td>0.0506</td>
+<td style="text-align: left;">region_Southwest</td>
+<td style="text-align: right;">0.0506</td>
+<td style="text-align: right;">0.0506</td>
 </tr>
 </tbody>
 </table>
-
-</div>
 </div>
 </div>
 <p><strong>Results (uncentered age)</strong></p>
@@ -523,63 +518,58 @@ Y_i \sim \text{Poisson}(\lambda_i), \qquad \log \lambda_i = X_i^\top \beta,
 <li><strong>Age:</strong> the positive age term and negative age² term put the peak at about <strong>25 years</strong> (0.1486 / (2 × 0.0030)). Expected patents rise for younger firms and fall for older ones.</li>
 <li><strong>Region:</strong> no region differs significantly from the Midwest once age and customer status are included. The Northeast’s high raw patent count reflects its concentration of customers.</li>
 </ul>
-<p><strong>Figure 3. Coefficients with 95% confidence intervals</strong> <img src="figures/fig3_poisson_coef_plot.png" id="fig-poisson-coefs" class="img-fluid" alt="Poisson regression coefficients with 95% confidence intervals"></p>
+<p><strong>Figure 3. Coefficients with 95% confidence intervals</strong> <img src="figures/fig3_poisson_coef_plot.png" id="fig-poisson-coefs" class="img-fluid" loading="lazy" decoding="async" alt="Poisson regression coefficients with 95% confidence intervals"></p>
 </section>
 <section id="robustness" class="level2">
 <h2 class="anchored" data-anchor-id="robustness">Robustness</h2>
 <p>A Poisson model assumes the variance equals the mean. Here the Pearson statistic is about 1.39 times its degrees of freedom, so the data are mildly overdispersed and the plain Poisson standard errors are too small. Two standard fixes, robust (sandwich) standard errors and a negative binomial model, leave the conclusion unchanged:</p>
-<div id="15a56455" class="cell" data-execution_count="12">
+<div id="2aa4011b" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-stdout">
 <pre><code>Pearson chi-square / df = 2072.7 / 1492 = 1.39; negative binomial alpha = 0.092</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="13">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Coefficient</th>
-<th data-quarto-table-cell-role="th">Std. error</th>
-<th data-quarto-table-cell-role="th">IRR</th>
-<th data-quarto-table-cell-role="th">IRR 95% CI</th>
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">Std. error</th>
+<th style="text-align: right;">IRR</th>
+<th style="text-align: left;">IRR 95% CI</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Poisson</th>
-<td>0.2076</td>
-<td>0.0309</td>
-<td>1.231</td>
-<td>1.158 – 1.308</td>
+<td style="text-align: left;">Poisson</td>
+<td style="text-align: right;">0.2076</td>
+<td style="text-align: right;">0.0309</td>
+<td style="text-align: right;">1.231</td>
+<td style="text-align: left;">1.158 – 1.308</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">Poisson, robust SE</th>
-<td>0.2076</td>
-<td>0.0352</td>
-<td>1.231</td>
-<td>1.149 – 1.319</td>
+<td style="text-align: left;">Poisson, robust SE</td>
+<td style="text-align: right;">0.2076</td>
+<td style="text-align: right;">0.0352</td>
+<td style="text-align: right;">1.231</td>
+<td style="text-align: left;">1.149 – 1.319</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">Negative binomial</th>
-<td>0.2073</td>
-<td>0.0361</td>
-<td>1.23</td>
-<td>1.146 – 1.321</td>
+<td style="text-align: left;">Negative binomial</td>
+<td style="text-align: right;">0.2073</td>
+<td style="text-align: right;">0.0361</td>
+<td style="text-align: right;">1.23</td>
+<td style="text-align: left;">1.146 – 1.321</td>
 </tr>
 </tbody>
 </table>
-
-</div>
 </div>
 </div>
 <p>The customer effect stays at an IRR of 1.23 in every specification, and the widest interval (negative binomial) still runs from about 1.15 to 1.32.</p>
 </section>
 <section id="what-it-means" class="level2">
 <h2 class="anchored" data-anchor-id="what-it-means">What It Means</h2>
-<p><strong>Figure 4. Predicted five-year patents by firm age (Midwest)</strong> <img src="figures/fig4_predicted_patents.png" id="fig-predicted-patents" class="img-fluid" alt="Predicted patents by Blueprinty usage"></p>
-<div id="c6434db1" class="cell" data-execution_count="14">
+<p><strong>Figure 4. Predicted five-year patents by firm age (Midwest)</strong> <img src="figures/fig4_predicted_patents.png" id="fig-predicted-patents" class="img-fluid" loading="lazy" decoding="async" alt="Predicted patents by Blueprinty usage"></p>
+<div id="b3c79aed" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-stdout">
 <pre><code>Average predicted patents: 3.44 as non-customers vs 4.23 as customers (+0.79 per firm over five years)</code></pre>
 </div>
